@@ -1,0 +1,37 @@
+# ZenRay Height : refaire une height map depuis une ref, layer par layer
+
+> Leçon courte, méthode zenray-learn-with-context en essai : idée en une phrase, boucle, un exemple chiffré, 3 points à retenir, 3 questions de rappel. (11 October 2026)
+
+**L'idée en une phrase.** La ref n'entre jamais dans le graph : on la mesure, puis on construit la height dans Copernicus un layer à la fois, et un layer ne reste que s'il rapproche de la ref.
+
+**La boucle.** ref → mesures → nouveau layer → export → score → on garde ou on jette → diff (ref − résultat) → layer suivant.
+
+**Avant la boucle.** Crop de la colonne height, resize à 512 px par tile, 4 × 4 tiles = une texture 2048 tileable ; base color en mirror pour coller à la height. Puis on mesure la ref : profil du grout, valeur de chaque tile, niveaux de gris.
+
+| Layer ajouté | Score (1 = identique) |
+|---|---|
+| Grout (profil mesuré) | 0,39 |
+| Valeur et pente par tile | 0,68 |
+| Shapes de 32 à 8 px | 0,91 |
+| Lines et spots (rayures, éclats) | 0,93 |
+| Shapes 4 px | 0,96 |
+| Passes de correction sur la diff | 0,985 |
+| Noise (grain) | rejeté |
+
+Les shapes : la diff est floutée, passée dans un Quantize à 8 niveaux, et chaque zone devient une shape posée dans le graph (Rasterize Geometry). C'est comme tracer des masks sur la ref, mais calculé.
+
+Sans aucun réglage, la même méthode donne 0,90 à 0,97 sur window, whitepaint et tile. La base color suit la même logique avec des zones de couleur.
+
+**À retenir**
+
+1. Le noise a le bon grain mais pas au bon endroit, donc il éloigne de la ref : pour être identique, chaque détail doit être placé, d'où les shapes mesurées.
+
+2. Seam au tiling : les layers par tile changeaient de valeur pile au milieu du grout. Fix : un fade d'environ 10 px autour du centre du grout, et aucune shape collée au bord.
+
+3. Le score n'est pas le juge final : à 0,985, l'œil voit encore une surface trop lisse, sans le grain fin ni les micro-trous. C'est la prochaine étape, avec ta décision sur les shapes à 2 px, plus fidèles mais proches du décalque.
+
+**Drill** (réponds sans relire, une ligne chacune)
+
+1. Pourquoi le noise est-il rejeté alors qu'il ressemble à la texture ?
+2. Quel critère décide si un layer reste dans le graph ?
+3. Ta texture a un seam au tiling, pas la ref : où regardes-tu en premier ?
