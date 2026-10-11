@@ -1,0 +1,40 @@
+# 11 October 2026 : tileability check. The jump across the wrap border (last column to first, last row to first)
+# is compared with the median jump between two interior neighbours; a ratio near 1 means no visible seam.
+# FR : contrôle de raccord ; un rapport proche de 1 veut dire aucune couture visible.
+import json
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import numpy as np
+from PIL import Image
+from RefLib import load_gray
+
+
+def seam(img):
+    a = img.astype(np.float64)
+    if a.ndim == 3:
+        a = a.mean(2)
+    inner_x = np.abs(np.diff(a, axis=1)).mean(0)
+    inner_y = np.abs(np.diff(a, axis=0)).mean(1)
+    wrap_x = np.abs(a[:, -1] - a[:, 0]).mean()
+    wrap_y = np.abs(a[-1, :] - a[0, :]).mean()
+    return {"wrap_x": float(wrap_x), "inner_x_median": float(np.median(inner_x)), "ratio_x": float(wrap_x / max(np.median(inner_x), 1e-9)),
+            "wrap_y": float(wrap_y), "inner_y_median": float(np.median(inner_y)), "ratio_y": float(wrap_y / max(np.median(inner_y), 1e-9))}
+
+
+def sheet(img, out, size=1024):
+    a = np.clip(img, 0, 1)
+    t = np.tile(a, (2, 2) if a.ndim == 2 else (2, 2, 1))
+    im = Image.fromarray((t * 255).round().astype(np.uint8))
+    im.resize((size, size), Image.LANCZOS).save(out)
+
+
+if __name__ == "__main__":
+    res = {}
+    for label, path in zip(sys.argv[2::2], sys.argv[3::2]):
+        img = load_gray(path)
+        res[label] = seam(img)
+        sheet(img, os.path.join(sys.argv[1], f"tile2x2_{label}.png"))
+    json.dump(res, open(os.path.join(sys.argv[1], "seam_check.json"), "w"), indent=1)
+    print(json.dumps(res, indent=1))

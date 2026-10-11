@@ -1,0 +1,64 @@
+# 11 October 2026 : HTML board of a final execution, one row per tried layer (accepted or rejected), with images and gates
+# FR : planche HTML d'une exécution finale, une ligne par couche essayée (acceptée ou rejetée), images et portes.
+import json
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import numpy as np
+from PIL import Image
+from RefLib import load_gray
+
+D = "11 October 2026"
+
+
+def thumb(src, dst, zoom=None, size=420):
+    a = load_gray(src)
+    if zoom:
+        a = a[zoom[0]:zoom[1], zoom[2]:zoom[3]]
+    Image.fromarray((np.clip(a, 0, 1) * 255).astype(np.uint8)).resize((size, size), Image.LANCZOS).save(dst)
+
+
+def main(out_root, title, zoom=(100, 612, 100, 612)):
+    log = json.load(open(os.path.join(out_root, "log.json")))
+    bd = os.path.join(out_root, "board")
+    os.makedirs(bd, exist_ok=True)
+    ref = log["reference"]
+    thumb(ref, os.path.join(bd, "ref.png"))
+    thumb(ref, os.path.join(bd, "ref_zoom.png"), zoom)
+    rows = []
+    for e in log["layers"]:
+        s = e.get("summary", {})
+        img = ""
+        if e.get("image"):
+            base = os.path.basename(e["image"])[:-4]
+            thumb(e["image"], os.path.join(bd, base + ".png"))
+            thumb(e["image"], os.path.join(bd, base + "_zoom.png"), zoom)
+            img = f"<img src='{base}.png'><img src='{base}_zoom.png'>"
+        gates = e.get("gates", {})
+        gtxt = ""
+        if gates:
+            ge = gates["G_band_energy_ratio"]
+            gtxt = (f"vignettes MAE <b>{gates['A_thumb64_mae_pct']}</b> % · profil de joint r <b>{gates['D_joint_profile_corr']}</b> · "
+                    f"énergie 1-2 <b>{ge['1-2']}</b>, 2-4 <b>{ge['2-4']}</b>, 4-8 <b>{ge['4-8']}</b> · résidu W1 <b>{gates['F_residual_w1_pct']}</b> %")
+        cls = "ok" if e["status"] == "accepted" else "no"
+        rows.append(f"<tr class='{cls}'><td><b>{e['layer']}</b><br>{e['status']}<br>{e.get('note', '')[:180]}</td><td>{img}</td>"
+                    f"<td>r <b>{s.get('pearson', 0):.3f}</b> · MAE <b>{s.get('mae', 0):.4f}</b> · score <b>{e.get('score', 0):.3f}</b>"
+                    f"<br>bandes 1-2 <b>{s.get('b1-2', 0):.2f}</b> · 4-8 <b>{s.get('b4-8', 0):.2f}</b> · masques q25 <b>{s.get('q25', 0):.2f}</b> q75 <b>{s.get('q75', 0):.2f}</b>"
+                    f"<br>{gtxt}<br>{e.get('nodes', '')} nodes · {e.get('seconds', '')} s</td></tr>")
+    html = f"""<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>{title}</title><style>
+:root {{ --bg:#f4f3ef; --fg:#1d1d1b; --mute:#6b6a66; --card:#fff; --line:#dedcd6; }}
+@media (prefers-color-scheme: dark) {{ :root {{ --bg:#161615; --fg:#ecebe6; --mute:#9b9a95; --card:#1f1f1e; --line:#333331; }} }}
+body {{ background:var(--bg); color:var(--fg); font-family:'InterVariable','Inter',sans-serif; margin:24px; }}
+h1 {{ font-family:'AnthropicSerif',serif; font-weight:350; }} b {{ font-family:'AnthropicSerif',serif; font-weight:400; }}
+td {{ border:1px solid var(--line); padding:8px; vertical-align:top; background:var(--card); font-size:13px; }}
+img {{ width:210px; height:210px; margin-right:4px; }} tr.no td {{ opacity:0.55; }}
+</style></head><body><h1>{title}</h1><p>{D}. Une ligne par couche essayée, dans l'ordre ; les couches rejetées n'ont pas payé et ne sont pas dans le graphe. Zoom : lignes {zoom[0]} à {zoom[1]}, colonnes {zoom[2]} à {zoom[3]}.</p>
+<p>Référence : <img src='ref.png'><img src='ref_zoom.png'></p><table>{''.join(rows)}</table></body></html>"""
+    path = os.path.join(bd, "Evolution.html")
+    open(path, "w").write(html)
+    print(path)
+
+
+if __name__ == "__main__":
+    main(sys.argv[1], sys.argv[2])

@@ -11,7 +11,8 @@ CONSTANT = hou.rampBasis.Constant
 # Parameter interface of the library (single place), 11 October 2026
 P = {
     "res": 2048,        # export resolution (the rop_image override drives the generators)
-    "tiles": 4,         # tiles per side
+    "tiles": 4,         # tiles per side (legacy, square lattices)
+    "cells": (4, 4),    # 11 October 2026 : cells along x and y of the current reference lattice
 }
 
 
@@ -82,11 +83,11 @@ def const(net, name, value, like=None):
 
 def coords(net, prefix="C"):
     """x01, y01 across the canvas; fx, fy local in each tile (0..1); tiles per side from P."""
-    t = P["tiles"]
+    cx, cy = P["cells"]
     x01 = node(net, "ramp", prefix + "_x01", signature="f1", rampType=0, method=0)
     y01 = node(net, "ramp", prefix + "_y01", signature="f1", rampType=1, method=0)
-    fx = node(net, "ramp", prefix + "_fx", signature="f1", rampType=0, method=1, cycles=t)
-    fy = node(net, "ramp", prefix + "_fy", signature="f1", rampType=1, method=1, cycles=t)
+    fx = node(net, "ramp", prefix + "_fx", signature="f1", rampType=0, method=1, cycles=cx)
+    fy = node(net, "ramp", prefix + "_fy", signature="f1", rampType=1, method=1, cycles=cy)
     for n in (x01, y01, fx, fy):
         n.parm("rampmono").set(ramp([(0.0, 0.0), (1.0, 1.0)]))
     return x01, y01, fx, fy
@@ -103,18 +104,21 @@ def box_distance(net, fx, fy, prefix="D"):
 
 def tile_index(net, x01, y01, prefix="I"):
     """Normalised tile id in [0, 1]: (row * tiles + col) / (tiles * tiles - 1), via two stepped Remaps and a weighted add."""
-    t = P["tiles"]
-    keys = [(i / t, i / (t - 1)) for i in range(t)]
+    cx, cy = P["cells"]
+    kx = [(i / cx, i / max(cx - 1, 1)) for i in range(cx)]
+    ky = [(i / cy, i / max(cy - 1, 1)) for i in range(cy)]
     col = node(net, "remap", prefix + "_col", [x01], inputmin=0.0, inputmax=1.0, outputmin=0.0, outputmax=1.0, useramp=1)
-    col.parm("ramp").set(ramp(keys, 1.0, CONSTANT))
+    col.parm("ramp").set(ramp(kx, 1.0, CONSTANT))
     row = node(net, "remap", prefix + "_row", [y01], inputmin=0.0, inputmax=1.0, outputmin=0.0, outputmax=1.0, useramp=1)
-    row.parm("ramp").set(ramp(keys, 1.0, CONSTANT))
+    row.parm("ramp").set(ramp(ky, 1.0, CONSTANT))
     return col, row
 
 
 def table_by_row(net, name, row_norm, values):
     """Index mapping: one value per tile row (row_norm is the stepped row id in [0, 1])."""
     t = len(values)
+    if t == 1:
+        return const(net, name, float(values[0]))
     # 11 October 2026 : keys sit half a step BEFORE each stepped id, so a lookup at exactly i/(t-1) never falls on a boundary
     keys = [(0.0 if i == 0 else (i - 0.5) / (t - 1), v) for i, v in enumerate(values)]
     lo, hi = min(values), max(values)
@@ -133,8 +137,7 @@ def export(net, src, path, res=None, bits=16):
     r.parm("setres").set(1)
     r.parm("res1").set(res or P["res"])
     r.parm("res2").set(res or P["res"])
-    if bits == 16:
-        r.parm("size1").set(2)
+    r.parm("size1").set(2 if bits == 16 else 1)
     r.parm("execute").pressButton()
     return path
 

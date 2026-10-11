@@ -155,3 +155,43 @@ if __name__ == "__main__":
         open(out_json, "w").write(json.dumps(res, indent=1))
         panel(cand, ref, valid, out_json.replace(".json", "_panel.png"))
     print(s)
+
+
+def gates(cand, ref, valid, tile=512):
+    """Deterministic and stochastic gates (section 8.3 of Copernicus2): thumbnails, averaged joint profiles, band energy ratios,
+    residual histogram distance. Values are reported, thresholds are PROPOSED. 11 October 2026."""
+    g = {}
+    r = ref
+    rng = float(np.quantile(r[valid], 0.99) - np.quantile(r[valid], 0.01))
+    n = r.shape[0]
+    t = n // 64
+    th_c = cand[: n // t * t, : n // t * t].reshape(64, t, 64, t).mean((1, 3))
+    th_r = r[: n // t * t, : n // t * t].reshape(64, t, 64, t).mean((1, 3))
+    g["A_thumb64_mae_pct"] = round(float(np.abs(th_c - th_r).mean() / rng * 100), 3)
+    yy, xx = np.mgrid[0:n, 0:n]
+    dx = np.minimum(xx % tile, tile - xx % tile)
+    dy = np.minimum(yy % tile, tile - yy % tile)
+    d = np.minimum(dx, dy)
+    pc, pr = [], []
+    for k in range(0, 64):
+        sel = valid & (d == k)
+        pc.append(cand[sel].mean())
+        pr.append(r[sel].mean())
+    pc, pr = np.array(pc), np.array(pr)
+    g["D_joint_profile_corr"] = round(float(np.corrcoef(pc, pr)[0, 1]), 4)
+    g["D_joint_profile_mae_pct"] = round(float(np.abs(pc - pr).mean() / rng * 100), 3)
+    ratios = {}
+    for s0, s1 in ((1, 2), (2, 4), (4, 8), (8, 16), (16, 32)):
+        bc = blur(cand, s0) - blur(cand, s1)
+        br = blur(r, s0) - blur(r, s1)
+        ratios[f"{s0}-{s1}"] = round(float(bc[valid].std() / (br[valid].std() + 1e-12)), 3)
+    g["G_band_energy_ratio"] = ratios
+    hc = cand - blur(cand, 2.0)
+    hr = r - blur(r, 2.0)
+    g["F_residual_w1_pct"] = round(float(np.abs(np.sort(hc[valid]) - np.sort(hr[valid])).mean() / rng * 100), 3)
+    g["F_residual_std_ratio"] = round(float(hc[valid].std() / (hr[valid].std() + 1e-12)), 3)
+    full_rmse = float(np.sqrt(((cand - r)[valid] ** 2).mean()))
+    sigma = float(hr[valid].std())
+    g["J_rmse"] = round(full_rmse, 4)
+    g["J_floor_if_stochastic"] = round(float(np.sqrt(2) * sigma), 4)
+    return g

@@ -1,0 +1,95 @@
+# 11 October 2026 : HTML board of the method search (each method x 4 phases: full view, zoom, metrics, layers added)
+# FR : planche HTML de la recherche de méthode (méthode x 4 phases : vue entière, zoom, mesures, couches ajoutées).
+import json
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import numpy as np
+from PIL import Image
+from RefLib import load_gray
+
+ROOT = "/Users/zenray/.claude/tmp/tmp-zenray-height"
+OUT_DIR = os.path.join(ROOT, "board")
+THUMB = 360
+ZOOM = (100, 612, 100, 612)  # rows, cols of the zoom window in the 2048 frame
+D = "11 October 2026"
+
+
+def thumb(src, dst, zoom=False):
+    a = load_gray(src)
+    if zoom:
+        a = a[ZOOM[0]:ZOOM[1], ZOOM[2]:ZOOM[3]]
+    im = Image.fromarray((np.clip(a, 0, 1) * 255).astype(np.uint8)).resize((THUMB, THUMB), Image.LANCZOS)
+    os.makedirs(os.path.dirname(dst), exist_ok=True)
+    im.save(dst)
+    return os.path.relpath(dst, OUT_DIR)
+
+
+def main(methods=None):
+    os.makedirs(OUT_DIR, exist_ok=True)
+    ref = os.path.join(ROOT, "refs/derived/ref_height_4x4_2048.png")
+    rt = thumb(ref, os.path.join(OUT_DIR, "img", "ref.png"))
+    rz = thumb(ref, os.path.join(OUT_DIR, "img", "ref_zoom.png"), zoom=True)
+    mids = methods or sorted(d for d in os.listdir(os.path.join(ROOT, "methods")) if d.startswith("M") and not d.startswith("M00"))
+    rows = []
+    ranking = []
+    for mid in mids:
+        lp = os.path.join(ROOT, "methods", mid, "log.json")
+        if not os.path.exists(lp):
+            continue
+        log = json.load(open(lp))
+        cells = []
+        last = None
+        for ph in log["phases"]:
+            if "error" in ph:
+                cells.append(f"<td class='err'>P{ph['phase']} erreur<br><code>{ph['error'][-300:]}</code></td>")
+                continue
+            png = os.path.join(ROOT, "versions", "methods", mid, f"P{ph['phase']}.png")
+            t = thumb(png, os.path.join(OUT_DIR, "img", mid, f"P{ph['phase']}.png"))
+            z = thumb(png, os.path.join(OUT_DIR, "img", mid, f"P{ph['phase']}_zoom.png"), zoom=True)
+            s = ph["summary"]
+            chosen = ph.get("chosen")
+            layers = "<br>".join(ph["layers"])[:400]
+            cells.append(
+                f"<td><div class='pair'><img src='{t}'><img src='{z}'></div>"
+                f"<div class='m'>r <b>{s['pearson']:.3f}</b> · MAE <b>{s['mae']:.4f}</b> · basse <b>{s['low32']:.3f}</b></div>"
+                f"<div class='m'>bandes 1-2 <b>{s['b1-2']:.2f}</b> · 4-8 <b>{s['b4-8']:.2f}</b> · 16-32 <b>{s['b16-32']:.2f}</b></div>"
+                f"<div class='m'>masques q25 <b>{s['q25']:.2f}</b> · q75 <b>{s['q75']:.2f}</b> · lignes <b>{s['lines']:.2f}</b></div>"
+                f"<div class='m'>score <b>{ph['score']:.3f}</b> · nodes <b>{ph.get('nodes')}</b> · {ph['seconds']} s</div>"
+                f"<div class='l'>{layers}{'<br>choix : ' + str(chosen)[:160] if chosen else ''}</div></td>")
+            last = ph
+        if last:
+            ranking.append((last["score"], mid, last["summary"]["pearson"]))
+        rows.append(f"<tr><th><div class='mid'>{mid}</div><div class='pr'>{log['principle']}</div></th>{''.join(cells)}</tr>")
+    ranking.sort(reverse=True)
+    rank_html = "".join(f"<li><b>{mid}</b> score <b>{sc:.3f}</b>, r <b>{p:.3f}</b></li>" for sc, mid, p in ranking)
+    html = f"""<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>ZenRay Height, recherche de méthode</title>
+<style>
+:root {{ --bg:#f4f3ef; --fg:#1d1d1b; --mute:#6b6a66; --card:#ffffff; --line:#dedcd6; }}
+@media (prefers-color-scheme: dark) {{ :root {{ --bg:#161615; --fg:#ecebe6; --mute:#9b9a95; --card:#1f1f1e; --line:#333331; }} }}
+body {{ background:var(--bg); color:var(--fg); font-family:'InterVariable','Inter',sans-serif; font-weight:400; margin:24px; }}
+h1 {{ font-family:'AnthropicSerif',serif; font-weight:350; }}
+b, .num {{ font-family:'AnthropicSerif',serif; font-weight:400; }}
+table {{ border-collapse:collapse; }}
+td, th {{ border:1px solid var(--line); padding:8px; vertical-align:top; background:var(--card); }}
+th {{ width:220px; text-align:left; }}
+.mid {{ font-family:'AnthropicMono',monospace; font-size:13px; }}
+.pr {{ color:var(--mute); font-size:13px; margin-top:6px; }}
+.pair img {{ width:180px; height:180px; display:inline-block; margin-right:4px; }}
+.m {{ font-size:12px; margin-top:4px; }} .l {{ font-size:11px; color:var(--mute); margin-top:6px; max-width:370px; }}
+.err {{ color:#b33; font-size:11px; }}
+</style></head><body>
+<h1>Procedural Ceramic Wall Tiles, recherche de méthode (16 méthodes, 4 phases)</h1>
+<p>{D}. Chaque cellule : vue entière et zoom (lignes 100 à 612, colonnes 100 à 612 du cadre 2048), mesures contre la référence (corrélation r, erreur moyenne MAE, corrélation basse fréquence, corrélations par bande, IoU des masques à seuils absolus, IoU des lignes en relief, score de classement). Le score classe les essais ; il ne sert pas de porte.</p>
+<p>Référence : <img src='{rt}' width='180'> <img src='{rz}' width='180'></p>
+<h2>Classement à la phase 4</h2><ol>{rank_html}</ol>
+<table><tr><th>Méthode</th><th>Phase 1</th><th>Phase 2</th><th>Phase 3</th><th>Phase 4</th></tr>{''.join(rows)}</table>
+</body></html>"""
+    open(os.path.join(OUT_DIR, "MethodSearch16x4.html"), "w").write(html)
+    json.dump([{"method": m, "score": s, "pearson": p} for s, m, p in ranking], open(os.path.join(OUT_DIR, "ranking.json"), "w"), indent=1)
+    print("board", os.path.join(OUT_DIR, "MethodSearch16x4.html"), len(rows), "methods")
+
+
+if __name__ == "__main__":
+    main(sys.argv[1:] or None)

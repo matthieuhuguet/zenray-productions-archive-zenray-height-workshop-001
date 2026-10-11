@@ -1,0 +1,50 @@
+# 11 October 2026 : index mapping of the zenray-height workshop: every folder and file with its absolute path and role
+# FR : index du chantier zenray-height : chaque dossier et fichier avec son chemin absolu et son rôle.
+import os
+import time
+
+ROOT = "/Users/zenray/.claude/tmp/tmp-zenray-height"
+D = "11 October 2026"
+ROLES = {
+    "refs/source": "références d'origine, copiées sans modification (planche IA 4x4, vidéo éclairée)",
+    "refs/derived": "références reconstruites 4x4 en 2048 px (height 16 bits, base color en miroir, masques de validité), storyboard",
+    "measures": "mesures : analyse de la référence, sondes, mesures par méthode et par phase (JSON et panneaux)",
+    "methods": "recettes et journaux de la recherche de méthode (une recette JSON par phase)",
+    "versions/methods": "image 16 bits de chaque phase de chaque méthode",
+    "versions/final": "exécution finale couche par couche : une image, un panneau et des portes par couche acceptée",
+    "versions/probe": "sondes techniques (conventions de coordonnées, profondeur, rampes)",
+    "board": "planches HTML (recherche de méthode 16 x 4, évolution couche par couche)",
+    "dataset": "Copernicus2.md assemblé, ses sections et les parties des agents",
+    "Scripts": "outils : préparation de la référence, mesure, ajustement, constructeur Copernicus, pilotes, planches",
+    "logs": "journaux des lots en arrière-plan",
+    "transcripts": "copies des transcripts des sous-agents",
+}
+
+
+def main():
+    lines = [f"# Index du chantier zenray-height ({D})", "",
+             f"- Racine : `{ROOT}` ; projet Assets `zenray-height` ; mémoire `/Users/zenray/.claude/Memory1/Projects/zenray-height/` ; régénéré par `{ROOT}/Scripts/WorkshopIndex.py` le {time.strftime('%d %B %Y, %H:%M')} ({D})", ""]
+    for rel, role in ROLES.items():
+        p = os.path.join(ROOT, rel)
+        if not os.path.isdir(p):
+            continue
+        files = []
+        for dp, dn, fn in os.walk(p):
+            for f in fn:
+                files.append(os.path.join(dp, f))
+        size = sum(os.path.getsize(f) for f in files)
+        lines.append(f"## `{p}` ({D})")
+        lines.append("")
+        lines.append(f"- Rôle : {role} ; {len(files)} fichiers, {size / 1e6:.1f} Mo ({D})")
+        shown = sorted(files)[:40]
+        for f in shown:
+            lines.append(f"- [{f}]({f}) ({D})")
+        if len(files) > 40:
+            lines.append(f"- ... et {len(files) - 40} autres fichiers dans ce dossier ({D})")
+        lines.append("")
+    open(os.path.join(ROOT, "INDEX.md"), "w").write("\n".join(lines) + "\n")
+    print("INDEX.md", len(lines), "lines")
+
+
+if __name__ == "__main__":
+    main()

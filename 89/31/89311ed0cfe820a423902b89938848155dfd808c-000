@@ -13,6 +13,8 @@ tile_index, table_by_row, export, box, ramp, smooth = (_G[k] for k in ("tile_ind
 LINEAR, SMOOTH, CONSTANT = _G["LINEAR"], _G["SMOOTH"], _G["CONSTANT"]
 
 DATA_OBJ = "/obj/ZRH_Data"
+_SF = {}
+exec(open(os.path.join(_HERE, "StashFast.py")).read(), _SF)
 PHASE_COLORS = [(0.25, 0.35, 0.5), (0.3, 0.45, 0.3), (0.5, 0.4, 0.25), (0.45, 0.28, 0.45), (0.3, 0.45, 0.48), (0.48, 0.3, 0.3)]
 
 
@@ -46,6 +48,7 @@ class Builder:
         self.base_nodes = [self.x01, self.y01, self.fx, self.fy, self.d, self.dx, self.dy, self.col, self.row, self.size]
         self.acc = None
         self.k = 0
+        self._fades = {}
 
     def _accumulate(self, layer, op, nodes):
         if op == "base" or self.acc is None:
@@ -55,9 +58,26 @@ class Builder:
             nodes.append(self.acc)
         return self.acc
 
+    def _fade(self, layer, fade, p, nodes):
+        # 11 October 2026 : a per tile layer changes value on the joint centre line; fading it to zero there removes the step (tiling seam)
+        key = round(fade, 6)
+        w = self._fades.get(key)
+        if w is None:
+            w = smooth(self.net, f"F_fade_{len(self._fades):02d}", self.d, 0.0, fade, 0.0, 1.0)
+            self._fades[key] = w
+            nodes.append(w)
+        out = mix(self.net, p + "fade", layer, w, "multiply")
+        nodes.append(out)
+        return out
+
     # ---------- layer types ----------
     def joint_profile(self, L, p, nodes):
-        n = curve(self.net, p + "profile", self.d, [tuple(x) for x in L["keys"]], 0.5, 0.0, 1.0, LINEAR)
+        # 11 October 2026 : keys are normalised into the ramp and rescaled by the remap, so relative (negative) profiles work
+        keys = [tuple(x) for x in L["keys"]]
+        lo = min(v for _, v in keys)
+        hi = max(v for _, v in keys)
+        span = (hi - lo) or 1e-6
+        n = curve(self.net, p + "profile", self.d, [(x, (v - lo) / span) for x, v in keys], 0.5, lo, hi, LINEAR)
         nodes.append(n)
         return n
 
@@ -138,21 +158,7 @@ class Builder:
 
     def regions(self, L, p, nodes):
         """Posterised regions: closed polygons with their value (point Cd) and depth z, rasterised nearest-first, then softened."""
-        data = hou.node(DATA_OBJ) or hou.node("/obj").createNode("geo", DATA_OBJ.split("/")[-1])
-        data.setDisplayFlag(False)
-        st = data.node(L["tag"] + "_regions") or data.createNode("stash", L["tag"] + "_regions")
-        geo = hou.Geometry()
-        geo.addAttrib(hou.attribType.Point, "Cd", (0.0, 0.0, 0.0))
-        for poly in L["polys"]:
-            v = float(poly["val"])
-            z = float(poly["z"])
-            ps = geo.createPoints([(x, y, z) for x, y in poly["pts"]])
-            for q in ps:
-                q.setAttribValue("Cd", (v, v, v))
-            pr = geo.createPolygon()
-            for q in ps:
-                pr.addVertex(q)
-        st.parm("stash").set(geo)
+        st = _SF["stash_polys"](DATA_OBJ, L["tag"] + "_regions", L["polys"], "val")
         si = node(self.net, "sopimport", p + "si", (), usesoppath=1, soppath=st.path())
         rz = node(self.net, "rasterizegeo", p + "raster", [self.size, si], depthmode=0)
         rz.parm("name1").set("Cd")
@@ -181,6 +187,79 @@ class Builder:
                 nodes.append(acc)
         return acc
 
+    def corners(self, L, p, nodes):
+        """Bilinear field per tile row from 4 measured corner values (image orientation: v grows downward)."""
+        u = self.fx
+        v = lin(self.net, p + "v", self.fy, 0.0, 1.0, 1.0, 0.0)
+        iu = lin(self.net, p + "iu", u, 0.0, 1.0, 1.0, 0.0)
+        iv = lin(self.net, p + "iv", v, 0.0, 1.0, 1.0, 0.0)
+        nodes += [v, iu, iv]
+        weights = [(iu, iv), (u, iv), (iu, v), (u, v)]
+        acc = None
+        for k in range(4):
+            tab = table_by_row(self.net, p + f"c{k}", self.row, [row[k] for row in L["c"]][::-1])
+            w = mix(self.net, p + f"w{k}", weights[k][0], weights[k][1], "multiply")
+            t = mix(self.net, p + f"t{k}", w, tab, "multiply")
+            nodes += [tab, w, t]
+            acc = t if acc is None else mix(self.net, p + f"s{k}", acc, t, "add")
+            if acc is not t:
+                nodes.append(acc)
+        return acc
+
+    def noise_mask(self, L, p, nodes):
+        """Thresholded noise (statistical shapes with a measured coverage), scaled by a measured amplitude."""
+        n = self.noise(dict(L, amp=L.get("namp", 0.2), center=0.5), p, nodes)
+        if L.get("fold"):
+            n.parm("post_dofold").set(1)
+        t, w = float(L["threshold"]), float(L.get("soft", 0.01))
+        m = node(self.net, "remap", p + "thr", [n], inputmin=t - w, inputmax=t + w, outputmin=0.0, outputmax=1.0, useramp=1, method=0)
+        m.parm("ramp").set(ramp(_G["SMOOTHSTEP"]))
+        sc = scale(self.net, p + "amp", m, float(L["amp"]))
+        nodes += [m, sc]
+        return sc
+
+    def streaks(self, L, p, nodes):
+        n = self.noise(dict(L, center=0.0), p, nodes)
+        sb = node(self.net, "streakblur", p + "streak", [n], units=1, length_pixels=float(L.get("length_px", 40.0)))
+        sb.parm("dirtype").set(0)
+        sb.parm("angle").set(float(L.get("angle", 90.0)))
+        sc = scale(self.net, p + "gain", sb, float(L.get("gain", 1.0)))
+        nodes += [sb, sc]
+        return sc
+
+    def const(self, L, p, nodes):
+        n = const(self.net, p + "value", float(L["value"]))
+        nodes.append(n)
+        return n
+
+    def color_regions(self, L, p, nodes):
+        """Base colour regions: closed polygons carrying their measured RGB (point Cd), rasterised nearest first, softened."""
+        st = _SF["stash_polys"](DATA_OBJ, L["tag"] + "_colors", L["polys"], rgb=True)
+        si = node(self.net, "sopimport", p + "si", (), usesoppath=1, soppath=st.path())
+        rz = node(self.net, "rasterizegeo", p + "raster", [self.size, si], depthmode=0)
+        rz.parm("name1").set("Cd")
+        rz.parm("outtype1").set(2)
+        bl = node(self.net, "blur", p + "soft", [rz], units=1, size_pixel=float(L.get("soft_px", 1.0)))
+        nodes += [si, rz, bl]
+        return bl
+
+    def const_rgb(self, L, p, nodes):
+        n = node(self.net, "constant", p + "rgb", (), signature="f3")
+        n.parmTuple("f3").set(tuple(float(x) for x in L["rgb"]))
+        nodes.append(n)
+        return n
+
+    def joint_color(self, L, p, nodes):
+        """Colour the joints from the height structure: a smooth mask on the joint distance, blended over the current colour."""
+        w, soft = float(L["width"]), float(L.get("soft", 0.004))
+        m = node(self.net, "remap", p + "mask", [self.d], inputmin=w - soft, inputmax=w + soft, outputmin=1.0, outputmax=0.0, useramp=1, method=0)
+        m.parm("ramp").set(ramp(_G["SMOOTHSTEP"]))
+        col = node(self.net, "constant", p + "rgb", (), signature="f3")
+        col.parmTuple("f3").set(tuple(float(x) for x in L["rgb"]))
+        out = mix(self.net, p + "over", self.acc, col, "blend", m)
+        nodes += [m, col, out]
+        return out
+
     def hist(self, L, p, nodes):
         keys = [tuple(x) for x in L["keys"]]
         lo, hi = keys[0][0], keys[-1][0]
@@ -199,6 +278,8 @@ class Builder:
         if L.get("weight", 1.0) != 1.0:
             layer = scale(self.net, p + "w", layer, float(L["weight"]))
             nodes.append(layer)
+        if L.get("fade"):
+            layer = self._fade(layer, float(L["fade"]), p, nodes)
         op = L.get("op", "add")
         if L["type"] == "hist":
             self.acc = layer
@@ -208,7 +289,7 @@ class Builder:
         return self.acc
 
 
-def build(net_path, recipe, out_png=None, res=2048):
+def build(net_path, recipe, out_png=None, res=2048, bits=16):
     """(Re)build net_path from scratch with every layer of the recipe; export the final sum if out_png is given."""
     parent_path, name = net_path.rsplit("/", 1)
     parent = hou.node(parent_path)
@@ -223,6 +304,12 @@ def build(net_path, recipe, out_png=None, res=2048):
         c.destroy()
     for b in net.networkBoxes():
         b.destroy()
+    # 11 October 2026 : an optional first item {"type": "lattice", "cx": .., "cy": ..} sets the cells of the reference lattice
+    cells = (4, 4)
+    if recipe and recipe[0].get("type") == "lattice":
+        cells = (int(recipe[0]["cx"]), int(recipe[0]["cy"]))
+        recipe = recipe[1:]
+    _G["P"]["cells"] = cells
     B = Builder(net)
     box(net, "Coordinates (tile grid 4 x 4)", B.base_nodes, (0.2, 0.2, 0.2))
     for L in recipe:
@@ -235,7 +322,7 @@ def build(net_path, recipe, out_png=None, res=2048):
         pass
     res_info = {"nodes": len(net.children())}
     if out_png:
-        export(net, out, out_png, res)
+        export(net, out, out_png, res, bits)
         res_info["exported"] = os.path.exists(out_png)
     res_info["errors"] = [n.name() + ": " + "; ".join(n.errors()) for n in net.children() if n.errors()]
     return res_info

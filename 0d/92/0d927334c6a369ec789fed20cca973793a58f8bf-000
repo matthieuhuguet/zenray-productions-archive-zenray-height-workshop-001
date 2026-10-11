@@ -1,0 +1,50 @@
+# 11 October 2026 : write section 10 of Copernicus2.md (method search registry) from the per method logs
+# FR : écrit la section 10 de Copernicus2.md (registre de la recherche de méthode) depuis les journaux.
+import json
+import os
+
+ROOT = "/Users/zenray/.claude/tmp/tmp-zenray-height"
+D = "11 October 2026"
+VERDICTS = json.load(open(os.path.join(ROOT, "methods", "verdicts.json"))) if os.path.exists(os.path.join(ROOT, "methods", "verdicts.json")) else {}
+
+
+def main():
+    mids = sorted(d for d in os.listdir(os.path.join(ROOT, "methods")) if d.startswith("M") and not d.startswith("M00") and os.path.exists(os.path.join(ROOT, "methods", d, "log.json")))
+    L = [f"## 10. Registre de la recherche de méthode, Procedural Ceramic Wall Tiles ({D})", "",
+         f"- Protocole (skill zenray-methodology) : seize méthodes de principes distincts, quatre phases chacune, chaque phase construite en vrai dans Copernicus (scène ouverte `/Users/zenray/Create/Build/Productions/ZenRayHoudini/LouisianaBayou/LouisianaBayou.hiplc`, réseau `/obj/ZRH_MethodSearch/<méthode>`), exportée en 16 bits et mesurée contre la référence à seuils absolus. Planche : `{ROOT}/board/MethodSearch16x4.html`. ({D})",
+         f"- Lecture des colonnes : r = corrélation de Pearson, basse = corrélation après flou sigma 32, b1-2 et b4-8 = corrélation des bandes fines et moyennes, q25 et q75 = IoU des masques noir et blanc à seuils absolus, score = classement des essais (jamais une porte). ({D})", "",
+         "| Méthode | Principe | P1 r | P2 r | P3 r | P4 r | P4 MAE | P4 b1-2 | P4 b4-8 | P4 q25 | P4 q75 | P4 score | Verdict | Date (11 October 2026) |",
+         "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+    for mid in mids:
+        log = json.load(open(os.path.join(ROOT, "methods", mid, "log.json")))
+        ph = [p for p in log["phases"] if "summary" in p]
+        rs = [f"{p['summary']['pearson']:.3f}" for p in ph] + ["erreur"] * (4 - len(ph))
+        last = ph[-1] if ph else None
+        if last:
+            s = last["summary"]
+            tail = f"{s['mae']:.4f} | {s['b1-2']:.2f} | {s['b4-8']:.2f} | {s['q25']:.2f} | {s['q75']:.2f} | {last['score']:.3f}"
+        else:
+            tail = "| | | | | "
+        verdict = VERDICTS.get(mid, "")
+        L.append(f"| {mid} | {log['principle']} | {' | '.join(rs[:4])} | {tail} | {verdict} | {D} |")
+    L.append("")
+    for mid in mids:
+        log = json.load(open(os.path.join(ROOT, "methods", mid, "log.json")))
+        L.append(f"### {mid} ({D})")
+        L.append("")
+        L.append(f"- Principe : {log['principle']} ({D})")
+        for p in log["phases"]:
+            if "error" in p:
+                L.append(f"- P{p['phase']} : erreur, `{p['error'][-200:].replace(chr(10), ' ')}` ({D})")
+                continue
+            ch = f" ; choix {str(p.get('chosen'))[:200]}" if p.get("chosen") else ""
+            L.append(f"- P{p['phase']} : {'; '.join(p['layers'])[:300]}{ch} ; r {p['summary']['pearson']:.3f}, MAE {p['summary']['mae']:.4f}, score {p['score']:.3f}, {p.get('nodes')} nodes, {p['seconds']} s ; image `{ROOT}/versions/methods/{mid}/P{p['phase']}.png` ({D})")
+        if VERDICTS.get(mid):
+            L.append(f"- Verdict : {VERDICTS[mid]} ({D})")
+        L.append("")
+    open(os.path.join(ROOT, "dataset", "sections", "10_registry.md"), "w").write("\n".join(L) + "\n")
+    print("registry", len(mids), "methods")
+
+
+if __name__ == "__main__":
+    main()

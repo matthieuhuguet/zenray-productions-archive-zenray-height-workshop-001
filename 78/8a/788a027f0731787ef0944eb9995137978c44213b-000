@@ -1,0 +1,63 @@
+# 11 October 2026 : run the method search: for each method, four phases, each phase = real Copernicus build + export + measure.
+# FR : lance la recherche de méthode : pour chaque méthode, quatre phases, chacune construite en Copernicus, exportée et mesurée.
+import json
+import os
+import sys
+import time
+import traceback
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import numpy as np
+import Run
+import Methods as MM
+import Fit as F
+
+ROOT = Run.ROOT
+
+
+def run_method(mid, phases=4):
+    name, plan = MM.METHODS[mid][0], MM.METHODS[mid][1]
+    r, v = Run.ref()
+    recipe, c = [], None
+    shared = {}
+    log = {"method": mid, "principle": name, "phases": []}
+    for ph in range(1, phases + 1):
+        t0 = time.time()
+        res = r if c is None else (r - c)
+        ctx = {"r": r, "v": v, "phase": ph, "recipe": list(recipe), "c": c, "res": res, "log": {}, "shared": shared, "method": mid}
+        try:
+            layers = plan(ctx)
+        except Exception:
+            log["phases"].append({"phase": ph, "error": traceback.format_exc()[-1500:]})
+            print(mid, "P%d planner error" % ph, log["phases"][-1]["error"][-600:], flush=True)
+            json.dump(log, open(os.path.join(ROOT, "methods", mid, "log.json"), "w"), indent=1)
+            break
+        if isinstance(layers, dict):
+            layers = [layers]
+        recipe = layers if ctx.get("replace_recipe") else recipe + layers
+        b = Run.build(mid, ph, recipe)
+        if not b.get("ok"):
+            log["phases"].append({"phase": ph, "error": str(b)[-1500:]})
+            print(mid, "P%d build error" % ph, str(b)[-600:], flush=True)
+            json.dump(log, open(os.path.join(ROOT, "methods", mid, "log.json"), "w"), indent=1)
+            break
+        m, c = Run.measure(mid, ph)
+        if mid.startswith("M07"):
+            hist = MM.L_hist({"r": r, "v": v, "c": c})
+            recipe = recipe + [hist]
+            b = Run.build(mid, ph, recipe)
+            m, c = Run.measure(mid, ph)
+        entry = {"phase": ph, "layers": [L.get("type") + ": " + L.get("note", "") for L in layers], "chosen": ctx["log"].get("chosen"),
+                 "trials": ctx["log"].get("trials"), "summary": Run.summary(m), "score": round(MM.score(m), 4),
+                 "nodes": b.get("result", {}).get("nodes"), "seconds": round(time.time() - t0, 1)}
+        log["phases"].append(entry)
+        print(mid, "P%d" % ph, entry["summary"], "score", entry["score"], "nodes", entry["nodes"], entry["seconds"], "s", flush=True)
+        os.makedirs(os.path.join(ROOT, "methods", mid), exist_ok=True)
+        json.dump(log, open(os.path.join(ROOT, "methods", mid, "log.json"), "w"), indent=1)
+    return log
+
+
+if __name__ == "__main__":
+    ids = sys.argv[1:] or list(MM.METHODS.keys())
+    for mid in ids:
+        run_method(mid)

@@ -1,0 +1,109 @@
+# 11 October 2026 : generalise ZrhCop and Recipe to any lattice (cells along x and y), normalise joint keys, bulk stash creation
+# FR : généralise la trame (cellules en x et y), normalise les clés de joint, crée les stash en bloc. À lancer quand aucun lot ne tourne.
+import os
+
+S = "/Users/zenray/.claude/tmp/tmp-zenray-height/Scripts"
+
+
+def patch(path, pairs):
+    s = open(path).read()
+    for old, new in pairs:
+        assert s.count(old) == 1, (path, old[:60])
+        s = s.replace(old, new)
+    open(path, "w").write(s)
+
+
+patch(os.path.join(S, "ZrhCop.py"), [
+    ('''P = {
+    "res": 2048,        # export resolution (the rop_image override drives the generators)
+    "tiles": 4,         # tiles per side
+}''', '''P = {
+    "res": 2048,        # export resolution (the rop_image override drives the generators)
+    "tiles": 4,         # tiles per side (legacy, square lattices)
+    "cells": (4, 4),    # 11 October 2026 : cells along x and y of the current reference lattice
+}'''),
+    ('''    t = P["tiles"]
+    x01 = node(net, "ramp", prefix + "_x01", signature="f1", rampType=0, method=0)
+    y01 = node(net, "ramp", prefix + "_y01", signature="f1", rampType=1, method=0)
+    fx = node(net, "ramp", prefix + "_fx", signature="f1", rampType=0, method=1, cycles=t)
+    fy = node(net, "ramp", prefix + "_fy", signature="f1", rampType=1, method=1, cycles=t)''', '''    cx, cy = P["cells"]
+    x01 = node(net, "ramp", prefix + "_x01", signature="f1", rampType=0, method=0)
+    y01 = node(net, "ramp", prefix + "_y01", signature="f1", rampType=1, method=0)
+    fx = node(net, "ramp", prefix + "_fx", signature="f1", rampType=0, method=1, cycles=cx)
+    fy = node(net, "ramp", prefix + "_fy", signature="f1", rampType=1, method=1, cycles=cy)'''),
+    ('''    t = P["tiles"]
+    keys = [(i / t, i / (t - 1)) for i in range(t)]
+    col = node(net, "remap", prefix + "_col", [x01], inputmin=0.0, inputmax=1.0, outputmin=0.0, outputmax=1.0, useramp=1)
+    col.parm("ramp").set(ramp(keys, 1.0, CONSTANT))
+    row = node(net, "remap", prefix + "_row", [y01], inputmin=0.0, inputmax=1.0, outputmin=0.0, outputmax=1.0, useramp=1)
+    row.parm("ramp").set(ramp(keys, 1.0, CONSTANT))''', '''    cx, cy = P["cells"]
+    kx = [(i / cx, i / max(cx - 1, 1)) for i in range(cx)]
+    ky = [(i / cy, i / max(cy - 1, 1)) for i in range(cy)]
+    col = node(net, "remap", prefix + "_col", [x01], inputmin=0.0, inputmax=1.0, outputmin=0.0, outputmax=1.0, useramp=1)
+    col.parm("ramp").set(ramp(kx, 1.0, CONSTANT))
+    row = node(net, "remap", prefix + "_row", [y01], inputmin=0.0, inputmax=1.0, outputmin=0.0, outputmax=1.0, useramp=1)
+    row.parm("ramp").set(ramp(ky, 1.0, CONSTANT))'''),
+    ('''    t = len(values)
+    # 11 October 2026 : keys sit half a step BEFORE each stepped id, so a lookup at exactly i/(t-1) never falls on a boundary
+    keys = [(0.0 if i == 0 else (i - 0.5) / (t - 1), v) for i, v in enumerate(values)]''', '''    t = len(values)
+    if t == 1:
+        return const(net, name, float(values[0]))
+    # 11 October 2026 : keys sit half a step BEFORE each stepped id, so a lookup at exactly i/(t-1) never falls on a boundary
+    keys = [(0.0 if i == 0 else (i - 0.5) / (t - 1), v) for i, v in enumerate(values)]'''),
+])
+
+patch(os.path.join(S, "Recipe.py"), [
+    ('''    def joint_profile(self, L, p, nodes):
+        n = curve(self.net, p + "profile", self.d, [tuple(x) for x in L["keys"]], 0.5, 0.0, 1.0, LINEAR)
+        nodes.append(n)
+        return n''', '''    def joint_profile(self, L, p, nodes):
+        # 11 October 2026 : keys are normalised into the ramp and rescaled by the remap, so relative (negative) profiles work
+        keys = [tuple(x) for x in L["keys"]]
+        lo = min(v for _, v in keys)
+        hi = max(v for _, v in keys)
+        span = (hi - lo) or 1e-6
+        n = curve(self.net, p + "profile", self.d, [(x, (v - lo) / span) for x, v in keys], 0.5, lo, hi, LINEAR)
+        nodes.append(n)
+        return n'''),
+    ('''    B = Builder(net)''', '''    # 11 October 2026 : an optional first item {"type": "lattice", "cx": .., "cy": ..} sets the cells of the reference lattice
+    cells = (4, 4)
+    if recipe and recipe[0].get("type") == "lattice":
+        cells = (int(recipe[0]["cx"]), int(recipe[0]["cy"]))
+        recipe = recipe[1:]
+    _G["P"]["cells"] = cells
+    B = Builder(net)'''),
+    ('''        data = hou.node(DATA_OBJ) or hou.node("/obj").createNode("geo", DATA_OBJ.split("/")[-1])
+        data.setDisplayFlag(False)
+        st = data.node(L["tag"] + "_regions") or data.createNode("stash", L["tag"] + "_regions")
+        geo = hou.Geometry()
+        geo.addAttrib(hou.attribType.Point, "Cd", (0.0, 0.0, 0.0))
+        for poly in L["polys"]:
+            v = float(poly["val"])
+            z = float(poly["z"])
+            ps = geo.createPoints([(x, y, z) for x, y in poly["pts"]])
+            for q in ps:
+                q.setAttribValue("Cd", (v, v, v))
+            pr = geo.createPolygon()
+            for q in ps:
+                pr.addVertex(q)
+        st.parm("stash").set(geo)''', '''        st = _SF["stash_polys"](DATA_OBJ, L["tag"] + "_regions", L["polys"], "val")'''),
+    ('''        data = hou.node(DATA_OBJ) or hou.node("/obj").createNode("geo", DATA_OBJ.split("/")[-1])
+        data.setDisplayFlag(False)
+        st = data.node(L["tag"] + "_colors") or data.createNode("stash", L["tag"] + "_colors")
+        geo = hou.Geometry()
+        geo.addAttrib(hou.attribType.Point, "Cd", (0.0, 0.0, 0.0))
+        for poly in L["polys"]:
+            col = tuple(float(x) for x in poly["rgb"])
+            z = float(poly["z"])
+            ps = geo.createPoints([(x, y, z) for x, y in poly["pts"]])
+            for q in ps:
+                q.setAttribValue("Cd", col)
+            pr = geo.createPolygon()
+            for q in ps:
+                pr.addVertex(q)
+        st.parm("stash").set(geo)''', '''        st = _SF["stash_polys"](DATA_OBJ, L["tag"] + "_colors", L["polys"], rgb=True)'''),
+    ('''DATA_OBJ = "/obj/ZRH_Data"''', '''DATA_OBJ = "/obj/ZRH_Data"
+_SF = {}
+exec(open(os.path.join(_HERE, "StashFast.py")).read(), _SF)'''),
+])
+print("patched ZrhCop.py and Recipe.py")

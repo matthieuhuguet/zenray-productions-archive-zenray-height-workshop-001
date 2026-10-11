@@ -1,0 +1,84 @@
+# 11 October 2026 : assemble Copernicus2.md (single dataset file) from the sections written in the workshop and the agent parts,
+# demote the headings of each part under its section, and write an index of sections with line numbers at the top.
+# FR : assemble Copernicus2.md depuis les sections de l'atelier et les parties des agents, avec un index par numéros de ligne.
+import os
+import re
+import sys
+
+ROOT = "/Users/zenray/.claude/tmp/tmp-zenray-height/dataset"
+OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, "Copernicus2.md")
+D = "11 October 2026"
+
+# (section number, title, file, demote) ; a part keeps its own headings, shifted so that its top level becomes ###
+PLAN = [
+    ("1", "La méthode courante (ZenRay Height Method)", "sections/01_method.md", None),
+    ("2", "Doctrine : l'échelle d'identité, mesurer ou copier", "sections/02_doctrine.md", None),
+    ("3", "COP node reference, Houdini 22.0.368", "parts/03_cop_node_reference.md", None),
+    ("4", "SideFX, Copernicus for Substance 3D Designer users", "sections/04_sidefx_substance_designer.md", None),
+    ("5", "Substance 3D Designer node reference and Copernicus equivalents", "parts/05_substance_designer_nodes.md", "part"),
+    ("6", "Substance 3D Painter, Javier Perez and professional height techniques", "parts/06_painter_perez_pro_techniques.md", "part"),
+    ("7", "Local Copernicus and HeightField COP guides", "sections/07_local_guides.md", None),
+    ("8", "State of the art: inverse procedural modeling, synthesis, metrics, methods", "parts/08_state_of_the_art_methods.md", "part"),
+    ("9", "Leçons des méthodes dépréciées", "sections/09_lessons_deprecated.md", None),
+    ("10", "Registre de la recherche de méthode", "sections/10_registry.md", None),
+    ("11", "Catalogue des familles de matériaux (height)", "parts/12_material_families_catalog.md", "part"),
+    ("12", "Dictionnaire des couches : du trait observé à la couche Copernicus", "sections/12_layer_dictionary.md", None),
+    ("13", "Dossier de référence : Procedural Ceramic Wall Tiles", "sections/13_reference_dossier.md", None),
+]
+
+
+def demote_part(text, num, title):
+    lines = text.split("\n")
+    levels = [len(m.group(1)) for m in (re.match(r"^(#+)\s", l) for l in lines) if m]
+    top = min(levels) if levels else 1
+    shift = 3 - top
+    out = [f"## {num}. {title} ({D})", ""]
+    for l in lines:
+        m = re.match(r"^(#+)(\s.*)$", l)
+        if m:
+            lvl = min(6, len(m.group(1)) + shift)
+            out.append("#" * lvl + m.group(2))
+        else:
+            out.append(l)
+    return "\n".join(out)
+
+
+def main():
+    body = []
+    missing = []
+    for num, title, rel, mode in PLAN:
+        path = os.path.join(ROOT, rel)
+        if not os.path.exists(path):
+            missing.append(rel)
+            body.append(f"## {num}. {title} ({D})\n\n- En attente : `{path}` n'existe pas encore ({D})\n")
+            continue
+        text = open(path, encoding="utf-8").read().strip("\n")
+        if mode == "part":
+            body.append(demote_part(text, num, title))
+        else:
+            # sections written for this file already start with '## N. ...'
+            body.append(text)
+    text = "\n\n".join(body) + "\n"
+    text = text.replace("—", ", ").replace("–", ", ")
+    # index of '##' and '###' headings with line numbers (computed after a first pass, header size fixed below)
+    head = [f"# Copernicus2 : dataset de reproduction de height, Houdini 22.0.368 ({D})", "",
+            f"> Source de vérité de la data de reproduction de height depuis le 11 October 2026 (consigne de Matthieu). Copernicus1.md devient l'historique. ({D})",
+            f"> Routeur : `python3 /Users/zenray/.claude/skills/zenray-houdini/scripts/query_copernicus2.py \"<mot>\"` rend les sections et leurs lignes sans charger le fichier. ({D})",
+            f"> Assemblé par `/Users/zenray/.claude/tmp/tmp-zenray-height/Scripts/BuildCopernicus2.py` ; ne pas éditer à la main les parties générées (3, 5, 6, 7, 8, 11) : régénérer. ({D})", "",
+            f"## 0. Index des sections, avec numéros de ligne ({D})", ""]
+    lines = text.split("\n")
+    entries = []
+    for i, l in enumerate(lines):
+        m = re.match(r"^(##)\s(.+)$", l)
+        if m:
+            entries.append((i, m.group(2)))
+    # two passes so that the line numbers account for the header itself
+    offset = len(head) + len(entries) + 1
+    idx = [f"- ligne {i + 1 + offset} : {t}" + ("" if D in t else f" ({D})") for i, t in entries]
+    final = "\n".join(head + idx + ["", ""]) + text
+    open(OUT, "w", encoding="utf-8").write(final)
+    print("written", OUT, "bytes", len(final.encode("utf-8")), "lines", final.count("\n"), "missing", missing)
+
+
+if __name__ == "__main__":
+    main()

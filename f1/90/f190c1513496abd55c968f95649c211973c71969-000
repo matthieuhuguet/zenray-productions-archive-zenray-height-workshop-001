@@ -1,0 +1,48 @@
+# 11 October 2026 : detect the tile lattice of a height reference (period along x and y) from the autocorrelation of its profiles
+# FR : détecte la trame de carreaux d'une height (période en x et en y) par l'autocorrélation de ses profils moyens.
+import json
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import numpy as np
+from RefLib import load_gray, blur
+
+
+def period_1d(profile, min_p=16, max_frac=0.55):
+    p = profile - profile.mean()
+    n = len(p)
+    f = np.fft.rfft(p)
+    ac = np.fft.irfft(f * np.conj(f), n)
+    ac /= ac[0] + 1e-12
+    peaks = [(lag, ac[lag]) for lag in range(min_p, int(n * max_frac)) if ac[lag] > ac[lag - 1] and ac[lag] >= ac[lag + 1]]
+    if not peaks:
+        return None, -1.0
+    top = max(v for _, v in peaks)
+    # 11 October 2026 : the fundamental period is the SMALLEST lag whose peak reaches 60 percent of the best peak
+    for lag, v in peaks:
+        if v >= 0.6 * top and v > 0:
+            return lag, float(v)
+    return peaks[0][0], float(peaks[0][1])
+
+
+def detect(ref):
+    n = ref.shape[0]
+    hp = ref - blur(ref, 24)
+    col_prof = hp.mean(0)
+    row_prof = hp.mean(1)
+    px, vx = period_1d(col_prof)
+    py, vy = period_1d(row_prof)
+    out = {}
+    for axis, p, v in (("x", px, vx), ("y", py, vy)):
+        if p is None or v < 0.25:
+            out[axis] = {"period_px": None, "strength": v, "cells": 1}
+        else:
+            cells = int(round(n / p))
+            out[axis] = {"period_px": p, "strength": round(v, 3), "cells": max(1, cells), "exact_period": n / max(1, cells)}
+    return out
+
+
+if __name__ == "__main__":
+    for path in sys.argv[1:]:
+        print(os.path.basename(path), json.dumps(detect(load_gray(path))))

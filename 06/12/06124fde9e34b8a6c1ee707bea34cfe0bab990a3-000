@@ -1,0 +1,84 @@
+# 11 October 2026 : base colour, one layer at a time, in its own copnet: glaze colour, joints from the height structure,
+# then measured colour regions coarse to fine; a layer is kept only if the mean Delta E drops.
+# FR : base color couche par couche ; une couche n'est gardée que si le Delta E moyen baisse.
+import json
+import os
+import sys
+import time
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import numpy as np
+from RefLib import load_rgb, load_gray
+import Fit as F
+import MeasureColor as MC
+import Execute as EX
+
+ROOT = "/Users/zenray/.claude/tmp/tmp-zenray-height"
+
+
+def run(name, net_path, ref_png, valid_png, cells=(4, 4), bc_dir=os.path.join(ROOT, "methods", "BC")):
+    out_root = os.path.join(ROOT, "versions", "final", name)
+    os.makedirs(out_root, exist_ok=True)
+    r = load_rgb(ref_png)
+    v = load_gray(valid_png) > 0.5
+    F.set_lattice(*cells)
+    lattice = {"type": "lattice", "cx": cells[0], "cy": cells[1]}
+    fx, fy, row, col, d = F.tile_coords(r.shape[0])
+    glaze = np.median(r[v & (d > 0.1)], 0).tolist()
+    grout = np.median(r[v & (d < 0.012)], 0).tolist()
+    plan = [
+        ("glaze", [{"type": "const_rgb", "op": "base", "rgb": glaze, "note": "glaze colour, median of tile interiors"}]),
+        ("joints", [{"type": "joint_color", "op": "base", "rgb": grout, "width": 0.013, "soft": 0.004, "note": "grout colour on the joints of the height lattice"}]),
+    ]
+    for lvl in ("BC_L1_coarse", "BC_L2_medium", "BC_L3_fine"):
+        L = json.load(open(os.path.join(bc_dir, lvl + ".json")))
+        L["op"] = "base"
+        plan.append((lvl, [L]))
+    recipe, best, k = [], 1e9, 0
+    log = {"name": name, "net": net_path, "reference": ref_png, "layers": []}
+    for lname, layers in plan:
+        t0 = time.time()
+        trial = recipe + layers
+        png = os.path.join(out_root, f"try_{lname}.png")
+        rp = png.replace(".png", "_recipe.json")
+        json.dump([lattice] + trial, open(rp, "w"))
+        code = ("import hou, json\ng = {}\n"
+                f"exec(open('{ROOT}/Scripts/Recipe.py').read(), g)\n"
+                f"recipe = json.load(open('{rp}'))\n"
+                f"result = g['build']('{net_path}', recipe, '{png}', 2048, 8)\n")
+        b = EX.Run.hom(code)
+        if not b.get("ok"):
+            log["layers"].append({"layer": lname, "status": "build_error", "error": str(b)[-800:]})
+            print(name, lname, "build_error", str(b)[-400:], flush=True)
+            continue
+        cand = load_rgb(png)
+        m = MC.measure_color(cand, r, v)
+        de = m["deltaE76_mean"]
+        accepted = de < best - 0.05
+        entry = {"layer": lname, "status": "accepted" if accepted else "rejected", "deltaE76_mean": round(de, 3),
+                 "lum_pearson": round(m["lum_pearson"], 4), "deltaE76_blur4_mean": round(m["deltaE76_blur4_mean"], 3),
+                 "note": "; ".join(L.get("note", "") for L in layers), "seconds": round(time.time() - t0, 1), "nodes": b.get("result", {}).get("nodes")}
+        if accepted:
+            k += 1
+            recipe, best = trial, de
+            final_png = os.path.join(out_root, f"L{k:02d}_{lname}.png")
+            os.replace(png, final_png)
+            MC.panel(cand, r, final_png.replace(".png", "_panel.png"))
+            entry["image"] = final_png
+        else:
+            os.remove(png)
+        log["layers"].append(entry)
+        json.dump(log, open(os.path.join(out_root, "log.json"), "w"), indent=1)
+        print(name, lname, entry["status"], entry["deltaE76_mean"], entry["lum_pearson"], entry["seconds"], "s", flush=True)
+    rp = os.path.join(out_root, "FINAL_basecolor_recipe.json")
+    json.dump([lattice] + recipe, open(rp, "w"))
+    code = ("import hou, json\ng = {}\n"
+            f"exec(open('{ROOT}/Scripts/Recipe.py').read(), g)\n"
+            f"recipe = json.load(open('{rp}'))\n"
+            f"result = g['build']('{net_path}', recipe, '{out_root}/FINAL_basecolor.png', 2048, 8)\n")
+    EX.Run.hom(code)
+    return log
+
+
+if __name__ == "__main__":
+    run(*sys.argv[1:5])

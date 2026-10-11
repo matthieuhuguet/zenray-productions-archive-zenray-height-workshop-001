@@ -12,35 +12,47 @@ from RefLib import blur, load_gray
 TILE = 512
 N = 2048
 TILES = 4
+# 11 October 2026 : lattice of the current reference (cells along x and y), set by set_lattice() before fitting
+LAT = {"cx": 4, "cy": 4}
 
 
-def tile_coords(n=N, t=TILE):
+def set_lattice(cx, cy):
+    LAT["cx"], LAT["cy"] = int(cx), int(cy)
+
+
+def tile_coords(n=N, t=None):
+    """Local coordinates inside each cell (fx, fy in 0..1, image orientation), row and column ids, box distance."""
     yy, xx = np.mgrid[0:n, 0:n].astype(np.float32)
-    fx = (xx % t + 0.5) / t
-    fy = (yy % t + 0.5) / t
-    row = (yy // t).astype(np.int32)
-    col = (xx // t).astype(np.int32)
+    tx = n / LAT["cx"]
+    ty = n / LAT["cy"]
+    fx = ((xx + 0.5) % tx) / tx
+    fy = ((yy + 0.5) % ty) / ty
+    row = np.minimum((yy // ty).astype(np.int32), LAT["cy"] - 1)
+    col = np.minimum((xx // tx).astype(np.int32), LAT["cx"] - 1)
     d = np.minimum(np.minimum(fx, 1 - fx), np.minimum(fy, 1 - fy))
     return fx, fy, row, col, d
 
 
-def joint_profile(r, valid, step_px=2, max_px=256):
+def joint_profile(r, valid, step_px=2, max_px=None):
+    """Mean height against the box distance to the nearest joint, keys in cell units (0 on the joint, 0.5 at the centre)."""
     fx, fy, row, col, d = tile_coords(r.shape[0])
-    dp = d * TILE
+    cell = r.shape[0] / max(LAT["cx"], LAT["cy"])
+    dp = d * cell
+    max_px = int(cell / 2) if max_px is None else max_px
     keys = []
     for k in range(0, max_px + 1, step_px):
         sel = valid & (dp >= k) & (dp < k + step_px)
         if sel.any():
-            keys.append((k / TILE, float(r[sel].mean())))
+            keys.append((k / cell, float(r[sel].mean())))
     return keys
 
 
 def row_table(res, valid, inset=0.08):
     fx, fy, row, col, d = tile_coords(res.shape[0])
     vals = []
-    for i in range(TILES):
+    for i in range(LAT["cy"]):
         sel = valid & (row == i) & (d > inset)
-        vals.append(float(res[sel].mean()))
+        vals.append(float(res[sel].mean()) if sel.any() else 0.0)
     return vals
 
 
@@ -48,7 +60,7 @@ def row_plane(res, valid, inset=0.08):
     """Least squares plane per tile row on local coords: res ~ c + a (fx - 0.5) + b (fy - 0.5)."""
     fx, fy, row, col, d = tile_coords(res.shape[0])
     out = []
-    for i in range(TILES):
+    for i in range(LAT["cy"]):
         sel = valid & (row == i) & (d > inset)
         A = np.stack([np.ones(sel.sum()), fx[sel] - 0.5, fy[sel] - 0.5], 1)
         c, *_ = np.linalg.lstsq(A, res[sel], rcond=None)
@@ -60,7 +72,7 @@ def row_corners(res, valid, inset=0.08):
     """Bilinear field per tile row from 4 corner values (2 x 2 per tile, the coarsest allowed table)."""
     fx, fy, row, col, d = tile_coords(res.shape[0])
     out = []
-    for i in range(TILES):
+    for i in range(LAT["cy"]):
         sel = valid & (row == i) & (d > inset)
         u, v = fx[sel], fy[sel]
         A = np.stack([(1 - u) * (1 - v), u * (1 - v), (1 - u) * v, u * v], 1)
@@ -390,42 +402,51 @@ def side_profiles(res, valid, max_px=48, step_px=2):
     Pixels are assigned to their nearest side only. 11 October 2026."""
     fx, fy, row, col, d = tile_coords(res.shape[0])
     dists = {"left": fx, "right": 1 - fx, "top": fy, "bottom": 1 - fy}
+    size = {"left": res.shape[0] / LAT["cx"], "right": res.shape[0] / LAT["cx"], "top": res.shape[0] / LAT["cy"], "bottom": res.shape[0] / LAT["cy"]}
     nearest = np.argmin(np.stack([dists[k] for k in ("left", "right", "top", "bottom")]), 0)
     out = {}
     for i, k in enumerate(("left", "right", "top", "bottom")):
-        dd = dists[k] * TILE
+        dd = dists[k] * size[k]
         keys = []
         for t in range(0, max_px + 1, step_px):
             sel = valid & (nearest == i) & (dd >= t) & (dd < t + step_px)
-            keys.append((t / TILE, float(res[sel].mean()) if sel.any() else 0.0))
-        keys.append(((max_px + 8) / TILE, 0.0))
+            keys.append((t / size[k], float(res[sel].mean()) if sel.any() else 0.0))
+        keys.append(((max_px + 8) / size[k], 0.0))
         out[k] = keys
     return out
 
 
-def blob_layer(res, valid, sigma_hp=6.0, q=0.985, min_area=12, work=2048, tag="blobs", both_signs=True, soft_px=1.0):
+def blob_layer(res, valid, sigma_hp=6.0, q=0.985, min_area=12, work=2048, tag="blobs", both_signs=True, soft_px=1.0, max_blobs=6000):
     """Compact high-contrast blobs (chips, spots) of the high-passed residual as polygons carrying their mean value.
-    11 October 2026."""
+    11 October 2026 : run based labelling and per component crops (the first version scanned the full image per blob)."""
     hp = res - blur(res, sigma_hp)
+    n = res.shape[0]
     polys = []
     for sign in ((1, -1) if both_signs else (1,)):
         t = float(np.quantile((sign * hp)[valid], q))
         m = (sign * hp > t) & valid
-        lab = label_components(m)
-        ids, counts = np.unique(lab[lab >= 0], return_counts=True)
-        for comp, cnt in zip(ids, counts):
-            if cnt < min_area:
-                continue
-            mm = lab == comp
-            loops = contours_binary(mm)
+        lab, nlab = label_runs(m)
+        if nlab == 0:
+            continue
+        ys, xs = np.nonzero(lab >= 0)
+        ids = lab[ys, xs]
+        cnt = np.bincount(ids, minlength=nlab)
+        sums = np.bincount(ids, weights=hp[ys, xs], minlength=nlab)
+        y0 = np.full(nlab, 1 << 30); y1 = np.full(nlab, -1); x0 = np.full(nlab, 1 << 30); x1 = np.full(nlab, -1)
+        np.minimum.at(y0, ids, ys); np.maximum.at(y1, ids, ys); np.minimum.at(x0, ids, xs); np.maximum.at(x1, ids, xs)
+        order = np.argsort(-cnt)
+        for k in order[:max_blobs]:
+            if cnt[k] < min_area:
+                break
+            sub = lab[y0[k]:y1[k] + 1, x0[k]:x1[k] + 1] == k
+            loops = contours_binary(sub)
             if not loops:
                 continue
             outer = max(loops, key=lambda L: abs(polygon_area(L)))
-            n = res.shape[0]
-            pts = [(x / n * 2 - 1, 1 - y / n * 2) for (y, x) in outer]
+            pts = [((x + x0[k] + 0.5) / n * 2 - 1, 1 - (y + y0[k] + 0.5) / n * 2) for (y, x) in outer]
             pts = simplify(pts, 0.6 / n * 2)
             if len(pts) >= 3:
-                polys.append({"pts": pts, "val": float(hp[mm].mean()), "area": abs(polygon_area(pts)), "closed": True})
+                polys.append({"pts": pts, "val": float(sums[k] / cnt[k]), "area": abs(polygon_area(pts)), "closed": True})
     polys.sort(key=lambda p: -p["area"])
     for i, p in enumerate(polys):
         p["z"] = i * 1e-5
@@ -436,3 +457,269 @@ def blob_layer(res, valid, sigma_hp=6.0, q=0.985, min_area=12, work=2048, tag="b
 def noise_amp_for_band(res, valid, s0, s1, unit_std):
     """Amplitude that gives a COP noise the same band energy as the residual (unit_std = band std of the noise at amp 1)."""
     return band_std(res, valid, s0, s1) / max(unit_std, 1e-6)
+
+
+def ridge_lines2(res, valid, sigma=1.2, q_strong=0.97, q_weak=0.88, min_len=12, hp_sigma=4.0, simplify_px=0.8):
+    """Centrelines of bright thin ridges: Hessian ridge strength, non maximum suppression across the ridge, hysteresis,
+    then long polylines that keep their direction through junctions. Amplitude per line from the high pass. 11 October 2026."""
+    n = res.shape[0]
+    s = blur(res, sigma)
+    Ixx = np.roll(s, -1, 1) - 2 * s + np.roll(s, 1, 1)
+    Iyy = np.roll(s, -1, 0) - 2 * s + np.roll(s, 1, 0)
+    Ixy = 0.25 * (np.roll(np.roll(s, -1, 0), -1, 1) - np.roll(np.roll(s, -1, 0), 1, 1) - np.roll(np.roll(s, 1, 0), -1, 1) + np.roll(np.roll(s, 1, 0), 1, 1))
+    half = (Ixx + Iyy) / 2
+    root = np.sqrt(((Ixx - Iyy) / 2) ** 2 + Ixy ** 2)
+    lmin = half - root
+    R = np.maximum(0, -lmin)
+    # eigenvector of lmin (normal to the ridge): (Ixy, lmin - Ixx) or (lmin - Iyy, Ixy)
+    nx = Ixy
+    ny = lmin - Ixx
+    alt = np.abs(nx) + np.abs(ny) < 1e-12
+    nx = np.where(alt, lmin - Iyy, nx)
+    ny = np.where(alt, Ixy, ny)
+    ang = np.arctan2(ny, nx)
+    sx = np.rint(np.cos(ang)).astype(np.int64)
+    sy = np.rint(np.sin(ang)).astype(np.int64)
+    yy, xx = np.mgrid[0:n, 0:n]
+    r1 = R[(yy + sy) % n, (xx + sx) % n]
+    r2 = R[(yy - sy) % n, (xx - sx) % n]
+    nms = (R >= r1) & (R >= r2) & valid
+    ts = float(np.quantile(R[valid], q_strong))
+    tw = float(np.quantile(R[valid], q_weak))
+    weak = nms & (R > tw)
+    strong = nms & (R > ts)
+    # hysteresis: keep weak components touching a strong pixel (8-connected on the thin set, dilated by one pixel)
+    wd = weak | (np.roll(weak, 1, 0) & np.roll(weak, -1, 0))
+    lab = label_components(wd)
+    keep_ids = np.unique(lab[strong & (lab >= 0)])
+    keep = np.isin(lab, keep_ids) & weak
+    paths = trace_long(keep, min_len=min_len)
+    hp = res - blur(res, hp_sigma)
+    out = []
+    for pth in paths:
+        amp = float(np.mean([hp[y, x] for y, x in pth]))
+        pts = [(x / n * 2 - 1 + 1.0 / n, 1 - y / n * 2 - 1.0 / n) for (y, x) in pth]
+        out.append({"pts": simplify(pts, simplify_px / n * 2), "amp": amp})
+    return out, {"R_strong": ts, "R_weak": tw, "pixels": int(keep.sum())}
+
+
+def trace_long(mask, min_len=12):
+    """Trace 8-connected thin pixels into long polylines, preferring the straightest continuation at junctions."""
+    pts = set(zip(*np.nonzero(mask)))
+    nbrs = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
+
+    def neigh(p):
+        return [(p[0] + dy, p[1] + dx) for dy, dx in nbrs if (p[0] + dy, p[1] + dx) in pts]
+    deg = {p: len(neigh(p)) for p in pts}
+    visited = set()
+    lines = []
+    order = sorted(pts, key=lambda p: (deg[p] != 1, deg[p]))
+    for s0 in order:
+        if s0 in visited:
+            continue
+        path = [s0]
+        visited.add(s0)
+        for direction in (1, -1):
+            cur = path[-1] if direction == 1 else path[0]
+            prev = None
+            if len(path) > 1:
+                prev = path[-2] if direction == 1 else path[1]
+            while True:
+                cand = [q for q in neigh(cur) if q not in visited]
+                if not cand:
+                    break
+                if prev is not None:
+                    dy0, dx0 = cur[0] - prev[0], cur[1] - prev[1]
+                    cand.sort(key=lambda q: -((q[0] - cur[0]) * dy0 + (q[1] - cur[1]) * dx0))
+                nxt = cand[0]
+                visited.add(nxt)
+                if direction == 1:
+                    path.append(nxt)
+                else:
+                    path.insert(0, nxt)
+                prev, cur = cur, nxt
+        if len(path) >= min_len:
+            lines.append(path)
+    return lines
+
+
+def label_runs(mask):
+    """Fast 8-connected labelling: run-length encoding per row + union-find over runs. Returns (labels, n). 11 October 2026."""
+    H, W = mask.shape
+    m = mask.astype(np.int8)
+    d = np.diff(np.pad(m, ((0, 0), (1, 1))), axis=1)
+    starts = [np.nonzero(d[y] == 1)[0] for y in range(H)]
+    ends = [np.nonzero(d[y] == -1)[0] for y in range(H)]
+    run_y, run_s, run_e = [], [], []
+    for y in range(H):
+        for s, e in zip(starts[y], ends[y]):
+            run_y.append(y)
+            run_s.append(int(s))
+            run_e.append(int(e))
+    n = len(run_y)
+    parent = list(range(n))
+
+    def find(a):
+        while parent[a] != a:
+            parent[a] = parent[parent[a]]
+            a = parent[a]
+        return a
+    row_index = {}
+    idx = 0
+    for y in range(H):
+        cnt = len(starts[y])
+        row_index[y] = (idx, idx + cnt)
+        idx += cnt
+    for y in range(1, H):
+        a0, a1 = row_index[y - 1]
+        b0, b1 = row_index[y]
+        i, j = a0, b0
+        while i < a1 and j < b1:
+            # 11 October 2026 : 4-connectivity (strict overlap of half open runs), the topology of the marching squares saddles;
+            # the first 8-connected version merged diagonal pixels that the contours then split, losing whole regions
+            if run_s[i] < run_e[j] and run_s[j] < run_e[i]:
+                ra, rb = find(i), find(j)
+                if ra != rb:
+                    parent[rb] = ra
+            if run_e[i] < run_e[j]:
+                i += 1
+            else:
+                j += 1
+    roots = {}
+    lab = -np.ones((H, W), np.int64)
+    for k in range(n):
+        r = find(k)
+        if r not in roots:
+            roots[r] = len(roots)
+        lab[run_y[k], run_s[k]:run_e[k]] = roots[r]
+    return lab, len(roots)
+
+
+def region_polys_from_bins(bins, values, pad, work, simplify_eps, min_px=6, value_map=None):
+    """Polygons of every connected region of a posterised (and wrap padded) label image."""
+    polys = []
+    for b in np.unique(bins):
+        lab, nlab = label_runs(bins == b)
+        if nlab == 0:
+            continue
+        ys, xs = np.nonzero(lab >= 0)
+        ids = lab[ys, xs]
+        cnt = np.bincount(ids, minlength=nlab)
+        y0 = np.full(nlab, 1 << 30); y1 = np.full(nlab, -1); x0 = np.full(nlab, 1 << 30); x1 = np.full(nlab, -1)
+        np.minimum.at(y0, ids, ys); np.maximum.at(y1, ids, ys); np.minimum.at(x0, ids, xs); np.maximum.at(x1, ids, xs)
+        for k in range(nlab):
+            if cnt[k] < min_px:
+                continue
+            sub = lab[y0[k]:y1[k] + 1, x0[k]:x1[k] + 1] == k
+            loops = contours_binary(sub)
+            if not loops:
+                continue
+            outer = max(loops, key=lambda L: abs(polygon_area(L)))
+            pts = [((x + x0[k] - pad + 0.5) / work * 2 - 1, 1 - (y + y0[k] - pad + 0.5) / work * 2) for (y, x) in outer]
+            pts = simplify(pts, simplify_eps)
+            if len(pts) < 3:
+                continue
+            val = values[int(b)] if value_map is None else value_map(b, k)
+            polys.append({"pts": pts, "val": float(val), "area": abs(polygon_area(pts)), "closed": True})
+    return polys
+
+
+def region_layer_fast(res, valid, sigma=16.0, K=8, work=512, pad=24, tag="regions", soft_px=None, simplify_px=0.5):
+    """Same contract as region_layer, with run based labelling and per component crops (fast at 2048). 11 October 2026."""
+    low = blur(res, sigma) if sigma > 0 else res
+    n = res.shape[0]
+    f = max(1, n // work)
+    lw = low[: n // f * f, : n // f * f].reshape(n // f, f, n // f, f).mean((1, 3))
+    vw = valid[: n // f * f, : n // f * f].reshape(n // f, f, n // f, f).mean((1, 3)) > 0.5
+    qs = np.linspace(0, 1, K + 1)[1:-1]
+    t = np.quantile(lw[vw], qs)
+    bins = np.digitize(lw, t)
+    vals = [float(np.median(lw[vw & (bins == b)])) for b in range(K)]
+    bp = np.pad(bins, pad, mode="wrap")
+    polys = region_polys_from_bins(bp, vals, pad, lw.shape[0], simplify_px / lw.shape[0] * 2)
+    polys.sort(key=lambda p: -p["area"])
+    for i, p in enumerate(polys):
+        p["z"] = i * 1e-5
+    return {"type": "regions", "tag": tag, "polys": polys, "soft_px": float(soft_px if soft_px is not None else max(1.0, sigma * 0.9)),
+            "note": f"{K} posterised bins of residual low pass s{sigma:g} at {lw.shape[0]} px, {len(polys)} regions"}
+
+
+def kmeans_colors(rgb, valid, K=10, iters=25, seed=3, sample=200000):
+    """Plain k-means on RGB (numpy), returns centres (K, 3) and labels for every pixel. 11 October 2026."""
+    rng = np.random.default_rng(seed)
+    X = rgb[valid]
+    idx = rng.choice(len(X), size=min(sample, len(X)), replace=False)
+    S = X[idx]
+    C = S[rng.choice(len(S), size=K, replace=False)]
+    for _ in range(iters):
+        d = ((S[:, None, :] - C[None, :, :]) ** 2).sum(2)
+        lab = d.argmin(1)
+        newC = np.array([S[lab == k].mean(0) if (lab == k).any() else C[k] for k in range(K)])
+        if np.allclose(newC, C, atol=1e-5):
+            break
+        C = newC
+    full = np.zeros(rgb.shape[:2], np.int64)
+    H = rgb.shape[0]
+    for y0 in range(0, H, 256):
+        blk = rgb[y0:y0 + 256]
+        d = ((blk[:, :, None, :] - C[None, None, :, :]) ** 2).sum(3)
+        full[y0:y0 + 256] = d.argmin(2)
+    return C, full
+
+
+def mode_filter(lab, K, passes=1):
+    """3 x 3 majority filter on an integer label image (removes isolated pixels before polygonisation). 11 October 2026."""
+    for _ in range(passes):
+        counts = np.zeros((K,) + lab.shape, np.int16)
+        for k in range(K):
+            m = (lab == k).astype(np.int16)
+            p = np.pad(m, 1, mode="wrap")
+            counts[k] = sum(p[1 + dy: 1 + dy + lab.shape[0], 1 + dx: 1 + dx + lab.shape[1]] for dy in (-1, 0, 1) for dx in (-1, 0, 1))
+        lab = counts.argmax(0)
+    return lab
+
+
+def color_region_layer(rgb, valid, K=10, sigma=1.0, work=1024, pad=24, tag="bc_regions", simplify_px=0.5, soft_px=1.0):
+    """Base color as closed polygons of k-means colour regions, each carrying its mean colour (RGB in Cd). 11 October 2026."""
+    n = rgb.shape[0]
+    sm = np.stack([blur(rgb[..., c], sigma) for c in range(3)], -1) if sigma > 0 else rgb
+    f = max(1, n // work)
+    sw = sm[: n // f * f, : n // f * f].reshape(n // f, f, n // f, f, 3).mean((1, 3))
+    vw = valid[: n // f * f, : n // f * f].reshape(n // f, f, n // f, f).mean((1, 3)) > 0.5
+    C, lab = kmeans_colors(sw, vw, K=K)
+    lab = mode_filter(lab, K, passes=1)
+    bp = np.pad(lab, pad, mode="wrap")
+    swp = np.pad(sw, ((pad, pad), (pad, pad), (0, 0)), mode="wrap")
+    polys = []
+    W = sw.shape[0]
+    for b in range(K):
+        labc, nlab = label_runs(bp == b)
+        if nlab == 0:
+            continue
+        ys, xs = np.nonzero(labc >= 0)
+        ids = labc[ys, xs]
+        cnt = np.bincount(ids, minlength=nlab)
+        sums = np.zeros((nlab, 3))
+        for c in range(3):
+            sums[:, c] = np.bincount(ids, weights=swp[ys, xs, c], minlength=nlab)
+        y0 = np.full(nlab, 1 << 30); y1 = np.full(nlab, -1); x0 = np.full(nlab, 1 << 30); x1 = np.full(nlab, -1)
+        np.minimum.at(y0, ids, ys); np.maximum.at(y1, ids, ys); np.minimum.at(x0, ids, xs); np.maximum.at(x1, ids, xs)
+        for k in range(nlab):
+            if cnt[k] < 4:
+                continue
+            sub = labc[y0[k]:y1[k] + 1, x0[k]:x1[k] + 1] == k
+            loops = contours_binary(sub)
+            if not loops:
+                continue
+            outer = max(loops, key=lambda L: abs(polygon_area(L)))
+            pts = [((x + x0[k] - pad + 0.5) / W * 2 - 1, 1 - (y + y0[k] - pad + 0.5) / W * 2) for (y, x) in outer]
+            pts = simplify(pts, simplify_px / W * 2)
+            if len(pts) < 3:
+                continue
+            col = (sums[k] / cnt[k]).tolist()
+            polys.append({"pts": pts, "rgb": col, "area": abs(polygon_area(pts)), "closed": True})
+    polys.sort(key=lambda p: -p["area"])
+    for i, p in enumerate(polys):
+        p["z"] = i * 1e-5
+    return {"type": "color_regions", "tag": tag, "polys": polys, "soft_px": soft_px, "palette": C.tolist(),
+            "note": f"{K} colour clusters at {W} px, {len(polys)} regions"}
