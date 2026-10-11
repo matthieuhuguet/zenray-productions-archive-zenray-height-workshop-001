@@ -1,0 +1,22 @@
+{
+  "project": "zenray-height",
+  "updated": "11 October 2026, 16:40",
+  "goal": "Find the ultimate method to reproduce a reference height map layer by layer in Copernicus, build Copernicus2.md, deprecate old methods, reproduce Procedural Ceramic Wall Tiles height + base color, then secondary tests window, whitepaint, tile.",
+  "resume_from": "P1 deprecation + P3 reference prep running in main loop; P2 research parts by 4 background agents",
+  "phases": {
+    "P1_deprecate_methods": "in_progress",
+    "P2_copernicus2_dataset": "agents running + local COP help parse pending",
+    "P3_reference_prep": "in_progress",
+    "P4_method_search_16x4": "pending",
+    "P5_execute_winner_height": "pending",
+    "P6_base_color": "pending",
+    "P7_secondary_tests": "pending, only after P5 and P6",
+    "P8_skill_update_sync_checkpoint": "pending"
+  },
+  "subagents": [
+    {"id": "a9840a94295146d85", "task": "Substance Designer node reference", "model": "sonnet", "deliverable": "/Users/zenray/.claude/tmp/tmp-zenray-height/dataset/parts/05_substance_designer_nodes.md", "transcript": "/Users/zenray/.claude/projects/-Users-zenray--claude-Memory1/3a9c2407-7dcc-4acd-baf2-90a94300e953/subagents/agent-a9840a94295146d85.jsonl"},
+    {"id": "a30145bc0fb1a513e", "task": "Substance Painter + Javier Perez + pro techniques", "model": "sonnet", "deliverable": "/Users/zenray/.claude/tmp/tmp-zenray-height/dataset/parts/06_painter_perez_pro_techniques.md", "transcript": "/Users/zenray/.claude/projects/-Users-zenray--claude-Memory1/3a9c2407-7dcc-4acd-baf2-90a94300e953/subagents/agent-a30145bc0fb1a513e.jsonl"},
+    {"id": "ae649ce7dcad97197", "task": "State of the art inverse procedural methods + metrics + 16 methods", "model": "inherit", "deliverable": "/Users/zenray/.claude/tmp/tmp-zenray-height/dataset/parts/08_state_of_the_art_methods.md", "transcript": "/Users/zenray/.claude/projects/-Users-zenray--claude-Memory1/3a9c2407-7dcc-4acd-baf2-90a94300e953/subagents/agent-ae649ce7dcad97197.jsonl"},
+    {"id": "a0dd46d10ee3a816a", "task": "Material families height recipes catalog", "model": "inherit", "deliverable": "/Users/zenray/.claude/tmp/tmp-zenray-height/dataset/parts/12_material_families_catalog.md", "transcript": "/Users/zenray/.claude/projects/-Users-zenray--claude-Memory1/3a9c2407-7dcc-4acd-baf2-90a94300e953/subagents/agent-a0dd46d10ee3a816a.jsonl"}
+  ]
+}
