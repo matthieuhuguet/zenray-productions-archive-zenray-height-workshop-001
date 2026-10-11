@@ -1,0 +1,262 @@
+{
+ "method": "M01_GreedyResidual",
+ "principle": "Greedy residual pursuit over a mixed dictionary, each candidate built and measured",
+ "phases": [
+  {
+   "phase": 1,
+   "layers": [
+    "regions: 8 posterised bins of residual low pass s8 at 1024 px, 1448 regions"
+   ],
+   "chosen": "regions8",
+   "trials": [
+    [
+     "joint",
+     0.4344
+    ],
+    [
+     "rowtable",
+     0.393
+    ],
+    [
+     "rowplane",
+     0.1953
+    ],
+    [
+     "sides",
+     0.1842
+    ],
+    [
+     "regions32",
+     0.5901
+    ],
+    [
+     "regions8",
+     0.754
+    ],
+    [
+     "lines",
+     0.0872
+    ],
+    [
+     "blobs",
+     0.1769
+    ],
+    [
+     "noise2_8",
+     0.059
+    ]
+   ],
+   "summary": {
+    "pearson": 0.8794,
+    "mae": 0.0434,
+    "low32": 0.996,
+    "b1-2": 0.3081,
+    "b4-8": 0.89,
+    "b16-32": 0.9732,
+    "q25": 0.5834,
+    "q75": 0.6719,
+    "lines": 0.0,
+    "struct": 0.843,
+    "detail": 0.459
+   },
+   "score": 0.754,
+   "nodes": 17,
+   "seconds": 91.3
+  },
+  {
+   "phase": 2,
+   "layers": [
+    "side_profiles: per side joint profiles"
+   ],
+   "chosen": "sides",
+   "trials": [
+    [
+     "joint",
+     0.4344
+    ],
+    [
+     "rowtable",
+     0.761
+    ],
+    [
+     "rowplane",
+     0.7607
+    ],
+    [
+     "sides",
+     0.7948
+    ],
+    [
+     "regions32",
+     0.7643
+    ],
+    [
+     "regions8",
+     0.7934
+    ],
+    [
+     "lines",
+     0.7751
+    ],
+    [
+     "blobs",
+     0.7875
+    ],
+    [
+     "noise2_8",
+     0.5548
+    ],
+    [
+     "hist",
+     0.7432
+    ]
+   ],
+   "summary": {
+    "pearson": 0.9062,
+    "mae": 0.0387,
+    "low32": 0.996,
+    "b1-2": 0.5001,
+    "b4-8": 0.9123,
+    "b16-32": 0.9743,
+    "q25": 0.617,
+    "q75": 0.7001,
+    "lines": 0.319,
+    "struct": 0.855,
+    "detail": 0.624
+   },
+   "score": 0.7948,
+   "nodes": 27,
+   "seconds": 126.1
+  },
+  {
+   "phase": 3,
+   "layers": [
+    "regions: 8 posterised bins of residual low pass s8 at 1024 px, 10301 regions"
+   ],
+   "chosen": "regions8",
+   "trials": [
+    [
+     "joint",
+     0.4344
+    ],
+    [
+     "rowtable",
+     0.7992
+    ],
+    [
+     "rowplane",
+     0.7981
+    ],
+    [
+     "sides",
+     0.7961
+    ],
+    [
+     "regions32",
+     0.8018
+    ],
+    [
+     "regions8",
+     0.8238
+    ],
+    [
+     "lines",
+     0.8114
+    ],
+    [
+     "blobs",
+     0.8183
+    ],
+    [
+     "noise2_8",
+     0.6309
+    ],
+    [
+     "hist",
+     0.8038
+    ]
+   ],
+   "summary": {
+    "pearson": 0.9247,
+    "mae": 0.034,
+    "low32": 0.999,
+    "b1-2": 0.5289,
+    "b4-8": 0.953,
+    "b16-32": 0.989,
+    "q25": 0.6449,
+    "q75": 0.7382,
+    "lines": 0.324,
+    "struct": 0.873,
+    "detail": 0.655
+   },
+   "score": 0.8238,
+   "nodes": 32,
+   "seconds": 146.4
+  },
+  {
+   "phase": 4,
+   "layers": [
+    "regions: 2688 compact blobs of high pass s6 beyond quantile 0.985"
+   ],
+   "chosen": "blobs",
+   "trials": [
+    [
+     "joint",
+     0.4344
+    ],
+    [
+     "rowtable",
+     0.8237
+    ],
+    [
+     "rowplane",
+     0.8233
+    ],
+    [
+     "sides",
+     0.8248
+    ],
+    [
+     "regions32",
+     0.8239
+    ],
+    [
+     "regions8",
+     0.8333
+    ],
+    [
+     "lines",
+     0.8389
+    ],
+    [
+     "blobs",
+     0.8455
+    ],
+    [
+     "noise2_8",
+     0.6693
+    ],
+    [
+     "hist",
+     0.8259
+    ]
+   ],
+   "summary": {
+    "pearson": 0.939,
+    "mae": 0.0321,
+    "low32": 0.998,
+    "b1-2": 0.6729,
+    "b4-8": 0.9576,
+    "b16-32": 0.9883,
+    "q25": 0.6566,
+    "q75": 0.7547,
+    "lines": 0.417,
+    "struct": 0.879,
+    "detail": 0.728
+   },
+   "score": 0.8455,
+   "nodes": 37,
+   "seconds": 144.0
+  }
+ ]
+}
