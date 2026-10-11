@@ -1,0 +1,18 @@
+{
+ "M01_GreedyResidual": "retenu comme règle de décision : à chaque phase il essaie toutes les couches candidates et choisit d'emblée les couches mesurées (régions, lignes) ; 0,939 en quatre phases, plus lent (une dizaine de constructions par phase)",
+ "M02_HierarchyStatistical": "abandonné : le bruit statistique au bon spectre mais à la mauvaise place fait baisser l'identité (0,60 puis 0,32)",
+ "M03_FrequencyPyramid": "abandonné : une pyramide de bruits ne place aucune forme unique (0,07)",
+ "M04_MaskClassesStatistical": "abandonné : couverture des classes juste, positions fausses (0,36)",
+ "M05_StructureCurves": "partiel : la structure et les traits ne portent pas le champ basse fréquence (0,62) ; les lignes tracées restent utiles comme couche fine",
+ "M06_ProfileFamily": "plafond de la structure pure (L1) mesuré : 0,68 ; indispensable comme socle, insuffisant seul",
+ "M07_HistogramAnchored": "abandonné : rapprocher l'histogramme d'une structure pauvre étale l'erreur (0,35)",
+ "M08_ParametricOptim": "abandonné comme méthode : l'optimisation règle bien la structure (0,68) mais ne peut que choisir le moins mauvais bruit ensuite (0,60)",
+ "M09_TileTables": "socle utile (index mapping par carreau), plafonné vers 0,68 avec le profil de joint",
+ "M11_NoiseBank": "abandonné : synthèse statistique pure, corrélation nulle",
+ "M12_SeedSearch": "abandonné : choisir la meilleure de seize graines de bruit dégrade encore (0,60 puis 0,42)",
+ "M13_IsoContours": "abandonné : le remplissage par maskfromcurves ignore les trous imbriqués",
+ "M14_VectorRegions": "meilleur résultat, rejoué après correction de topologie le 11 October 2026 : 0,971, erreur moyenne 0,019 ; la phase 4 (sigma 2) relève du niveau L3, à valider par Matthieu",
+ "M10_Morphological": "décomposition morphologique utile mais partielle : plateaux mesurés puis creux et bosses fines, 0,81 avec le profil de joint relatif ; les régions multi-échelles font mieux à nombre de couches égal",
+ "M15_VisionGuided": "choix à l'œil (joint, régions sigma 24, lignes, éclats) : 0,83 dès la deuxième couche ; l'œil choisit bien l'ordre mais la mesure doit régler les paramètres",
+ "M16_DictionaryOMP": "abandonné : un dictionnaire fixe d'atomes rendus plafonne à 0,78, il ne contient pas les formes propres à l'image"
+}

@@ -1,0 +1,164 @@
+{
+ "method": "M16_DictionaryOMP",
+ "principle": "Orthogonal matching pursuit over Copernicus rendered atoms",
+ "phases": [
+  {
+   "phase": 1,
+   "layers": [
+    "const: OMP bias",
+    "regions: atom regions32 weight 1.716"
+   ],
+   "chosen": [
+    "regions32"
+   ],
+   "trials": null,
+   "summary": {
+    "pearson": 0.7305,
+    "mae": 0.0773,
+    "low32": 0.993,
+    "b1-2": 0.0256,
+    "b4-8": 0.3009,
+    "b16-32": 0.8884,
+    "q25": 0.4818,
+    "q75": 0.4246,
+    "lines": 0.0,
+    "struct": 0.753,
+    "detail": 0.103
+   },
+   "score": 0.601,
+   "nodes": 20,
+   "seconds": 50.4
+  },
+  {
+   "phase": 2,
+   "layers": [
+    "const: OMP bias",
+    "regions: atom regions32 weight 1.446",
+    "joint_profile: atom joint weight 1.043",
+    "row_plane: atom planeA1 weight -0.272",
+    "row_table: atom row0 weight -0.035"
+   ],
+   "chosen": [
+    "regions32",
+    "joint",
+    "planeA1",
+    "row0"
+   ],
+   "trials": null,
+   "summary": {
+    "pearson": 0.7751,
+    "mae": 0.0719,
+    "low32": 0.968,
+    "b1-2": 0.4239,
+    "b4-8": 0.5838,
+    "b16-32": 0.8418,
+    "q25": 0.4721,
+    "q75": 0.5308,
+    "lines": 0.28,
+    "struct": 0.746,
+    "detail": 0.471
+   },
+   "score": 0.6729,
+   "nodes": 35,
+   "seconds": 1.7
+  },
+  {
+   "phase": 3,
+   "layers": [
+    "const: OMP bias",
+    "regions: atom regions32 weight 1.439",
+    "joint_profile: atom joint weight 0.946",
+    "row_plane: atom planeA1 weight -0.269",
+    "row_table: atom row0 weight -0.056",
+    "regions: atom blobs weight 0.876",
+    "row_plane: atom planeB0 weight 0.166",
+    "lines: atom lines weight 0.310",
+    "row_plane: atom planeB3 weight 0.035"
+   ],
+   "chosen": [
+    "regions32",
+    "joint",
+    "planeA1",
+    "row0",
+    "blobs",
+    "planeB0",
+    "lines",
+    "planeB3"
+   ],
+   "trials": null,
+   "summary": {
+    "pearson": 0.7803,
+    "mae": 0.0756,
+    "low32": 0.952,
+    "b1-2": 0.5958,
+    "b4-8": 0.6062,
+    "b16-32": 0.8345,
+    "q25": 0.4756,
+    "q75": 0.5458,
+    "lines": 0.365,
+    "struct": 0.744,
+    "detail": 0.56
+   },
+   "score": 0.6944,
+   "nodes": 66,
+   "seconds": 2.5
+  },
+  {
+   "phase": 4,
+   "layers": [
+    "const: OMP bias",
+    "regions: atom regions32 weight 1.449",
+    "joint_profile: atom joint weight 0.941",
+    "row_plane: atom planeA1 weight -0.260",
+    "row_table: atom row0 weight -0.049",
+    "regions: atom blobs weight 0.870",
+    "row_plane: atom planeB0 weight 0.162",
+    "lines: atom lines weight 0.308",
+    "row_plane: atom planeB3 weight 0.054",
+    "row_plane: atom planeA3 weight -0.029",
+    "row_table: atom row2 weight 0.014",
+    "row_plane: atom planeB2 weight -0.052",
+    "row_plane: atom planeA0 weight -0.032",
+    "noise: atom noise0.1_1 weight 0.019",
+    "noise: atom noise0.1_0 weight 0.015",
+    "noise: atom noise0.05_0 weight -0.011",
+    "noise: atom noise0.05_1 weight -0.008"
+   ],
+   "chosen": [
+    "regions32",
+    "joint",
+    "planeA1",
+    "row0",
+    "blobs",
+    "planeB0",
+    "lines",
+    "planeB3",
+    "planeA3",
+    "row2",
+    "planeB2",
+    "planeA0",
+    "noise0.1_1",
+    "noise0.1_0",
+    "noise0.05_0",
+    "noise0.05_1"
+   ],
+   "trials": null,
+   "summary": {
+    "pearson": 0.7813,
+    "mae": 0.0753,
+    "low32": 0.95,
+    "b1-2": 0.5964,
+    "b4-8": 0.6088,
+    "b16-32": 0.8391,
+    "q25": 0.478,
+    "q75": 0.5536,
+    "lines": 0.362,
+    "struct": 0.748,
+    "detail": 0.561
+   },
+   "score": 0.6966,
+   "nodes": 108,
+   "seconds": 3.0
+  }
+ ]
+}
