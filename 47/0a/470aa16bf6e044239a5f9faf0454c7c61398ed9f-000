@@ -1,0 +1,21 @@
+Secondary_whitepaint_L5 resume 0.9377 {'pearson': 0.9795, 'mae': 0.0226, 'low32': 1.0, 'b1-2': 0.9724, 'b4-8': 0.9998, 'b16-32': 1.0, 'q25': 0.8896, 'q75': 0.7061, 'lines': 0.51, 'struct': 0.919, 'detail': 0.87}
+Secondary_whitepaint_L5 pix_s05_k16 accepted 0.9417 {'pearson': 0.9816, 'mae': 0.0213, 'low32': 1.0, 'b1-2': 0.9759, 'b4-8': 0.9995, 'b16-32': 1.0, 'q25': 0.8979, 'q75': 0.7177, 'lines': 0.527, 'struct': 0.923, 'detail': 0.875} 11.3 s {'kept_layers': 26, 'new_layers': 1, 't_nodes': 0.88, 't_cook_export': 1.25} local {'ok': True, 'pixels': 151570, 'before': 0.0604, 'after': 0.0258, 'ls_gain': 1.73}
+Secondary_whitepaint_L5 pix_s05_k16_p2 accepted 0.943 {'pearson': 0.9822, 'mae': 0.0209, 'low32': 1.0, 'b1-2': 0.9771, 'b4-8': 0.9994, 'b16-32': 1.0, 'q25': 0.9002, 'q75': 0.7225, 'lines': 0.533, 'struct': 0.925, 'detail': 0.877} 10.9 s {'kept_layers': 27, 'new_layers': 1, 't_nodes': 0.48, 't_cook_export': 1.67} local {'ok': True, 'pixels': 59834, 'before': 0.0508, 'after': 0.021, 'ls_gain': 1.661}
+Secondary_whitepaint_L5 pix_s05_k16_p3 rejected 0.9435 {'pearson': 0.9825, 'mae': 0.0207, 'low32': 1.0, 'b1-2': 0.9775, 'b4-8': 0.9994, 'b16-32': 1.0, 'q25': 0.9012, 'q75': 0.7244, 'lines': 0.535, 'struct': 0.925, 'detail': 0.877} 9.9 s {'kept_layers': 28, 'new_layers': 1, 't_nodes': 0.42, 't_cook_export': 1.43} local {'ok': True, 'pixels': 24225, 'before': 0.0446, 'after': 0.0175, 'ls_gain': 1.619}
+Secondary_whitepaint_L5 pix_s05_k16_m3 accepted 0.9465 {'pearson': 0.9832, 'mae': 0.0198, 'low32': 1.0, 'b1-2': 0.9799, 'b4-8': 0.9994, 'b16-32': 1.0, 'q25': 0.9068, 'q75': 0.7356, 'lines': 0.544, 'struct': 0.928, 'detail': 0.88} 21.3 s {'kept_layers': 28, 'new_layers': 1, 't_nodes': 4.01, 't_cook_export': 1.77} local {'ok': True, 'pixels': 182399, 'before': 0.0338, 'after': 0.0103, 'ls_gain': 1.417}
+Secondary_whitepaint_L5 pix_s05_k16_m3_p2 accepted 0.9488 {'pearson': 0.9838, 'mae': 0.019, 'low32': 1.0, 'b1-2': 0.9813, 'b4-8': 0.9993, 'b16-32': 1.0, 'q25': 0.9105, 'q75': 0.7462, 'lines': 0.551, 'struct': 0.931, 'detail': 0.882} 20.3 s {'kept_layers': 29, 'new_layers': 1, 't_nodes': 3.46, 't_cook_export': 1.76} local {'ok': True, 'pixels': 126565, 'before': 0.0304, 'after': 0.0091, 'ls_gain': 1.405}
+Secondary_whitepaint_L5 eq accepted 0.9625 {'pearson': 0.9927, 'mae': 0.015, 'low32': 1.0, 'b1-2': 0.98, 'b4-8': 0.9991, 'b16-32': 1.0, 'q25': 0.9256, 'q75': 0.7847, 'lines': 0.653, 'struct': 0.942, 'detail': 0.907} 6.6 s {'kept_layers': 30, 'new_layers': 1, 't_nodes': 0.01, 't_cook_export': 1.5} local None
+Secondary_whitepaint_L5 hist rejected 0.9634 {'pearson': 0.9928, 'mae': 0.015, 'low32': 1.0, 'b1-2': 0.9804, 'b4-8': 0.9991, 'b16-32': 0.9999, 'q25': 0.9253, 'q75': 0.7945, 'lines': 0.654, 'struct': 0.944, 'detail': 0.907} 6.1 s {'kept_layers': 31, 'new_layers': 1, 't_nodes': 0.01, 't_cook_export': 1.14} local None
+Traceback (most recent call last):
+  File "/Users/zenray/.claude/tmp/tmp-zenray-height/Scripts/MakeTileable.py", line 50, in <module>
+    rep = make_tileable(*sys.argv[1:4], valid_png=(sys.argv[4] if len(sys.argv) > 4 and sys.argv[4] else None),
+                        width_px=float(sys.argv[5]) if len(sys.argv) > 5 else 8.0)
+  File "/Users/zenray/.claude/tmp/tmp-zenray-height/Scripts/MakeTileable.py", line 44, in make_tileable
+    SeamCheck.sheet(t, os.path.join(out_root, "checks", "tile2x2_tileable.png"))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zenray/.claude/tmp/tmp-zenray-height/Scripts/SeamCheck.py", line 30, in sheet
+    im.resize((size, size), Image.LANCZOS).save(out)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/zenray/.venvs/shorts/lib/python3.14/site-packages/PIL/Image.py", line 2706, in save
+    fp = builtins.open(filename, "w+b")
+FileNotFoundError: [Errno 2] No such file or directory: 'versions/final/Secondary_whitepaint_L5/checks/tile2x2_tileable.png'

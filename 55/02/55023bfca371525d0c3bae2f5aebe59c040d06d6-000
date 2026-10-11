@@ -12,3 +12,16 @@
 - Lecture : la méthode tient sur quatre matériaux sans réglage propre à chacun ; la fenêtre, bloquée à 0,047 de fractions par l'ancienne boucle M01, atteint 0,90 de corrélation au pixel, et les heights rendues sont raccordées même quand la référence ne l'est pas. (11 October 2026)
 - Limite visible : le grain très fin (fibres du bois, fins tracés des volutes) reste plus doux que la référence au niveau L2 ; le niveau L3 le récupère en partie, mais il s'approche d'un décalque et attend la décision de Matthieu. Le grain statistique est rejeté partout, ce qui confirme que le détail fin de ces références est positionnel et non statistique. (11 October 2026)
 - Fichiers : `versions/final/<nom>/FINAL_height.png` ou `FINAL_basecolor.png`, une image par couche, `board/Evolution.html`, `checks/seam_check.json` et `checks/tile2x2_*.png`. (11 October 2026)
+
+### 14.2 Résultats finaux, mesurés en pleine résolution (12 October 2026)
+
+| Height | Dossier du résultat | Réseau Houdini | Pearson 2048 px | SSIM 2048 px | Raccord au bord x ; y (référence) | Couche de raccord | Date |
+|---|---|---|---|---|---|---|---|
+| Ceramic Wall Tiles | `versions/final/CeramicWallTiles_F2` | `/obj/ZRH_CeramicWallTiles_L3` | 0,9976 | 0,975 | 1,53 ; 0,11 (1,45 ; 1,41) | non, la référence raccorde | 12 October 2026 |
+| Louisiana Bayou window | `versions/final/Secondary_window_EQ` | `/obj/ZRH_Secondary_window` | 0,9914 | 0,947 | 1,23 ; 0,87 (5,60 ; 0,92) | oui, 4 px | 12 October 2026 |
+| Louisiana Bayou whitepaint | `versions/final/Secondary_whitepaint_L6` | `/obj/ZRH_Secondary_whitepaint` | 0,9920 | 0,944 | 1,05 ; 1,14 (4,20 ; 4,07) | oui, 4 px | 12 October 2026 |
+| Louisiana Bayou tile | `versions/final/Secondary_tile_L5` | `/obj/ZRH_Secondary_tile` | 0,9978 | 0,959 | 0,01 ; 0,00 (0,04 ; 0,18) | non | 12 October 2026 |
+
+- Lecture (12 October 2026) : les quatre heights dépassent 0,99 de corrélation en pleine résolution et se raccordent. Le chemin, dans l'ordre : structure mesurée, régions de 32 à 4 px, passes d'approximation successives à 4, 2 et 1 px, passes au pixel, égaliseur de fréquences mesuré, raccord par bande de 4 px quand la référence ne raccorde pas. Le SSIM, plus sévère sur le grain d'un pixel, reste entre 0,94 et 0,97. (12 October 2026)
+- Temps (12 October 2026) : une passe fine prend environ 12 à 20 s, dont 4 à 5 s dans Houdini ; un matériau complet prend 5 à 8 minutes ; le graphe final se recalcule en entier en 2 à 3 s. (12 October 2026)
+- Ce que la méthode ne fait pas (12 October 2026) : elle ne reconstruit pas le grain d'un pixel à l'identique ; le garder exigerait environ 2,5 millions de polygones par passe, c'est-à-dire l'image elle-même sous une autre forme. (12 October 2026)

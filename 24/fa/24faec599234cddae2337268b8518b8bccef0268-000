@@ -1,0 +1,9 @@
+# DemoTiles, height reproduite (12 October 2026)
+
+- Ressemblance en pleine résolution : 0.9851 (SSIM 0.9167, erreur moyenne 0.0131)
+- Raccord au bord x ; y : 2.06 ; 1.69 (couche de raccord : oui)
+- Height : `/Users/zenray/.claude/tmp/tmp-zenray-height/projects/DemoTiles/versions/final/DemoTiles_H1/FINAL_height.png`
+- Graphe Houdini : `/obj/ZRH_DemoTiles`
+- Zoom de contrôle : `/Users/zenray/.claude/tmp/tmp-zenray-height/projects/DemoTiles/zoom3_reference_vs_result.png`
+- Durée : 3.6 min
+- Base color : écart de couleur 4.13, image `/Users/zenray/.claude/tmp/tmp-zenray-height/projects/DemoTiles/versions/final/DemoTiles_BC/FINAL_basecolor.png`, graphe `/obj/ZRH_DemoTiles_BC`

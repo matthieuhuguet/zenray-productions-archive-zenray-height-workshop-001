@@ -15,3 +15,4 @@
 | choisir la prochaine couche selon le trait observé | 12. Dictionnaire des couches | `query_copernicus2.py "Dictionnaire" --show` | 11 October 2026 |
 | mesures de Procedural Ceramic Wall Tiles | 13. Dossier de référence | `query_copernicus2.py "Dossier" --show` | 11 October 2026 |
 | résultats chiffrés de l'exécution finale (céramique, base color, window, whitepaint, tile) | 14. Résultats | `query_copernicus2.py "Résultats" --show` | 11 October 2026 |
+| lancer tout le protocole height et base color en une commande, depuis une image, une planche ou une vidéo | 1.6 Une seule commande | `query_copernicus2.py "1.6" --show` | 12 October 2026 |
