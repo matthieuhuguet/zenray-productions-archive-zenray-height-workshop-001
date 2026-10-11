@@ -36,6 +36,19 @@ STATISTICAL = {"grain", "grain_fine", "streaks"}
 FADED = {"side_profiles", "row_table", "row_plane", "corners"}
 
 
+def local_gate(cand, prev, r, v, thr=0.01, need=0.97):
+    """11 October 2026 : error on the changed pixels must drop by at least 3 percent; also returns the least squares gain."""
+    add = cand - prev
+    t = v & (np.abs(add) > thr)
+    if t.sum() < 50:
+        return {"ok": True, "pixels": int(t.sum()), "ls_gain": 1.0}
+    want = (r - prev)[t]
+    before = float(np.abs(want).mean())
+    after = float(np.abs(r - cand)[t].mean())
+    g = float((add[t] * want).sum() / max((add[t] ** 2).sum(), 1e-9))
+    return {"ok": after < before * need, "pixels": int(t.sum()), "before": round(before, 4), "after": round(after, 4), "ls_gain": round(g, 3)}
+
+
 def joint_fade(keys, frac=0.1):
     """11 October 2026 : distance (cell units) where the measured joint profile reaches its plateau within frac of its height."""
     ks = [(float(x), float(v)) for x, v in keys]
@@ -99,6 +112,21 @@ def run(name, net_path, ref_png, valid_png, plan=None, min_gain=0.002, out_root=
             log["layers"].append({"layer": lname, "status": "build_error", "error": str(b)[-800:]})
             continue
         cand = load_gray(png)
+        local = None
+        if c is not None and lname not in STATISTICAL and lname != "hist":
+            # 11 October 2026 : local gate. A layer must lower the error on the pixels it changes; otherwise its amplitude is
+            # refitted by least squares on those pixels and the layer is rebuilt once with that weight (traced lines added 0.12
+            # where the reference asked 0.06 and still passed the global score). FR : porte locale, amplitude réajustée une fois.
+            local = local_gate(cand, c, r, v)
+            if not local["ok"] and 0.1 < local["ls_gain"] < 0.95:
+                for L in layers:
+                    L["weight"] = round(float(L.get("weight", 1.0)) * local["ls_gain"], 4)
+                trial = recipe + layers
+                b = build_final(net_path, [lattice] + trial, png, r.shape[0])
+                if b.get("ok"):
+                    cand = load_gray(png)
+                    local = local_gate(cand, c, r, v)
+                    local["refit"] = True
         m = M.measure(cand, r, v)
         s = MM.score(m)
         if lname in STATISTICAL and c is not None:
@@ -111,8 +139,9 @@ def run(name, net_path, ref_png, valid_png, plan=None, min_gain=0.002, out_root=
             if accepted:
                 s = max(s, best)
         else:
-            accepted = (s > best + min_gain) or c is None
-        entry = {"layer": lname, "status": "accepted" if accepted else "rejected", "score": round(s, 4), "gain": round(s - best, 4) if best > -9 else None,
+            accepted = ((s > best + min_gain) or c is None) and (local is None or local["ok"])
+        entry_local = local
+        entry = {"local": entry_local, "layer": lname, "status": "accepted" if accepted else "rejected", "score": round(s, 4), "gain": round(s - best, 4) if best > -9 else None,
                  "summary": Run.summary(m), "note": "; ".join(L.get("note", "") for L in layers), "seconds": round(time.time() - t0, 1),
                  "nodes": b.get("result", {}).get("nodes")}
         if accepted:

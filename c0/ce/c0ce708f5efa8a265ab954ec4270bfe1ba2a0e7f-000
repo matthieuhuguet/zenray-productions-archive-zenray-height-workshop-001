@@ -1,0 +1,37 @@
+# 11 October 2026 : intermediate passes. After the base plan, the residual is measured again and placed again, finer and finer:
+# each region pass quantises what is left into 8 levels, so a second and third pass shrink the quantisation error (successive
+# approximation) and bring back the crispness; a pass is kept only if it pays. Level "L2" stays at sigma >= 4, "L3" goes to 2 and 1.
+# FR : passes intermédiaires sur le résidu, de plus en plus fines ; chacune n'est gardée que si elle paie.
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import Execute as EX
+import Methods as MM
+
+
+def R(sigma, K, work, suffix, soft=None):
+    def mk(c):
+        L = MM.L_regions(c, sigma, K, work, c["tag"] + suffix)
+        if soft is not None:
+            L["soft_px"] = soft
+        return [L]
+    return mk
+
+
+def plan_for(level):
+    base = [p for p in EX.default_plan() if p[0] not in ("grain", "hist")]
+    extra = [("regions_s8_p2", R(8, 8, 1024, "_r8b", 3.0)), ("regions_s4_p2", R(4, 8, 2048, "_r4b", 1.5)),
+             ("lines_p2", lambda c: [MM.L_lines(c, c["tag"] + "_ln2", width_px=2.5)]), ("blobs_p2", lambda c: [MM.L_blobs(c, c["tag"] + "_bl2", sigma_hp=3.0)]),
+             ("regions_s4_p3", R(4, 8, 2048, "_r4c", 1.0))]
+    # 11 October 2026 : keep repeating the finest allowed pass while it pays (each one halves the quantisation error)
+    extra += [(f"regions_s4_p{k}", R(4, 8, 2048, f"_r4p{k}", 1.0)) for k in range(4, 9)]
+    if level == "L3":
+        extra += [("regions_s2", R(2, 8, 2048, "_r2", 1.0)), ("regions_s2_p2", R(2, 8, 2048, "_r2b", 1.0)),
+                  ("blobs_p3", lambda c: [MM.L_blobs(c, c["tag"] + "_bl3", sigma_hp=2.0)]), ("regions_s1", R(1, 8, 2048, "_r1", 1.0)),
+                  ("regions_s1_p2", R(1, 8, 2048, "_r1b", 1.0))]
+    return base + extra + [("hist", lambda c: [MM.L_hist(c)])]
+
+
+if __name__ == "__main__":
+    name, net, ref, valid, level = sys.argv[1:6]
+    EX.run(name, net, ref, valid, plan=plan_for(level), min_gain=0.001)

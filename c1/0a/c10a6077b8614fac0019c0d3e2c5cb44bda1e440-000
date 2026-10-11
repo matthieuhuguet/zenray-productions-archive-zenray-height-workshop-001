@@ -1,0 +1,27 @@
+# La faïence qu'on n'avait pas le droit de décalquer
+
+> Version courte du récit du workflow zenray-height ; chiffres relevés dans les journaux et les mesures de l'atelier `/Users/zenray/.claude/tmp/tmp-zenray-height/`. (11 October 2026)
+
+I
+
+Le 11 octobre 2026, Matthieu dicta une commande aussi simple à dire que redoutable à tenir : reproduire à 99 pour cent une carte de hauteur, cette image grise où le blanc monte et le noir se creuse, couche après couche, dans un vrai graphe Copernicus, sans jamais y coller l'image d'origine. L'ancienne méthode avait échoué sur la fenêtre de Louisiana Bayou parce qu'elle semait ses écailles au hasard, si bien que les proportions étaient justes mais qu'aucune écaille ne tombait à sa place. L'agent déclara donc dépréciées toutes les méthodes du skill zenray-houdini, après en avoir extrait les leçons, ouvrit le projet zenray-height dans ZenRay Assets et se brancha par le pont MCP sur la session Houdini ouverte, qui ne servirait que de terrain d'essai.
+
+II
+
+La référence, Procedural Ceramic Wall Tiles, était une planche de seize vignettes dont seule la dernière colonne portait la hauteur. L'agent mesura les joints, trouva un pas de 477,56 pixels, ramena chaque carreau à 512 et bâtit une texture de 2048 pixels, quatre carreaux sur quatre ; la base color, inversée par rapport au relief, fut retournée de gauche à droite pour que chaque motif retombât sur sa bosse, et la vidéo éclairée ne servit qu'à une planche d'images clés. Avant de construire, il fabriqua un juge, qui comparait les clairs et les sombres par la corrélation de Pearson, chaque échelle de détail et des masques noir et blanc, et qu'il testa dans les deux sens, parfait sur la référence elle-même, en échec sur l'image inversée. Il posa enfin la règle qui allait tout gouverner : la référence ne servirait qu'à mesurer, et seules des mesures, courbes, tables ou polygones, entreraient dans le graphe.
+
+III
+
+Pendant ce temps, des agents auxiliaires dépouillaient la documentation, les 372 nœuds Copernicus, la page de SideFX destinée aux utilisateurs de Substance Designer, 515 nœuds de Designer, Painter, Javier Perez et vingt-deux méthodes de recherche, que l'agent assembla dans Copernicus2.md, 2,6 mégaoctets indexés par numéros de ligne. Restait à choisir la méthode, et il en fit concourir seize, quatre phases chacune, toutes construites dans Houdini et notées par le même juge. Les bruits statistiques plafonnèrent sous 0,40, la structure seule vers 0,68, tandis que les méthodes qui mesuraient la position des formes dépassèrent 0,93. La gagnante naquit d'un mariage entre deux idées : ne garder une couche que si elle paie, et placer des régions mesurées.
+
+IV
+
+Dans /obj/ZRH_CeramicWallTiles, l'agent calcula à chaque tour le résidu, la référence moins le résultat, proposa une seule couche, la construisit en nœuds Remap, Blend et Rasterize Geometry, la mesura, et ne la garda que si elle payait. Le profil du joint donna 0,39, les profils et tables par carreau 0,68, puis les régions, sorte de peinture à numéros où le résidu flouté se découpe en huit gris, les traits et les taches portèrent la ressemblance à 0,957 ; le grain statistique, qui la faisait chuter à 0,80, fut rejeté. Quand il eut répété la texture deux fois sur deux, une couture apparut pourtant, onze fois plus forte que le saut médian entre deux pixels voisins. Les couches par carreau changeaient de valeur au milieu même du joint ; il les fit s'éteindre sur dix pixels, largeur lue dans le profil mesuré, écarta les traits coupés par le bord, et le raccord devint meilleur que celui de la référence.
+
+V
+
+La couleur suivit la même règle avec des régions de teintes, et révéla un défaut d'une autre sorte : 1,2 pour cent des pixels, couverts par aucun polygone, sortaient noirs. Dès que chaque couche se fut posée sur la précédente, l'écart de couleur tomba de 11,96 à 7,70, tout près de son plafond. La variante à deux pixels, si fine qu'elle frôlait le décalque, atteignit 0,978 et resta à part en attendant l'accord de Matthieu. Sans réglage propre, la méthode donna ensuite 0,901 sur la fenêtre, 0,942 sur la peinture blanche et 0,967 sur la tuile, toutes raccordées, puis tout fut consigné dans Copernicus2.md, le skill, le journal et ZenRay Assets, à l'exception du catalogue des matériaux, resté partiel.
+
+VI
+
+Matthieu trouva le résultat presque parfait, mais sans piqué. L'agent en comprit la cause : huit niveaux par passe laissent une erreur que le flou adoucit encore. Des passes intermédiaires reprirent donc le résidu, plus finement, et portèrent la ressemblance à 0,985, le détail le plus fin passant de 0,79 à 0,93. Le zoom au quadruple de la cinquième passe contredisait pourtant les chiffres : la référence était grenue, piquetée de petits creux, alors que la copie restait lisse et traversée de traits trop vifs, dont les arêtes gonflaient la mesure du détail. Il faudrait remettre le grain à sa place, élargir les traits, et savoir si Matthieu accepterait qu'on descendît jusqu'aux régions de deux pixels, au bord du décalque, dont une autre session lançait déjà les passes.
