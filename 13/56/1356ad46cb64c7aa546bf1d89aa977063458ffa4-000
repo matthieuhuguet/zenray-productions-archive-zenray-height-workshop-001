@@ -1,0 +1,42 @@
+# 11 October 2026 : measure joint lines of the 4x4 reference sheet (base color, AO-like, normal, height columns)
+# FR : mesure les joints de la planche 4x4 (colonnes base color, blanche, normale, height).
+import sys
+import numpy as np
+from PIL import Image
+
+SHEET = sys.argv[1]
+COLUMNS = {"basecolor": (0, 463), "white": (466, 935), "normal": (940, 1418), "height": (1422, 1912)}
+
+a = np.asarray(Image.open(SHEET).convert("RGB")).astype(np.float32) / 255.0
+lum = a.mean(2)
+H, W = lum.shape
+for name, (x0, x1) in COLUMNS.items():
+    sub = lum[:, x0:x1]
+    row = sub.mean(1)
+    col = lum[:, x0:x1].mean(0)
+    # strongest deviations from a smoothed row profile: joint candidates
+    k = 31
+    pad = np.pad(row, k // 2, mode="edge")
+    smooth = np.convolve(pad, np.ones(k) / k, mode="valid")
+    dev = row - smooth
+    order = np.argsort(-np.abs(dev))
+    picked = []
+    for y in order:
+        if all(abs(y - p) > 25 for p in picked):
+            picked.append(int(y))
+        if len(picked) >= 8:
+            break
+    picked.sort()
+    print(f"[{name}] x {x0}..{x1} row-joint candidates (y: dev):", " ".join(f"{y}:{dev[y]:+.3f}" for y in picked))
+    padc = np.pad(col, k // 2, mode="edge")
+    smoothc = np.convolve(padc, np.ones(k) / k, mode="valid")
+    devc = col - smoothc
+    orderc = np.argsort(-np.abs(devc))
+    pickc = []
+    for x in orderc:
+        if all(abs(x - p) > 25 for p in pickc):
+            pickc.append(int(x))
+        if len(pickc) >= 4:
+            break
+    pickc.sort()
+    print(f"[{name}] col-joint candidates (x: dev):", " ".join(f"{x0 + x}:{devc[x]:+.3f}" for x in pickc))

@@ -1,0 +1,107 @@
+# 11 October 2026 : shared helpers for reference preparation and measurement (numpy only, no scipy)
+# FR : outils partagés de préparation et de mesure des références (numpy seul, sans scipy).
+import numpy as np
+from PIL import Image
+
+
+def load_gray(path):
+    """Load an image as float32 gray in [0, 1] (16-bit aware)."""
+    im = Image.open(path)
+    if im.mode in ("I;16", "I;16B", "I"):
+        a = np.asarray(im).astype(np.float32) / 65535.0
+    else:
+        a = np.asarray(im.convert("L")).astype(np.float32) / 255.0
+    return a
+
+
+def load_rgb(path):
+    return np.asarray(Image.open(path).convert("RGB")).astype(np.float32) / 255.0
+
+
+def save_gray16(a, path):
+    a = np.clip(a, 0.0, 1.0)
+    Image.fromarray((a * 65535.0 + 0.5).astype(np.uint16), mode="I;16").save(path)
+
+
+def save_gray8(a, path):
+    a = np.clip(a, 0.0, 1.0)
+    Image.fromarray((a * 255.0 + 0.5).astype(np.uint8), mode="L").save(path)
+
+
+def save_rgb8(a, path):
+    a = np.clip(a, 0.0, 1.0)
+    Image.fromarray((a * 255.0 + 0.5).astype(np.uint8), mode="RGB").save(path)
+
+
+def bilinear(img, xs, ys):
+    """Sample img (H, W[, C]) at float coords (no wrap), clamped."""
+    H, W = img.shape[:2]
+    xs = np.clip(xs, 0, W - 1.001)
+    ys = np.clip(ys, 0, H - 1.001)
+    x0 = np.floor(xs).astype(np.int64)
+    y0 = np.floor(ys).astype(np.int64)
+    fx = xs - x0
+    fy = ys - y0
+    if img.ndim == 3:
+        fx = fx[..., None]
+        fy = fy[..., None]
+    a = img[y0, x0]
+    b = img[y0, x0 + 1]
+    c = img[y0 + 1, x0]
+    d = img[y0 + 1, x0 + 1]
+    return (a * (1 - fx) + b * fx) * (1 - fy) + (c * (1 - fx) + d * fx) * fy
+
+
+def gauss_kernel(sigma):
+    r = max(1, int(3 * sigma + 0.5))
+    x = np.arange(-r, r + 1, dtype=np.float32)
+    k = np.exp(-0.5 * (x / sigma) ** 2)
+    return k / k.sum()
+
+
+def blur(a, sigma, wrap=True):
+    """Separable gaussian blur, periodic by default."""
+    if sigma <= 0:
+        return a.copy()
+    k = gauss_kernel(sigma)
+    r = len(k) // 2
+    mode = "wrap" if wrap else "edge"
+    out = a
+    for axis in (0, 1):
+        pad = [(0, 0)] * a.ndim
+        pad[axis] = (r, r)
+        p = np.pad(out, pad, mode=mode)
+        acc = np.zeros_like(out)
+        for i, w in enumerate(k):
+            sl = [slice(None)] * a.ndim
+            sl[axis] = slice(i, i + out.shape[axis])
+            acc += w * p[tuple(sl)]
+        out = acc
+    return out
+
+
+def grad_mag(a):
+    gx = np.roll(a, -1, 1) - np.roll(a, 1, 1)
+    gy = np.roll(a, -1, 0) - np.roll(a, 1, 0)
+    return np.sqrt(gx * gx + gy * gy) * 0.5
+
+
+def ncc(a, b, mask=None):
+    if mask is not None:
+        a = a[mask]
+        b = b[mask]
+    a = a - a.mean()
+    b = b - b.mean()
+    d = np.sqrt((a * a).sum() * (b * b).sum()) + 1e-12
+    return float((a * b).sum() / d)
+
+
+def peak_center(profile, lo, hi):
+    """Centroid of the part of the peak above half maximum, inside [lo, hi)."""
+    seg = profile[lo:hi]
+    base = np.percentile(seg, 20)
+    top = seg.max()
+    half = base + 0.5 * (top - base)
+    idx = np.where(seg >= half)[0]
+    w = seg[idx] - half
+    return lo + float((idx * w).sum() / (w.sum() + 1e-12)), float(len(idx))

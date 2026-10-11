@@ -1,0 +1,376 @@
+# COP node internal names in Houdini 22.0.368 (local help nodes.zip), name | title | summary (11 October 2026)
+_generator_common |  | 
+_input_descriptions |  | 
+_parameter_descriptions |  | 
+adjacency_attribsample | Attribute Sample with Adjacency | Creates a texture map of an attribute sampled from geometry.
+adjacency_distort | Distort with Adjacency | Distorts a layer over texture seams using adjacency.
+adjacency_extrapolate | Extrapolate with Adjacency | Fills areas of a texture outside the UV islands with information from their island neighbors.
+adjacency_spacetransform | Space Transform with Adjacency | Transforms a vector from world space into tangent space.
+align | Align | Transforms a layer to align with another layer.
+alignpixels | Align Pixels | Shifts a layer to align pixelwise with another layer.
+attribextract | Attribute Extract | Extracts a detached attribute from a geometry.
+attribfromlayer | Attribute from Layer | Extracts a detached attribute from a layer.
+attribinsert | Attribute Insert | Inserts a detached attribute into a geometry.
+attribute | Attribute | Creates a detached attribute.
+autostereogram | Auto Stereogram | Generates an image with a 3D illusion.
+average | Layer Merge | Combines all inputs.
+bakegeometrytextures-2.0 | Bake Geometry Textures | Generates textures by baking between a low-resolution and high-resolution mesh at interactive speeds.
+bakegeometrytextures | Bake Geometry Textures | Generates textures by baking between a low-resolution and high-resolution mesh at interactive speeds.
+bakepreprocess | Bake Pre-Process | Sets up rays for baking, with a visualization state.
+bend | Bend | Curves images using handles or a captured region.
+blend | Blend | Blends two layers, VDBs, or attributes together.
+block_begin | Block Begin | Start of a block, containing its inputs.
+block_end | Block End | End of a block, declaring its outputs.
+blocktogeo | Block to Geometry | Compiles a block and produces its geometry representation.
+blur | Blur | Applies a blur to a layer.
+bokeh | Bokeh | Creates a Bokeh effect by expanding each pixel by an aperture shape.
+boundrect | Bounding Rectangle | Finds the bounding rectangle of a mask.
+bright | Bright | Brightens a layer, VDB, or attribute.
+bubblenoise | Bubble Noise | Generates bubble noise.
+cablefilter | Cable Filter | Removes empty wires from a cable.
+cablemerge | Cable Merge | Combines two cables into one cable.
+cablepack | Cable Pack | Combines input layers into a cable.
+cablerename | Cable Rename | Renames a cable's wires based on filters.
+cablesort | Cable Sort | Sorts a cable's wires by name.
+cablesplit | Cable Split | Splits a cable based on filtering parameters.
+cableswitch | Cable Switch | Selects an input cable.
+cableunpack | Cable Unpack | Extracts individual wires from a cable.
+cache | Cache | Caches the input layers for faster playback.
+camera | Camera | Creates a camera.
+camerablend | Camera Blend | Blends two cameras.
+camerafrompoints | Camera From Points | Solves for intrinsic and extrinsic camera properties given a set of image-world correspondences.
+cameraimport | Camera Import | Creates a layer in a camera's space.
+cameraproperties | Camera Properties | Adjusts the camera properties of a layer.
+cellpattern | Cell Pattern | Generates cellular patterns.
+cellularnoise | Cellular Noise | Generates cellular noise.
+cellularnoise3d | Cellular Noise 3D | Generates cellular noise from 3D locations.
+channelextract | Channel Extract | Extracts a channel from a layer, VDB, or attribute.
+channeljoin | Channel Join | Combines multiple Mono layers, VDBs, or attributes into one multichannel output.
+channelsplit | Channel Split | Divides the input's channels into Mono layers, VDBs, or attributes.
+channelswap | Channel Swap | Swaps channels within a multichannel layer, VDB, or attribute.
+checkerboard | Checkerboard | Creates an alternating checker pattern.
+chladni | Chladni Cymatic Patterns | Generates interference patterns that represent various vibration modes.
+chromakey | Chroma Key | Keys an input based on hue, saturation, and luminance ranges.
+chromaticaberration | Chromatic Aberration | Adds chromatic aberration to your image.
+clamp | Clamp | Clamps an input layer, VDB, or attribute.
+cloudnoise3d | Cloud Noise 3D | Generates a billowy cloud noise.
+colorcorrect | Color Correct | Adjusts colors in the image.
+combinenormals | Combine Normals | Blends two normal maps together.
+compare | Compare | Creates a mask by comparing two layers, VDBs, or attributes.
+compareblend | Compare and Blend | Compares two pixel values on a layer, VDB, or attribute and outputs either a true or false input for that pixel.
+configurestamps | Configure Stamps | Creates stamp/sprite attributes on points with randomization controls and inputs.
+constant | Constant | Initializes pixels to constant values.
+contactsheet | Contact Sheet | Arranges input layers into a contact sheet.
+contrast | Contrast | Applies contrast to a layer, VDB, or attribute.
+convertdepth | Convert Depth | Converts depth layers between height, depth, and distance.
+convertnormal | Convert Normal | Converts normal layers between signed and offset.
+convolve3 | Convolve 3x3 | Convolves a layer by a 3x3 kernel.
+convolvefilter | Convolve Filter | Convolves an image with an arbitrary kernel image using an FFT.
+copyxform | Copy and Transform | Copies stamps and applies transformations to the copies.
+cornerdetect | Corner Detect | Detects corners in an input layer.
+cornerpin | Corner Pin | Pins a layer's corners in a reference layer.
+crop | Crop | Crops a layer to a new size.
+cross | Cross Product | Performs a cross product of two RGB layers, VDBs, or attributes.
+cryptomatte | Cryptomatte | Builds a matte from cryptomatte layers.
+cryptomattedecode | Cryptomatte Decode | Decodes a cyrptomatte into coverage and ID.
+cryptomatteencode | Cryptomatte Encode | Encodes a coverage and object hash into a cryptomatte layer.
+crystalnoise | Crystal Noise | Generates a sharp and angular Worley noise type.
+crystalnoise3d | Crystal Noise 3D | Generates a sharp and angular Worley noise type from 3D locations.
+curl | Curl | Computes the curl of a vector field.
+curlnoise | Curl Noise | Generate curl noise.
+curlnoise3d | Curl Noise 3D | Generates 3D curl noise.
+curvature | Curvature | Computes the curvature of a layer.
+curve3d | Curve 3D | Lets you interactively draw Bézier curves using tools similar to 2D illustration programs, as well as polylines and NURBS.
+curveanimate3d | Curve Animate 3D | Lets you interactively draw and animate Bézier curves using tools similar to 2D illustration programs, as well as polylines and NURBS.
+curvescatter | Scatter on Curves | Scatters input stamps along an input curve using randomization controls.
+defocus | Defocus | Defocuses an input layer.
+denoiseai | Denoise AI | Denoises an input layer.
+denoisetvd | Denoise TVD | Removes white noise from an image.
+derivative | Derivative | Computes the derivative of the source layer along its width (x-axis) and height (y-axis).
+despill | Despill | Removes color spill from an input layer.
+dilateerode | Dilate Erode | Dilates or erodes a layer.
+distort | Distort | Distorts an input layer.
+dot | Dot Product | Performs dot product between two layers.
+dropshadow | Drop Shadow | Composites a copy of a layer under the original to create a shadow.
+edgedetect | Edge Detect | Detects edges in the input image.
+edgedetectcontour | Edge Detect by Contour | Detects varying-width silhouette lines.
+edgedetectdepth | Edge Detect by Depth | Detects varying-width self-occluding silhouettes.
+edgedetectnormal | Edge Detect by Normal | Detects varying-width crease-lines.
+eikonal | Eikonal | Computes distances by solving the Eikonal equation.
+equalize | Equalize | Equalizes colors by stretching or shifting their range.
+error | Error | Generates a message, warning, or error.
+extrapolateboundaries | Extrapolate Boundaries | Fills empty areas of an image using colors at the edges of non-empty areas.
+feather | Feather | Smooths out sharp changes in contrast.
+fetch | Fetch | Brings a COP node's outputs into the current network.
+fft | Fast Fourier Transform | Computes the Fourier transform of an image.
+file | File | Loads an image or video from disk.
+fill | Fill | Fills a layer with a constant value.
+fillconnected | Fill Connected | Flood fills the connected regions of a layer.
+filterfrequencies | Filter Frequencies | Boosts or suppresses spatial frequencies in an image.
+flip | Flip | Flips a layer horizontally, vertically, or diagonally.
+flow_block_begin | Flow Block Begin | Start of a Flow simulation block.
+flow_block_end | Flow Block End | End of a Flow simulation block.
+flow_projectnondivergentmultigrid | Flow Project Non-Divergent Multigrid | Removes divergent components from a 2-dimensional vector field.
+font | Font | Rasterizes text onto a layer from Type 1, TrueType, and OpenType fonts.
+fractalnoise | Fractal Noise | Generates fractal noise.
+fractalnoise3d | Fractal Noise 3D | Generates fractal noise from 3D locations.
+fractalsample | Fractal Sample | Generates a fractal of the source input that you can randomize.
+function | Function | Applies a mathematical function to a layer.
+gamma | Gamma | Applies gamma correction to a layer, VDB, or attribute.
+geoattribfromlayer | Geometry Attribute from Layer | Samples layers with a geometry's attribute to create attributes from those layers.
+geotoadjacency | Geometry to Adjacency | Rasterizes geometry to generate an adjacency cable.
+geotolayer-2.0 | Geometry to Layer | Converts a volume, VDB, or camera primitive into a layer or VDB.
+geotolayer | Geometry to Layer | Converts a 2D volume into a layer.
+glow | Glow | Adds glow to an image based on its luminance.
+grunge_aurora | Grunge Aurora | Generates a pattern resembling an aurora display.
+grunge_barkstrips | Grunge Bark Strips | Generates a pattern resembling bark strips.
+grunge_birchbark | Grunge Birch Bark | Generates a pattern resembling the bark of a birch tree.
+grunge_drips | Grunge Drips | Generates a pattern resembling drips.
+grunge_galvanizedsteel | Grunge Galvanized Steel | Generates a pattern resembling galvanized steel.
+grunge_layerednoise | Grunge Layered Noise | Generates a higher-level noise pattern by layering simple noises.
+grunge_leakingstreaks | Grunge Leaking Streaks | Generates a pattern resembling leaking streaks.
+grunge_moisture | Grunge Moisture | Generates a pattern resembling sponge-like moisture.
+grunge_moldspots | Grunge Mold Spots | Generates a pattern resembling mold spots.
+grunge_pinebark | Grunge Pine Bark | Generates a pattern resembling the bark of a pine tree.
+grunge_rust | Grunge Rust | Generates a pattern resembling rust on a surface.
+grunge_rustysurface | Grunge Rusty Surface | Generates a pattern resembling a rusty surface.
+grunge_sheets | Grunge Sheets | Generates a pattern resembling sheets.
+grunge_wipetrails | Grunge Wipe Trails | Generates a pattern resembling circular wipe trails.
+heatdistort | Heat Distort | Distorts the input layer to simulate heat around fire and other mirage effects.
+heatdistortbylayer | Heat Distort by Layer | Distorts the input layer using another layer to simulate heat around fire and other mirage effects.
+heightfield_clip | HeightField Clip | Clamps height values to a minimum and/or maximum value.
+heightfield_erode | HeightField Erode | Simulates hydraulic and thermal erosion at a specific scale to create more realistic terrain.
+heightfield_maskbyfeature | HeightField Mask by Feature | Creates a mask based on different features of the heightfield.
+heightfield_project | HeightField Project | Projects 3D geometry onto a heightfield.
+heightfield_slump | HeightField Slump | Simulates loose material sliding down inclines and piling at the bottom.
+heightfield_strata | HeightField Strata | Adds sedimentary layering patterns to a HeightField.
+heightfield_terrace | HeightField Terrace | Creates stepped plains from the slopes of a HeightField.
+heightfield_visualize | HeightField Visualize | Visualizes layers as a colored heightfield by converting them into geometry
+heightfield_xform | HeightField Transform 3D | Transforms a height layer in 3D.
+heightfield_xform2d | HeightField Transform 2D | Transforms a height layer in 2D.
+heightfieldtomono | HeightField to Mono | Converts a heightfield into a grayscale mono layer.
+heighttoambientocclusion | Height to Ambient Occlusion | Imagines a sphere for each pixel and determines how occluded that sphere is based on its surroundings.
+heighttocaustics | Height to Caustics | Creates caustic patterns on the ground from a refractive height layer.
+heighttonormal | Height to Normal | Converts a height layer to a normal layer.
+heighttoshadow | Height to Shadow | Creates shadows using a virtual light source.
+hextile | Hex Tile | Randomly tiles texture.
+histogram | Histogram | Builds a histogram from a layer.
+hsv | HSV Adjust | Converts between RGB and HSV color spaces, or modifies HSV.
+hyperbolictile | Hyperbolic Tile | Generates hyperbolic polygon tiles for texture patterns.
+idtomask | ID to Mask | Creates a mask from an ID layer based on filtering parameters.
+idtomono | ID to Mono | Converts an ID layer, VDB, or attribute into a float.
+idtorgb | ID to RGB | Converts an ID layer, VDB, or attribute into an RGB layer, VDB, or attribute.
+idtosdf | ID to SDF | Computes a signed distance field from changes in ID values.
+illpixel | Illegal Pixel | Detects and then fixes or highlights illegal pixels in images.
+index | Copernicus nodes | COP nodes provide real-time image manipulation within a 3D space.
+input | Input | Fetches the input to a subnetwork.
+integratevolume | Integrate Volume | Integrates a VDB along camera rays.
+invert | Invert | Inverts a layer, VDB, or attribute.
+invokeblock | Invoke Block | Runs a block using inputs plugged into this node.
+invokegeo | Invoke Geometry | Runs a program saved into geometry using inputs plugged into this node.
+julia | Julia Fractal | Computes the Julia set to create a fractal.
+knit | Knit | Generates a grid of knitted fabric stitches.
+kuwaharafilter | Kuwahara Filter | Applies the Kuwahara filter, which creates painterly effects.
+laplacian | Laplacian | Computes the Laplacian of the source layer.
+latticedeform | Lattice Deform | Applies grid-based deformation to a layer.
+layer | Layer | Generates a layer.
+layerattribcreate | Layer Property Create | Adds or edits user-defined properties on a layer.
+layerattribdelete | Layer Property Delete | Removes user-defined properties from a layer.
+layerfromattrib | Layer from Attribute | Fills a layer from a detached attribute.
+layerfromcurves | Layer from Curves | Render Curves into a Layer.
+layerfromvdb | Layer from VDB | Sets a layer's values from a VDB.
+layerproperties | Layer Properties | Edits basic layer metadata.
+layerpropertycopy | Layer Property Copy | Transfers layer properties from one layer, VDB, or attribute to another.
+layertogeo-2.0 | Layer to Geometry | Converts a layer or VDB into geometry.
+layertogeo | Layer to Geometry | Converts a layer into a 2D volume.
+layertopoints | Layer to Points | Creates points based on a layer.
+layertovdbleafpoints | Layer to VDB Leaf Points | Creates a point for each leaf of a VDB that would be in an envelope.
+lensdistort | Lens Distort | Adds radial and tangential distortion to a layer based on OpenCV coefficients.
+light | Light | Lights a layer given a light direction and normals.
+livevideo | Live Video | Captures images from a live video source.
+logic | Logic | Applies logic operations to ID layers.
+maskcombine | Mask Combine | Combines several mask layers from an input cable into a single mask.
+maskfromcurves | Mask from Curves | Creates a mask from 2D curves.
+matchcamera | Match Camera | Transforms a layer to match a reference camera.
+matchudim | Match UDIM | Reframes pixels of a layer to match a particular UDIM tile.
+median | Median | Applies a median filter to an image.
+mirror | Mirror | Mirrors an image based on an arbitrary number of planes.
+ml_computervisioninference | ML Computer Vision Inference | Apply a model trained using the ML Train Computer Vision TOP.
+mono | Mono | Converts a layer, VDB, or attribute into a mono, VDB, or attribute.
+monotoheightfield | Mono to HeightField | Converts a mono layer into a heightfield.
+monotoid | Mono to ID | Converts a mono layer, VDB, or attribute into an integer.
+monotorgb | Mono to RGB | Converts a mono layer, VDB, or attribute into an RGB layer, VDB, or attribute.
+monotorgba | Mono to RGBA | Converts a mono layer into an RGBA layer.
+monotosdf | Mono to SDF | Computes a signed distance field from an iso-level of a mono layer.
+neural_cellularautomatacore | Neural Cellular Automata Core | Runs a neural cellular automata model to evolve cell states.
+neural_cellularautomatadecode | Neural Cellular Automata Decode | Decodes a cell state from the Neural Cellular Automata Core into a visible pattern.
+neural_layertodepth_moge2 | Neural Layer to Depth (MoGe-2) | Estimates metric-scale depth, normal, and position maps from an input image.
+neural_layertomask_sam2 | Neural Layer to Mask (SAM2) | Creates a mask based on coordinates set through prompts.
+normaltoheight | Normal to Height | Reconstructs a height layer from a normal layer.
+null | Null | Passes inputs to the outputs.
+oceanevaluate | Ocean Evaluate | Converts the layers of an ocean spectrum into an animated ocean surface.
+oceanspectrum | Ocean Spectrum | Generates layers containing information for simulating ocean waves.
+ociotransform | OCIO Transform | Converts color spaces using OCIO transforms.
+onnx | ONNX Inference | Applies inference from an ONNX Machine Learning model.
+opencl | OpenCL | Executes an OpenCL kernel on layers, attributes, volumes, and VDBs.
+output | Output | Collects the outputs of a subnetwork.
+paint | Paint 3D | Paint on a COP layer or UV-mapped geometry.
+phasornoise | Phasor Noise | Generates phasor noise, which resembles a wave pattern.
+pixelate | Pixelate | Increases the size of pixels to pixelate an input layer.
+planarinflate | Planar Inflate | Inflates a 2D SDF into a height layer.
+pointdelete | Point Delete | Deletes points from a point cloud geometry.
+pointgenerate | Point Generate | Adds points to a point cloud geometry.
+pointmerge | Point Merge | Merges point cloud geometries.
+pointsfromblobs | Points from Blobs | Creates points from blobs in an input layer.
+polartouv | Polar to UV | Converts polar coordinate pixels to Cartesian pixels.
+posmap | Position Map | Generates a position map.
+possample | Position Sample | Samples an input texture by position.
+prefixsum | Prefix Sum | Computes the prefix sum of a layer.
+prefixsumcore | Prefix Sum Core | Computes the prefix sum of a layer.
+premult | Premultiply | Premultiplies or un-premultiplies an RGBA layer.
+previewmaterial | Preview Material | Applies the preview material to geometry.
+projectonlayer | Project on Layer | Projects a layer onto a target layer.
+pyro_activate- | Pyro Activate | Changes the activation of VDBs in a Pyro simulation.
+pyro_activate | Pyro Activate | Changes the activation of VDBs in a Pyro simulation.
+pyro_advect- | Pyro Advect | Advects VDBs by Velocity.
+pyro_advect | Pyro Advect | Advects VDBs by Velocity.
+pyro_advectbymap | Pyro Advect by Map | Advects a VDB by a flow map.
+pyro_axisforce | Pyro Axis Force | Applies a force around an axis to a velocity VDB.
+pyro_block_begin- | Pyro Block Begin | Start of a Pyro simulation block.
+pyro_block_begin | Pyro Block Begin | Start of a Pyro simulation block.
+pyro_block_end- | Pyro Block End | End of a Pyro simulation block.
+pyro_block_end | Pyro Block End | End of a Pyro simulation block.
+pyro_buildadvectionmap- | Pyro Build Advection Map | Constructs a flow map from a velocity VDB.
+pyro_buildadvectionmap | Pyro Build Advection Map | Constructs a flow map from a velocity VDB.
+pyro_buoyancy- | Pyro Buoyancy | Applies a Buoyancy force.
+pyro_buoyancy | Pyro Buoyancy Force | Applies a Buoyancy force.
+pyro_collisionfromshape | Pyro Collision from Shape | Adds collision from pyro collision points representing implicit surfaces, into a VDB.
+pyro_collisionshape | Pyro Collision Shape | Creates points representing implicit surfaces to add collision objects into a Pyro simulation.
+pyro_configure- | Pyro Configure | Configures a Pyro simulation.
+pyro_configure | Pyro Configure | Configures a Pyro simulation.
+pyro_dissipate | Pyro Dissipate | Dissipates a VDB's values over time.
+pyro_disturbance | Pyro Disturbance | Applies disturbance to a velocity VDB to break up still air.
+pyro_emitfromflame | Pyro Emit from Flame | Burns up the flame field.
+pyro_lightambient | Pyro Light Ambient | Builds a light field of ambient illumination of a VDB.
+pyro_lightfrompoints | Pyro Light from Points | Builds a light field of points lighting a VDB.
+pyro_lightscatter | Pyro Light Scatter | Builds a light field of internal glow of a VDB.
+pyro_packedmipmap | Pyro Packed MipMap | Builds an in-place MipMap of a VDB.
+pyro_projectnondivergentelectrostatic | Pyro Project Non-Divergent Electro Static | Removes divergence from a velocity VDB.
+pyro_sourcefromlayer- | Pyro Source from Layer | Sources from a layer's envelope into a VDB.
+pyro_sourcefromlayer | Pyro Source from Layer | Sources from a layer's envelope into a VDB.
+pyro_sourcefrompoints | Pyro Source from Points | Sources points into a VDB.
+pyro_sourcefromshape | Pyro Source from Shape | Sources from pyro source points representing implicit surfaces, into a VDB.
+pyro_sourcefromvolume | Pyro Source from Volume | Sources from a VDB into another VDB.
+pyro_sourceshape | Pyro Source Shape | Creates points representing implicit surfaces to source into a Pyro simulation.
+pyro_turbulence | Pyro Turbulence | Apply turbulence to a velocity VDB.
+pyro_uniformforce | Pyro Uniform Force | Applies a uniform force.
+pyro_velocityscale | Pyro Velocity Scale Force | Scales fluid velocity based on the fluid's current speed.
+pyro_vortexconfinement | Pyro Vortex Confinement Force | Applies a vortex confinement force to a velocity field.
+pythonsnippet | Python Snippet | Runs a snippet of Python on layers.
+quantize | Quantize | Quantizes input data into discrete steps.
+ramp | Ramp | Generates linear and radial ramps.
+randommono | Random Mono | Creates a mono layer, VDB, or attribute with random values.
+randomrgb | Random RGB | Creates an RGB layer, VDB, or attribute with random colors.
+rasterizecurves | Rasterize Curves | Rasterizes curves onto a layer.
+rasterizegeo | Rasterize Geometry | Rasterizes geometry onto a layer.
+rasterizegsplats | Rasterize GSplats | Rasterizes Gaussian Splats onto layers.
+rasterizeimplicitsurface | Rasterize Implicit Surface | Rasterizes an implicit surface onto a layer.
+rasterizelayer | Rasterize Layer | Rasterizes a layer onto another layer's camera.
+rasterizesetup | Rasterize Setup | Prepares geometry for the Rasterize Geometry COP.
+rasterizevolume | Rasterize Volume | Renders a volume viewed through a camera.
+raytrace | Ray Trace | Performs ray tracing on an input mesh based on an origins and directions map.
+reactiondiffusion_block_begin | Reaction-Diffusion Block Begin | Start of a Reaction-Diffusion simulation block.
+reactiondiffusion_block_end | Reaction-Diffusion Block End | Creates unique patterns by solving the reaction and diffusion of multiple chemicals as described by its inputs and parameters.
+refractfromheight | Refract from Height | Refracts an image through a height layer.
+remap | Remap | Remaps a layer, VDB, or attribute.
+resample | Resample | Performs image scaling by changing the width, height, and pixel sizes.
+rgbatorgb | RGBA to RGB | Converts RGBA layers or attributes to RGB.
+rgbatouv | RGBA to UV | Splits an RGBA layer or attribute into two UV layers or attributes.
+rgbtorgba | RGB to RGBA | Converts RGB layers or attributes to RGBA.
+rgbtouv | RGB to UV | Splits an RGB layer or attribute into UV and mono layers or attributes.
+ripple_block_begin | Ripple Block Begin | Start of a Ripple simulation block.
+ripple_block_end | Ripple Block End | End of a Ripple simulation block
+rop_image | ROP Image | Writes the output of a COP network to disk.
+sample | UV Sample | Samples an input layer using a UV layer or attribute.
+sdfadjust | SDF Adjust | Modifies the values for a Mono SDF layer.
+sdfblend | SDF Blend | Combines two Mono SDF layers.
+sdfshape | SDF Shape | Builds a 2D signed distance field of a selected shape.
+sdftomono | SDF to Mono | Converts an SDF field to a mono image layer.
+sdftorgb | SDF to RGB | Converts an SDF field to an RGB color layer.
+segmentbyconnectivity | Segment by Connectivity | Segment a layer into connected components.
+segmentbyvalue | Segment by Value | Segment a mono layer into bands of similar value.
+sequence | Sequence | Sequences parts of one or more inputs temporally.
+sequenceblend | Sequence Blend | Blends multiple layers together.
+shapescatter | Scatter Shapes | Scatters input stamps across the image using randomization controls.
+sharpen | Sharpen | Sharpens an input layer to increase the definition of its edges.
+slapcompimport | Slap Comp Import | Import live layers from the Solaris Viewport.
+slopedir | Slope Direction | Converts a height layer into a direction layer.
+smoothfill | Smooth Fill | Smoothly fills a region of a layer.
+solvepoisson | Solve Poisson | Solves Poisson's equation inside a 2D boundary.
+solvepoissonmultigrid | Solve Poisson Multigrid | Solves Poisson's equation in a rectangular region using geometric multigrid.
+sopimport | SOP Import | Imports SOP geometry into Copernicus.
+sopinvoke | SOP Invoke | Invokes a compiled SOP block on the inputs.
+sopinvokegraph | SOP Invoke Graph | Invokes a geometry SOP graph on the inputs.
+spacetransform | Space Transform | Transforms positions and UV values between spaces.
+spheresample | Sphere Sample | Samples a layer onto a sphere.
+stamppoint | Stamp Points | Stamps layers from point positions.
+starglow | Star Glow | Streaks the layer multiple times in different directions to create a star effect.
+stash | Stash | Stashes the input of the node on command and uses it as the node's output.
+statistics | Statistics | Outputs the average, minimum and maximum values of the input layer
+statisticsbyid | Statistics by ID | Compute statistics for each ID island.
+streakblur | Streak Blur | Streaks an image, adding a motion blur effect.
+subnet | Subnetwork | Used to organize a collection of COPs into one node.
+surfacedither | Surface Dither | Applies a halftone dithering pattern relative to UVs.
+swirl | Swirl | Twists an image layer into a spiral shape.
+switch | Switch | Selects an input layer.
+switchbytype | Switch by Type | Selects an output layer by the type of the inputs.
+switchifwired | Switch If Wired | Selects an input based on what is connected.
+testgeometry_capybara | Test Geometry: Capybara | Creates a capybara, which can be used as test geometry.
+testgeometry_otto | Test Geometry: Otto | Creates Otto, a production quality test character.
+testgeometry_pighead | Test Geometry: Pig Head | Creates a pig head, which can be used as test geometry.
+testgeometry_rubbertoy | Test Geometry: Rubber Toy | Creates a rubber toy, which can be used as test geometry.
+testgeometry_shaderball | Test Geometry: Shader Ball | Creates a shader ball, which can be used to test shaders.
+testgeometry_squab | Test Geometry: Squab | Creates a squab, which can be used as test geometry.
+testgeometry_tommy | Test Geometry: Tommy | Creates a soldier, which can be used as test geometry.
+tilepattern | Tile Pattern | Generates rectangular tiles for texture patterns.
+timeblend | Time Blend | Blends intraframe values for layers and VDBs.
+timeloop | Time Loop | Repeats input frame range to form a looping animation.
+timepack | Time Pack | Combines its input at multiple times into a cable.
+timeshift | Time Shift | Cooks its input at a different time.
+tonemap | Tone Map | Applies a filmic tone mapping curve to compress a high dynamic range input into a displayable range.
+triplanar | Triplanar | Generates a texture by projecting X, Y, and Z textures onto the position layer.
+triplanarhextile | Triplanar Hex Tile | Seamless texturing and normal mapping of triplanar projections without visible repetitions.
+triplanaruv | Triplanar UV | Generates UVs in three orthogonal projections.
+turingpatterns | Turing Patterns | Applies a filter to create Turing patterns.
+twowayswitchifwired | Two Way Switch If Wired | Selects between two inputs based on if you wire in another input.
+udimpack | UDIM Pack | Combines its input at multiple UDIMs into a cable.
+usdmaterial | USD Material | Represents a USD material referenced from disk.
+uvinverse | UV Inverse | Computes the inverse of a UV distortion map.
+uvmap | UV Map | Generates a UV Map.
+uvmapbyid | UV Map by ID | Creates a UV Map for each connected ID island.
+uvshape | UV Shape | Generates UV coordinates for common 2D shapes.
+uvtopolar | UV to Polar | Converts Cartesian coordinate pixels to polar coordinate pixels.
+uvtorgb | UV to RGB | Combines a UV and mono layer or two attributes to create an RGB layer or attribute.
+uvtorgba | UV to RGBA | Joins two UV layers or attributes into an RGBA layer or attribute.
+uvxform | UV Transform | Transforms the values of a UV layer in 2d space.
+vdbactivatefrompoints | VDB Activate from Points | Activates leaves on a VDB according to a point cloud.
+vdbfromlayer | VDB from Layer | Sets VDB values from the closest values in a layer.
+vdbleafpoints | VDB Leaf Points | Creates a point for each active leaf in a VDB.
+vdbposmap | VDB Position Map | Stores in each voxel that voxel's position.
+vdbreshape | VDB Reshape | Rebuilds a VDB to match another VDB's topology.
+vdbvisualize | VDB Visualize | Creates multi-volume visualization.
+vdbvisualizeslice | VDB Visualize Slice | Extracts a slice from a VDB as Geometry for visualization.
+vdbvisualizetree | VDB Visualize Tree | Builds a geometry visualizing the topology of a VDB.
+vdbvisualizevelocity | VDB Visualize Velocity | Traces streamers through a velocity VDB.
+vectorxform | Vector Transform | Transforms values of an RGB layer, attribute, or Vector VDB in 3D space.
+vectorxform2d | Vector Transform 2D | Transforms the values of a UV layer or attribute in 2D space.
+vignette | Vignette | Darkens the corners of an input layer.
+visualizevelocity | Visualize Velocity | Creates an RGBA Layer visualizing a 2d velocity field.
+weave | Weave | Generates a woven fabric pattern of interlacing fibers.
+wipe | Wipe | Performs a wipe transition between two images.
+worleynoise | Worley Noise | Generates Worley noise.
+worleynoise3d | Worley Noise 3D | Generates Worley noise from 3D locations.
+wrangle | Wrangle | Runs a VEX snippet to modify layer values.
+xform | Transform 3D | Transforms a layer in 3D.
+xform2d | Transform 2D | Transforms a layer in 2D.
+zcomp | Z Composite | Composites two layers by depth.

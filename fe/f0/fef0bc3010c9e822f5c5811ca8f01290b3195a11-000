@@ -1,0 +1,92 @@
+# 11 October 2026 : build the 4x4 reference height and mirrored base color (2048 px, 512 px per tile) from the AI sheet
+# FR : construit la height de référence 4x4 et la base color en miroir (2048 px, 512 px par carreau) depuis la planche IA.
+import json
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import numpy as np
+from RefLib import load_rgb, bilinear, save_gray16, save_gray8, save_rgb8, blur
+
+SHEET, OUT_DIR = sys.argv[1], sys.argv[2]
+os.makedirs(OUT_DIR, exist_ok=True)
+
+# Measured geometry (11 October 2026), pixels of the 1920 x 1920 sheet.
+GEOM = {
+    "pitch": 477.56,                     # tile pitch, joint centre to joint centre, both axes (square tiles)
+    "height_right_joint_x": 1893.0,      # height column, right vertical joint centre
+    "height_bottom_joint_y": 1897.6,     # height column, bottom horizontal joint centre
+    "height_valid_x": [1422.0, 1911.0],  # usable x range of the height column
+    "height_bad_rows": [1904.0, 1920.0], # rows below the bottom joint belong to another tile row
+    "bc_right_grout_x": 457.0,           # base color column, right grout centre
+    "bc_grout_rows_y": [462.0, 941.0, 1418.0, 1905.0],
+    "bc_valid_x": [0.0, 462.5],
+    "bc_bad_rows": [1911.0, 1920.0],
+    "tiles_per_column": 4,
+    "out_tile_px": 512,
+}
+P = GEOM["pitch"]
+T = GEOM["out_tile_px"]
+NT = GEOM["tiles_per_column"]
+sheet = load_rgb(SHEET)
+
+# ---------- height: one period strip (1 x 4 tiles) ----------
+j = (np.arange(T) + 0.5) / T
+i = (np.arange(T * NT) + 0.5) / (T * NT)
+U, V = np.meshgrid(j, i)
+xh = GEOM["height_right_joint_x"] - P + U * P
+yh = GEOM["height_bottom_joint_y"] - NT * P + V * NT * P
+xs = np.where(xh < GEOM["height_valid_x"][0], xh + P, xh)
+ys = np.where(yh < 0.0, yh + NT * P, yh)
+valid_h = (xs >= GEOM["height_valid_x"][0]) & (xs <= GEOM["height_valid_x"][1]) & ~((ys >= GEOM["height_bad_rows"][0]))
+strip_h = bilinear(sheet, xs, ys).mean(2)
+
+# ---------- base color: mirrored, rows normalised by measured grout centres ----------
+bc_rows = [GEOM["bc_grout_rows_y"][0] - P] + GEOM["bc_grout_rows_y"]
+# piecewise linear map from height tile rows (k + v) to base color rows
+k_idx = np.minimum((V * NT).astype(np.int64), NT - 1)
+v_loc = V * NT - k_idx
+b0 = np.array(bc_rows)[k_idx]
+b1 = np.array(bc_rows)[k_idx + 1]
+yb = b0 + v_loc * (b1 - b0)
+xb = GEOM["bc_right_grout_x"] - U * P  # mirror: left of the height cell is the right grout of the base color
+xbs = np.where(xb < GEOM["bc_valid_x"][0], xb + P, xb)
+ybs = np.where(yb < 0.0, yb + NT * P, yb)
+valid_b = (xbs >= GEOM["bc_valid_x"][0]) & (xbs <= GEOM["bc_valid_x"][1]) & (ybs < GEOM["bc_bad_rows"][0])
+strip_b = bilinear(sheet, np.clip(xbs, 0, GEOM["bc_valid_x"][1]), np.clip(ybs, 0, 1919))
+
+# cosmetic fill of invalid base color pixels: nearest valid column on the same row
+for r in range(strip_b.shape[0]):
+    bad = ~valid_b[r]
+    if bad.any() and (~bad).any():
+        good_idx = np.where(~bad)[0]
+        nearest = good_idx[np.abs(np.arange(T)[:, None] - good_idx[None, :]).argmin(1)]
+        strip_b[r, bad] = strip_b[r, nearest[bad]]
+
+# ---------- tile 4 times horizontally ----------
+full_h = np.tile(strip_h, (1, NT))
+full_b = np.tile(strip_b, (1, NT, 1))
+mask_h = np.tile(valid_h, (1, NT)).astype(np.float32)
+mask_b = np.tile(valid_b, (1, NT)).astype(np.float32)
+
+save_gray16(full_h, os.path.join(OUT_DIR, "ref_height_4x4_2048.png"))
+save_gray8(mask_h, os.path.join(OUT_DIR, "ref_height_valid_2048.png"))
+save_rgb8(full_b, os.path.join(OUT_DIR, "ref_basecolor_4x4_2048.png"))
+save_gray8(mask_b, os.path.join(OUT_DIR, "ref_basecolor_valid_2048.png"))
+save_gray16(strip_h, os.path.join(OUT_DIR, "ref_height_strip_512x2048.png"))
+save_rgb8(strip_b, os.path.join(OUT_DIR, "ref_basecolor_strip_512x2048.png"))
+
+# seam check of the tiled height: horizontal and vertical wrap differences against interior neighbours
+def seam_stats(a):
+    d_lr = np.abs(a[:, 0] - a[:, -1]).mean()
+    d_tb = np.abs(a[0, :] - a[-1, :]).mean()
+    inner_x = np.abs(np.diff(a, axis=1)).mean()
+    inner_y = np.abs(np.diff(a, axis=0)).mean()
+    return {"lr": round(float(d_lr), 4), "tb": round(float(d_tb), 4), "inner_x": round(float(inner_x), 4), "inner_y": round(float(inner_y), 4)}
+
+info = {"geometry": GEOM, "height_valid_fraction": round(float(mask_h.mean()), 4),
+        "basecolor_valid_fraction": round(float(mask_b.mean()), 4),
+        "height_seams": seam_stats(full_h), "height_stats": {"mean": round(float(full_h.mean()), 4), "std": round(float(full_h.std()), 4),
+        "p01": round(float(np.percentile(full_h, 1)), 4), "p99": round(float(np.percentile(full_h, 99)), 4)}}
+json.dump(info, open(os.path.join(OUT_DIR, "reference_info.json"), "w"), indent=1)
+print(json.dumps(info, indent=1))

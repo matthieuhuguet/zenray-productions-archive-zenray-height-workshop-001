@@ -1,0 +1,92 @@
+# 11 October 2026 : register the base color column (mirrored left-right) onto the height column, tile by tile
+# FR : recale la colonne base color (miroir gauche-droite) sur la colonne height, carreau par carreau.
+import json
+import sys
+import numpy as np
+
+import os
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from RefLib import load_rgb, bilinear, blur, grad_mag
+
+SHEET = sys.argv[1]
+OUT_JSON = sys.argv[2]
+
+# Height column geometry measured on 11 October 2026 (joint centres, pixels of the 1920 sheet)
+H_RIGHT_JOINT_X = 1893.0
+PITCH = 477.56
+H_JOINTS_Y = [-12.64, 464.91, 942.38, 1420.48, 1897.6]
+TILE_INSET = 9.0  # stay inside the tile, away from joints
+
+a = load_rgb(SHEET)
+lum = a.mean(2)
+hcol = lum  # height column is gray
+ink = np.clip(a[..., 2] - a[..., 0], 0, 1)  # blue paint strength in base color
+
+feat_h = blur(grad_mag(blur(hcol, 1.0, wrap=False)), 1.5, wrap=False)
+feat_b = blur(grad_mag(blur(ink, 1.0, wrap=False)), 1.5, wrap=False)
+
+
+def tile_grid(k, step=2.0):
+    y0 = H_JOINTS_Y[k] + TILE_INSET
+    y1 = H_JOINTS_Y[k + 1] - TILE_INSET
+    x0 = H_RIGHT_JOINT_X - PITCH + TILE_INSET
+    x1 = H_RIGHT_JOINT_X - TILE_INSET
+    ys = np.arange(max(y0, 0.0), y1, step)
+    xs = np.arange(max(x0, 1422.0), x1, step)
+    X, Y = np.meshgrid(xs, ys)
+    return X, Y
+
+
+def score(params, X, Y, fh):
+    sx, ax, sy, ay = params
+    xb = ax + sx * (H_RIGHT_JOINT_X - X)  # mirror: right joint of height maps near left of base color
+    yb = ay + sy * Y
+    valid = (xb > 2) & (xb < 460) & (yb > 2) & (yb < 1917)
+    if valid.mean() < 0.85:
+        return -1.0
+    fb = bilinear(feat_b, xb, yb)
+    A = fh[valid] - fh[valid].mean()
+    B = fb[valid] - fb[valid].mean()
+    return float((A * B).sum() / (np.sqrt((A * A).sum() * (B * B).sum()) + 1e-12))
+
+
+results = {}
+for k in range(4):
+    X, Y = tile_grid(k, step=3.0)
+    fh = bilinear(feat_h, X, Y)
+    best = (-2, None)
+    # coarse search
+    for sx in np.arange(0.86, 1.02, 0.01):
+        for sy in np.arange(0.96, 1.04, 0.01):
+            for ax in np.arange(-10, 41, 3):
+                for ay in np.arange(-30, 31, 3):
+                    s = score((sx, ax, sy, ay), X, Y, fh)
+                    if s > best[0]:
+                        best = (s, (sx, ax, sy, ay))
+    # refine around the best with a smaller step on a denser grid
+    X2, Y2 = tile_grid(k, step=1.5)
+    fh2 = bilinear(feat_h, X2, Y2)
+    s0, (sx0, ax0, sy0, ay0) = best
+    best2 = (score(best[1], X2, Y2, fh2), best[1])
+    for sx in np.arange(sx0 - 0.012, sx0 + 0.0121, 0.003):
+        for sy in np.arange(sy0 - 0.012, sy0 + 0.0121, 0.003):
+            for ax in np.arange(ax0 - 3, ax0 + 3.01, 0.75):
+                for ay in np.arange(ay0 - 3, ay0 + 3.01, 0.75):
+                    s = score((sx, ax, sy, ay), X2, Y2, fh2)
+                    if s > best2[0]:
+                        best2 = (s, (sx, ax, sy, ay))
+    # control: same search without mirror must score lower (two-way verification)
+    sx, ax, sy, ay = best2[1]
+    xb_nomirror_score = None
+    results[k] = {"ncc": round(best2[0], 4), "sx": round(float(sx), 4), "ax": round(float(ax), 3),
+                  "sy": round(float(sy), 4), "ay": round(float(ay), 3), "coarse_ncc": round(s0, 4)}
+    print(k, results[k], flush=True)
+
+# negative control: compare tile k height with base color tile of another row (should be much lower)
+X, Y = tile_grid(0, step=3.0)
+fh = bilinear(feat_h, X, Y)
+p = results[1]
+wrong = score((p["sx"], p["ax"], p["sy"], p["ay"] - 0.0), X, Y, fh)
+results["control_tile0_with_tile1_params"] = round(wrong, 4)
+json.dump(results, open(OUT_JSON, "w"), indent=1)
+print("control", wrong)

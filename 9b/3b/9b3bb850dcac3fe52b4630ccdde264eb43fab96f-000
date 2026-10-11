@@ -1,0 +1,46 @@
+{
+ "geometry": {
+  "pitch": 477.56,
+  "height_right_joint_x": 1893.0,
+  "height_bottom_joint_y": 1897.6,
+  "height_valid_x": [
+   1422.0,
+   1911.0
+  ],
+  "height_bad_rows": [
+   1904.0,
+   1920.0
+  ],
+  "bc_right_grout_x": 457.0,
+  "bc_grout_rows_y": [
+   462.0,
+   941.0,
+   1418.0,
+   1905.0
+  ],
+  "bc_valid_x": [
+   0.0,
+   462.5
+  ],
+  "bc_bad_rows": [
+   1911.0,
+   1920.0
+  ],
+  "tiles_per_column": 4,
+  "out_tile_px": 512
+ },
+ "height_valid_fraction": 0.9966,
+ "basecolor_valid_fraction": 0.9688,
+ "height_seams": {
+  "lr": 0.0209,
+  "tb": 0.0179,
+  "inner_x": 0.0151,
+  "inner_y": 0.0137
+ },
+ "height_stats": {
+  "mean": 0.5898,
+  "std": 0.1202,
+  "p01": 0.33,
+  "p99": 0.8922
+ }
+}
