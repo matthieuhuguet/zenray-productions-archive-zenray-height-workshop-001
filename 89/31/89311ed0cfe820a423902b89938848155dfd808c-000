@@ -239,7 +239,14 @@ class Builder:
         rz = node(self.net, "rasterizegeo", p + "raster", [self.size, si], depthmode=0)
         rz.parm("name1").set("Cd")
         rz.parm("outtype1").set(2)
-        bl = node(self.net, "blur", p + "soft", [rz], units=1, size_pixel=float(L.get("soft_px", 1.0)))
+        out = rz
+        if self.acc is not None:
+            # 11 October 2026 : pixels no polygon covers stay black; composite the regions over the previous colour by coverage
+            ce = node(self.net, "channelextract", p + "cov_b", [rz], channel=2)
+            cov = lin(self.net, p + "cov", ce, 0.0, 0.02, 0.0, 1.0)
+            out = mix(self.net, p + "over", self.acc, rz, "blend", cov)
+            nodes += [ce, cov, out]
+        bl = node(self.net, "blur", p + "soft", [out], units=1, size_pixel=float(L.get("soft_px", 1.0)))
         nodes += [si, rz, bl]
         return bl
 

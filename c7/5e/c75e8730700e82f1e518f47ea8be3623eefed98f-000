@@ -24,6 +24,7 @@ PLAN = [
     ("11", "Catalogue des familles de matériaux (height)", "parts/12_material_families_catalog.md", "part"),
     ("12", "Dictionnaire des couches : du trait observé à la couche Copernicus", "sections/12_layer_dictionary.md", None),
     ("13", "Dossier de référence : Procedural Ceramic Wall Tiles", "sections/13_reference_dossier.md", None),
+    ("14", "Résultats de l'exécution finale", "sections/14_results.md", None),
 ]
 
 

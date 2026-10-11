@@ -66,8 +66,10 @@ def aniso(a):
 
 def measure(cand, ref, valid):
     res = P["work_res"]
-    c, r = down(cand, res), down(ref, res)
-    m = down(valid.astype(np.float32), res) > 0.99
+    # 11 October 2026 : resample to exactly res (a 1254 px reference does not divide into 512)
+    rs = lambda a: np.asarray(Image.fromarray(a.astype(np.float32), "F").resize((res, res), Image.BILINEAR))
+    c, r = rs(cand), rs(ref)
+    m = rs(valid.astype(np.float32)) > 0.99
     out = {}
     d = (c - r)[m]
     out["mae"] = float(np.abs(d).mean())
@@ -123,8 +125,10 @@ def measure(cand, ref, valid):
 def panel(cand, ref, valid, path, title=""):
     """ref | candidate | |diff| x4 | masks q25/q75 overlay (white both, red ref only, green candidate only)."""
     res = 512
-    c, r = down(cand, res), down(ref, res)
-    m = down(valid.astype(np.float32), res) > 0.99
+    # 11 October 2026 : resample to exactly res (a 1254 px reference does not divide into 512)
+    rs = lambda a: np.asarray(Image.fromarray(a.astype(np.float32), "F").resize((res, res), Image.BILINEAR))
+    c, r = rs(cand), rs(ref)
+    m = rs(valid.astype(np.float32)) > 0.99
     diff = np.clip(np.abs(c - r) * 4, 0, 1)
     t25 = np.quantile(r[m], 0.25)
     t75 = np.quantile(r[m], 0.75)

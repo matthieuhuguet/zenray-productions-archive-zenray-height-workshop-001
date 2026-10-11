@@ -1,0 +1,12 @@
+# 11 October 2026 : L3 variant, the retained plan plus measured regions at sigma 2 (fine vectorisation, needs Matthieu's approval).
+# FR : variante L3, régions mesurées à sigma 2 ; à valider par Matthieu car proche du décalque.
+import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import Execute as EX
+import Methods as MM
+
+plan = EX.default_plan()
+i = [k for k, (n, _) in enumerate(plan)].index([n for n, _ in plan].index("regions_s4"))
+plan.insert(i + 1, ("regions_s2", lambda c: [MM.L_regions(c, 2, 8, 2048, c["tag"] + "_r2")]))
+EX.run(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], plan=plan)

@@ -6,19 +6,20 @@
 
 ## 0. Index des sections, avec numéros de ligne (11 October 2026)
 
-- ligne 23 : 1. La méthode courante : ZenRay Height Method v1, « mesurer, décomposer, placer, une couche à la fois » (11 October 2026)
-- ligne 43 : 2. Doctrine : l'échelle d'identité, et la frontière entre mesurer et copier (11 October 2026)
-- ligne 70 : 3. COP node reference, Houdini 22.0.368 (11 October 2026)
-- ligne 8422 : 4. SideFX, « Copernicus for Substance 3D Designer users », intégré à la méthode (11 October 2026)
-- ligne 8483 : 5. Substance 3D Designer node reference and Copernicus equivalents (11 October 2026)
-- ligne 16163 : 6. Substance 3D Painter, Javier Perez and professional height techniques (11 October 2026)
-- ligne 17270 : 7. Local Copernicus and HeightField COP guides, Houdini 22.0.368 (11 October 2026)
-- ligne 18436 : 8. State of the art: inverse procedural modeling, synthesis, metrics, methods (11 October 2026)
-- ligne 19340 : 9. Leçons des méthodes dépréciées, ce qui se garde et ce qui ne revient pas (11 October 2026)
-- ligne 19374 : 10. Registre de la recherche de méthode, Procedural Ceramic Wall Tiles (11 October 2026)
-- ligne 19542 : 11. Catalogue des familles de matériaux (height) (11 October 2026)
-- ligne 20274 : 12. Dictionnaire des couches : du trait observé à la couche Copernicus (11 October 2026)
-- ligne 20308 : 13. Dossier de référence : Procedural Ceramic Wall Tiles (11 October 2026)
+- ligne 24 : 1. La méthode courante : ZenRay Height Method v1, « mesurer, décomposer, placer, une couche à la fois » (11 October 2026)
+- ligne 50 : 2. Doctrine : l'échelle d'identité, et la frontière entre mesurer et copier (11 October 2026)
+- ligne 77 : 3. COP node reference, Houdini 22.0.368 (11 October 2026)
+- ligne 8429 : 4. SideFX, « Copernicus for Substance 3D Designer users », intégré à la méthode (11 October 2026)
+- ligne 8490 : 5. Substance 3D Designer node reference and Copernicus equivalents (11 October 2026)
+- ligne 16170 : 6. Substance 3D Painter, Javier Perez and professional height techniques (11 October 2026)
+- ligne 17277 : 7. Local Copernicus and HeightField COP guides, Houdini 22.0.368 (11 October 2026)
+- ligne 18443 : 8. State of the art: inverse procedural modeling, synthesis, metrics, methods (11 October 2026)
+- ligne 19347 : 9. Leçons des méthodes dépréciées, ce qui se garde et ce qui ne revient pas (11 October 2026)
+- ligne 19381 : 10. Registre de la recherche de méthode, Procedural Ceramic Wall Tiles (11 October 2026)
+- ligne 19549 : 11. Catalogue des familles de matériaux (height) (11 October 2026)
+- ligne 20786 : 12. Dictionnaire des couches : du trait observé à la couche Copernicus (11 October 2026)
+- ligne 20820 : 13. Dossier de référence : Procedural Ceramic Wall Tiles (11 October 2026)
+- ligne 20861 : 14. Résultats de l'exécution finale (11 October 2026)
 
 ## 1. La méthode courante : ZenRay Height Method v1, « mesurer, décomposer, placer, une couche à la fois » (11 October 2026)
 
@@ -40,6 +41,12 @@
 - Outils, tous en anglais et testés le 11 October 2026 : `/Users/zenray/.claude/tmp/tmp-zenray-height/Scripts/` (copie dans le skill sous `templates/zenray-height-method/`). Constructeur Copernicus : `Recipe.py` (une couche par type, une boîte réseau par couche) sur la bibliothèque `ZrhCop.py`. Ajustement : `Fit.py`. Mesure : `Measure.py` (height) et `MeasureColor.py` (base color). Pilotes : `Run.py`, `RunMethods.py`, `Execute.py`. Planches : `Board.py`, `EvolutionBoard.py`. (11 October 2026)
 - Données mesurées : nœuds `stash` sous `/obj/ZRH_Data` de la scène ; graphes : `/obj/ZRH_MethodSearch/<méthode>` pour la recherche, `/obj/ZRH_<Nom>` pour une exécution finale. (11 October 2026)
 
+### 1.3 Corrections après l'exécution finale (11 October 2026)
+
+- Raccord de tuilage, piège payé : les couches par carreau (`side_profiles`, `row_table`, `row_plane`, `corners`) changent de valeur pile au centre du joint et laissent une marche ; la première exécution donnait un saut au bord onze fois supérieur au saut entre voisins (référence 1,45). Correction : ces couches s'éteignent en douceur au centre du joint (`fade`, largeur lue dans le profil de joint mesuré, environ 0,0195 carreau soit 10 px), et les traits et taches tracés qui touchent le bord du canevas sont écartés (`off_border`, 8 px). Résultat : saut au bord 0,67 et 1,19, et la ressemblance reste à 0,956 (0,957 avant la correction). Contrôle : `SeamCheck.py`. (11 October 2026)
+- Base color : une région de couleur rasterisée laisse noirs les pixels qu'aucun polygone ne couvre (1,2 pour cent) ; elle se compose désormais par-dessus la couleur précédente selon sa couverture. Écart de couleur moyen 11,96 avant, 7,70 après, pour un plafond de postérisation mesuré à 7,5. (11 October 2026)
+- Une référence dont la taille ne vaut pas 2048 (les trois heights de Louisiana Bayou font 1254 px) se rééchantillonne d'abord en 2048 dans `refs/secondary/`, les mesures et les ajusteurs travaillant sur une grille de 2048. (11 October 2026)
+
 ## 2. Doctrine : l'échelle d'identité, et la frontière entre mesurer et copier (11 October 2026)
 
 - Constat qui fonde la doctrine, mesuré le 11 October 2026 sur Procedural Ceramic Wall Tiles : une height de référence se décompose en une part déterministe (grille, joints, profils de biseau, valeurs par carreau), qu'un graphe procédural reproduit au pixel près à partir de quelques nombres mesurés, et une part propre à cette image (taches basse fréquence, dessin du motif en relief, éclats, fissures), dont la position n'obéit à aucune règle et qu'aucun générateur aléatoire ne place au bon endroit. (11 October 2026)
@@ -47,7 +54,7 @@
 
 ### 2.1 Les quatre niveaux d'identité (11 October 2026)
 
-| Niveau | Ce que le graphe contient | Ce qu'il reproduit | Généralise à d'autres variations | Date |
+| Niveau | Ce que le graphe contient | Ce qu'il reproduit | Généralise à d'autres variations | Date (11 October 2026) |
 |---|---|---|---|---|
 | L0 statistique | bruits calibrés par bande, histogramme | la matière, pas les positions | oui, une graine donne une autre tuile | 11 October 2026 |
 | L1 structurel | grille, profils mesurés sur des champs de distance, tables par carreau (index mapping) | la structure au pixel près | oui, paramètres éditables | 11 October 2026 |
@@ -8426,7 +8433,7 @@
 
 ### 4.1 Concepts (11 October 2026)
 
-| Substance 3D Designer | Copernicus, Houdini 22.0.368 | Usage dans la méthode | Date |
+| Substance 3D Designer | Copernicus, Houdini 22.0.368 | Usage dans la méthode | Date (11 October 2026) |
 |---|---|---|---|
 | Package (.sbs) | fichier .hip ; un réseau par matériau ; recettes et étagères à la place des templates | un copnet par matériau, une boîte réseau par couche | 11 October 2026 |
 | Project | un HDA (Houdini Digital Asset) | la méthode finale se fige en HDA avec au plus 8 paramètres par catégorie | 11 October 2026 |
@@ -8440,7 +8447,7 @@
 
 ### 4.2 Table d'équivalence des nœuds, complète, avec la note d'usage height (11 October 2026)
 
-| Nœud Designer | Nœud(s) Copernicus | Réglage donné par SideFX | Usage pour reproduire une height | Date |
+| Nœud Designer | Nœud(s) Copernicus | Réglage donné par SideFX | Usage pour reproduire une height | Date (11 October 2026) |
 |---|---|---|---|---|
 | Alpha Merge | `blend` | Mode Add, alpha branché sur bg ou fg | addition de couches | 11 October 2026 |
 | Ambient Occlusion (HBAO) | `heighttoambientocclusion` | | carte AO dérivée de la height | 11 October 2026 |
@@ -19348,7 +19355,7 @@ This section turns sections 1 to 4 into 22 methods that differ by principle, not
 
 ### 9.2 Ce qui se garde (11 October 2026)
 
-| Élément | Origine | Pourquoi il reste utile | Date |
+| Élément | Origine | Pourquoi il reste utile | Date (11 October 2026) |
 |---|---|---|---|
 | Masques noir et blanc à seuils absolus tirés de la référence | méthodologie du 10 October 2026 | mesure robuste de la géométrie des classes, jamais de seuil recalculé sur la sortie | 11 October 2026 |
 | Score à 12 composantes (`Metrics2.py`) | fenêtre, 10 et 11 October 2026 | vecteur d'erreur lisible ; ne sert plus de porte unique | 11 October 2026 |
@@ -19376,7 +19383,7 @@ This section turns sections 1 to 4 into 22 methods that differ by principle, not
 - Protocole (skill zenray-methodology) : seize méthodes de principes distincts, quatre phases chacune, chaque phase construite en vrai dans Copernicus (scène ouverte `/Users/zenray/Create/Build/Productions/ZenRayHoudini/LouisianaBayou/LouisianaBayou.hiplc`, réseau `/obj/ZRH_MethodSearch/<méthode>`), exportée en 16 bits et mesurée contre la référence à seuils absolus. Planche : `/Users/zenray/.claude/tmp/tmp-zenray-height/board/MethodSearch16x4.html`. (11 October 2026)
 - Lecture des colonnes : r = corrélation de Pearson, basse = corrélation après flou sigma 32, b1-2 et b4-8 = corrélation des bandes fines et moyennes, q25 et q75 = IoU des masques noir et blanc à seuils absolus, score = classement des essais (jamais une porte). (11 October 2026)
 
-| Méthode | Principe | P1 r | P2 r | P3 r | P4 r | P4 MAE | P4 b1-2 | P4 b4-8 | P4 q25 | P4 q75 | P4 score | Verdict | Date |
+| Méthode | Principe | P1 r | P2 r | P3 r | P4 r | P4 MAE | P4 b1-2 | P4 b4-8 | P4 q25 | P4 q75 | P4 score | Verdict | Date (11 October 2026) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | M01_GreedyResidual | Greedy residual pursuit over a mixed dictionary, each candidate built and measured | 0.879 | 0.906 | 0.925 | 0.939 | 0.0321 | 0.67 | 0.96 | 0.66 | 0.75 | 0.846 | retenu comme règle de décision : à chaque phase il essaie toutes les couches candidates et choisit d'emblée les couches mesurées (régions, lignes) ; 0,939 en quatre phases, plus lent (une dizaine de constructions par phase) | 11 October 2026 |
 | M02_HierarchyStatistical | Macro meso micro hierarchy with statistical noise only | 0.395 | 0.600 | 0.389 | 0.321 | 0.1196 | 0.14 | 0.22 | 0.23 | 0.28 | 0.308 | abandonné : le bruit statistique au bon spectre mais à la mauvaise place fait baisser l'identité (0,60 puis 0,32) | 11 October 2026 |
@@ -20271,13 +20278,518 @@ Fibrous anisotropic material whose height follows the grain; every family here m
 - **Pitfalls**: the grunge nodes output a pattern named grunge, not a documented height, so they must be remapped and given profiles; old oak furrows are deep compared with the ridge width, which a shallow remap misses (11 October 2026)
 - **Sources**: [S1] https://en.wikipedia.org/wiki/Bark_(botany) ; [S2] https://www.sidefx.com/docs/houdini/nodes/cop/grunge_pinebark.html (11 October 2026)
 
+##### E2 Wood planks (11 October 2026)
+
+- **Macro**: boards laid side by side with staggered end joints, small gaps, cupping across the width, per-board height offsets and bevelled edges (UNVERIFIED); lap siding adds a wedge profile per board (11 October 2026)
+- **Meso**: growth rings come from seasonal growth; on flat-sawn boards the ring figure stands out, quarter-sawn boards are straight grained and interlocked grain gives a ribbon stripe on them, wavy grain shows best on flat-sawn faces; figure such as bird's eye, quilted and curly comes from stress, knots and grain alignment, and burls are clusters of knots [S1]; checks along the grain and raised latewood on weathered boards are UNVERIFIED (11 October 2026)
+- **Micro**: open pores of the wood cells and fibres; saw marks on rough boards (UNVERIFIED) (11 October 2026)
+- **Period**: the board width across the grain; random along it (11 October 2026)
+- **Joints**: narrow gaps or V bevels between boards (11 October 2026)
+- **Profile**: across a board, shallow cupping and edge bevels; on weathered wood, latewood ridges and earlywood grooves at the ring spacing (UNVERIFIED) (11 October 2026)
+- **Histogram**: unimodal with a low tail from the gaps, bimodal ridges on weathered wood (UNVERIFIED) (11 October 2026)
+- **Spectrum**: energy concentrated across the grain with a peak at the ring spacing (UNVERIFIED) (11 October 2026)
+- **Anisotropy**: very strong along the grain, coherence above 0.8 (UNVERIFIED threshold) (11 October 2026)
+- **Components**: white boards as long rectangles, black gaps connected along the board edges (11 October 2026)
+- **Recipe**, start values UNVERIFIED unless quoted from the local wood layers: (11 October 2026)
+- L1 Macro, boards: `tilepattern` [Pattern Type Stretcher Bond, or Custom Pattern with per-row Slide Offset for random end joints, rows as boards across the grain, Inset gap width, Draw As Distance]; lap siding instead uses `ramp` [Type Vertical, Number of Cycles 8, Outside Range Repeat] for the wedge, as in the local L1 (Copernicus1.md line 1349); SD: Tile Generator in brick pattern with random offset, or Tile Random (11 October 2026)
+- L2 Meso, board shape: cupping as minus c times the squared across-board coordinate in a `wrangle`, bevels from `feather` [Feather Direction Square, small distance], per-board offset from `randommono` on the id; SD: flood_fill_to_gradient_2, Bevel, Flood Fill to Random Grayscale (11 October 2026)
+- L3 Meso, grain: fibre bundles from `fractalnoise` [Perlin, Element Size 0.28, Element Scale 3.2 along by 0.007 across, Roughness 0.7, Noise Contrast 2.4] multiplied by micro fibres [Element Size 0.08, Element Scale 6.0 by 0.0015], waved by `distort` [Scale 0.02], then `remap` to a depth of minus 0.095 to plus 0.075; these are the measured values of the local fine fibre layer (Copernicus1.md lines 1391 to 1397), tied to that canvas and board count; each board offsets the noise through its pos input by the board random value; SD: anisotropic noise, directionalwarp, non_uniform_blur_grayscale (11 October 2026)
+- L4 Meso, cathedral figure on flat-sawn boards: `wrangle` coordinate dx times kx plus (dy times ky) squared, with an asymmetric ring profile that is abrupt on the latewood side and gradual on the earlywood side, as in the local cathedral layer (Copernicus1.md line 431); SD: Pixel Processor or a gradient through a waveform (11 October 2026)
+- L5 Meso, knots: `worleynoise` [Element Size 1.15, Element Scale 1.0 by 0.6] for a sparse knot distribution, a multi-stop concentric ring profile, relief from minus 0.12 to plus 0.07, radial core cracks and tail cracks along the grain, and the fibres deflected around each knot by `distort` driven by the knot distance gradient, while board edges stay straight (Copernicus1.md lines 1418 to 1429); SD: Shape plus vector warp or swirl around the knot (11 October 2026)
+- L6 Meso, checks: `worleynoise` [Element Scale 1 by 12] border thresholded sparse, subtracted along the grain; SD: cells_1 stretched with histogram_scan (11 October 2026)
+- L7 Micro, weathering: modulate the ring profile so latewood stands higher, then Distort by Slope [Streak Min] to erode the soft earlywood; SD: slope_blur_grayscale_2 (11 October 2026)
+- **Tileable**: board rows that divide the canvas, grain noise with Tile Size equal to the canvas (an extreme Element Scale must still give whole periods), Border Wrap on `distort` (11 October 2026)
+- **Pitfalls**: identical grain on every board, knots crossing board edges, grain that ignores the board orientation in herringbone floors (use Orient Tiles in `tilepattern`), fibres built before the macro form (FiberWood audit, Copernicus1.md line 1503) (11 October 2026)
+- **Sources**: [S1] https://en.wikipedia.org/wiki/Wood_grain ; [S2] https://www.sidefx.com/docs/houdini/nodes/cop/tilepattern.html (11 October 2026)
+
+##### E3 End grain (11 October 2026)
+
+- **Macro**: the grain seen when wood is cut across the growth rings [S1]: a log section, or a grid of end-grain blocks (butcher block, end-grain parquet) whose ring arcs point in random directions (layout UNVERIFIED) (11 October 2026)
+- **Meso**: concentric growth rings, alternating darker and lighter regions from seasonal growth [S1]; radial checks opening from the pith outward, fine radial rays, the pith at the centre and the bark ring at the edge, circular saw arcs (UNVERIFIED) (11 October 2026)
+- **Micro**: pores of the vessels, in a row in the earlywood of ring-porous woods or evenly spread in diffuse-porous woods (UNVERIFIED) (11 October 2026)
+- **Period**: a radial quasi-period at the ring spacing, so a ring in the FFT; block layouts add a lattice (11 October 2026)
+- **Joints**: block joints in end-grain floors, open checks in logs (11 October 2026)
+- **Profile**: flat when freshly sawn, ring ridges when weathered, wedge-shaped checks that widen outward (UNVERIFIED) (11 October 2026)
+- **Histogram**: narrow when sawn, bimodal when the rings are raised (UNVERIFIED) (11 October 2026)
+- **Spectrum**: a ring at one over the ring spacing (11 October 2026)
+- **Anisotropy**: locally tangential around the pith, globally weak (11 October 2026)
+- **Components**: checks as a few radial elongated black components, pores as many tiny black dots aligned on rings (UNVERIFIED) (11 October 2026)
+- **Recipe**, start values UNVERIFIED: (11 October 2026)
+- L1 Meso, ring field: `uvmap` [UV Space Image] centred on the pith > `uvtopolar` [Angle Units Circles] gives angle and length; a `wrangle` builds rings as frac(length times ring count plus noise), with ring widths varied by a 1D `fractalnoise` read along the radius and the rings bent by a low-frequency `distort`; `ramp` [Type Concentric, Number of Cycles the ring count, Outside Range Repeat] is a faster start; SD: a radial gradient through a Pixel Processor (11 October 2026)
+- L2 Meso, ring profile: asymmetric `wrangle` profile, abrupt at the latewood boundary and gradual through the earlywood (as in E2 L4); SD: a curve on the ring gradient (11 October 2026)
+- L3 Meso, radial checks: in the polar coordinates of L1, a `wrangle` opens a few wedges whose width grows with the radius at random angles; SD: triangle shapes splattered radially (11 October 2026)
+- L4 Meso, rays: a faint `phasornoise` or stretched `fractalnoise` along the radial direction from the polar coordinates; SD: directional noise in polar space (11 October 2026)
+- L5 Micro, pores: `shapescatter` of tiny dots with the earlywood phase of L1 on its density input for ring-porous wood, Blend Method Minimum; SD: Splatter Circular with a ring mask (11 October 2026)
+- L6 Macro, end-grain blocks: `tilepattern` [Pattern Type Stretcher Bond or Custom Pattern grid] where each block moves its pith centre by a `randommono` offset from its id, often outside the block so rings read as arcs; SD: Tile Sampler with a ring image and random rotation and offset (11 October 2026)
+- **Tileable**: the block layout tiles; a single log section is not tileable by nature (11 October 2026)
+- **Pitfalls**: perfect circles, a constant ring width, checks with identical angles (11 October 2026)
+- **Sources**: [S1] https://en.wikipedia.org/wiki/Wood_grain ; [S2] https://www.sidefx.com/docs/houdini/nodes/cop/uvtopolar.html (11 October 2026)
+
+##### E4 Painted wood with peeling paint (11 October 2026)
+
+- **Macro**: painted siding or panels; the local reference is lap siding of 8 boards with a wedge per board (Copernicus1.md lines 1348 to 1350 and 1389) (11 October 2026)
+- **Meso**: paint that builds up to about 1/16 in, roughly 16 to 30 layers, can start cracking and peeling with one more coat; crazing is fine, jagged, interconnected breaks in the top layer; cracking and alligatoring are advanced crazing, cracks first run parallel to the grain and reach bare wood, then form a pattern of horizontal and vertical breaks that looks like reptile skin and flakes badly; peeling to bare wood usually comes from moisture and begins as blisters [S1] (11 October 2026)
+- **Micro**: chalking, a powdering of the paint surface from the disintegration of the resin [S1]; wood fibres in the exposed areas; wrinkling when a top layer dries before the one below [S1] (11 October 2026)
+- **Period**: the board period from the siding; flakes are aperiodic (11 October 2026)
+- **Joints**: board seams and the overlap step of the siding (11 October 2026)
+- **Profile**: a step up from wood to the paint plateau, a raised lip where the paint edge curls, grain grooves in the exposed wood (11 October 2026)
+- **Histogram**: bimodal, a narrow high paint plateau and a broad lower wood mode, plus lip spikes; the local reference was tuned to about 65 percent paint and 35 percent exposed wood (Copernicus1.md line 1357) (11 October 2026)
+- **Spectrum**: the grain anisotropy plus a broadband from flake edges (UNVERIFIED) (11 October 2026)
+- **Anisotropy**: along the grain; flakes elongated along the grain with an aspect of 2 to 4 (UNVERIFIED); alligatoring adds a weaker perpendicular set [S1] (11 October 2026)
+- **Components**: white paint as large connected regions with holes; black exposed wood as many patches with a broad size spread, elongated along the grain (UNVERIFIED) (11 October 2026)
+- **Recipe**, values quoted from the validated local M_BoisPeintEcaille_01 layers unless marked: (11 October 2026)
+- L1 Macro, boards and seams: `ramp` [Type Vertical, Number of Cycles 8, Outside Range Repeat] for the lap wedge, then `distort` [Scale 0.008] by a low-frequency `fractalnoise` for the board wobble (lines 1348 to 1350); SD: gradient_linear_1 repeated, directionalwarp (11 October 2026)
+- L2 Meso, wood substrate: the fibre layer of E2 L3, remapped to minus 0.095 to plus 0.075 (lines 1391 to 1397); SD: anisotropic noise through directionalwarp (11 October 2026)
+- L3 Meso, peel mask: a macro `fractalnoise` (Element Scale 0.45 by 0.22), a stretched `fractalnoise` [Noise Type Worley Cellular F2-F1] and a fine `fractalnoise` (0.04) combined, then `remap` [Operation Threshold] around 0.70 to 0.74 for 65 percent paint (lines 1355 to 1357); a hard threshold after a warp gives angular flakes, a soft one gives round blobs (line 1489); SD: clouds_2 plus cells_1, histogram_scan (11 October 2026)
+- L4 Meso, paint plateau: the mask times a plateau of 0.14 into H with Add over the substrate (line 1358); SD: Blend Add (11 October 2026)
+- L5 Meso, curled lip: `edgedetect` on the mask > `blur` [Size 2.5 pixels] > `remap` to an amplitude of 0.06 (lines 1360 and 1361); a cleaner variant takes `monotosdf` of the mask and raises only the paint side within a few pixels of the edge; SD: edge_detect then blur_hq_grayscale, or Bevel (11 October 2026)
+- L6 Micro, old paint: chalky porosity `fractalnoise` (frequency 0.02) at 0.025 on the paint only (line 1363); alligator cracks from a `worleynoise` border with Element Scale stretched along the grain, inside the paint mask, as thin grooves (UNVERIFIED); SD: clouds_3 or BnW Spots, cells_1 borders (11 October 2026)
+- **Tileable**: whole numbers of ramp cycles, Tile Size on every noise, Border Wrap on `distort` (11 October 2026)
+- **Pitfalls**: round flakes from a soft threshold, a lip on both sides of the edge, the macro form added after the fibres, and building normal, roughness or colour inside the height pass (Copernicus1.md lines 1372 to 1374 and 1503) (11 October 2026)
+- **Sources**: [S1] https://www.nps.gov/orgs/1739/upload/preservation-brief-10-paint-problems-exterior-woodwork.pdf ; [S2] https://www.sidefx.com/docs/houdini/nodes/cop/edgedetect.html (11 October 2026)
+
+#### Group F: Binders, coatings and pavement (11 October 2026)
+
+Mineral pastes applied or cast, and the road surfaces made from aggregate and binder; their relief is low and comes from the tool (trowel, form, dash) or from what the paste holds (pores, aggregate, cracks), so stampers and thresholded noises dominate the recipes (11 October 2026)
+
+##### F1 Plaster (11 October 2026)
+
+- **Macro**: a wall plane with slight hand-applied waviness; lime plaster is calcium hydroxide with sand that sets by carbonation, gypsum plaster expands slightly as it sets, clay plaster with fibres was applied in thick base coats and shrinks, cracks and distorts on drying when too plastic, and cement plaster is used on masonry for a smooth surface [S1] (11 October 2026)
+- **Meso**: trowel marks as overlapping flat fan-shaped strokes with small ridges at their edges, map cracking on old lime work (UNVERIFIED, the source does not cover trowel finishes or crack patterns) (11 October 2026)
+- **Micro**: fine sand of the finish coat; historic lime top coats were thin veneers, often 1/8 in or less [S1] (11 October 2026)
+- **Period**: none (11 October 2026)
+- **Joints**: none (11 October 2026)
+- **Profile**: plateaus from trowel strokes with small lips at the stroke edges, otherwise smooth (UNVERIFIED) (11 October 2026)
+- **Histogram**: narrow, with a slight positive skew from the lips (UNVERIFIED) (11 October 2026)
+- **Spectrum**: low energy, a steep slope from the smoothness plus a small high-frequency sand band (UNVERIFIED) (11 October 2026)
+- **Anisotropy**: stroke directions vary, weak global anisotropy (11 October 2026)
+- **Components**: stroke regions bounded by lips; cracks as a sparse connected network (UNVERIFIED) (11 October 2026)
+- **Recipe**, start values UNVERIFIED: (11 October 2026)
+- L1 Macro, wall waviness: `fractalnoise` [Perlin, Element Size half the canvas, Amplitude 0.05]; SD: clouds_2 (11 October 2026)
+- L2 Meso, trowel strokes: stamps made from `sdfshape` [Rectangle, Round Corners 0.4] > `wrangle` flat plateau with a lip on the trailing edge, scattered by `shapescatter` [Scale Variance 0.4, Angle Variance 180, Blend Method Depth-Sorted Over so that later strokes cover earlier ones, Do Tiled on]; how Depth-Sorted Over composites Mono heights is UNVERIFIED, fall back to Maximum; SD: Tile Sampler with a stroke shape and random rotation (11 October 2026)
+- L3 Meso, map cracks: two `worleynoise` borders at two sizes, sparse and thin, subtracted at 0.01; SD: cells_1 with histogram_scan (11 October 2026)
+- L4 Micro, sand: `randommono` [Random per Pixel] > `blur` [Units Pixels, Size 0.5] at 0.003; SD: White Noise (11 October 2026)
+- **Tileable**: Do Tiled on `shapescatter`, Tile Size on the noises (11 October 2026)
+- **Pitfalls**: plaster read through a single noise looks like stucco or concrete; the strokes and their lips are the cue (11 October 2026)
+- **Sources**: [S1] https://en.wikipedia.org/wiki/Plaster ; [S2] https://www.sidefx.com/docs/houdini/nodes/cop/worleynoise.html (11 October 2026)
+
+##### F2 Stucco (11 October 2026)
+
+- **Macro**: traditional stucco is one or two thin layers on masonry or three coats on lath (scratch, brown, finish); modern synthetic systems use a base layer and a thinner finish [S1] (11 October 2026)
+- **Meso**: finishes read in [S1]: rock dash or pebble dash, stone, quartz or glass chips of about 3 to 6 mm dashed onto the finish coat before it dries; roughcast with stones in the mix; sand finish floated with a concrete float; smooth troweled; hand textured; sprayed; the skip trowel or lace finish is UNVERIFIED (11 October 2026)
+- **Micro**: aggregate grain (11 October 2026)
+- **Period**: none (11 October 2026)
+- **Joints**: none, sometimes control joints (UNVERIFIED) (11 October 2026)
+- **Profile**: skip trowel shows flat topped splotches over a rough base; dash shows random protruding grains; sprayed shows rounded droplets (UNVERIFIED) (11 October 2026)
+- **Histogram**: skip trowel gives a spike at the troweled plateau top over a broad lower base; dash gives a positive skew (UNVERIFIED) (11 October 2026)
+- **Spectrum**: a bump at the chip or droplet size (UNVERIFIED) (11 October 2026)
+- **Anisotropy**: none, or the trowel direction (11 October 2026)
+- **Components**: skip trowel plateaus as many medium blobs with CV near 0.6 over a connected rough base (UNVERIFIED) (11 October 2026)
+- **Recipe**, start values UNVERIFIED: (11 October 2026)
+- L1 Macro, base coat: low `fractalnoise` [Perlin, Amplitude 0.05] plus sand; SD: clouds_2 (11 October 2026)
+- L2a Meso, pebble dash: `shapescatter` [dense, Scale matching 3 to 6 mm, Scale Variance 0.4, Angle Variance 180, Blend Method Maximum, Do Tiled on] of angular stamps from `sdfshape` [Polygon] or a `crystalnoise` cell; SD: Splatter or Tile Sampler with random polygons (11 October 2026)
+- L2b Meso, skip trowel: `bubblenoise` or `fractalnoise` [Perlin, Element Size the splotch size] > `remap` > a soft top clamp in a `wrangle` that flattens everything above the trowel level; SD: clouds_2, histogram_scan, levels clamp (11 October 2026)
+- L2c Meso, sprayed: `shapescatter` of round domes from `sdfshape` [Circle] > `planarinflate`, dense; SD: Splatter Circular with a paraboloid (11 October 2026)
+- L3 Micro, grain: `fractalnoise` [White (Random)] blurred by half a pixel at 0.01; SD: White Noise (11 October 2026)
+- **Tileable**: Do Tiled on `shapescatter`, Tile Size on the noises (11 October 2026)
+- **Pitfalls**: a hard `remap` clamp leaves pixel steps at the plateau edge, use a soft knee; dash chips that are rounded read as gravel (11 October 2026)
+- **Sources**: [S1] https://en.wikipedia.org/wiki/Stucco ; [S2] https://www.sidefx.com/docs/houdini/nodes/cop/remap.html (11 October 2026)
+
+##### F3 Concrete (smooth, cast with formwork, broken) (11 October 2026)
+
+- **Macro, formed**: plywood forms are most commonly 3/4 in or 18 mm thick, modular slab systems use modules no larger than 1 to 2 m, column forms use 20 mm through bolts, wall forms are held by twin steel walers and tie bolts, and board-formed concrete such as the Royal National Theatre carries the impression of the timber shuttering [S1]; panel seams, tie hole grids and board steps make the large-scale pattern (spacings UNVERIFIED) (11 October 2026)
+- **Meso, formed**: bugholes are small regular or irregular cavities usually under 15 mm in diameter, from air bubbles trapped at the surface during placement and consolidation, common on vertical walls, columns and beams, their number and size depending on the form, the release agent, the mix and the consolidation [S2]; form oil reduces adhesion between the form and the concrete [S1] (11 October 2026)
+- **Macro and meso, broken**: fracture faces with exposed aggregate, cracks, spalls and rebar (UNVERIFIED) (11 October 2026)
+- **Micro**: cement paste with fine sand; plywood or board grain imprinted in reverse (11 October 2026)
+- **Period**: tie holes and panel seams form a large lattice; board-formed concrete has a 1D period across the boards (11 October 2026)
+- **Joints**: thin fins or steps at panel and board seams (UNVERIFIED) (11 October 2026)
+- **Profile**: flat with hemispherical bugholes, cylindrical tie recesses, small fins; board steps of a few mm; broken concrete is faceted (UNVERIFIED) (11 October 2026)
+- **Histogram**: a narrow peak with a negative tail from bugholes for formed concrete, broad for broken concrete (UNVERIFIED) (11 October 2026)
+- **Spectrum**: a nearly flat high-frequency band from pores on formed faces; a fracture slope near minus 3.6 for broken faces is UNVERIFIED (11 October 2026)
+- **Anisotropy**: strong across the boards for board-formed concrete, weak otherwise (11 October 2026)
+- **Components**: bugholes as many small black components, denser near the top of each pour and on sloped forms (density zones UNVERIFIED); tie holes as a regular lattice of equal components (11 October 2026)
+- **Recipe**, start values UNVERIFIED unless quoted from the local concrete module: (11 October 2026)
+- L1 Macro, form layout: panel seams from `tilepattern` [Pattern Type Custom Pattern, Mode Tile Size, Tile Width and Tile Height the panel, Draw As Outline, Outline Width 1 to 2 mm equivalent] added as fins; tie holes from a second `tilepattern` [Shape Circle, Draw As Distance] at the tie spacing turned into cylindrical recesses; board-formed concrete uses rows of boards with a per-board step from `randommono` on the id; SD: Tile Generator outlines and discs (11 October 2026)
+- L2 Meso, imprint: the plank grain of E2 L3 at a low amplitude, inverted with `invert`, for board-formed or plywood faces; SD: wood noise inverted (11 October 2026)
+- L3 Meso, bugholes: `shapescatter` [Scale Mode Variance, Scale Variance 0.7, Blend Method Minimum, Density layer mask from a `fractalnoise` that rises toward the top of each pour, Do Tiled on] of hemispherical pits from `sdfshape` [Circle] > `wrangle` bowl; SD: Splatter Circular or BnW Spots with Blend Min (11 October 2026)
+- L4 Meso, paste surface: the local pro concrete module uses a large clouds_2 (scale 2) blurred by 5 then two slope blurs at 0.40 and 0.22 for the slab relief, and a perlin_noise at scale 12 with a slope blur at 0.20 for embedded sand (Copernicus1.md lines 1275 to 1288); in COP, `fractalnoise` > `blur` > Distort by Slope twice; SD: as quoted (11 October 2026)
+- L5 Meso, broken concrete: `crystalnoise` [Flatten Faces on] fracture facets, aggregate from a `shapescatter` of rounded pebbles (D1 stamps) half exposed with Maximum, cracks from the local module (crystal_1 at scale 4 clipped between 0.6 and 0.9, line 1281), rebar from SOP curves through `rasterizecurves` and `planarinflate` with ribs from a `phasornoise` along them; SD: crystal_1, Tile Sampler, histogram_scan (11 October 2026)
+- L6 Micro, air pores: the local module isolates them with a highpass at radius 2.5 and a histogram_scan at position 0.52 and contrast 0.75 (lines 1289 and 1290); in COP a `blur` subtracted from a fine noise, then `remap` [Operation Threshold]; SD: highpass_grayscale and histogram_scan (11 October 2026)
+- **Tileable**: panel and tie spacings that divide the canvas, Do Tiled, Tile Size on the noises (11 October 2026)
+- **Pitfalls**: bugholes of one size spread evenly; tie holes off the panel grid; board imprints that are not inverted (11 October 2026)
+- **Sources**: [S1] https://en.wikipedia.org/wiki/Formwork ; [S2] https://giatecscientific.com/education/bugholes-in-concrete (11 October 2026)
+
+##### F4 Asphalt (11 October 2026)
+
+- **Macro**: a road plane with ruts, rectangular patches and crack networks; fatigue (crocodile) cracking starts as thin sparse longitudinal cracks along the traffic, then transverse cracks connect them into sharp-sided prism-shaped pieces, and the severe stage pumps out fines, spalls the edges, and leads to potholes and cracks of 3/8 in or wider; crescent-shaped edge cracks appear near weak shoulders [S1] (11 October 2026)
+- **Meso**: crocodile cells can reach 300 mm across and are typically under 150 mm [S1]; aggregate stones protruding from the bitumen matrix; stripping or raveling, the loss of adhesion between asphalt and aggregate, thins the pavement [S1] (aggregate sizes UNVERIFIED) (11 October 2026)
+- **Micro**: fine aggregate and sand, polished stone tops on worn lanes (UNVERIFIED) (11 October 2026)
+- **Period**: none (11 October 2026)
+- **Joints**: cracks act as joints, V shaped with spalled edges (11 October 2026)
+- **Profile**: domed or angular stone tops proud of a low matrix; cracks as V notches (UNVERIFIED) (11 October 2026)
+- **Histogram**: negative skew from the voids for open-graded mixes, near Gaussian for dense mixes (UNVERIFIED) (11 October 2026)
+- **Spectrum**: a bump at the aggregate size over a slope near minus 3 (UNVERIFIED) (11 October 2026)
+- **Anisotropy**: isotropic, except ruts and longitudinal cracks along the traffic (11 October 2026)
+- **Components**: white stones as many lognormal components, black connected matrix; crack cells under 150 mm (11 October 2026)
+- **Recipe**, start values UNVERIFIED: (11 October 2026)
+- L1 Meso, aggregate: two `shapescatter` passes [dense, Scale Variance 0.6, Angle Variance 180, Blend Method Maximum, Do Tiled on] of angular stamps from `sdfshape` [Polygon, 5 to 7 sides] > `planarinflate` at a low Height Scale, the second pass at half the size; SD: Tile Sampler or Splatter (11 October 2026)
+- L2 Meso, binder: a `blur` of the aggregate layer, scaled and lowered, merged with Maximum so stones look embedded rather than stacked; SD: blur_hq_grayscale and Blend Max (11 October 2026)
+- L3 Meso, wear: a soft top clamp in a `wrangle` polishes stone tops; raveled holes from `randommono` on the stamp id > `remap` [Operation Threshold, Threshold 0.95] removing whole stones; SD: levels, Flood Fill to Random Grayscale (11 October 2026)
+- L4 Macro, cracks: `worleynoise` [Element Size 100 to 150 mm equivalent, Jitter 1] border kept inside a `grunge_layerednoise` distress mask, plus longitudinal cracks from a stretched `worleynoise`; spalled edges by Distort by Slope [Streak Min]; SD: cells_1, histogram_scan, slope_blur_grayscale_2 (11 October 2026)
+- L5 Meso, sealed cracks: a band built from `monotosdf` of the crack mask, flat and slightly raised, for tar-sealed cracks (UNVERIFIED); SD: distance plus levels (11 October 2026)
+- **Tileable**: Do Tiled on `shapescatter`, Tile Size on the noises and on `worleynoise` (11 October 2026)
+- **Pitfalls**: stones stacked without binder read as gravel; crack cells larger than 300 mm read as block cracking rather than fatigue cracking (11 October 2026)
+- **Sources**: [S1] https://en.wikipedia.org/wiki/Crocodile_cracking ; [S2] https://www.sidefx.com/docs/houdini/nodes/cop/worleynoise.html (11 October 2026)
+
+#### Group G: Metal and hard surface (11 October 2026)
+
+Rolled, brushed, hammered and pressed metal and the panel language of hard-surface design; many of these are strictly periodic (corrugation, tread plate, mail) and are best identified by M1 and M4, while brushed and rusted metal are identified by M6 and M7 (11 October 2026)
+
+##### G1 Rusted metal (11 October 2026)
+
+- **Macro**: sheet or plate with dents, raised rust blisters under paint, delaminating rust scale and holes (UNVERIFIED) (11 October 2026)
+- **Meso**: pitting attacks an otherwise passive surface at sizes from microns to millimetres, in random small holes whose density grows along a sigmoid through induction, propagation and saturation; pits start at scratches, local alloy changes, sulfide inclusions and damaged coatings, polished surfaces resist pitting better, and corrosion products often hide the pits [S1] (11 October 2026)
+- **Micro**: granular rust crust, stepped flakes of scale (UNVERIFIED) (11 October 2026)
+- **Period**: none (11 October 2026)
+- **Joints**: none; seams and rivets belong to G4 and G7 (11 October 2026)
+- **Profile**: blisters as domes, pits deep and narrow, scale as stacked thin plates with steps (UNVERIFIED) (11 October 2026)
+- **Histogram**: positive skew from crust and blisters with a negative tail from pits; multimodal where scale layers stack (UNVERIFIED) (11 October 2026)
+- **Spectrum**: broadband near minus 3 (UNVERIFIED) (11 October 2026)
+- **Anisotropy**: isotropic; vertical streaks on weathered walls (11 October 2026)
+- **Components**: rust patches clustered at high thresholds, pits as many small black components (11 October 2026)
+- **Recipe**, start values UNVERIFIED unless quoted from the local painted metal recipe: (11 October 2026)
+- L1 Macro, plate and dents: `constant` plus a sparse `shapescatter` of shallow inverted domes; SD: Uniform Color plus Shape Splatter (11 October 2026)
+- L2 Meso, rust coverage: `grunge_rustysurface` [Primary Roughness, Secondary Roughness, Cracks Mask, Cracks Size, Seed] or `grunge_rust`, remapped into a coverage mask; SD: rust grunge maps (11 October 2026)
+- L3 Meso, crust relief: `fractalnoise` [Fractal Type Hybrid Terrain or Sharp, granular Element Size] times the mask, blisters from a `worleynoise` dist1 inverted into domes inside the mask, scale steps from `quantize` [Segments 3 to 4] of the crust then `blur` [Size 1 pixel]; SD: clouds_3, cells_1, Quantize Grayscale (11 October 2026)
+- L4 Micro, pits: `shapescatter` of tiny pits [Blend Method Minimum, Density layer mask the rust mask], or `randommono` [Random per Pixel] thresholded and dilated; SD: BnW Spots, Blend Min (11 October 2026)
+- L5 Meso, paint remnants on painted metal: the local recipe uses a perlin_noise at scale 3 blurred by 10 and clipped between 0.4 and 0.6 for the domed enamel, cells_1 at scale 8 thresholded at 1 minus the chip density for flakes, a perlin_noise at scale 16 driving a warp for dents, and a perlin_noise at scale 48 added at 0.06 for scratches (Copernicus1.md lines 1315 to 1319); the paint edge gets the lip of E4 L5; SD: as quoted (11 October 2026)
+- **Tileable**: Tile Size on the grunge nodes and noises, Do Tiled on `shapescatter` (11 October 2026)
+- **Pitfalls**: rust that is only a colour mask over a flat plate; pits spread uniformly instead of clustering where coverage is high (11 October 2026)
+- **Sources**: [S1] https://en.wikipedia.org/wiki/Pitting_corrosion ; [S2] https://www.sidefx.com/docs/houdini/nodes/cop/grunge_rustysurface.html (11 October 2026)
+
+##### G2 Brushed metal (11 October 2026)
+
+- **Macro**: a flat sheet, sometimes a spun disc with circular brushing (11 October 2026)
+- **Meso**: little or no meso relief; belt passes can leave faint bands (UNVERIFIED) (11 October 2026)
+- **Micro**: polished with a 120 to 180 grit belt or wheel, then softened with an 80 to 120 grit greaseless compound or a medium non-woven pad, which leaves a unidirectional satin finish of very fine lines parallel to the brushing, typically 0.5 to 1.5 micrometres Ra [S1] (11 October 2026)
+- **Period**: none; the lines are random in spacing (11 October 2026)
+- **Joints**: none (11 October 2026)
+- **Profile**: rough across the brushing direction, smooth along it (11 October 2026)
+- **Histogram**: Gaussian with a tiny amplitude (11 October 2026)
+- **Spectrum**: extremely anisotropic, the energy sits on one line of the FFT, perpendicular to the brushing (11 October 2026)
+- **Anisotropy**: coherence near 1 along the brushing direction (UNVERIFIED value) (11 October 2026)
+- **Components**: not meaningful (11 October 2026)
+- **Recipe**, start values UNVERIFIED unless quoted from the local metal module: (11 October 2026)
+- L1 Micro, hairlines: `randommono` [Random per Pixel] or `fractalnoise` [White (Random)] > `streakblur` [Direction Type Angle, Angle the brushing direction, Units Image, Length a quarter of the canvas or more, Mode Blur, Border Wrap]; the local module stretches a perlin_noise at scale 24 with a non-uniform blur of anisotropy 0.95 and intensity 25, then clips it between 0.35 and 0.70 (Copernicus1.md lines 1248 to 1252); SD: non_uniform_blur_grayscale on perlin_noise (11 October 2026)
+- L2 Meso, density variation: a low-frequency `fractalnoise` multiplied in; the local module adds a clouds_2 at scale 4 through a multi-directional warp of 0.20 at 0.12 (lines 1255 to 1257); SD: clouds_2 through multi_directional_warp_grayscale (11 October 2026)
+- L3 Micro, scratches and wear: a highpass (`blur` subtracted from the signal) > `remap` [Operation Threshold] > Add at 0.05, after the local values of radius 2.0, position 0.45, contrast 0.90 and opacity 0.05 (lines 1266 to 1268); random long scratches from SOP curves through `rasterizecurves` at one pixel; SD: highpass_grayscale and histogram_scan (11 October 2026)
+- L4 Variant, spun disc: `uvtopolar` coordinates, a `streakblur` along the angle direction through the direction input, then back; SD: Pixel Processor in polar space (UNVERIFIED) (11 October 2026)
+- **Tileable**: Border Wrap on `streakblur`; a streak length that crosses the frame wraps cleanly only when Wrap is honoured (UNVERIFIED) (11 October 2026)
+- **Pitfalls**: an amplitude far too large, the relief is micrometres and serves only the normal and the anisotropic highlight; perfectly straight lines without any slow waviness (11 October 2026)
+- **Sources**: [S1] https://en.wikipedia.org/wiki/Brushed_metal ; [S2] https://www.sidefx.com/docs/houdini/nodes/cop/streakblur.html (11 October 2026)
+
+##### G3 Hammered metal (11 October 2026)
+
+- **Macro**: sheet curvature; planishing smooths sheet metal by repeated, relatively soft glancing blows with flat, round-edged, polished hammer faces against a stake that gives the contour, and the metal looks dimpled when blows are too strong [S1]; decorative hand-hammered finishes keep that dimpling on purpose (UNVERIFIED) (11 October 2026)
+- **Meso**: overlapping shallow concave dimples that meet at sharp ridges, giving a scalloped faceted surface; dimple sizes of 5 to 20 mm are UNVERIFIED; pneumatic planishing hammers strike hundreds to thousands of blows per minute [S1] (11 October 2026)
+- **Micro**: tool marks and polish (11 October 2026)
+- **Period**: none; packed dimples give a ring at the dimple spacing; machine hammering may align rows (UNVERIFIED) (11 October 2026)
+- **Joints**: none (11 October 2026)
+- **Profile**: concave spherical caps meeting at cusps (11 October 2026)
+- **Histogram**: positive skew, since the sharp ridges occupy little area and the bowls most of it (UNVERIFIED) (11 October 2026)
+- **Spectrum**: a peak at one over the dimple spacing (11 October 2026)
+- **Anisotropy**: isotropic (11 October 2026)
+- **Components**: one black component per bowl centre with CV 0.2 to 0.4, one connected white ridge network (UNVERIFIED) (11 October 2026)
+- **Recipe**, start values UNVERIFIED: (11 October 2026)
+- L1 Meso, dimples: `worleynoise` [Element Size the dimple spacing, Jitter 0.9, Metric Euclidean] dist1 > `wrangle` spherical cap h = minus sqrt(R squared minus d squared) plus an offset, which leaves ridges on the cell borders; or overlapping strikes from `shapescatter` [dense, Scale Variance 0.3, Blend Method Minimum, Do Tiled on] of bowl stamps; SD: cells_1 inverted, or Tile Sampler with paraboloid pits and Blend Min (11 October 2026)
+- L2 Meso, planishing softness: `blur` [Size a tenth of the dimple] rounds the ridges as soft blows would; SD: blur_hq_grayscale (11 October 2026)
+- L3 Macro, sheet waviness: low-frequency `fractalnoise`; SD: clouds_2 (11 October 2026)
+- L4 Micro, polish: `grunge_wipetrails` or a short `streakblur` of white noise at a tiny amplitude; SD: directional scratches (11 October 2026)
+- **Tileable**: Tile Size on `worleynoise`, Do Tiled on `shapescatter` (11 October 2026)
+- **Pitfalls**: convex bumps instead of concave dimples (an inverted sign), ridges left as sharp as a Voronoi border on a softly planished piece (11 October 2026)
+- **Sources**: [S1] https://en.wikipedia.org/wiki/Planishing ; [S2] https://www.sidefx.com/docs/houdini/nodes/cop/worleynoise.html (11 October 2026)
+
+##### G4 Corrugated and sheet metal (11 October 2026)
+
+- **Macro**: nearly all modern corrugated galvanised iron has a pitch of 3 in (76 mm), historical pitches ranged from 25 to 125 mm, the traditional profile is a round wave and industrial buildings often use trapezoidal sheet; sheets run from 30 gauge (about 0.3 mm) to 6 gauge (about 5 mm); roofing sheets overlap laterally by one and a half corrugations and vertically by about 150 mm [S1]; the corrugation depth of roofing sheets is not given by the source (UNVERIFIED about 18 mm) (11 October 2026)
+- **Meso**: fasteners with washers on crests or valleys, dents, the step where one sheet overlaps the next, standing seams on panel roofs (UNVERIFIED) (11 October 2026)
+- **Micro**: galvanized zinc spangle, scratches; rust is described as inevitable, especially near the sea and under acid rain [S1] (11 October 2026)
+- **Period**: a strict 1D period at the pitch; a second period at the sheet width; fastener rows (11 October 2026)
+- **Joints**: sheet overlaps as steps of one sheet thickness (11 October 2026)
+- **Profile**: sinusoid for round corrugation, trapezoid with flat crests and valleys for box profiles (11 October 2026)
+- **Histogram**: a pure sine gives the U shaped arcsine histogram with peaks at both extremes; a trapezoid gives two spikes at the crest and valley levels with a flat band between (11 October 2026)
+- **Spectrum**: one line at one over the pitch, plus odd and even harmonics for trapezoids (11 October 2026)
+- **Anisotropy**: perfectly 1D, coherence near 1 (11 October 2026)
+- **Components**: crests and valleys as stripes that span the frame, each percolating along one direction only (11 October 2026)
+- **Recipe**, start values UNVERIFIED: (11 October 2026)
+- L1 Macro, corrugation: `ramp` [Type Horizontal, Number of Cycles the pitch count across the canvas, Outside Range Repeat] > `wrangle` h = 0.5 plus 0.5 times sin(2 pi u) for round sheet, or a clamped triangle wave for box profiles; `phasornoise` [Type Phasor Wave, Sine or Rectangle, no rotation variation] is an alternative; SD: stripes or a waveform through a Pixel Processor (11 October 2026)
+- L2 Macro, sheet overlaps: `tilepattern` [Pattern Type Custom Pattern, rows the sheet length, columns the sheet width] with a per-sheet thickness step from `randommono` on the id; SD: Tile Generator (11 October 2026)
+- L3 Meso, fasteners: a `shapescatter` [Grid Type Grid, Stamps X and Stamps Y on the fastener spacing, Do Tiled on, Blend Method Maximum] of screw heads from `sdfshape` [Circle] > `planarinflate` plus a washer ring from [Circle with Thickness], placed on crests; SD: Tile Generator with discs, Blend Max (11 October 2026)
+- L4 Meso, dents: a sparse `shapescatter` of large shallow inverted domes added with a negative amplitude; SD: Splatter (11 October 2026)
+- L5 Micro, spangle: `grunge_galvanizedsteel` [Distort Size, Distort Angle, Distort Scale, Secondary Distort Size, Secondary Distort Roughness, Seed] at a tiny amplitude; SD: crystal_1 or a galvanized grunge map (11 October 2026)
+- **Tileable**: an integer number of pitches and sheets across the canvas (11 October 2026)
+- **Pitfalls**: check the arcsine histogram before anything else, a smoothed noise in its place is a different material; fasteners off the crests; corrugation amplitude out of proportion with the pitch (11 October 2026)
+- **Sources**: [S1] https://en.wikipedia.org/wiki/Corrugated_galvanised_iron ; [S2] https://www.sidefx.com/docs/houdini/nodes/cop/grunge_galvanizedsteel.html (11 October 2026)
+
+##### G5 Diamond plate (11 October 2026)
+
+- **Macro**: tread plate carries a regular pattern or lines on one side for slip resistance, for example the five-bar pattern, while the diamond pattern is a raised pressed design (that claim is marked citation needed); it is made of steel, normally hot rolled, stainless steel or aluminium such as 6061 [S1] (11 October 2026)
+- **Meso**: elongated raised lugs in alternating orientation on a flat plate; lug length, width, height and spacing are not given by the source (UNVERIFIED about 25 to 30 mm long and 1 to 2 mm high) (11 October 2026)
+- **Micro**: rolled surface, scratches, worn lug tops (UNVERIFIED) (11 October 2026)
+- **Period**: a lattice whose motif holds two lugs of opposite orientation; five-bar plates repeat two groups of bars rotated by 90 degrees (11 October 2026)
+- **Joints**: none, the plate is the floor of the pattern (11 October 2026)
+- **Profile**: lugs as rounded trapezoids on a flat plane (UNVERIFIED) (11 October 2026)
+- **Histogram**: a tall spike at the plate level holding most of the area and a small hump at the lug tops, positive skew (UNVERIFIED) (11 October 2026)
+- **Spectrum**: discrete lattice peaks with harmonics (11 October 2026)
+- **Anisotropy**: two orientation peaks of equal weight, so a low overall coherence (11 October 2026)
+- **Components**: identical white lugs (CV near 0) on one connected black plate (11 October 2026)
+- **Recipe**, start values UNVERIFIED: (11 October 2026)
+- L1 Meso, lug lattice: `tilepattern` [Pattern Type Custom Pattern or Stack Bond, Shape Class Compound Vesica or Basic Diamond, Rotate Tile 45, Checkerboard Rotate on for the alternation, Draw As Distance]; five-bar plates with Pattern Type Basketwave and Line shapes, or Custom Pattern rows of five bars; SD: Tile Generator with a thin lozenge shape and checker rotation (11 October 2026)
+- L2 Meso, lug profile: `wrangle` rounded trapezoid on the distance output, flat top and rounded shoulders; SD: Bevel or a paraboloid shape clipped (11 October 2026)
+- L3 Micro, wear: soft top clamp on the lugs and random scratches from `streakblur` of sparse white noise; SD: levels and directional scratches (11 October 2026)
+- L4 Micro, plate: a very low `fractalnoise`; SD: perlin_noise at low opacity (11 October 2026)
+- **Tileable**: even tile counts so the checkerboard rotation closes over the frame (11 October 2026)
+- **Pitfalls**: elliptical lugs read as rivets; the alternation pattern differs between products, so read it on the reference with M1 before choosing it (11 October 2026)
+- **Sources**: [S1] https://en.wikipedia.org/wiki/Diamond_plate ; [S2] https://www.sidefx.com/docs/houdini/nodes/cop/tilepattern.html (11 October 2026)
+
+##### G6 Chainmail (11 October 2026)
+
+- **Macro**: the 4-to-1 pattern, each ring linked to four others, was completely dominant in Europe; Japanese mail also used a square 4-in-1 (so gusari), a hexagonal 6-in-1 (hana gusari) and the European 4-in-1 (nanban gusari) with much smaller rings [S1] (11 October 2026)
+- **Meso**: most examples use wire of 1.0 to 1.6 mm (18 to 14 gauge); rings are riveted (round rivets, then wedge-shaped from the 14th century), butted, or solid rings punched from sheet, which early European mail alternated row by row with riveted rings [S1]; ring inner diameters are not given (UNVERIFIED about 6 to 10 mm); rows of rings lean alternately (UNVERIFIED) (11 October 2026)
+- **Micro**: wire texture and rivet bumps (11 October 2026)
+- **Period**: a rhombic lattice, rows offset by half a ring spacing (11 October 2026)
+- **Joints**: the ring holes act as joints (11 October 2026)
+- **Profile**: torus sections, close to semicircular bumps of wire, between deep holes (11 October 2026)
+- **Histogram**: bimodal, wire tops against holes at the minimum, the holes holding a large share of the area (UNVERIFIED 40 to 60 percent) (11 October 2026)
+- **Spectrum**: lattice peaks with many harmonics (11 October 2026)
+- **Anisotropy**: rows give a horizontal preference (11 October 2026)
+- **Components**: one black hole per ring opening with CV near 0, one connected white wire network (11 October 2026)
+- **Recipe**, start values UNVERIFIED: (11 October 2026)
+- L1 Meso, ring stamp: `sdfshape` [Circle, Radius the mean ring radius, Thickness the wire diameter] > `wrangle` torus section h = sqrt(rw squared minus d squared) with d the distance to the wire centreline; two variants tilted in opposite directions by adding a linear ramp across the ring; SD: Shape ring plus Bevel (11 October 2026)
+- L2 Meso, interlock: `shapescatter` [Grid Type Grid, Stamps X and Stamps Y with spacing smaller than the ring diameter so rings overlap, Stamp Selection Mode Cycle to alternate the tilted variants row by row, Blend Method Maximum, Do Tiled on]; with tilted rings, Maximum keeps the higher wire at every crossing and reads as over and under; `stamppoint` with a stamp attribute per point is the exact alternative; SD: Tile Sampler with two inputs alternated and Blend Max (11 October 2026)
+- L3 Micro, rivets: a small dome on one side of each ring stamp; SD: shape detail in the stamp (11 October 2026)
+- L4 Micro, wire: fine `fractalnoise` plus a slight `streakblur` along the wire (UNVERIFIED direction setup); SD: perlin_noise (11 October 2026)
+- **Tileable**: Do Tiled with even stamp counts so the alternation closes (11 October 2026)
+- **Pitfalls**: rings that do not overlap read as washers; flat untilted rings lose the interlock (11 October 2026)
+- **Sources**: [S1] https://en.wikipedia.org/wiki/Mail_(armour) ; [S2] https://www.sidefx.com/docs/houdini/nodes/cop/sdfshape.html (11 October 2026)
+
+##### G7 Sci fi panels and greebles (11 October 2026)
+
+- **Macro**: rectangular panels subdivided again and again, separated by panel lines of constant width, insets and raised plates with chamfers (UNVERIFIED design convention) (11 October 2026)
+- **Meso**: greebles, small relief details that add visual complexity, suggest mechanical function without serving one and create an illusion of scale; the term comes from the Star Wars model makers, who took them from commercial model kits, and nurnies is a synonym [S1] (11 October 2026)
+- **Micro**: fine scratches, edge wear, tiny rivets (11 October 2026)
+- **Period**: the base grid unit shows in the ACF, the subdivision is aperiodic (11 October 2026)
+- **Joints**: panel lines of one or two fixed widths, a strong cue (UNVERIFIED) (11 October 2026)
+- **Profile**: plateaus at a few quantized heights linked by 45 degree chamfers (UNVERIFIED) (11 October 2026)
+- **Histogram**: a few discrete spikes, one per height level (11 October 2026)
+- **Spectrum**: energy on the two axes of the FFT, a cross (11 October 2026)
+- **Anisotropy**: only 0 and 90 degrees (11 October 2026)
+- **Components**: rectangular plateaus with a wide size range from recursive splitting, panel lines as one connected network (UNVERIFIED) (11 October 2026)
+- **Recipe**, start values UNVERIFIED: (11 October 2026)
+- L1 Macro, subdivision: `tilepattern` [Pattern Type Custom Pattern, large tiles, Split Tiles on, Iterations 3 to 5, Area Threshold, Number of Splits Set Varying, Orient Ratio, Jitter Scale 0, Inset the panel line width, Draw As Distance]; SD: Tile Random or Tile Generator with mixed sizes (11 October 2026)
+- L2 Macro, quantized heights: `randommono` [Range Values Specific Values, a list such as 0, 0.1, 0.2, 0.35] with the panel id on seed; SD: Flood Fill to Random Grayscale then Quantize Grayscale (11 October 2026)
+- L3 Meso, chamfers: `idtosdf` on the panel id > `wrangle` linear 45 degree bevel; corner cuts from `sdfshape` [Rectangle, Separate Controls for each corner]; SD: Bevel with a linear profile, or distance (11 October 2026)
+- L4 Meso, greebles: `shapescatter` [up to 10 stamps: bolts, vents, boxes, pipes; Stamp Selection Mode Random, Angle Round to Multiples 90, Density layer mask from the panel ids chosen by `randommono`, Blend Method Maximum, Do Tiled on]; bolt rows along panel edges by `curvescatter` [Distribution Distance] on outline curves; vents from a small `tilepattern` of Line shapes inside chosen panels; SD: Shape Splatter or Tile Sampler with a greeble atlas (11 October 2026)
+- L5 Meso, panel lines: subtract the line mask with a flat-bottomed profile; SD: Blend Subtract (11 October 2026)
+- **Tileable**: Custom Pattern tiles with whole counts, Do Tiled and Wrap Mode On on the stampers (11 October 2026)
+- **Pitfalls**: continuous random heights instead of quantized levels, rounded bevels where hard surface wants linear chamfers, greebles at arbitrary angles instead of multiples of 90 degrees (11 October 2026)
+- **Sources**: [S1] https://en.wikipedia.org/wiki/Greeble ; [S2] https://www.sidefx.com/docs/houdini/nodes/cop/tilepattern.html (11 October 2026)
+
+#### Group H: Textiles, hide and animal surfaces (11 October 2026)
+
+Interlaced yarns and the surfaces grown by animals; the families split into lattices of crossings (weave, knit, scales, feathers) identified by M1, and polygonal furrow networks (leather, skin) identified by M7 and M6 (11 October 2026)
+
+##### H1 Fabric weave (plain, twill, knit) (11 October 2026)
+
+- **Macro**: the thread count and the weave structure; drape folds do not belong in a tileable height (11 October 2026)
+- **Meso, plain weave**: each weft goes over one warp and under the next, the next weft reverses it; a balanced plain weave uses yarns of the same weight with as many ends as picks per inch and looks like a checkerboard; basketweave bundles two or more threads woven as one [S2] (11 October 2026)
+- **Meso, twill**: notation n/m gives harnesses raised over lowered per insertion, 2/1 is two up one down on three harnesses, 3/1 is the denim structure, plain weave is 1/1; floats cross two or more yarns and their offset at each row draws the diagonal wale; twill has a distinct face and back and fewer interlacings than plain weave, so it drapes and recovers from creasing better [S1]; the wale angle near 45 degrees for balanced cloth is UNVERIFIED (11 October 2026)
+- **Meso, knit**: columns of V shaped loops (wales) and rows (courses), purl bumps on the back (UNVERIFIED description; the `knit` node offers Knit and Purl stitch types) (11 October 2026)
+- **Micro**: yarn twist, fibres and fuzz (11 October 2026)
+- **Period**: plain weave repeats every 2 yarns in both directions; an n/m twill repeats every n plus m yarns with a shift of one yarn per row, so the ACF peaks lie on a diagonal; knit repeats at the wale and course spacing (11 October 2026)
+- **Joints**: interstices between yarns (11 October 2026)
+- **Profile**: crimp undulation along each yarn, elliptical yarn sections (11 October 2026)
+- **Histogram**: unimodal to bimodal, yarn tops against interstices (UNVERIFIED) (11 October 2026)
+- **Spectrum**: discrete peaks at the yarn spacing harmonics, on oblique lines for twill (11 October 2026)
+- **Anisotropy**: 0 and 90 degrees balanced for plain weave, a diagonal dominant orientation for twill, vertical wales for knit (11 October 2026)
+- **Components**: interstices as small regular black components, one connected white yarn network (11 October 2026)
+- **Recipe**, start values UNVERIFIED: (11 October 2026)
+- L1 Meso, plain weave: `weave` [Rows weft count, Columns warp count, Checkerboard on for the classic plain weave, Row Inset and Column Inset for gaps, Edge Gradient for a rounded fibre profile, Overlap Gradient with its Ramp for the over and under shading, Fiber Scale, Fiber Strength]; outputs weave, uv and id; SD: Weave Generator in plain mode (11 October 2026)
+- L1b Meso, twill: the same `weave` with its pattern input fed by a Mono over and under mask from a `wrangle`: over when (ix plus iy) modulo (n plus m) is below n, with ix and iy the yarn indices computed from @P and the counts; SD: Weave Generator in twill mode (11 October 2026)
+- L1c Meso, knit: `knit` [Knit Shape Type Knit or Purl, Rows, Columns, Weave Width, Weave Height, Weave Radius, Fiber Strength, Fiber Cycles, Fiber Twist, Bulge Ramp, Height Ramp, Double Knit as needed]; its height output is a mono relief; SD: Tile Sampler with a V stitch shape, since a dedicated knit generator in the core library is UNVERIFIED (11 October 2026)
+- L2 Micro, yarn twist: fibres along each yarn from the uv output of `weave` driving a stretched `fractalnoise` through its pos input, tilted to the twist angle (UNVERIFIED setup); SD: anisotropic noise per yarn (11 October 2026)
+- L3 Micro, fuzz: `randommono` [Random per Pixel] > `blur` [Size 0.5 pixel] at a tiny amplitude; SD: White Noise (11 October 2026)
+- **Tileable**: whole rows and columns over the canvas; the seam behaviour of `weave` and `knit` is UNVERIFIED and must be checked with the half offset test (11 October 2026)
+- **Pitfalls**: the weave output is described as shading with an over and under gradient, so verify with `heighttonormal` that it behaves as a height; S and Z twill directions must match the reference (11 October 2026)
+- **Sources**: [S1] https://en.wikipedia.org/wiki/Twill ; [S2] https://en.wikipedia.org/wiki/Plain_weave (11 October 2026)
+
+##### H2 Leather (11 October 2026)
+
+- **Macro**: hide thickness variation, flex creases, seams (UNVERIFIED) (11 October 2026)
+- **Meso**: full-grain leather keeps the whole grain layer and develops a patina; corrected grain is buffed or sanded to remove flaws, then dyed and embossed for a uniform look; bicast leather is an embossed polyurethane or vinyl coating imitating grain; ostrich leather shows a goose bump look from large feather follicles [S1]; the pebble grain and its sizes are UNVERIFIED (11 October 2026)
+- **Micro**: nubuck is top-grain buffed on the grain side to raise a short nap; suede is the napped underside of a split [S1]; hair follicle pores on full grain (UNVERIFIED) (11 October 2026)
+- **Period**: none for natural grain; embossed patterns may repeat (11 October 2026)
+- **Joints**: fine grooves between pebbles (11 October 2026)
+- **Profile**: rounded plateaus separated by narrow grooves, pores as small pits (UNVERIFIED) (11 October 2026)
+- **Histogram**: slight negative skew from grooves and pores (UNVERIFIED) (11 October 2026)
+- **Spectrum**: a peak at the pebble size over a background near minus 3 (UNVERIFIED) (11 October 2026)
+- **Anisotropy**: mostly isotropic; creases follow the flex direction (11 October 2026)
+- **Components**: white pebbles with CV 0.3 to 0.5, a connected black groove network, many tiny pore components (UNVERIFIED) (11 October 2026)
+- **Recipe**, start values UNVERIFIED: (11 October 2026)
+- L1 Meso, grain cells: `cellpattern` [Element Size the pebble size, Jitter 1, Gap the groove width, Bevel 0.4 with a smooth Bevel Ramp, Random Height 0.05, Distort on with a small Amplitude]; or a `worleynoise` border turned into an SDF and inflated by `planarinflate` [Mounds on, Wrinkles on]; SD: cells_1 plus Bevel, or BnW Spots (11 October 2026)
+- L2 Meso, secondary grooves: a second `worleynoise` at a third of the size, its border subtracted lightly; SD: cells_1 (11 October 2026)
+- L3 Meso, creases: `phasornoise` [Type Phasor Noise, Element Size the crease spacing, Rotate Pattern along the flex, Rotation Varying] masked by a `fractalnoise` and subtracted; SD: creased or directional noise (UNVERIFIED names) (11 October 2026)
+- L4 Micro, pores: `shapescatter` of tiny pits [Blend Method Minimum] or thresholded `randommono`; ostrich follicles as sparse raised domes; SD: BnW Spots (11 October 2026)
+- L5 Micro, nap for nubuck or suede: `fractalnoise` [White (Random)] blurred by half a pixel at a tiny amplitude; SD: White Noise (11 October 2026)
+- **Tileable**: Tile Size on `cellpattern` and the noises (11 October 2026)
+- **Pitfalls**: pebbles of one size in a regular grid read as an embossed plastic; full grain needs irregular cells and pores (11 October 2026)
+- **Sources**: [S1] https://en.wikipedia.org/wiki/Leather ; [S2] https://www.sidefx.com/docs/houdini/nodes/cop/cellpattern.html (11 October 2026)
+
+##### H3 Skin and pores (11 October 2026)
+
+- **Macro**: body curvature, folds at joints, wrinkles (UNVERIFIED) (11 October 2026)
+- **Meso**: microrelief made of polygonal plateaus, mainly triangles or quadrangles, bounded by furrows; primary lines are the widest and deepest, about 30 to 100 micrometres, and the only ones visible to the naked eye; secondary lines are shallower, 5 to 40 micrometres, and narrower [S1] (11 October 2026)
+- **Micro**: pores and fine flakes (pore positions not covered by the source, UNVERIFIED); intrinsic ageing makes the plateaus anisotropic with preferential orientations, and furrow and plateau counts fall with age while their sectional areas grow [S1] (11 October 2026)
+- **Period**: none; a ring at the plateau size (11 October 2026)
+- **Joints**: furrows (11 October 2026)
+- **Profile**: plateaus with narrow V furrows (UNVERIFIED shape) (11 October 2026)
+- **Histogram**: narrow with a negative tail from furrows and pores (UNVERIFIED) (11 October 2026)
+- **Spectrum**: anisotropic with a peak at the plateau size (UNVERIFIED) (11 October 2026)
+- **Anisotropy**: low on young skin, rising with age toward preferred orientations [S1]; two crossing furrow families are common (UNVERIFIED) (11 October 2026)
+- **Components**: white plateaus (triangles and quadrangles) with a moderate size spread, black connected furrows, pores as dots near furrow junctions (UNVERIFIED) (11 October 2026)
+- **Recipe**, start values UNVERIFIED: (11 October 2026)
+- L1 Meso, primary furrows: `worleynoise` [Element Scale slightly anisotropic for older skin, Jitter 1] border as a thin V groove, or two `phasornoise` [Type Phasor Noise, Sine, thin] sets at two angles merged with Minimum for a crosshatch; depth in the 30 to 100 micrometre ratio of the canvas scale; SD: two directional noises with Blend Min, or cells_1 stretched (11 October 2026)
+- L2 Meso, secondary furrows: a finer `worleynoise` border at a third to a half of the primary depth, matching the 5 to 40 micrometre band [S1]; SD: cells_1 (11 October 2026)
+- L3 Micro, pores: `cornerdetect` on the furrow mask to find junctions, or a `shapescatter` of pits with the blurred furrow mask on its density input; SD: BnW Spots masked (11 October 2026)
+- L4 Macro, wrinkles: `phasornoise` with a large Element Size along the wrinkle direction, subtracted deeper than the furrows; SD: a waveform through a warp (11 October 2026)
+- L5 Micro, flakes: `fractalnoise` [White (Random)] at a tiny amplitude; SD: White Noise (11 October 2026)
+- **Tileable**: Tile Size on the noises; `cornerdetect` seams UNVERIFIED (11 October 2026)
+- **Pitfalls**: uniform dots for pores and no microrelief; furrow depth out of scale with the plateau size (11 October 2026)
+- **Sources**: [S1] https://pmc.ncbi.nlm.nih.gov/articles/PMC9838641 ; [S2] https://www.sidefx.com/docs/houdini/nodes/cop/phasornoise.html (11 October 2026)
+
+##### H4 Reptile scales (11 October 2026)
+
+- **Macro**: scales follow the body axis; larger, stouter scales cover areas under stress (feet, tail, head) and smaller ones sit around joints for flexibility; most snakes have broad belly scales that each span the belly [S1] (11 October 2026)
+- **Meso**: granular scales look bumpy, keeled scales carry a central ridge, and scales backed by bony osteoderms in crocodilians and turtles are properly called scutes [S1]; imbricate snake scales overlap like roof tiles in half offset rows (UNVERIFIED, the source names no imbricate type) (11 October 2026)
+- **Micro**: fine microornamentation ridges and cracks (UNVERIFIED) (11 October 2026)
+- **Period**: hexagonal or rhombic lattices, rows offset by half a scale; the scale size drifts along the body (11 October 2026)
+- **Joints**: interscale grooves (11 October 2026)
+- **Profile**: imbricate scales give an asymmetric sawtooth along the body axis (rise then drop at the overlapped edge); granular scales are domes; scutes are plateaus with a keel (UNVERIFIED) (11 October 2026)
+- **Histogram**: close to flat for imbricate sawtooth, skewed domes for granular scales (UNVERIFIED) (11 October 2026)
+- **Spectrum**: lattice peaks (11 October 2026)
+- **Anisotropy**: along the body axis for imbricate and keeled scales, isotropic for granular ones (11 October 2026)
+- **Components**: one white component per scale with a low CV inside a body region, one connected groove network (11 October 2026)
+- **Recipe**, start values UNVERIFIED: (11 October 2026)
+- L1 Meso, granular: `cellpattern` [Lattice Type Hexagonal, Jitter 0.3, Gap small, Bevel 0.5 with a dome Bevel Ramp, Random Height 0.05]; SD: cells_1 with hexagonal shapes or Tile Generator with a paraboloid (11 October 2026)
+- L1b Meso, imbricate keeled: `tilepattern` [Pattern Type Stretcher Bond, Shape Class Basic Diamond or Squircle, Draw As Gradient with Ramp Type Vertical for the overlap slope, Blend Method Depth-Sorted Over so that each row covers the next] plus a keel ridge from a `wrangle` on tile-local coordinates; SD: Tile Generator in brick pattern with a gradient shape, Blend Max (11 October 2026)
+- L1c Meso, scutes: `tilepattern` [Pattern Type Custom Pattern, Rectangle with Round Corners, Horizontal Scale Set Varying, Inset] plus a keel `wrangle`, and granular scales from L1 between scute rows; SD: Tile Random plus Bevel and Shape (11 October 2026)
+- L2 Macro, size drift: scale the `pos` input or the Element Size along the body axis with a `ramp` (UNVERIFIED setup); SD: a gradient on the scale input of the Tile Sampler (11 October 2026)
+- L3 Micro, surface: fine `fractalnoise` and shallow `worleynoise` cracks; SD: perlin_noise and cells_1 (11 October 2026)
+- **Tileable**: whole rows and columns; a size drift along the body breaks tiling along that axis by nature (11 October 2026)
+- **Pitfalls**: Maximum blending cannot express overlap order, imbricate rows need ordered stamping; overlap must run from head to tail (11 October 2026)
+- **Sources**: [S1] https://en.wikipedia.org/wiki/Scale_(zoology) ; [S2] https://www.sidefx.com/docs/houdini/nodes/cop/cellpattern.html (11 October 2026)
+
+##### H5 Fish scales (11 October 2026)
+
+- **Macro**: cycloid and ctenoid (leptoid) scales add concentric layers as the fish grows and overlap head to tail like roof tiles, which reduces drag; cycloid scales have a smooth outer edge (salmon, carp) and ctenoid scales a toothed edge (bass); ganoid scales of gars and bichirs are diamond shaped, shiny and hard; placoid scales of sharks are tooth-like denticles [S1] (11 October 2026)
+- **Meso**: the exposed posterior field of each scale forms a crescent; growth rings (circuli) run concentrically on the scale (circuli not described by the source, UNVERIFIED) (11 October 2026)
+- **Micro**: teeth on ctenoid edges, a smooth mucus surface (11 October 2026)
+- **Period**: an oblique lattice of overlapping scales; fine circuli add a ring in the FFT (UNVERIFIED) (11 October 2026)
+- **Joints**: the overlap edges (11 October 2026)
+- **Profile**: sawtooth along the body, each scale rising then stepping down where the next row overlaps (11 October 2026)
+- **Histogram**: broad and close to flat (UNVERIFIED) (11 October 2026)
+- **Spectrum**: lattice peaks plus a fine ring texture (UNVERIFIED) (11 October 2026)
+- **Anisotropy**: along the body axis (11 October 2026)
+- **Components**: exposed crescents as identical white components (11 October 2026)
+- **Recipe**, start values UNVERIFIED: (11 October 2026)
+- L1 Meso, layout: `tilepattern` [Pattern Type Stretcher Bond, Shape Class Compound Fishscale with its Thickness, Draw As Gradient with Ramp Type Vertical or Radial, Blend Method Depth-Sorted Over]; ganoid diamonds with Basic Diamond and little overlap; SD: Tile Generator in brick pattern with a disc or half bell shape (UNVERIFIED best Designer shape) (11 October 2026)
+- L2 Meso, scale dome and rim: a `wrangle` on tile-local coordinates adds a slight dome and a raised posterior rim; SD: Shape plus Bevel (11 October 2026)
+- L3 Micro, circuli: a `ramp` [Type Concentric, Number of Cycles many] read through `sample` (UV Sample) with tile-local UVs, masked to each scale, at a low amplitude; SD: stripes on a radial gradient per tile (11 October 2026)
+- L4 Micro, ctenoid teeth: the posterior outline serrated by a `distort` driven by a fine `phasornoise` along the edge; SD: directionalwarp on the edge (11 October 2026)
+- **Tileable**: whole rows and columns (11 October 2026)
+- **Pitfalls**: overlap order reversed (scales pointing toward the head), circuli strong enough to dominate the scale shape (11 October 2026)
+- **Sources**: [S1] https://en.wikipedia.org/wiki/Scale_(zoology) ; [S2] https://www.sidefx.com/docs/houdini/nodes/cop/tilepattern.html (11 October 2026)
+
+##### H6 Feathers (11 October 2026)
+
+- **Macro**: contour feathers cover the body and grow from skin tracts (pterylae) separated by bare tracts (apterylae) [S1]; on plumage they overlap like shingles (UNVERIFIED, the source does not describe the overlap) (11 October 2026)
+- **Meso**: the rachis is the central shaft, barbs fused to it are themselves branched into barbules, and the barbs and barbules form the flat vane; the calamus at the base carries no vane [S1]; barb angle and spacing are not given (UNVERIFIED 30 to 60 degrees) (11 October 2026)
+- **Micro**: barbicels, tiny hooks on the barbules that attach them to neighbouring barbules; down feathers lack them [S1] (11 October 2026)
+- **Period**: barbs repeat at a fixed spacing perpendicular to their direction; plumage adds the feather lattice (11 October 2026)
+- **Joints**: splits in the vane where barbs separate (11 October 2026)
+- **Profile**: the rachis as a rounded ridge, the vane as fine parallel ridges with a slight concave curvature (UNVERIFIED) (11 October 2026)
+- **Histogram**: narrow and symmetric (UNVERIFIED) (11 October 2026)
+- **Spectrum**: two mirrored peaks at the barb frequency, one per side of the rachis, a herringbone in the FFT (11 October 2026)
+- **Anisotropy**: two orientations mirrored about the rachis (11 October 2026)
+- **Components**: vane splits as elongated black gaps (11 October 2026)
+- **Recipe**, start values UNVERIFIED: (11 October 2026)
+- L1 Macro, plumage: `tilepattern` [Pattern Type Stretcher Bond, Shape Class Compound Egg or Vesica for the feather outline, Draw As Gradient with Ramp Type Vertical, Blend Method Depth-Sorted Over] with a single feather stamp; SD: Tile Sampler with a feather height map (11 October 2026)
+- L2 Meso, rachis: `sdfshape` [Line, Add Thickness on, Start Thickness larger than End Thickness] with a rounded profile; SD: Shape plus Bevel (11 October 2026)
+- L3 Meso, barbs: `phasornoise` [Type Phasor Wave, Sine, Element Size the barb spacing] with a direction input that mirrors the barb angle across the rachis and bends toward the tip, masked by the vane outline from `sdfshape` [Vesica or Egg]; SD: directional noise mirrored by Mirror, masked (11 October 2026)
+- L4 Meso, vane splits: a sparse thresholded noise stretched along the barbs cuts gaps; SD: histogram_scan on stretched noise (11 October 2026)
+- L5 Micro, barbules: `streakblur` along the barb direction of white noise at a tiny amplitude; SD: non_uniform_blur_grayscale (11 October 2026)
+- **Tileable**: plumage rows tile; a single feather does not (11 October 2026)
+- **Pitfalls**: barbs at a constant straight angle read as a fern; real barbs curve toward the tip (11 October 2026)
+- **Sources**: [S1] https://en.wikipedia.org/wiki/Feather ; [S2] https://www.sidefx.com/docs/houdini/nodes/cop/phasornoise.html (11 October 2026)
+
+#### Group I: Roofing and thatch (11 October 2026)
+
+Overlapping units laid in courses down a slope; the height is a sawtooth along the slope (each course thickest at its butt), so M3 and M1 along the vertical axis identify the family before any texture (11 October 2026)
+
+##### I1 Roof shingles (wood, slate, clay) (11 October 2026)
+
+- **Macro, wood**: shingles are always sawn, shakes are normally split at least on one side, are longer and thicker and more textured because they split along the grain; cedar shingles come in 18 and 24 in lengths (460 and 610 mm) [S1]; exposures and random widths are UNVERIFIED (11 October 2026)
+- **Macro, slate**: slate shingles last 80 to 400 years and may be cut in decorative patterns [S1]; double lap exposure equals the slate length minus the headlap, divided by two, so a 20 in slate with a 3 in headlap shows 8.5 in; that rule comes from roofing inspection pages found in search, not from the two cited sources (UNVERIFIED) (11 October 2026)
+- **Macro, clay**: plain tiles overlap so that at least two tiles cover every point, some with pointed or rounded beaver-tail bases; Roman roofs lay a semi-cylindrical imbrex over the joints of flat tegulae; mission tiles pair an arched pan and cover; pantiles merge pan and cover into one S shaped piece, subdued in the Scandinavian variant; interlocking tiles (Marseilles, Ludowici) lock to their neighbours [S2] (11 October 2026)
+- **Meso**: each unit is a wedge, thin at its hidden head and thick at its exposed butt; keyways between neighbours offset from one course to the next; warping, chipped edges, moss (UNVERIFIED) (11 October 2026)
+- **Micro**: wood grain along the shingle, slate cleavage, clay grain (11 October 2026)
+- **Period**: a strict vertical period equal to the exposure; a horizontal period at the unit width for slate and clay, random widths for wood (11 October 2026)
+- **Joints**: narrow keyways and the shadow line under each butt (11 October 2026)
+- **Profile**: along the slope a sawtooth with a sharp step at the butts; across the slope flat for slate and plain tiles, S shaped for pantiles, alternating barrels for Roman tiles (11 October 2026)
+- **Histogram**: close to flat between head and butt levels for the sawtooth, arcsine-like for barrel and S profiles (UNVERIFIED) (11 October 2026)
+- **Spectrum**: vertical-frequency peaks at one over the exposure with sawtooth harmonics decaying as one over n (11 October 2026)
+- **Anisotropy**: strong horizontal butt lines; vertical grain on wood (11 October 2026)
+- **Components**: exposed units as white components, equal for slate and clay, with a broad width spread for wood shingles (11 October 2026)
+- **Recipe**, start values UNVERIFIED: (11 October 2026)
+- L1 Macro, courses: `tilepattern` [Pattern Type Stretcher Bond for slate and plain tiles, or Custom Pattern with per-column Width varying and per-row Slide Offset for wood shingles, Inset for the keyways, Draw As Gradient with Ramp Type Vertical so each unit gets its wedge]; SD: Tile Generator or Tile Random in brick pattern with a gradient shape (11 October 2026)
+- L2 Meso, wedge and butt: check that the gradient rises from the head to the butt, then round the butt edge with a one-sided `feather` [Feather Direction Custom, Sweep Directions toward the downslope]; per-unit thickness from `randommono` on the id; SD: flood_fill_to_gradient_2 at a fixed angle plus Bevel (11 October 2026)
+- L3 Meso, material: wood grain from a vertically stretched `fractalnoise` and splits from a stretched `worleynoise` border, shakes deepened with Distort by Slope; slate edges chipped by `distort` with fine noise and cleavage steps from `quantize`; pantiles from `ramp` [Type Horizontal, Number of Cycles the tiles across] > `wrangle` S profile, Roman tiles from an absolute sine; SD: anisotropic noise, cells_1, Quantize Grayscale, waveform (11 October 2026)
+- L4 Micro, weathering: moss along butts and keyways from D6 masked by `heighttoambientocclusion` as a cavity mask; SD: ambient occlusion mask plus moss (11 October 2026)
+- **Tileable**: whole courses and whole units across; random wood widths must wrap, which Custom Pattern handles only if the column widths sum to the canvas (UNVERIFIED) (11 October 2026)
+- **Pitfalls**: a wedge gradient reversed (butt must be the thickest point), an exposure out of proportion with the unit length, no keyways (11 October 2026)
+- **Sources**: [S1] https://en.wikipedia.org/wiki/Roof_shingle ; [S2] https://en.wikipedia.org/wiki/Roof_tiles (11 October 2026)
+
+##### I2 Thatch (11 October 2026)
+
+- **Macro**: water reed is usually a one coat material stripped and replaced in full, long straw and combed wheat reed are the other usual UK materials; each course overlaps the one below and is fixed by twisted hazel staples (spars or gads) held by horizontal sways; straw is bundled into yelms; a pitch of at least 50 degrees sheds water quickly and 45 to 55 degrees is typical; very old buildings accumulated spar coats over 2.1 m thick [S1] (11 October 2026)
+- **Meso**: water reed shows its butt ends dressed into a dense dotted surface, long straw shows stems lying along the slope with liggers and spars at the eaves and ridge (UNVERIFIED, the source does not describe the visual surface) (11 October 2026)
+- **Micro**: individual stems and their hollow ends (UNVERIFIED stem diameters) (11 October 2026)
+- **Period**: weak horizontal courses; periodic liggers and spar patterns on the ridge (11 October 2026)
+- **Joints**: none (11 October 2026)
+- **Profile**: reed butts as a bumpy dotted field with small course steps; long straw as ridged streaks along the slope (UNVERIFIED) (11 October 2026)
+- **Histogram**: broad, close to Gaussian (UNVERIFIED) (11 October 2026)
+- **Spectrum**: anisotropic for long straw, isotropic dots for reed butts (11 October 2026)
+- **Anisotropy**: strong along the slope for long straw (11 October 2026)
+- **Components**: stem ends as many small components for reed (11 October 2026)
+- **Recipe**, start values UNVERIFIED: (11 October 2026)
+- L1 Macro, courses: `tilepattern` [Pattern Type Custom Pattern rows, Draw As Gradient with Ramp Type Vertical, Vertical Scale Set Varying] at a low amplitude for the overlapping courses; SD: Tile Generator with a gradient (11 October 2026)
+- L2 Meso, long straw: `randommono` [Random per Pixel] > `streakblur` [Angle 90, Length long, Mode Max for ridged stems] > `distort` by a low-frequency `fractalnoise` for the lay; SD: White Noise through directional blur in Max mode, or fibres (11 October 2026)
+- L3 Meso, reed butts: `shapescatter` [very dense, tiny `sdfshape` Circle with Thickness for hollow ends, Scale Variance 0.3, Blend Method Maximum, Do Tiled on]; SD: Splatter Circular, dense (11 October 2026)
+- L4 Meso, liggers and spars: SOP curves through `rasterizecurves` for the rods and their crossing spars, or `tilepattern` [Pattern Type Cross Hatch with Line shapes] inside a ridge band; SD: Tile Generator with lines (11 October 2026)
+- L5 Micro, decay: moss from D6 in the lower courses (11 October 2026)
+- **Tileable**: Do Tiled, Tile Size on the noises, Border Wrap on `streakblur` and `distort` (11 October 2026)
+- **Pitfalls**: thatch built as grass (random stroke directions); stems must align with the slope (11 October 2026)
+- **Sources**: [S1] https://en.wikipedia.org/wiki/Thatching ; [S2] https://www.sidefx.com/docs/houdini/nodes/cop/streakblur.html (11 October 2026)
+
+> Note (11 October 2026) : catalogue partiel, groupes A à I ; l agent a été arrêté avant le groupe du verre et les suivants. (11 October 2026)
+
 ## 12. Dictionnaire des couches : du trait observé à la couche Copernicus (11 October 2026)
 
 - Usage : à chaque pas de la méthode, on regarde le résidu (référence moins résultat courant), on nomme le trait qui domine, puis on choisit dans cette table la couche qui l'explique ; chaque couche est vérifiée par une vraie construction et gardée seulement si elle paie. Les types de couches sont ceux du constructeur `/Users/zenray/.claude/tmp/tmp-zenray-height/Scripts/Recipe.py` (copié dans le skill), chacun testé en live le 11 October 2026. (11 October 2026)
 
 ### 12.1 Table principale (11 October 2026)
 
-| Trait observé dans le résidu | Mesure qui le décrit | Couche (type de recette) | Nœuds Copernicus | Niveau d'identité | Date |
+| Trait observé dans le résidu | Mesure qui le décrit | Couche (type de recette) | Nœuds Copernicus | Niveau d'identité | Date (11 October 2026) |
 |---|---|---|---|---|---|
 | bandes ou creux qui se répètent à pas fixe (joints, rangées) | autocorrélation des profils moyens (`Lattice.py`), centres des joints | `joint_profile` sur la distance au joint | `ramp` (repeat, cycles = cellules), `remap` (min, inversion), `blend` mode min, `remap` avec rampe mesurée | L1 | 11 October 2026 |
 | joint asymétrique (bourrelet d'un seul côté, ligne de cadre) | profil du résidu contre la distance à chaque côté | `side_profiles` | quatre `remap` à rampe mesurée sur fx, 1 moins fx, fy, 1 moins fy, `blend` add | L1 | 11 October 2026 |
@@ -20314,7 +20826,7 @@ Fibrous anisotropic material whose height follows the grain; every family here m
 
 ### 13.1 Géométrie mesurée de la planche (11 October 2026)
 
-| Mesure | Valeur | Date |
+| Mesure | Valeur | Date (11 October 2026) |
 |---|---|---|
 | pitch | 477.56 | 11 October 2026 |
 | height_right_joint_x | 1893.0 | 11 October 2026 |
@@ -20345,3 +20857,18 @@ Fibrous anisotropic material whose height follows the grain; every family here m
 - Lignes en relief du motif (passe-haut sigma 3) : quantiles 1/5/50/95/99 pour cent [-0.0705, -0.0462, -0.0014, 0.0506, 0.0768] ; amplitude typique des traits +0,05 à +0,08. (11 October 2026)
 - Seuils absolus des masques noir et blanc (quantiles de la référence) : {'q10': 0.4493, 'q25': 0.5093, 'q50': 0.5777, 'q75': 0.6634, 'q90': 0.7597}. (11 October 2026)
 - Trame détectée par autocorrélation (`Lattice.py`) : 512 x 512 px, soit 4 x 4 carreaux, force 1,0 en x et 0,64 en y. (11 October 2026)
+
+## 14. Résultats de l'exécution finale (11 October 2026)
+
+| Référence | Réseau Houdini | Couches gardées | Pearson | Raccord au bord x, y (référence) | Date |
+|---|---|---|---|---|---|
+| Ceramic Wall Tiles, height L2 (méthode validable) | `/obj/ZRH_CeramicWallTiles` | 11 sur 13 | 0,956 | 0,67 ; 1,19 (1,45 ; 1,41) | 11 October 2026 |
+| Ceramic Wall Tiles, height L3 (sigma 2, à valider par Matthieu) | `/obj/ZRH_CeramicWallTiles_L3` | 12 sur 14 | 0,978 | 1,03 ; 1,76 (1,45 ; 1,41) | 11 October 2026 |
+| Ceramic Wall Tiles, base color | `/obj/ZRH_CeramicWallTiles_BC` | 5 sur 5 | luminance 0,915, écart de couleur 7,70 | 1,18 ; 6,56 (0,91 ; 8,54, la référence n'est pas raccordée en hauteur) | 11 October 2026 |
+| Louisiana Bayou window (test secondaire) | `/obj/ZRH_Secondary_window` | 11 sur 13 | 0,901 | 0,83 ; 0,50 (5,60 ; 0,92) | 11 October 2026 |
+| Louisiana Bayou whitepaint (test secondaire) | `/obj/ZRH_Secondary_whitepaint` | 11 sur 13 | 0,942 | 0,31 ; 0,94 (4,20 ; 4,07) | 11 October 2026 |
+| Louisiana Bayou tile (test secondaire) | `/obj/ZRH_Secondary_tile` | 11 sur 13 | 0,967 | 0,00 ; 0,00 (0,04 ; 0,18) | 11 October 2026 |
+
+- Lecture : la méthode tient sur quatre matériaux sans réglage propre à chacun ; la fenêtre, bloquée à 0,047 de fractions par l'ancienne boucle M01, atteint 0,90 de corrélation au pixel, et les heights rendues sont raccordées même quand la référence ne l'est pas. (11 October 2026)
+- Limite visible : le grain très fin (fibres du bois, fins tracés des volutes) reste plus doux que la référence au niveau L2 ; le niveau L3 le récupère en partie, mais il s'approche d'un décalque et attend la décision de Matthieu. Le grain statistique est rejeté partout, ce qui confirme que le détail fin de ces références est positionnel et non statistique. (11 October 2026)
+- Fichiers : `versions/final/<nom>/FINAL_height.png` ou `FINAL_basecolor.png`, une image par couche, `board/Evolution.html`, `checks/seam_check.json` et `checks/tile2x2_*.png`. (11 October 2026)

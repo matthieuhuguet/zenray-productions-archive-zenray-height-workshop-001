@@ -65,8 +65,18 @@ def L_regions(ctx, sigma, K, work, tag):
     return F.region_layer_fast(ctx["res"], ctx["v"], sigma=sigma, K=K, work=work, tag=tag)
 
 
+BORDER_PX = 8.0
+
+
+def off_border(items, px=BORDER_PX, res=2048):
+    """11 October 2026 : traced shapes touching the canvas border are cut by the wrap and leave a tiling seam; keep only interior ones."""
+    lim = 1.0 - 2.0 * px / res
+    return [it for it in items if all(abs(x) < lim and abs(y) < lim for x, y in it["pts"])]
+
+
 def L_lines(ctx, tag, gain=1.0, width_px=3.5):
     lines, info = F.ridge_lines2(ctx["res"], ctx["v"])
+    lines = off_border(lines)
     return {"type": "lines", "tag": tag, "curves": lines, "width": width_px / 2048 * 2,
             "profile": [(0, 0), (0.3, 0.6), (0.5, 1.0), (0.7, 0.6), (1, 0)], "gain": gain, "note": f"traced ridge centrelines ({len(lines)})"}
 
@@ -77,6 +87,7 @@ def L_blobs(ctx, tag, sigma_hp=6.0, q=0.985, sign=None):
         L = F.blob_layer(-ctx["res"], ctx["v"], sigma_hp=sigma_hp, q=q, tag=tag, both_signs=False)
         for p in L["polys"]:
             p["val"] = -p["val"]
+    L["polys"] = off_border(L["polys"])
     return L
 
 

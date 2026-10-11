@@ -1230,3 +1230,5 @@ Overlapping units laid in courses down a slope; the height is a sawtooth along t
 - **Tileable**: Do Tiled, Tile Size on the noises, Border Wrap on `streakblur` and `distort` (11 October 2026)
 - **Pitfalls**: thatch built as grass (random stroke directions); stems must align with the slope (11 October 2026)
 - **Sources**: [S1] https://en.wikipedia.org/wiki/Thatching ; [S2] https://www.sidefx.com/docs/houdini/nodes/cop/streakblur.html (11 October 2026)
+
+> Note (11 October 2026) : catalogue partiel, groupes A à I ; l agent a été arrêté avant le groupe du verre et les suivants. (11 October 2026)

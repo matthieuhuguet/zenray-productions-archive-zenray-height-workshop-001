@@ -14,3 +14,4 @@
 | reconnaître une famille de matériau et sa recette de height | 11. Catalogue des familles | `query_copernicus2.py "<famille>" --show` | 11 October 2026 |
 | choisir la prochaine couche selon le trait observé | 12. Dictionnaire des couches | `query_copernicus2.py "Dictionnaire" --show` | 11 October 2026 |
 | mesures de Procedural Ceramic Wall Tiles | 13. Dossier de référence | `query_copernicus2.py "Dossier" --show` | 11 October 2026 |
+| résultats chiffrés de l'exécution finale (céramique, base color, window, whitepaint, tile) | 14. Résultats | `query_copernicus2.py "Résultats" --show` | 11 October 2026 |

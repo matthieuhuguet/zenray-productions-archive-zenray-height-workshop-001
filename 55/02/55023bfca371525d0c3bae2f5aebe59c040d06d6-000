@@ -1,0 +1,14 @@
+## 14. Résultats de l'exécution finale (11 October 2026)
+
+| Référence | Réseau Houdini | Couches gardées | Pearson | Raccord au bord x, y (référence) | Date |
+|---|---|---|---|---|---|
+| Ceramic Wall Tiles, height L2 (méthode validable) | `/obj/ZRH_CeramicWallTiles` | 11 sur 13 | 0,956 | 0,67 ; 1,19 (1,45 ; 1,41) | 11 October 2026 |
+| Ceramic Wall Tiles, height L3 (sigma 2, à valider par Matthieu) | `/obj/ZRH_CeramicWallTiles_L3` | 12 sur 14 | 0,978 | 1,03 ; 1,76 (1,45 ; 1,41) | 11 October 2026 |
+| Ceramic Wall Tiles, base color | `/obj/ZRH_CeramicWallTiles_BC` | 5 sur 5 | luminance 0,915, écart de couleur 7,70 | 1,18 ; 6,56 (0,91 ; 8,54, la référence n'est pas raccordée en hauteur) | 11 October 2026 |
+| Louisiana Bayou window (test secondaire) | `/obj/ZRH_Secondary_window` | 11 sur 13 | 0,901 | 0,83 ; 0,50 (5,60 ; 0,92) | 11 October 2026 |
+| Louisiana Bayou whitepaint (test secondaire) | `/obj/ZRH_Secondary_whitepaint` | 11 sur 13 | 0,942 | 0,31 ; 0,94 (4,20 ; 4,07) | 11 October 2026 |
+| Louisiana Bayou tile (test secondaire) | `/obj/ZRH_Secondary_tile` | 11 sur 13 | 0,967 | 0,00 ; 0,00 (0,04 ; 0,18) | 11 October 2026 |
+
+- Lecture : la méthode tient sur quatre matériaux sans réglage propre à chacun ; la fenêtre, bloquée à 0,047 de fractions par l'ancienne boucle M01, atteint 0,90 de corrélation au pixel, et les heights rendues sont raccordées même quand la référence ne l'est pas. (11 October 2026)
+- Limite visible : le grain très fin (fibres du bois, fins tracés des volutes) reste plus doux que la référence au niveau L2 ; le niveau L3 le récupère en partie, mais il s'approche d'un décalque et attend la décision de Matthieu. Le grain statistique est rejeté partout, ce qui confirme que le détail fin de ces références est positionnel et non statistique. (11 October 2026)
+- Fichiers : `versions/final/<nom>/FINAL_height.png` ou `FINAL_basecolor.png`, une image par couche, `board/Evolution.html`, `checks/seam_check.json` et `checks/tile2x2_*.png`. (11 October 2026)
