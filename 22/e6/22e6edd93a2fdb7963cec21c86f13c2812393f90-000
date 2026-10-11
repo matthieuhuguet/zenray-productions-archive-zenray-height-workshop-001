@@ -1,0 +1,102 @@
+{
+ "method": "M09_TileTables",
+ "principle": "Index mapping tables per tile row: offset, plane, bilinear corners, then structure",
+ "phases": [
+  {
+   "phase": 1,
+   "layers": [
+    "row_table: per row offset"
+   ],
+   "chosen": null,
+   "trials": null,
+   "summary": {
+    "pearson": 0.4588,
+    "mae": 0.0828,
+    "low32": 0.794,
+    "b1-2": 0.0255,
+    "b4-8": 0.0874,
+    "b16-32": 0.1949,
+    "q25": 0.0,
+    "q75": 0.3173,
+    "lines": 0.0,
+    "struct": 0.333,
+    "detail": 0.038
+   },
+   "score": 0.393,
+   "nodes": 14,
+   "seconds": 1.6
+  },
+  {
+   "phase": 2,
+   "layers": [
+    "row_plane: per row plane"
+   ],
+   "chosen": null,
+   "trials": null,
+   "summary": {
+    "pearson": 0.5555,
+    "mae": 0.0762,
+    "low32": 0.915,
+    "b1-2": 0.0469,
+    "b4-8": 0.1199,
+    "b16-32": 0.3828,
+    "q25": 0.3732,
+    "q75": 0.287,
+    "lines": 0.019,
+    "struct": 0.531,
+    "detail": 0.065
+   },
+   "score": 0.4675,
+   "nodes": 22,
+   "seconds": 1.6
+  },
+  {
+   "phase": 3,
+   "layers": [
+    "corners: per row bilinear corners"
+   ],
+   "chosen": null,
+   "trials": null,
+   "summary": {
+    "pearson": 0.5577,
+    "mae": 0.0759,
+    "low32": 0.919,
+    "b1-2": 0.0329,
+    "b4-8": 0.1086,
+    "b16-32": 0.4179,
+    "q25": 0.3792,
+    "q75": 0.2984,
+    "lines": 0.03,
+    "struct": 0.547,
+    "detail": 0.058
+   },
+   "score": 0.4709,
+   "nodes": 41,
+   "seconds": 1.6
+  },
+  {
+   "phase": 4,
+   "layers": [
+    "joint_profile: measured joint profile"
+   ],
+   "chosen": null,
+   "trials": null,
+   "summary": {
+    "pearson": 0.6766,
+    "mae": 0.0823,
+    "low32": 0.92,
+    "b1-2": 0.4023,
+    "b4-8": 0.5388,
+    "b16-32": 0.5298,
+    "q25": 0.4133,
+    "q75": 0.2739,
+    "lines": 0.247,
+    "struct": 0.574,
+    "detail": 0.442
+   },
+   "score": 0.5873,
+   "nodes": 43,
+   "seconds": 50.0
+  }
+ ]
+}

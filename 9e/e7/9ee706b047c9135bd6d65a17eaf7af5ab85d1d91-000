@@ -1,0 +1,112 @@
+{
+ "method": "M12_SeedSearch",
+ "principle": "Procedural selection: best of 16 noise realisations per band",
+ "phases": [
+  {
+   "phase": 1,
+   "layers": [
+    "joint_profile: measured joint profile"
+   ],
+   "chosen": null,
+   "trials": null,
+   "summary": {
+    "pearson": 0.3946,
+    "mae": 0.0853,
+    "low32": 0.045,
+    "b1-2": 0.4341,
+    "b4-8": 0.5709,
+    "b16-32": 0.3637,
+    "q25": 0.0,
+    "q75": 0.1647,
+    "lines": 0.247,
+    "struct": 0.136,
+    "detail": 0.463
+   },
+   "score": 0.4344,
+   "nodes": 14,
+   "seconds": 2.1
+  },
+  {
+   "phase": 2,
+   "layers": [
+    "row_table: per row offset"
+   ],
+   "chosen": null,
+   "trials": null,
+   "summary": {
+    "pearson": 0.5999,
+    "mae": 0.0754,
+    "low32": 0.795,
+    "b1-2": 0.4299,
+    "b4-8": 0.5714,
+    "b16-32": 0.3918,
+    "q25": 0.2265,
+    "q75": 0.4034,
+    "lines": 0.245,
+    "struct": 0.438,
+    "detail": 0.462
+   },
+   "score": 0.5422,
+   "nodes": 16,
+   "seconds": 1.5
+  },
+  {
+   "phase": 3,
+   "layers": [
+    "noise: statistical band 16-64 px"
+   ],
+   "chosen": {
+    "offset": [
+     42.34187401001589,
+     18.553273966761136
+    ]
+   },
+   "trials": null,
+   "summary": {
+    "pearson": 0.423,
+    "mae": 0.0981,
+    "low32": 0.783,
+    "b1-2": 0.3624,
+    "b4-8": 0.3171,
+    "b16-32": 0.1746,
+    "q25": 0.2603,
+    "q75": 0.3281,
+    "lines": 0.264,
+    "struct": 0.384,
+    "detail": 0.355
+   },
+   "score": 0.4196,
+   "nodes": 18,
+   "seconds": 41.2
+  },
+  {
+   "phase": 4,
+   "layers": [
+    "noise: statistical band 2-8 px"
+   ],
+   "chosen": {
+    "offset": [
+     34.89775226296582,
+     3.022951904223609
+    ]
+   },
+   "trials": null,
+   "summary": {
+    "pearson": 0.3548,
+    "mae": 0.1163,
+    "low32": 0.79,
+    "b1-2": 0.1447,
+    "b4-8": 0.2288,
+    "b16-32": 0.1779,
+    "q25": 0.2518,
+    "q75": 0.3032,
+    "lines": 0.134,
+    "struct": 0.382,
+    "detail": 0.184
+   },
+   "score": 0.3322,
+   "nodes": 20,
+   "seconds": 30.0
+  }
+ ]
+}

@@ -1,0 +1,102 @@
+{
+ "method": "M14_VectorRegions",
+ "principle": "Multi scale vector regions (posterised residual traced as polygons), coarse to fine",
+ "phases": [
+  {
+   "phase": 1,
+   "layers": [
+    "joint_profile: measured joint profile"
+   ],
+   "chosen": null,
+   "trials": null,
+   "summary": {
+    "pearson": 0.3946,
+    "mae": 0.0853,
+    "low32": 0.045,
+    "b1-2": 0.4341,
+    "b4-8": 0.5709,
+    "b16-32": 0.3637,
+    "q25": 0.0,
+    "q75": 0.1647,
+    "lines": 0.247,
+    "struct": 0.136,
+    "detail": 0.463
+   },
+   "score": 0.4344,
+   "nodes": 14,
+   "seconds": 1.8
+  },
+  {
+   "phase": 2,
+   "layers": [
+    "regions: 8 posterised bins of residual low pass s32 at 512 px, 188 regions"
+   ],
+   "chosen": null,
+   "trials": null,
+   "summary": {
+    "pearson": 0.8096,
+    "mae": 0.0555,
+    "low32": 0.992,
+    "b1-2": 0.4344,
+    "b4-8": 0.6016,
+    "b16-32": 0.8995,
+    "q25": 0.452,
+    "q75": 0.5268,
+    "lines": 0.247,
+    "struct": 0.769,
+    "detail": 0.472
+   },
+   "score": 0.689,
+   "nodes": 19,
+   "seconds": 2.4
+  },
+  {
+   "phase": 3,
+   "layers": [
+    "regions: 8 posterised bins of residual low pass s8 at 1024 px, 5765 regions"
+   ],
+   "chosen": null,
+   "trials": null,
+   "summary": {
+    "pearson": 0.9111,
+    "mae": 0.0374,
+    "low32": 0.999,
+    "b1-2": 0.4929,
+    "b4-8": 0.9152,
+    "b16-32": 0.9879,
+    "q25": 0.6042,
+    "q75": 0.699,
+    "lines": 0.3,
+    "struct": 0.857,
+    "detail": 0.619
+   },
+   "score": 0.8013,
+   "nodes": 24,
+   "seconds": 7.1
+  },
+  {
+   "phase": 4,
+   "layers": [
+    "regions: 6 posterised bins of residual low pass s2 at 2048 px, 55528 regions"
+   ],
+   "chosen": null,
+   "trials": null,
+   "summary": {
+    "pearson": 0.9707,
+    "mae": 0.0193,
+    "low32": 0.999,
+    "b1-2": 0.8884,
+    "b4-8": 0.982,
+    "b16-32": 0.9958,
+    "q25": 0.7826,
+    "q75": 0.848,
+    "lines": 0.385,
+    "struct": 0.925,
+    "detail": 0.804
+   },
+   "score": 0.9242,
+   "nodes": 29,
+   "seconds": 28.4
+  }
+ ]
+}

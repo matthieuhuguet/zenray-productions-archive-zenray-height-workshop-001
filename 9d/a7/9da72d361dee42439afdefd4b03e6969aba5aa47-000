@@ -1,0 +1,102 @@
+{
+ "method": "M05_StructureCurves",
+ "principle": "Exact structure, then traced curves and traced blobs",
+ "phases": [
+  {
+   "phase": 1,
+   "layers": [
+    "joint_profile: measured joint profile"
+   ],
+   "chosen": null,
+   "trials": null,
+   "summary": {
+    "pearson": 0.3946,
+    "mae": 0.0853,
+    "low32": 0.045,
+    "b1-2": 0.4341,
+    "b4-8": 0.5709,
+    "b16-32": 0.3637,
+    "q25": 0.0,
+    "q75": 0.1647,
+    "lines": 0.247,
+    "struct": 0.136,
+    "detail": 0.463
+   },
+   "score": 0.4344,
+   "nodes": 14,
+   "seconds": 2.6
+  },
+  {
+   "phase": 2,
+   "layers": [
+    "row_table: per row offset"
+   ],
+   "chosen": null,
+   "trials": null,
+   "summary": {
+    "pearson": 0.5999,
+    "mae": 0.0754,
+    "low32": 0.795,
+    "b1-2": 0.4299,
+    "b4-8": 0.5714,
+    "b16-32": 0.3918,
+    "q25": 0.2265,
+    "q75": 0.4034,
+    "lines": 0.245,
+    "struct": 0.438,
+    "detail": 0.462
+   },
+   "score": 0.5422,
+   "nodes": 16,
+   "seconds": 1.8
+  },
+  {
+   "phase": 3,
+   "layers": [
+    "lines: traced ridge centrelines (5080)"
+   ],
+   "chosen": null,
+   "trials": null,
+   "summary": {
+    "pearson": 0.6026,
+    "mae": 0.0754,
+    "low32": 0.791,
+    "b1-2": 0.5357,
+    "b4-8": 0.5703,
+    "b16-32": 0.3635,
+    "q25": 0.2228,
+    "q75": 0.4109,
+    "lines": 0.269,
+    "struct": 0.428,
+    "detail": 0.502
+   },
+   "score": 0.5595,
+   "nodes": 22,
+   "seconds": 15.7
+  },
+  {
+   "phase": 4,
+   "layers": [
+    "regions: 2038 compact blobs of high pass s6 beyond quantile 0.985"
+   ],
+   "chosen": null,
+   "trials": null,
+   "summary": {
+    "pearson": 0.6214,
+    "mae": 0.0744,
+    "low32": 0.789,
+    "b1-2": 0.6457,
+    "b4-8": 0.598,
+    "b16-32": 0.3585,
+    "q25": 0.2271,
+    "q75": 0.4222,
+    "lines": 0.342,
+    "struct": 0.428,
+    "detail": 0.571
+   },
+   "score": 0.5793,
+   "nodes": 27,
+   "seconds": 79.0
+  }
+ ]
+}

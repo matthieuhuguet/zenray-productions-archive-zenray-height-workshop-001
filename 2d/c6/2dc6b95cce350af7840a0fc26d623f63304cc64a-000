@@ -1,0 +1,102 @@
+{
+ "method": "M11_NoiseBank",
+ "principle": "Example statistics: bank of noises matched by spectrum, streaks, histogram",
+ "phases": [
+  {
+   "phase": 1,
+   "layers": [
+    "noise: statistical band 16-64 px"
+   ],
+   "chosen": null,
+   "trials": null,
+   "summary": {
+    "pearson": -0.0055,
+    "mae": 0.1218,
+    "low32": -0.001,
+    "b1-2": -0.007,
+    "b4-8": -0.0102,
+    "b16-32": -0.0211,
+    "q25": 0.1026,
+    "q75": 0.1359,
+    "lines": 0.0,
+    "struct": 0.054,
+    "detail": -0.007
+   },
+   "score": 0.1505,
+   "nodes": 14,
+   "seconds": 2.6
+  },
+  {
+   "phase": 2,
+   "layers": [
+    "noise: statistical band 4-16 px"
+   ],
+   "chosen": null,
+   "trials": null,
+   "summary": {
+    "pearson": -0.001,
+    "mae": 0.1511,
+    "low32": -0.004,
+    "b1-2": -0.003,
+    "b4-8": -0.0046,
+    "b16-32": -0.0118,
+    "q25": 0.145,
+    "q75": 0.1658,
+    "lines": 0.038,
+    "struct": 0.073,
+    "detail": 0.006
+   },
+   "score": 0.1063,
+   "nodes": 16,
+   "seconds": 1.8
+  },
+  {
+   "phase": 3,
+   "layers": [
+    "streaks: statistical band 2-8 px"
+   ],
+   "chosen": null,
+   "trials": null,
+   "summary": {
+    "pearson": 0.0037,
+    "mae": 0.2084,
+    "low32": -0.006,
+    "b1-2": -0.0017,
+    "b4-8": 0.0012,
+    "b16-32": 0.0024,
+    "q25": 0.1689,
+    "q75": 0.1828,
+    "lines": 0.044,
+    "struct": 0.088,
+    "detail": 0.01
+   },
+   "score": 0.0931,
+   "nodes": 20,
+   "seconds": 1.7
+  },
+  {
+   "phase": 4,
+   "layers": [
+    "hist: histogram matched to reference"
+   ],
+   "chosen": null,
+   "trials": null,
+   "summary": {
+    "pearson": 0.0018,
+    "mae": 0.1504,
+    "low32": -0.013,
+    "b1-2": -0.001,
+    "b4-8": -0.0006,
+    "b16-32": 0.0002,
+    "q25": 0.1381,
+    "q75": 0.1507,
+    "lines": 0.038,
+    "struct": 0.074,
+    "detail": 0.008
+   },
+   "score": 0.1136,
+   "nodes": 21,
+   "seconds": 1.7
+  }
+ ]
+}

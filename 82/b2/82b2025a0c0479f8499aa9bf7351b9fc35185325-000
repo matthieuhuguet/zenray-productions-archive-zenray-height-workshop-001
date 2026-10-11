@@ -1,0 +1,102 @@
+{
+ "method": "M07_HistogramAnchored",
+ "principle": "Each phase adds a layer then re-matches the reference histogram",
+ "phases": [
+  {
+   "phase": 1,
+   "layers": [
+    "joint_profile: measured joint profile"
+   ],
+   "chosen": null,
+   "trials": null,
+   "summary": {
+    "pearson": 0.2938,
+    "mae": 0.1206,
+    "low32": 0.022,
+    "b1-2": 0.2416,
+    "b4-8": 0.4474,
+    "b16-32": 0.2899,
+    "q25": 0.2147,
+    "q75": 0.253,
+    "lines": 0.314,
+    "struct": 0.166,
+    "detail": 0.365
+   },
+   "score": 0.3516,
+   "nodes": 15,
+   "seconds": 3.8
+  },
+  {
+   "phase": 2,
+   "layers": [
+    "row_table: per row offset"
+   ],
+   "chosen": null,
+   "trials": null,
+   "summary": {
+    "pearson": 0.4408,
+    "mae": 0.1026,
+    "low32": 0.651,
+    "b1-2": 0.2118,
+    "b4-8": 0.4429,
+    "b16-32": 0.3327,
+    "q25": 0.2808,
+    "q75": 0.367,
+    "lines": 0.292,
+    "struct": 0.359,
+    "detail": 0.346
+   },
+   "score": 0.427,
+   "nodes": 18,
+   "seconds": 3.2
+  },
+  {
+   "phase": 3,
+   "layers": [
+    "noise: statistical band 2-8 px"
+   ],
+   "chosen": null,
+   "trials": null,
+   "summary": {
+    "pearson": 0.3392,
+    "mae": 0.1141,
+    "low32": 0.652,
+    "b1-2": 0.1201,
+    "b4-8": 0.3143,
+    "b16-32": 0.3172,
+    "q25": 0.2265,
+    "q75": 0.2983,
+    "lines": 0.116,
+    "struct": 0.335,
+    "detail": 0.203
+   },
+   "score": 0.3338,
+   "nodes": 21,
+   "seconds": 3.3
+  },
+  {
+   "phase": 4,
+   "layers": [
+    "lines: traced ridge centrelines (3874)"
+   ],
+   "chosen": null,
+   "trials": null,
+   "summary": {
+    "pearson": 0.3457,
+    "mae": 0.1115,
+    "low32": 0.65,
+    "b1-2": 0.1504,
+    "b4-8": 0.317,
+    "b16-32": 0.3105,
+    "q25": 0.2278,
+    "q75": 0.2985,
+    "lines": 0.131,
+    "struct": 0.332,
+    "detail": 0.216
+   },
+   "score": 0.3432,
+   "nodes": 28,
+   "seconds": 26.7
+  }
+ ]
+}

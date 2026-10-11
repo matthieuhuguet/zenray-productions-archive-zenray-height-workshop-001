@@ -1,0 +1,121 @@
+{
+ "method": "M08_ParametricOptim",
+ "principle": "Fixed parametric template, one parameter group optimised per phase (score method)",
+ "phases": [
+  {
+   "phase": 1,
+   "layers": [
+    "joint_profile: measured joint profile"
+   ],
+   "chosen": {
+    "gain": 1.3,
+    "offset": 0.0
+   },
+   "trials": null,
+   "summary": {
+    "pearson": 0.3946,
+    "mae": 0.085,
+    "low32": 0.045,
+    "b1-2": 0.4341,
+    "b4-8": 0.5709,
+    "b16-32": 0.3637,
+    "q25": 0.0,
+    "q75": 0.1647,
+    "lines": 0.37,
+    "struct": 0.136,
+    "detail": 0.494
+   },
+   "score": 0.4369,
+   "nodes": 14,
+   "seconds": 22.5
+  },
+  {
+   "phase": 2,
+   "layers": [
+    "row_table: per row offset",
+    "row_plane: per row plane"
+   ],
+   "chosen": {
+    "table_gain": 1.2,
+    "plane_gain": 1.0
+   },
+   "trials": null,
+   "summary": {
+    "pearson": 0.6816,
+    "mae": 0.0708,
+    "low32": 0.914,
+    "b1-2": 0.4282,
+    "b4-8": 0.5692,
+    "b16-32": 0.5151,
+    "q25": 0.4002,
+    "q75": 0.4359,
+    "lines": 0.306,
+    "struct": 0.593,
+    "detail": 0.476
+   },
+   "score": 0.6042,
+   "nodes": 24,
+   "seconds": 18.8
+  },
+  {
+   "phase": 3,
+   "layers": [
+    "noise: statistical band 16-64 px"
+   ],
+   "chosen": {
+    "band": [
+     16,
+     64
+    ],
+    "gain": 0.5
+   },
+   "trials": null,
+   "summary": {
+    "pearson": 0.6316,
+    "mae": 0.0779,
+    "low32": 0.909,
+    "b1-2": 0.4143,
+    "b4-8": 0.502,
+    "b16-32": 0.3887,
+    "q25": 0.3573,
+    "q75": 0.4126,
+    "lines": 0.303,
+    "struct": 0.548,
+    "detail": 0.449
+   },
+   "score": 0.5639,
+   "nodes": 26,
+   "seconds": 20.4
+  },
+  {
+   "phase": 4,
+   "layers": [
+    "noise: statistical band 2-8 px"
+   ],
+   "chosen": {
+    "band": [
+     2,
+     8
+    ],
+    "gain": 0.5
+   },
+   "trials": null,
+   "summary": {
+    "pearson": 0.5984,
+    "mae": 0.0837,
+    "low32": 0.909,
+    "b1-2": 0.3018,
+    "b4-8": 0.4335,
+    "b16-32": 0.385,
+    "q25": 0.3423,
+    "q75": 0.3988,
+    "lines": 0.29,
+    "struct": 0.542,
+    "detail": 0.368
+   },
+   "score": 0.5191,
+   "nodes": 28,
+   "seconds": 12.4
+  }
+ ]
+}

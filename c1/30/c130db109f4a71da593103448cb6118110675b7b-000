@@ -1,0 +1,102 @@
+{
+ "method": "M10_Morphological",
+ "principle": "Morphological decomposition: plateaus, bright top hat, dark top hat, then joints",
+ "phases": [
+  {
+   "phase": 1,
+   "layers": [
+    "regions: 4 posterised bins of residual low pass s32 at 512 px, 112 regions"
+   ],
+   "chosen": null,
+   "trials": null,
+   "summary": {
+    "pearson": 0.7015,
+    "mae": 0.0675,
+    "low32": 0.974,
+    "b1-2": 0.0191,
+    "b4-8": 0.2297,
+    "b16-32": 0.8136,
+    "q25": 0.4392,
+    "q75": 0.4765,
+    "lines": 0.0,
+    "struct": 0.727,
+    "detail": 0.078
+   },
+   "score": 0.5694,
+   "nodes": 17,
+   "seconds": 2.2
+  },
+  {
+   "phase": 2,
+   "layers": [
+    "regions: 6000 compact blobs of high pass s3 beyond quantile 0.92"
+   ],
+   "chosen": null,
+   "trials": null,
+   "summary": {
+    "pearson": 0.7371,
+    "mae": 0.0655,
+    "low32": 0.972,
+    "b1-2": 0.5952,
+    "b4-8": 0.3163,
+    "b16-32": 0.8091,
+    "q25": 0.4339,
+    "q75": 0.499,
+    "lines": 0.009,
+    "struct": 0.728,
+    "detail": 0.348
+   },
+   "score": 0.6402,
+   "nodes": 22,
+   "seconds": 3.8
+  },
+  {
+   "phase": 3,
+   "layers": [
+    "regions: 6000 compact blobs of high pass s3 beyond quantile 0.92"
+   ],
+   "chosen": null,
+   "trials": null,
+   "summary": {
+    "pearson": 0.7545,
+    "mae": 0.0638,
+    "low32": 0.973,
+    "b1-2": 0.7323,
+    "b4-8": 0.3233,
+    "b16-32": 0.8036,
+    "q25": 0.4534,
+    "q75": 0.5039,
+    "lines": 0.028,
+    "struct": 0.733,
+    "detail": 0.424
+   },
+   "score": 0.6682,
+   "nodes": 27,
+   "seconds": 5.3
+  },
+  {
+   "phase": 4,
+   "layers": [
+    "joint_profile: measured joint profile, relative"
+   ],
+   "chosen": null,
+   "trials": null,
+   "summary": {
+    "pearson": 0.8142,
+    "mae": 0.0672,
+    "low32": 0.972,
+    "b1-2": 0.7117,
+    "b4-8": 0.6119,
+    "b16-32": 0.8146,
+    "q25": 0.5333,
+    "q75": 0.1708,
+    "lines": 0.33,
+    "struct": 0.682,
+    "detail": 0.586
+   },
+   "score": 0.7187,
+   "nodes": 29,
+   "seconds": 2.4
+  }
+ ]
+}

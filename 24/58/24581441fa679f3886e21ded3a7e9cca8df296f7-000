@@ -1,0 +1,42 @@
+[
+ {
+  "type": "noise",
+  "amp": 0.6512191435826565,
+  "elementsize": 0.05,
+  "offset": [
+   0.0,
+   0.0
+  ],
+  "oct": 6,
+  "rough": 0.5,
+  "note": "statistical band 16-64 px",
+  "op": "base",
+  "center": 0.590486466884613
+ },
+ {
+  "type": "noise",
+  "amp": 0.8274305873242715,
+  "elementsize": 0.01,
+  "offset": [
+   0.0,
+   0.0
+  ],
+  "oct": 6,
+  "rough": 0.5,
+  "note": "statistical band 4-16 px"
+ },
+ {
+  "type": "streaks",
+  "amp": 1.2923103755488174,
+  "elementsize": 0.01,
+  "offset": [
+   0.0,
+   0.0
+  ],
+  "oct": 6,
+  "rough": 0.5,
+  "note": "statistical band 2-8 px",
+  "length_px": 30.0,
+  "gain": 1.0
+ }
+]

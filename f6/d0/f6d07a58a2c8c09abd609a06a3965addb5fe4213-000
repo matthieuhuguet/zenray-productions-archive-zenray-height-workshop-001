@@ -1,0 +1,102 @@
+{
+ "method": "M13_IsoContours",
+ "principle": "Iso contour staircase filled by maskfromcurves",
+ "phases": [
+  {
+   "phase": 1,
+   "layers": [
+    "joint_profile: measured joint profile"
+   ],
+   "chosen": null,
+   "trials": null,
+   "summary": {
+    "pearson": 0.3946,
+    "mae": 0.0853,
+    "low32": 0.045,
+    "b1-2": 0.4341,
+    "b4-8": 0.5709,
+    "b16-32": 0.3637,
+    "q25": 0.0,
+    "q75": 0.1647,
+    "lines": 0.247,
+    "struct": 0.136,
+    "detail": 0.463
+   },
+   "score": 0.4344,
+   "nodes": 14,
+   "seconds": 2.6
+  },
+  {
+   "phase": 2,
+   "layers": [
+    "row_table: per row offset"
+   ],
+   "chosen": null,
+   "trials": null,
+   "summary": {
+    "pearson": 0.5999,
+    "mae": 0.0754,
+    "low32": 0.795,
+    "b1-2": 0.4299,
+    "b4-8": 0.5714,
+    "b16-32": 0.3918,
+    "q25": 0.2265,
+    "q75": 0.4034,
+    "lines": 0.245,
+    "struct": 0.438,
+    "detail": 0.462
+   },
+   "score": 0.5422,
+   "nodes": 16,
+   "seconds": 1.5
+  },
+  {
+   "phase": 3,
+   "layers": [
+    "contours: 8 iso levels of residual low pass s16"
+   ],
+   "chosen": null,
+   "trials": null,
+   "summary": {
+    "pearson": 0.4822,
+    "mae": 0.1035,
+    "low32": 0.713,
+    "b1-2": 0.4262,
+    "b4-8": 0.4909,
+    "b16-32": 0.093,
+    "q25": 0.3161,
+    "q75": 0.1119,
+    "lines": 0.251,
+    "struct": 0.251,
+    "detail": 0.438
+   },
+   "score": 0.4462,
+   "nodes": 57,
+   "seconds": 9.2
+  },
+  {
+   "phase": 4,
+   "layers": [
+    "contours: 6 iso levels of residual low pass s4"
+   ],
+   "chosen": null,
+   "trials": null,
+   "summary": {
+    "pearson": 0.1523,
+    "mae": 0.1651,
+    "low32": 0.512,
+    "b1-2": 0.2756,
+    "b4-8": 0.122,
+    "b16-32": -0.3649,
+    "q25": 0.213,
+    "q75": 0.0493,
+    "lines": 0.247,
+    "struct": -0.012,
+    "detail": 0.241
+   },
+   "score": 0.2026,
+   "nodes": 88,
+   "seconds": 18.6
+  }
+ ]
+}

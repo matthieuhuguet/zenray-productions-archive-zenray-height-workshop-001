@@ -1,0 +1,102 @@
+{
+ "method": "M04_MaskClassesStatistical",
+ "principle": "Black and white mask classes reproduced by thresholded noise with measured coverage",
+ "phases": [
+  {
+   "phase": 1,
+   "layers": [
+    "joint_profile: measured joint profile"
+   ],
+   "chosen": null,
+   "trials": null,
+   "summary": {
+    "pearson": 0.3946,
+    "mae": 0.0853,
+    "low32": 0.045,
+    "b1-2": 0.4341,
+    "b4-8": 0.5709,
+    "b16-32": 0.3637,
+    "q25": 0.0,
+    "q75": 0.1647,
+    "lines": 0.247,
+    "struct": 0.136,
+    "detail": 0.463
+   },
+   "score": 0.4344,
+   "nodes": 14,
+   "seconds": 2.0
+  },
+  {
+   "phase": 2,
+   "layers": [
+    "noise_mask: statistical bright class, coverage 0.25"
+   ],
+   "chosen": null,
+   "trials": null,
+   "summary": {
+    "pearson": 0.2,
+    "mae": 0.1083,
+    "low32": 0.004,
+    "b1-2": 0.2766,
+    "b4-8": 0.3075,
+    "b16-32": 0.1347,
+    "q25": 0.0,
+    "q75": 0.2168,
+    "lines": 0.228,
+    "struct": 0.09,
+    "detail": 0.303
+   },
+   "score": 0.3009,
+   "nodes": 18,
+   "seconds": 1.5
+  },
+  {
+   "phase": 3,
+   "layers": [
+    "noise_mask: statistical dark class, coverage 0.25"
+   ],
+   "chosen": null,
+   "trials": null,
+   "summary": {
+    "pearson": 0.3909,
+    "mae": 0.0857,
+    "low32": 0.038,
+    "b1-2": 0.432,
+    "b4-8": 0.5662,
+    "b16-32": 0.3514,
+    "q25": 0.0,
+    "q75": 0.1647,
+    "lines": 0.248,
+    "struct": 0.135,
+    "detail": 0.461
+   },
+   "score": 0.4325,
+   "nodes": 22,
+   "seconds": 1.5
+  },
+  {
+   "phase": 4,
+   "layers": [
+    "noise_mask: statistical lines class, coverage 0.07"
+   ],
+   "chosen": null,
+   "trials": null,
+   "summary": {
+    "pearson": 0.3625,
+    "mae": 0.0871,
+    "low32": 0.015,
+    "b1-2": 0.3922,
+    "b4-8": 0.5183,
+    "b16-32": 0.3419,
+    "q25": 0.0,
+    "q75": 0.1741,
+    "lines": 0.256,
+    "struct": 0.122,
+    "detail": 0.431
+   },
+   "score": 0.4112,
+   "nodes": 26,
+   "seconds": 1.6
+  }
+ ]
+}
