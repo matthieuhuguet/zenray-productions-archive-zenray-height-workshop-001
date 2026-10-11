@@ -47,12 +47,11 @@
   "done": "CeramicWallTiles_L2 executed layer by layer (12 layers, pearson 0.957, composite 0.890); EvolutionBoard built; SeamCheck shows a tiling seam (wrap ratio 11 vs ref 1.45) caused by per tile structure layers stepping on the joint centre.",
   "fix_written_not_tested": "Recipe.py _fade + Execute.py FADED/joint_fade (fade measured from joint profile, about 0.0195 cell).",
   "next": [
-   "rerun Execute.py as CeramicWallTiles_L2b on /obj/ZRH_CeramicWallTiles, then SeamCheck.py and compare pearson",
-   "L3 variant (regions s2) as separate net, Matthieu approval",
-   "ExecuteBC.py base colour (untested in Houdini)",
-   "secondary refs window/whitepaint/tile",
-   "rebuild Copernicus2.md, copy to skill, SKILL.md method section, skill-sync, progress, Assets checkpoint"
+   "Matthieu: validate method v1 and decide on L3",
+   "optional: derived maps (normal, AO, roughness) and HDA interface (8 parameters per category)",
+   "optional: finish catalog groups after I"
   ],
-  "command_next": "cd /Users/zenray/.claude/tmp/tmp-zenray-height && /Users/zenray/.venvs/shorts/bin/python -I Scripts/Execute.py CeramicWallTiles_L2b /obj/ZRH_CeramicWallTiles refs/derived/ref_height_4x4_2048.png refs/derived/ref_height_valid_2048.png"
+  "command_next": "cd /Users/zenray/.claude/tmp/tmp-zenray-height && /Users/zenray/.venvs/shorts/bin/python -I Scripts/Execute.py CeramicWallTiles_L2b /obj/ZRH_CeramicWallTiles refs/derived/ref_height_4x4_2048.png refs/derived/ref_height_valid_2048.png",
+  "status": "DONE (11 October 2026): L2c seamless 0.956, L3 0.978 awaiting approval, BC deltaE 7.70, window 0.901, whitepaint 0.942, tile 0.967, Copernicus2.md section 14, skill updated and synced."
  }
 }

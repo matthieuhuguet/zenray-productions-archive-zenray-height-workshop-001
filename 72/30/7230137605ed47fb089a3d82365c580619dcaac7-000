@@ -1,0 +1,62 @@
+{
+ "name": "CeramicWallTiles_BC",
+ "net": "/obj/ZRH_CeramicWallTiles_BC",
+ "reference": "refs/derived/ref_basecolor_4x4_2048.png",
+ "layers": [
+  {
+   "layer": "glaze",
+   "status": "accepted",
+   "deltaE76_mean": 21.893,
+   "lum_pearson": 0.0,
+   "deltaE76_blur4_mean": 17.391,
+   "note": "glaze colour, median of tile interiors",
+   "seconds": 1.1,
+   "nodes": 14,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/versions/final/CeramicWallTiles_BC/L01_glaze.png"
+  },
+  {
+   "layer": "joints",
+   "status": "accepted",
+   "deltaE76_mean": 21.385,
+   "lum_pearson": 0.111,
+   "deltaE76_blur4_mean": 16.835,
+   "note": "grout colour on the joints of the height lattice",
+   "seconds": 1.1,
+   "nodes": 17,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/versions/final/CeramicWallTiles_BC/L02_joints.png"
+  },
+  {
+   "layer": "BC_L1_coarse",
+   "status": "accepted",
+   "deltaE76_mean": 14.054,
+   "lum_pearson": 0.7268,
+   "deltaE76_blur4_mean": 7.105,
+   "note": "6 colour clusters at 256 px, 2396 regions",
+   "seconds": 1.3,
+   "nodes": 23,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/versions/final/CeramicWallTiles_BC/L03_BC_L1_coarse.png"
+  },
+  {
+   "layer": "BC_L2_medium",
+   "status": "accepted",
+   "deltaE76_mean": 10.859,
+   "lum_pearson": 0.8262,
+   "deltaE76_blur4_mean": 4.145,
+   "note": "10 colour clusters at 512 px, 11004 regions",
+   "seconds": 1.8,
+   "nodes": 29,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/versions/final/CeramicWallTiles_BC/L04_BC_L2_medium.png"
+  },
+  {
+   "layer": "BC_L3_fine",
+   "status": "accepted",
+   "deltaE76_mean": 7.696,
+   "lum_pearson": 0.9148,
+   "deltaE76_blur4_mean": 2.287,
+   "note": "14 colour clusters at 1024 px, 35655 regions",
+   "seconds": 3.3,
+   "nodes": 35,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/versions/final/CeramicWallTiles_BC/L05_BC_L3_fine.png"
+  }
+ ]
+}
