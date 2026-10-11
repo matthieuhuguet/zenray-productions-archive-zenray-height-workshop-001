@@ -32,7 +32,7 @@ Sources were read through the web on 11 October 2026; every entry gives its URL 
 - Problem: non parametric synthesis destroys the semantics of bricks and tiles (mortar lines, tile size, regular layout), so the authors fit a small procedural model for two classes, rectangular tilings and wood. (11 October 2026)
 - Graph representation: a fixed tiling model with six scalars (tile width, tile height, pattern orientation, mortar thickness, number of tiles along the wall, relative offset between successive rows) plus exemplar regions that fill the tile and mortar interiors. (11 October 2026)
 - Step 1: the user produces a clean binary mask, tiles white and mortar black, with Sobel or pyramidal edge detectors, histogram thresholding and morphological opening, closing and erosion; an experienced user needs a few minutes. (11 October 2026)
-- Step 2: the FFT of the mask is taken; the brightest group of points other than DC gives the dominant frequency; in a 2R by 2R spectrum the tile height equals R divided by twice the distance from that peak to the center, and the pattern orientation is the arctangent of the peak offset. (11 October 2026)
+- Step 2: the FFT of the mask is taken; the brightest group of points other than DC gives the dominant frequency; in a 2R by 2R spectrum the tile height, expressed as a fraction of the image height, equals R divided by twice the distance from that peak to the center, and the pattern orientation is the arctangent of the peak offset. (11 October 2026)
 - Step 3: the mask is rotated back to the image axes; horizontal scanlines count runs of tile pixels bounded by mortar, and the median run is the tile width; vertical scanlines give the mortar thickness in the same way. (11 October 2026)
 - Step 4: the relative offset between rows is measured from the centers of a tile and of its neighbor in the adjacent row, repeated over several tiles with outliers discarded; a ratio of offset to width close to zero signals the aligned grid typical of ceramic tiles. (11 October 2026)
 - Step 5: tile and mortar interiors are synthesized with the Heeger and Bergen pyramid algorithm from regions the user selects, avoiding highlights and occlusions. (11 October 2026)
@@ -441,3 +441,461 @@ All these diagnostics are cheap (one FFT, a few Gaussian blurs, a histogram per 
 - Workarounds (PROPOSED, UNVERIFIED in practice): render SBSAR outputs to EXR with the Substance Automation Toolkit or Substance Designer and read them with the `file` COP; or cook them with the legacy Labs node in a COP2 network and reference the result from Copernicus through an op: path, which the 20.5 notes list among supported material workflows. (11 October 2026)
 - DiffMat, the research bridge to Substance graphs, needs Substance 3D Designer or the Automation Toolkit for its sbscooker and sbsrender pre caching (https://github.com/mit-gfx/diffmat, README read). (11 October 2026)
 - For reproduction work the equivalence matters in one direction: published Substance recipes for tiles (tile generator, slope blur, flood fill to gradient, histogram scan) translate node for node with the table of 4.2, slope blur and flood fill to gradient being the two approximate translations; a per island gradient is obtained by `uvmapbyid` followed by a `ramp` sampled along U, randomized per island through `uvxform` (PROPOSED wiring). (11 October 2026)
+
+## 5. Actionable synthesis: methods for choosing and building the next layer (11 October 2026)
+
+This section turns sections 1 to 4 into 22 methods that differ by principle, not by settings; each gives its principle, its algorithm, the measurements that drive each step, the first four phases on a glazed ceramic wall tile height, its strengths, its failure modes and its cost. Everything in this section is PROPOSED unless a source is cited. (11 October 2026)
+
+### 5.0 Shared notation, measurements and test case (11 October 2026)
+
+- T is the reference height normalized by r = P99 − P1 of the reference; O_k is the cooked output after k layers; R_k = T − O_k is the signed residual. (11 October 2026)
+- Absolute thresholds are read once on the reference histogram (or on one fixed transform of it, such as T minus a Gaussian blur of fixed sigma) and reused unchanged for every output, giving class masks M_c(T) and M_c(O_k). (11 October 2026)
+- Measurements shared by all methods (section 3): m1 per class histograms and W1; m2 radially averaged spectrum and angular profile; m3 IoU and boundary F1; m4 connected components; m5 averaged cross section profiles; m6 gradient and orientation histograms; m7 DISTS or sliced Wasserstein ratio to the self baseline; m8 per tile statistics by ID; the gates A to J and the acceptance rule of 3.3. (11 October 2026)
+- Test case for the "first four phases": a glazed ceramic wall tile height with square tiles, bevelled edges, recessed grout joints, slightly raised painted motif lines, hairline cracks, edge chips and low frequency mottling of the glaze. (11 October 2026)
+- Constraints shared by all methods: every Houdini cook must answer in seconds and metrics run outside Houdini on an EXR; the graph interface exposes at most eight parameters per category and the final graph stays under about 150 nodes (project rules in /Users/zenray/.claude/rules/ParametricHda1.md, 30 September and 1 October 2026, and /Users/zenray/.claude/rules/Toolbox1.md, 9 October 2026). (11 October 2026)
+- Every method below is one way to answer "what is the next layer and how is it built"; section 5.24 explains how they combine, 5.25 maps symptoms to methods, and 5.26 names the most promising ones. (11 October 2026)
+
+### 5.1 Overview of the 22 methods (11 October 2026)
+
+<table><tr><th>ID</th><th>Method</th><th>Principle in one line</th><th>Main measurements</th><th>Cost</th><th>Date (11 October 2026)</th></tr>
+<tr><td>M01</td><td>Residual driven greedy pursuit</td><td>at each step add the dictionary move with the largest measured gain</td><td>composite score, diagnostics of 2.9</td><td>medium, 2 to 5 minutes per layer</td><td>11 October 2026</td></tr>
+<tr><td>M02</td><td>Scale ordered macro, meso, micro build</td><td>fixed coarse to fine order, deterministic before stochastic</td><td>band energy, gates per scale</td><td>low</td><td>11 October 2026</td></tr>
+<tr><td>M03</td><td>Laplacian pyramid band matching</td><td>solve each frequency band as its own sub problem</td><td>band energy, band W1, band kurtosis</td><td>low to medium</td><td>11 October 2026</td></tr>
+<tr><td>M04</td><td>Absolute threshold class masks, one layer per class</td><td>histogram modes become classes, each class one layer judged by IoU</td><td>IoU, boundary F1, per class W1</td><td>low</td><td>11 October 2026</td></tr>
+<tr><td>M05</td><td>Lattice inversion by Fourier peak and run lengths</td><td>closed form tiling parameters, no search</td><td>FFT peaks, run length medians, profile phase</td><td>very low</td><td>11 October 2026</td></tr>
+<tr><td>M06</td><td>Distance field transfer function fitting</td><td>height as a measured function of the distance to an edge or a line</td><td>height binned by signed distance</td><td>very low</td><td>11 October 2026</td></tr>
+<tr><td>M07</td><td>Per tile index mapping table</td><td>measured per tile values looked up by tile ID</td><td>robust plane fit per tile</td><td>low</td><td>11 October 2026</td></tr>
+<tr><td>M08</td><td>Vector tracing of line features</td><td>skeleton of lines and cracks becomes curves rasterized in COPs</td><td>skeleton length, IoU, width</td><td>medium</td><td>11 October 2026</td></tr>
+<tr><td>M09</td><td>Detected instance stamping</td><td>chips and pits detected as points, stamped with procedural shapes</td><td>component statistics</td><td>low to medium</td><td>11 October 2026</td></tr>
+<tr><td>M10</td><td>Morphological top hat and granulometry</td><td>next layer at the size and sign holding most residual volume</td><td>pattern spectrum</td><td>very low</td><td>11 October 2026</td></tr>
+<tr><td>M11</td><td>Gradient domain construction with Poisson integration</td><td>build gradients, integrate to height</td><td>gradient histograms, structure tensor</td><td>medium</td><td>11 October 2026</td></tr>
+<tr><td>M12</td><td>Histogram first, rank space build</td><td>final quantile remap fixes values, layers only fix order</td><td>Spearman correlation, rank IoU</td><td>very low</td><td>11 October 2026</td></tr>
+<tr><td>M13</td><td>Spectrum and histogram matched stochastic layers</td><td>random fields with the residual spectrum and histogram</td><td>RAPS, angular profile, W1, self baseline</td><td>low</td><td>11 October 2026</td></tr>
+<tr><td>M14</td><td>Semi procedural exemplar layer</td><td>reference residual reused as an exemplar over procedural structure</td><td>DISTS or SWD ratio, spectral peaks</td><td>low</td><td>11 October 2026</td></tr>
+<tr><td>M15</td><td>Black box optimization of a frozen graph</td><td>coordinate descent or CMA ES, integers searched apart, MCMC variant</td><td>composite score per evaluation</td><td>medium to high</td><td>11 October 2026</td></tr>
+<tr><td>M16</td><td>Differentiable replica or proxy</td><td>gradient descent on a differentiable copy, then transfer</td><td>replica fidelity, loss, gates</td><td>high upfront</td><td>11 October 2026</td></tr>
+<tr><td>M17</td><td>Descriptor retrieval from a recipe database</td><td>nearest precomputed recipe sample initializes the next layer</td><td>descriptor distance, gates</td><td>offline hours, query milliseconds</td><td>11 October 2026</td></tr>
+<tr><td>M18</td><td>Amortized parameter regression</td><td>a network trained on cooked samples predicts template parameters</td><td>validation error, gates</td><td>high upfront, near zero per target</td><td>11 October 2026</td></tr>
+<tr><td>M19</td><td>Vision language recipe synthesis with tree search</td><td>a VLM proposes code for the next node, the score decides, failures backtrack</td><td>gates, validity</td><td>medium, tokens plus cooks</td><td>11 October 2026</td></tr>
+<tr><td>M20</td><td>Over complete graph with backward elimination</td><td>fit all layer gains at once, then prune the useless layers</td><td>least squares residual, score increase per removal</td><td>low to medium</td><td>11 October 2026</td></tr>
+<tr><td>M21</td><td>Annotated discrepancy loop</td><td>a human circle on a measured board picks the next target</td><td>local gates in the annotated region</td><td>low compute, human minutes</td><td>11 October 2026</td></tr>
+<tr><td>M22</td><td>Low order residual surface fit</td><td>a coarse control grid reproduces the low frequency residual exactly</td><td>thumbnail MAE, low band spectrum</td><td>very low</td><td>11 October 2026</td></tr></table>
+
+### 5.2 M01 Residual driven greedy pursuit over a dictionary of COP moves (11 October 2026)
+
+- Principle: matching pursuit transposed to graph building; a dictionary of small parametric COP sub graphs ("moves") is scanned, each candidate is fitted to the current residual, and the one with the largest gain in composite score per added node is appended; it mirrors the "generate, rank, refine" loop of Hu et al. 2023 (S. Mallat, Z. Zhang, "Matching Pursuits with Time-Frequency Dictionaries", IEEE Transactions on Signal Processing 41(12), 1993, recalled reference; section 1.11). (11 October 2026)
+- Step 1: build a dictionary of 20 to 40 verified moves, each a COP subnet with at most eight exposed parameters and a declared effect class (lattice, edge profile, line raster, crack network, defect stamps, band noise, low frequency field, quantile remap). (11 October 2026)
+- Step 2: compute R_k and its diagnostics (table 2.9): the band, the class mask and the sign that hold most residual energy. (11 October 2026)
+- Step 3: shortlist the three to five moves whose effect class matches the diagnostic. (11 October 2026)
+- Step 4: fit each shortlisted move to the residual with a short search (golden section per parameter or 20 random samples), each evaluation one cook of a few seconds. (11 October 2026)
+- Step 5: rank candidates by score gain divided by added nodes; apply the acceptance rule of 3.3 step 7; a rejected move is blacklisted for this residual and the next one is tried. (11 October 2026)
+- Step 6: stop when all gates pass or when no move gains more than 1 percent of the score. (11 October 2026)
+- Measurements driving it: composite score and gate metrics (3.3), the diagnostics of 2.9 for the shortlist. (11 October 2026)
+- Phase 1 on the glazed tile: the residual energy sits in periodic dark lines, so the lattice move (`tilepattern`) wins; its period, offset and inset are fitted, gates A and B jump. (11 October 2026)
+- Phase 2: the residual concentrates in a ring along every grout edge with a consistent sign, so the edge profile move (`feather` or `monotosdf` into a `remap` ramp) wins, improving gate D. (11 October 2026)
+- Phase 3: thin positive ridges remain inside the tile faces, so the line move (traced curves rasterized, M08) wins, improving gates B and C for lines. (11 October 2026)
+- Phase 4: the residual is now smooth, low frequency and nearly Gaussian, so the low frequency field move (per tile values plus a broad noise) wins, improving gates A, E and F. (11 October 2026)
+- Strengths: general, every layer carries a measured gain, naturally one layer at a time, and any other method of this list can enter the dictionary as a move. (11 October 2026)
+- Failure modes: greedy myopia (a move that only pays after another one is never picked), dictionary gaps that stall progress, piles of tiny corrections, and redundancy once later moves make earlier ones useless (hence periodic pruning with M20). (11 October 2026)
+- Cost: three to five candidates times ten to twenty cooks of a few seconds, about two to five minutes per accepted layer, plus the one time effort of building the dictionary. (11 October 2026)
+
+### 5.3 M02 Scale ordered macro, meso, micro build (11 October 2026)
+
+- Principle: a coarse to fine order fixed before any work, with deterministic features before stochastic ones at each scale; no finer layer is added while a coarser gate fails; it follows the decomposition tree of Hu et al. TOG 2022 (section 1.8) and common material authoring practice (practice claim UNVERIFIED). (11 October 2026)
+- Step 1: classify every visible feature by size: macro at or above one eighth of the image (tile grid, global slope), meso between one sixty fourth and one eighth (bevels, grout, motif lines, chips, cracks, per tile tilt), micro below one sixty fourth (glaze ripple, pinholes, crazing). (11 October 2026)
+- Step 2: inside each scale, order deterministic features before stochastic ones, and larger area before smaller. (11 October 2026)
+- Step 3: build one layer per feature, measure its gate, freeze it when the gate passes. (11 October 2026)
+- Step 4: before moving to a finer scale, check that the low pass of the output equals the low pass of the reference at the scale just finished (gate A at that scale). (11 October 2026)
+- Measurements driving it: energy per Gaussian pyramid level of T and of R_k, plus the gate of each feature. (11 October 2026)
+- Phase 1 on the glazed tile: macro, the grid of tiles and the depth of the grout floor against the face plateau. (11 October 2026)
+- Phase 2: macro to meso, the per tile mean height and tilt (planarity variations between tiles). (11 October 2026)
+- Phase 3: meso, the bevel profile along every tile edge. (11 October 2026)
+- Phase 4: meso, the raised painted motif lines; cracks, chips and micro texture follow in later phases. (11 October 2026)
+- Strengths: simple, readable, stable because coarse errors never contaminate fine fits. (11 October 2026)
+- Failure modes: features that span scales (long thin cracks), micro layers that shift coarse statistics unless kept zero mean, and a rigid order that wastes effort when one meso feature dominates the error. (11 October 2026)
+- Cost: low, about five to ten cooks per layer. (11 October 2026)
+
+### 5.4 M03 Laplacian pyramid band matching (11 October 2026)
+
+- Principle: decompose T and O into Laplacian pyramid bands and solve each band as its own sub problem from coarse to fine, demanding pixel agreement in deterministic bands and histogram plus spectrum agreement in stochastic bands, as Heeger and Bergen do for synthesis (P. Burt, E. Adelson, "The Laplacian Pyramid as a Compact Image Code", IEEE Transactions on Communications 31(4), 1983, recalled reference; section 2.6). (11 October 2026)
+- Step 1: build five to seven levels for T and for O_k outside Houdini. (11 October 2026)
+- Step 2: for each band from the coarsest, compute residual energy, the fraction of that energy lying inside structure masks, and the band kurtosis. (11 October 2026)
+- Step 3: call a band deterministic when more than about 70 percent of its residual energy lies inside structure masks, stochastic otherwise. (11 October 2026)
+- Step 4: for a deterministic band, add or refine the structural layer responsible for it and fit it on the band; for a stochastic band, add a noise passed through `filterfrequencies` centered on the band, then remap it to the band histogram. (11 October 2026)
+- Step 5: re-evaluate all bands, since a structural layer injects energy into several bands at once. (11 October 2026)
+- Measurements driving it: band energies, band W1, band kurtosis, band correlation with T for deterministic bands. (11 October 2026)
+- Phase 1 on the glazed tile: the coarsest bands carry the tile period, solved by the lattice layer. (11 October 2026)
+- Phase 2: the band at the grout width carries grout depth and bevel slopes, solved by the edge profile layer. (11 October 2026)
+- Phase 3: the band at the line width carries the motif lines, solved by the line layer. (11 October 2026)
+- Phase 4: a coarse band whose energy is spread across tile faces is the mottling, solved by a band limited noise with the band histogram. (11 October 2026)
+- Strengths: precise attribution of error to scale, measurable band by band, and directly supported by the FFT nodes of Houdini 22. (11 October 2026)
+- Failure modes: edges are broadband, so structure leaks into many bands; band limited noise can ring; fitting bands independently can misalign phases across bands, so structural layers must stay broadband and bands serve diagnostics and noise only. (11 October 2026)
+- Cost: low to medium, pyramids computed outside Houdini, one to three cooks per band. (11 October 2026)
+
+### 5.5 M04 Absolute threshold class masks, one layer per class (11 October 2026)
+
+- Principle: the reference histogram has modes that are physical classes (grout floor, bevel slope, tile face, raised line top, crack bottom); thresholds at absolute values give binary masks; each class receives one layer, a procedural mask generator judged by IoU and a height assignment judged by per class W1; this follows the binary mask first approach of Lefebvre and Poulin and the mask tree of Hu et al. TOG 2022 (sections 1.2 and 1.8). (11 October 2026)
+- Step 1: histogram of T with 256 to 1024 bins, lightly smoothed; locate modes and valleys; place thresholds in the valleys and record their absolute values. (11 October 2026)
+- Step 2: for thin features, threshold a fixed high pass transform of T (T minus a Gaussian blur of fixed sigma, recorded) rather than T, so that mottling does not move them; the transform and its threshold are frozen and reused for every output. (11 October 2026)
+- Step 3: build M_c(T) and its components for every class; order classes by area times height contrast. (11 October 2026)
+- Step 4: for the next class, build its mask generator in COPs (tile pattern for faces, its inverse for grout, traced curves for lines, blob stamps for chips) until its IoU passes gate B; then assign its height (class median, then profiles with M06, then residual layers). (11 October 2026)
+- Step 5: apply the same thresholds to O_k, recompute IoU and boundary F1, continue with the next class. (11 October 2026)
+- Measurements driving it: IoU, boundary F1, component statistics and per class W1. (11 October 2026)
+- Phase 1 on the glazed tile: class tile face (largest area), produced by `tilepattern`, IoU at least 0.97. (11 October 2026)
+- Phase 2: class grout floor, the complement of faces shrunk by the bevel width, with its height set to the reference grout median. (11 October 2026)
+- Phase 3: class bevel ring between face and grout, height from the edge profile of M06. (11 October 2026)
+- Phase 4: class raised lines, thresholded on the high pass transform above the face level, produced by curves (M08), IoU at least 0.85. (11 October 2026)
+- Strengths: direct and deterministic, binary measurements leave no room for interpretation, each layer has an unambiguous gate, and cooks stay cheap. (11 October 2026)
+- Failure modes: classes whose height distributions overlap (mottling as tall as the lines) blur the valleys, which the fixed high pass transform only partly cures; one pixel cracks fall below mask resolution; painted areas without relief are invisible in height and must not be invented. (11 October 2026)
+- Cost: low, a histogram and a few masks per evaluation. (11 October 2026)
+
+### 5.6 M05 Lattice inversion by Fourier peak and run lengths (11 October 2026)
+
+- Principle: the tiling parameters are computed in closed form from measurements, transposing Lefebvre and Poulin 2000 (section 1.2); no search is involved, so integer structure cannot be off by one as with statistical losses (section 1.9). (11 October 2026)
+- Step 1: take the grout mask from M04, or a high pass of T thresholded at an absolute level. (11 October 2026)
+- Step 2: FFT of the mask; the two strongest non DC peaks give the fundamental frequencies along both axes; the period is N divided by the peak index, refined to sub pixel by parabolic interpolation around the peak; the peak angle gives the orientation. (11 October 2026)
+- Step 3: run lengths along rows and columns of the mask give the median tile width and the median grout width; the centers of vertically adjacent tiles give the row offset, zero for a stack bond. (11 October 2026)
+- Step 4: the grid phase comes from cross correlating a synthetic comb with the row mean and column mean profiles of T. (11 October 2026)
+- Step 5: write the numbers into `tilepattern` (Tile Count mode with the measured rows and columns, Inset from the grout width, offsets from the phase), cook once, check IoU and profiles. (11 October 2026)
+- Step 6: if grout positions drift along the image (irregular AI grid), hand the remaining deviations to M07 or M08 instead of tuning the lattice. (11 October 2026)
+- Measurements driving it: FFT peaks, run length medians, profile cross correlation, IoU. (11 October 2026)
+- Phase 1 on the glazed tile: tile count and orientation from the spectrum, for example 8 by 8 tiles at 0 degrees. (11 October 2026)
+- Phase 2: grout width and tile size from run lengths, written as Inset. (11 October 2026)
+- Phase 3: grid phase from the row and column mean profiles, written as offsets. (11 October 2026)
+- Phase 4: grout depth as the median of T in grout minus the median in faces, written as the amplitude of the lattice layer; gates B, C and D checked. (11 October 2026)
+- Strengths: one cook, exact integers, robust to noise because the FFT is global, and no parameter tuning at all. (11 October 2026)
+- Failure modes: non rectangular bonds need the right preset first; an irregular grid yields only the average period; very thin grout may vanish from the mask; a reference showing a non integer number of tiles forces a choice between exact reproduction (non tileable) and a tileable approximation. (11 October 2026)
+- Cost: very low, milliseconds of FFT outside Houdini and a single cook. (11 October 2026)
+
+### 5.7 M06 Distance field transfer function fitting (11 October 2026)
+
+- Principle: most deterministic relief near an edge is a function of the distance to that edge; the function is measured on the reference by binning heights against a signed distance, then reproduced in COPs by a distance field remapped through that measured curve; it generalizes the Distance and Bevel equivalences of the SideFX page (section 4.2). (11 October 2026)
+- Step 1: from the tile face mask of the reference, compute a signed distance d in pixels (positive inside faces, negative in grout) with a Euclidean distance transform; in COPs `monotosdf`, `eikonal` or `feather` produce the same field from the procedural mask (unit calibration UNVERIFIED, measure once). (11 October 2026)
+- Step 2: bin the heights of T by d in quarter pixel bins and take the median per bin, robust to mottling, chips and cracks; this curve f(d) is the average cross section and directly yields grout depth, bevel width and bevel shape. (11 October 2026)
+- Step 3: tabulate f as a `remap` ramp (or a small lookup layer read by a `wrangle`) and apply it to the procedural distance field. (11 October 2026)
+- Step 4: check the spread of heights in each bin (median absolute deviation); a large spread means the profile varies between tiles or between edges, which calls for M07 or for one curve per edge direction. (11 October 2026)
+- Step 5: repeat the same procedure with the distance to a line centerline (raised motif lines) and to a crack curve (negative V profile). (11 October 2026)
+- Measurements driving it: binned medians and spreads, averaged profile correlation (gate D), bevel ring IoU (gate B). (11 October 2026)
+- Phase 1 on the glazed tile: one curve f(d) for all tile edges gives bevel and grout depth in a single layer. (11 October 2026)
+- Phase 2: separate curves for top, bottom, left and right edges, using the direction of the distance gradient, in case the reference treats edges unequally. (11 October 2026)
+- Phase 3: the profile of the raised lines from the distance to their traced centerlines (height and width). (11 October 2026)
+- Phase 4: corners, using a 2D table binned by the distances to the two nearest edges, if corner residuals remain. (11 October 2026)
+- Strengths: pixel level identity of the dominant relief with one short node chain, purely measured, robust thanks to medians over thousands of pixels, and cheap. (11 October 2026)
+- Failure modes: chipped or wavy edges make f depend on location; bevels that vary per tile need M07; the distance unit of each COP node must be calibrated; corners may need their own table. (11 October 2026)
+- Cost: very low, one distance transform and one binning outside Houdini, two or three nodes inside. (11 October 2026)
+
+### 5.8 M07 Per tile index mapping table (11 October 2026)
+
+- Principle: tiles are instances whose individual values (mean height, tilt, inset, small offset, rotation, bevel width, damage flags) are measured on the reference per tile and stored in a table indexed by tile ID, which the graph reads to reproduce each tile exactly; this is the index mapping convention of the project (/Users/zenray/.claude/rules/ParametricHda1.md, 2 October 2026). (11 October 2026)
+- Step 1: segment the reference faces (`segmentbyconnectivity` on the M04 face mask, or connected components outside Houdini) and match each reference tile to the procedural tile ID of `tilepattern` by nearest centroid. (11 October 2026)
+- Step 2: for each tile fit a robust plane z = a + b x + c y to its face pixels, excluding lines, chips and cracks; measure per side inset and centroid offset; optionally the per tile bevel width from a per tile f(d). (11 October 2026)
+- Step 3: store the table (ID, a, b, c, offsets, flags); read it in COPs through a small lookup layer sampled at the ID by a `wrangle`, or through geometry attributes brought in by SOP Import (best mechanism UNVERIFIED). (11 October 2026)
+- Step 4: apply the per tile plane using the local `uv` output of `tilepattern`, so each tile receives its own piston and tilt. (11 October 2026)
+- Step 5: verify gate E and the disappearance of steps at tile boundaries in the residual. (11 October 2026)
+- Measurements driving it: per tile robust fits, per tile residual, centroid matching errors. (11 October 2026)
+- Phase 1 on the glazed tile: ID correspondence between reference tiles and procedural tiles. (11 October 2026)
+- Phase 2: per tile mean height (piston). (11 October 2026)
+- Phase 3: per tile tilt, which removes the stepped low frequency residual between neighboring tiles. (11 October 2026)
+- Phase 4: per tile inset or bevel width differences, and per tile damage flags that feed M09. (11 October 2026)
+- Strengths: reproduces the tile to tile variation no random seed can reproduce, with four to eight numbers per tile; the table is data, not interface, so the eight parameter rule holds. (11 October 2026)
+- Failure modes: matching errors on irregular grids, a table that must be rebuilt for every new reference, and a reproduction that is identical by construction but no longer a generalizable recipe. (11 October 2026)
+- Cost: low, milliseconds of measurement and one `wrangle`. (11 October 2026)
+
+### 5.9 M08 Vector tracing of line features into rasterized curves (11 October 2026)
+
+- Principle: thin features with a semantic shape (painted motif lines, hairline cracks) are captured as vector curves from the reference, by skeletonization and polyline fitting, then rasterized in COPs with a width attribute and a measured cross section; statistical mask models lose such contours (limit stated by Hu et al. TOG 2022, section 1.8), tracing keeps them to the pixel. (11 October 2026)
+- Step 1: extract the line mask on the fixed high pass transform of T (T minus a Gaussian blur of sigma 3 pixels, recorded), thresholded at an absolute level: positive for raised lines, negative for cracks. (11 October 2026)
+- Step 2: skeletonize (Zhang and Suen thinning or the medial axis, for example scikit-image outside Houdini), prune spurs shorter than a few pixels, and split the skeleton at junctions. (11 October 2026)
+- Step 3: fit polylines (Douglas and Peucker at about half a pixel of tolerance) or Bezier curves; attach per point attributes, width as twice the distance transform at the skeleton and amplitude as the median high pass value along the segment. (11 October 2026)
+- Step 4: bring the curves into COPs (SOP geometry written by a Python SOP or a file, then `sopimport`) and rasterize them with `rasterizecurves` driven by the width attribute; the Trace SOP can also trace a COP layer into outline faces when outlines rather than centerlines are wanted (section 4.5). (11 October 2026)
+- Step 5: give the line its cross section by rasterizing a thin centerline, converting it to a distance field (`monotosdf`) and remapping it with the measured line profile of M06. (11 October 2026)
+- Step 6: verify line IoU, boundary F1, skeleton length and the averaged line profile. (11 October 2026)
+- Measurements driving it: skeleton length, width distribution, IoU and boundary F1 of the line class, averaged cross section. (11 October 2026)
+- Phase 1 on the glazed tile: extract the raised motif line mask and its skeleton. (11 October 2026)
+- Phase 2: fit and rasterize the curves at the measured widths, checking line IoU. (11 October 2026)
+- Phase 3: apply the dome shaped line profile through the distance remap, checking the averaged profile. (11 October 2026)
+- Phase 4: run the same pipeline on cracks with a negative V profile, narrower widths, and endpoints where the reference cracks stop. (11 October 2026)
+- Strengths: exact geometry, resolution independent and editable vectors, global width and height multipliers as the only interface. (11 October 2026)
+- Failure modes: noisy skeletons (spurs, gaps at low contrast), junction artifacts, inconsistent stroke widths in AI references, and the fact that the shapes are data driven rather than generated. (11 October 2026)
+- Cost: medium, seconds of processing outside Houdini, one import and one raster node. (11 October 2026)
+
+### 5.10 M09 Detected instance stamping (11 October 2026)
+
+- Principle: small discrete defects (edge chips, pinholes, spots) are detected as instances in the residual, turned into points carrying position, radius, depth, orientation and edge relation, and reproduced by stamping procedural defect shapes at those points. (11 October 2026)
+- Step 1: on the residual left after the structural layers, detect negative blobs by an absolute threshold plus connected components, or by multi scale Laplacian of Gaussian blob detection (T. Lindeberg, "Feature Detection with Automatic Scale Selection", IJCV 30(2), 1998, recalled reference); in COPs, `pointsfromblobs` (Houdini 22) turns islands into points. (11 October 2026)
+- Step 2: measure each blob: area, equivalent radius, minimum depth, elongation and orientation from second moments, and distance to the nearest tile edge from the M06 distance field. (11 October 2026)
+- Step 3: define a small library of procedural stamps: a conchoidal chip (a disc SDF cut by the tile edge, steep wall and sloped floor), a pinhole (narrow Gaussian pit), a spot (shallow bump). (11 October 2026)
+- Step 4: write stamp attributes with `configurestamps` and stamp with `stamppoint` (or `shapescatter` fed with the points), scaled, rotated and deepened from the measured attributes. (11 October 2026)
+- Step 5: verify exact component counts, defect mask IoU and the W1 of defect depths. (11 October 2026)
+- Measurements driving it: component statistics, IoU per defect class, depth distributions. (11 October 2026)
+- Phase 1 on the glazed tile: detect chips as negative blobs touching the bevel ring. (11 October 2026)
+- Phase 2: stamp chip shapes at measured radii and depths, reaching an exact chip count. (11 October 2026)
+- Phase 3: detect pinholes inside faces (negative blobs under about three pixels of radius) and stamp them. (11 October 2026)
+- Phase 4: refine the chip stamp profile by averaging chip cross sections binned by distance to the chip outline (M06 applied to chips). (11 October 2026)
+- Strengths: exact positions with a few numbers per instance, procedural shapes, and sparse features that no noise can produce. (11 October 2026)
+- Failure modes: threshold sensitivity, merged blobs, irregular chip outlines poorly fitted by simple stamps, and the detailed behavior of `pointsfromblobs` (UNVERIFIED). (11 October 2026)
+- Cost: low to medium. (11 October 2026)
+
+### 5.11 M10 Morphological top hat and granulometry decomposition (11 October 2026)
+
+- Principle: morphology separates features by size and sign without ringing; the white top hat (T minus its opening) isolates bright structures thinner than the structuring element, the black top hat (the closing minus T) isolates dark ones; a granulometry over growing elements gives residual volume per size and sign, and the next layer targets the size and sign holding the most volume (J. Serra, "Image Analysis and Mathematical Morphology", Academic Press 1982, and P. Maragos 1989, recalled references). (11 October 2026)
+- Step 1: compute openings and closings of R_k with discs of radius 1, 2, 4, 8, 16 and 32 pixels (line shaped elements for oriented features). (11 October 2026)
+- Step 2: build the bright and dark pattern spectra, the volume removed between successive sizes. (11 October 2026)
+- Step 3: pick the size and polarity with the largest volume; that is the scale and sign of the next layer. (11 October 2026)
+- Step 4: threshold the corresponding top hat band at an absolute level to get the feature mask and hand it to the matching builder (lattice M05, lines M08, pits and chips M09). (11 October 2026)
+- Step 5: inside the graph, `dilateerode` provides erosion and dilation, so an opening (erode then dilate) can also restrict a noise or a remap to one size band. (11 October 2026)
+- Measurements driving it: pattern spectra of T and O_k, volume per size class and polarity. (11 October 2026)
+- Phase 1 on the glazed tile: black top hat at the grout half width reveals the grout network, solved by the lattice. (11 October 2026)
+- Phase 2: white top hat at the line half width reveals the raised motif lines, solved by curves. (11 October 2026)
+- Phase 3: black top hat at one to two pixels reveals cracks and pinholes, solved by crack curves and pit stamps. (11 October 2026)
+- Phase 4: once the spectrum is flat for sizes below a tile, the remaining large size volume is the mottling, solved by a noise layer. (11 October 2026)
+- Strengths: nonlinear separation that respects shapes, aware of size and sign, very fast. (11 October 2026)
+- Failure modes: features of equal size and sign but different meaning (cracks against grout edges) are confounded, disc elements bias oriented features, and a strong low frequency trend must be removed first. (11 October 2026)
+- Cost: very low. (11 October 2026)
+
+### 5.12 M11 Gradient domain construction with Poisson integration (11 October 2026)
+
+- Principle: build the gradient field (or the normal map) instead of the height, each feature contributing gradients (bevel slopes, line flanks, micro ripple), then integrate it into a height with a Poisson solve; errors are measured on gradients, which is what lighting reveals (P. Pérez, M. Gangnet, A. Blake, "Poisson Image Editing", SIGGRAPH 2003, recalled reference; Hu et al. TOG 2022 integrate normals by Poisson reconstruction, section 1.8). (11 October 2026)
+- Step 1: compute the reference gradient field (or its normal map with `heighttonormal`). (11 October 2026)
+- Step 2: compute the output gradients and the residual gradient field. (11 October 2026)
+- Step 3: classify the residual gradients by orientation and magnitude: strong gradients perpendicular to tile edges (bevels), opposite pairs (line flanks), weak random gradients (micro texture). (11 October 2026)
+- Step 4: add the next feature in gradient space, either as a normal layer merged with `combinenormals` and integrated by `normaltoheight`, or by solving the Poisson equation of the residual divergence with `solvepoisson` or `solvepoissonmultigrid` and adding the result. (11 October 2026)
+- Step 5: anchor the low frequencies, lost or drifted by integration, by adding the coarse thumbnail difference (gate A). (11 October 2026)
+- Measurements driving it: gradient magnitude and orientation histograms, structure tensor coherence, divergence of the residual, gate A for drift. (11 October 2026)
+- Phase 1 on the glazed tile: bevel slopes as a gradient field along the tile distance gradient times a measured slope profile, integrated into the bevel height. (11 October 2026)
+- Phase 2: line flanks as opposite gradients on both sides of each centerline, integrated. (11 October 2026)
+- Phase 3: micro ripple as a gradient noise with the reference orientation histogram (glaze may flow in one direction), integrated. (11 October 2026)
+- Phase 4: low frequency anchoring through the thumbnail difference. (11 October 2026)
+- Strengths: matches what shading shows, avoids steps, combines many local features consistently, and suits references that are normal maps or AI heights whose shading is more consistent than their absolute values. (11 October 2026)
+- Failure modes: non integrable fields create artifacts, boundary conditions and low frequency drift need care, the performance of the Poisson nodes at 2048 pixels is UNVERIFIED, and the method is harder to explain. (11 October 2026)
+- Cost: medium, iterative solves, faster with the multigrid node. (11 October 2026)
+
+### 5.13 M12 Histogram first, rank space construction (11 October 2026)
+
+- Principle: separate "which values" from "where"; a final quantile remap enforces the reference histogram (globally or per class), so every structural layer only has to get the order of heights right; rank correlation becomes the building metric and the per class W1 is zero by construction; it generalizes the histogram matching of Heeger and Bergen and the histogram preservation of Heitz and Neyret (sections 2.4 and 2.6). (11 October 2026)
+- Step 1: compute the reference CDF F_T, globally and per class. (11 October 2026)
+- Step 2: build the structure in a rank signal X; accept a layer when it raises the Spearman correlation between X and T on the deterministic masks, or the IoU of masks taken at the reference class fractions. (11 October 2026)
+- Step 3: end the graph with a `remap` whose ramp is the composition of the inverse reference CDF with the CDF of X, recomputed after each layer; per class remaps when classes are separated. (11 October 2026)
+- Step 4: watch the shape of the remap curve; a kink or a plateau signals two classes merged in X, that is a structural error to fix upstream. (11 October 2026)
+- Measurements driving it: Spearman correlation, rank IoU, curve smoothness; W1 becomes a check of the remap rather than a target. (11 October 2026)
+- Phase 1 on the glazed tile: install the final quantile remap with the reference CDF before any structure. (11 October 2026)
+- Phase 2: the lattice layer, judged by rank IoU of faces against grout. (11 October 2026)
+- Phase 3: the bevel distance layer, judged by rank correlation near edges. (11 October 2026)
+- Phase 4: the mottling noise at any amplitude, the remap fixing it, then a check of the curve. (11 October 2026)
+- Strengths: removes amplitude tuning, a large share of all parameters, and judges each layer only on what it can change. (11 October 2026)
+- Failure modes: one global remap cannot fix classes that overlap in a different spatial order (per class remaps needed), it hides amplitude interactions between layers, non monotone relations are impossible, and the precision of a `remap` ramp with many keys is UNVERIFIED. (11 October 2026)
+- Cost: very low. (11 October 2026)
+
+### 5.14 M13 Spectrum and histogram matched stochastic layers (11 October 2026)
+
+- Principle: the stochastic residual left by the deterministic layers is modeled by one or a few Gaussian like random fields that share the reference residual's power spectrum (radial and angular) and per class histogram, after random phase noise and Gabor noise by example (Galerne et al. 2011 and 2012, section 2.5); success is judged only by distributions, so the pixel metric trap of 3.1 cannot bite. (11 October 2026)
+- Step 1: extract the residual inside eroded tile faces after the deterministic layers, with the periodic plus smooth decomposition or a window against border artifacts. (11 October 2026)
+- Step 2: estimate its amplitude spectrum by averaging windowed FFTs (Welch) and its histogram per class; check its kurtosis, and hand heavy tailed parts (kurtosis above about 4, PROPOSED) to M08 or M09 first. (11 October 2026)
+- Step 3, exact spectrum route: normalize the amplitude spectrum into a filter image; white noise from `randommono` goes through `filterfrequencies` with that filter, then a `remap` to the residual histogram, then multiplication by the class mask, then addition (filter image layout UNVERIFIED). (11 October 2026)
+- Step 4, parametric route: fit the radially averaged spectrum with one to three `fractalnoise` layers (base frequency, octaves, roughness or spectral slope), anisotropic scaling if the angular profile is not flat. (11 October 2026)
+- Step 5: verify gates F, G and H against the self baseline, and check that no spurious periodic peak appeared (section 2.3). (11 October 2026)
+- Measurements driving it: RAPS log ratio per octave, angular profile, W1, ratio of standard deviations, DISTS or SWD ratio. (11 October 2026)
+- Phase 1 on the glazed tile: measure the residual spectrum and histogram inside the faces. (11 October 2026)
+- Phase 2: the low frequency mottling band (roughly 2 to 16 cycles per image) as a broad noise with the measured slope. (11 October 2026)
+- Phase 3: the mid frequency glaze waviness (roughly 16 to 128 cycles per image). (11 October 2026)
+- Phase 4: the high frequency micro ripple, then a per class histogram remap and the self baseline check. (11 October 2026)
+- Strengths: statistically exact for Gaussian like content at low cost, few parameters, immune to the regression to the mean trap. (11 October 2026)
+- Failure modes: non Gaussian content (crazing networks, pits) is not captured, spectrum estimates are noisy without averaging, mottling correlated with tiles belongs to M07 rather than to noise, and band limited noise must be made tileable. (11 October 2026)
+- Cost: low. (11 October 2026)
+
+### 5.15 M14 Semi procedural exemplar layer (11 October 2026)
+
+- Principle: when micro detail resists noise (crazing, specific glaze textures), the reference residual itself becomes an exemplar sampled stochastically over the procedural structure, with histogram preserving blending (Heitz and Neyret 2018) or structure guided placement (Guehl et al. 2020, Efros and Freeman 2001); structure stays procedural, detail becomes example based (sections 1.16, 2.2 and 2.4). (11 October 2026)
+- Step 1: cut an exemplar patch of residual from a clean face region, make it periodic (periodic plus smooth decomposition) and store it as an asset read by the `file` COP. (11 October 2026)
+- Step 2: spread it with `hextile`, or with `sample` (UV Sample) using the `tilepattern` uv output plus per ID random offsets from `randommono`, so that no two tiles show the same patch at the same place. (11 October 2026)
+- Step 3: blend overlapping samples with variance preserving weights in a `wrangle`, then remap to the class histogram. (11 October 2026)
+- Step 4: mask by class (faces only) and add. (11 October 2026)
+- Step 5: verify gates F, G and H, the absence of spectral peaks, and patch coverage (section 2.1). (11 October 2026)
+- Measurements driving it: DISTS or SWD ratio to the self baseline, RAPS, spectral peaks, patch coverage. (11 October 2026)
+- Phase 1 on the glazed tile: choose the exemplar on a face free of lines and chips. (11 October 2026)
+- Phase 2: hex tiled exemplar over all faces. (11 October 2026)
+- Phase 3: variance check and histogram preserving correction. (11 October 2026)
+- Phase 4: per tile decorrelation through ID based offsets, then the spectral peak check. (11 October 2026)
+- Strengths: captures arbitrary micro statistics, non Gaussian included, with very few parameters and fast cooks. (11 October 2026)
+- Failure modes: not fully procedural (an asset is shipped), possible repetition, structure hidden in the exemplar creating false features, and seams. (11 October 2026)
+- Cost: low. (11 October 2026)
+
+### 5.16 M15 Black box optimization of a frozen graph (11 October 2026)
+
+- Principle: once a topology is chosen, its exposed parameters are optimized against the composite score without gradients, integer parameters being searched apart from continuous ones as in DiffMat v2, with Markov chain Monte Carlo as the sampling variant when several plausible solutions are wanted (sections 1.5, 1.7 and 1.13; N. Hansen, "The CMA Evolution Strategy: A Tutorial", arXiv 1604.00772, recalled reference). (11 October 2026)
+- Step 1: expose at most eight parameters per category and freeze every integer that a measurement can give (counts and presets from M05). (11 October 2026)
+- Step 2: normalize parameters to the unit interval and use the score of 3.3 step 6, with deterministic and stochastic gates optimized in separate runs. (11 October 2026)
+- Step 3, coordinate descent: golden section search on each parameter in five to eight cooks, cycling until the score improves by less than 0.5 percent. (11 October 2026)
+- Step 4, CMA ES: default population 4 + floor(3 ln n) for n parameters (recalled from Hansen's tutorial), ten to thirty generations, each evaluation one cook plus metrics. (11 October 2026)
+- Step 5: remaining discrete choices by enumeration when small, otherwise simulated annealing or MCMC with fixed random seeds. (11 October 2026)
+- Step 6: report finite difference sensitivities at the optimum to reveal parameters the reference does not constrain. (11 October 2026)
+- Measurements driving it: the composite score of every evaluation. (11 October 2026)
+- Phase 1 on the glazed tile: freeze measured integers (tile counts, bond preset). (11 October 2026)
+- Phase 2: coordinate descent on bevel width, grout depth and corner radius against the deterministic gates. (11 October 2026)
+- Phase 3: CMA ES on line width, line height and crack parameters against the deterministic gates. (11 October 2026)
+- Phase 4: CMA ES on noise parameters against the stochastic gates only. (11 October 2026)
+- Strengths: general, gradient free, easy to automate, and always evaluated on the true COP output. (11 October 2026)
+- Failure modes: cost grows with the number of parameters, local minima, objectives made noisy by unfixed seeds, the pixel trap returning if deterministic and stochastic terms are mixed, and no cure for a wrong topology. (11 October 2026)
+- Cost: medium to high, 100 to 500 cooks of two to five seconds, about five to forty minutes per run. (11 October 2026)
+
+### 5.17 M16 Differentiable replica or proxy optimization (11 October 2026)
+
+- Principle: re-implement the chosen COP graph in a differentiable framework (PyTorch or Taichi, as DiffMat does for Substance graphs), or train a neural proxy on pairs of parameters and COP outputs, optimize by gradient, then transfer the parameters back and verify in Houdini (MATch, DiffMat v2, Hu et al. 2022, sections 1.6, 1.7 and 1.9). (11 October 2026)
+- Step 1: write a replica of each node used (tile pattern as a soft minimum of rectangle SDFs, remap as a piecewise linear curve, noises as fixed textures exported from Houdini with their seeds and multiplied by differentiable gains). (11 October 2026)
+- Step 2: validate the replica against real cooks on random parameter samples (target MAE under 0.5 percent of r); without this check the optimum belongs to the replica, not to Houdini. (11 October 2026)
+- Step 3: optimize with Adam in stages as Hu et al. do, filters first, then generators, then a final fine tuning, with a loss made of soft mask IoU, averaged profiles and a thumbnail term for structure, and a Gram or sliced Wasserstein term for the residual. (11 October 2026)
+- Step 4: transfer the parameters, cook in Copernicus, evaluate the gates, and repair the replica wherever it disagrees. (11 October 2026)
+- Step 5, proxy variant: sample ten thousand to three hundred thousand parameter sets, cook them headless in batches, train a small conditional generator as a proxy; Hu et al. report days of training per proxy. (11 October 2026)
+- Measurements driving it: replica fidelity, loss curves, gates after transfer. (11 October 2026)
+- Phase 1 on the glazed tile: replicate lattice and bevel profile (simple closed forms) and validate them. (11 October 2026)
+- Phase 2: optimize grid phase, inset and the profile ramp keys jointly, reaching sub pixel accuracy. (11 October 2026)
+- Phase 3: add a soft polyline distance replica for the motif lines and optimize their widths. (11 October 2026)
+- Phase 4: optimize noise gains and spectral filter weights against a Gram or sliced Wasserstein term with frozen noise realizations. (11 October 2026)
+- Strengths: optimizes many continuous parameters at once (dozens of ramp keys), sub pixel precision, fast convergence once built. (11 October 2026)
+- Failure modes: drift between replica and real nodes (antialiasing, filtering details), engineering cost, thresholds and IDs needing relaxations, local minima, and proxies needing large data and days of training. (11 October 2026)
+- Cost: high upfront, hours to days, then minutes per target. (11 October 2026)
+
+### 5.18 M17 Descriptor retrieval from a precomputed recipe database (11 October 2026)
+
+- Principle: cook thousands of parameter samples of every verified COP recipe offline, store compact descriptors with their parameters, and for the current residual retrieve the nearest samples as the initialization of the next layer, then refine with M15; this follows the PPTBF database of Hu et al. TOG 2022 (about 450 thousand masks, LBP, Gram and Fourier features reduced to 512 dimensions), the shader library search of Bourque and Dudek, and the VLMaterial finding that retrieval beats generation at small budgets (sections 1.3, 1.8 and 1.13). (11 October 2026)
+- Step 1: for each recipe, draw one to ten thousand parameter sets by Latin hypercube sampling, cook them headless at 512 pixels, compute descriptors and store them with the parameters (an index mapping table of descriptors). (11 October 2026)
+- Step 2: descriptor (PROPOSED): normalized log RAPS in 32 bins, angular profile in 16 bins, 16 histogram quantiles, bright and dark granulometry in 8 sizes each, a 64 dimensional PCA of Gram features, the whole reduced by PCA to about 128 dimensions. (11 October 2026)
+- Step 3: query with the descriptor of the residual inside the relevant class mask, take the five nearest samples, cook them at full resolution, keep the best by gates, refine with M15. (11 October 2026)
+- Step 4: append every accepted layer of every project to the database, so retrieval improves with use. (11 October 2026)
+- Measurements driving it: descriptor distances for retrieval, gates for the final choice. (11 October 2026)
+- Phase 1 on the glazed tile: querying with T itself returns the closest lattice recipe variant (stack bond with rounded bevel). (11 October 2026)
+- Phase 2: querying with the face residual returns a line style recipe whose widths and heights are reused, while positions come from M08 because retrieval only matches statistics. (11 October 2026)
+- Phase 3: querying the face residual after lines returns the noise family and parameters of the mottling. (11 October 2026)
+- Phase 4: querying the residual near edges returns chip and crack recipes and their parameter ranges. (11 October 2026)
+- Strengths: instant at query time, builds on the verified recipe library of the zenray-houdini skill (its size UNVERIFIED), and improves with every project. (11 October 2026)
+- Failure modes: coverage limited to sampled ranges, descriptors that ignore positions (statistically similar, not identical), and offline cost to refresh when recipes change. (11 October 2026)
+- Cost: offline hours (ten thousand cooks of about two seconds is roughly five and a half hours per recipe on one Houdini session; parallel sessions depend on licenses, UNVERIFIED), milliseconds per query. (11 October 2026)
+
+### 5.19 M18 Amortized parameter regression (11 October 2026)
+
+- Principle: a small network per template, trained on synthetic pairs cooked from the COP template, predicts the template parameters from a reference in one forward pass (Hu, Dorsey and Rushmeier 2019, section 1.4), optionally fine tuned by reinforcement learning with the composite score as reward (Li et al. 2024, section 1.12). (11 October 2026)
+- Step 1: freeze a template, for example a tile wall with about twenty parameters. (11 October 2026)
+- Step 2: sample twenty to one hundred thousand parameter sets and cook them headless at 256 or 512 pixels. (11 October 2026)
+- Step 3: train a regressor (a ResNet 18, or frozen self supervised features with an MLP head) on normalized parameters with an L1 loss. (11 October 2026)
+- Step 4: predict on the reference, cook, evaluate the gates, refine with M15. (11 October 2026)
+- Step 5, optional: fine tune with PPO on real references using the negative composite score as reward, which needs no differentiability. (11 October 2026)
+- Measurements driving it: validation error per parameter, gates on real references. (11 October 2026)
+- Phase 1 on the glazed tile: define the template and its parameter ranges from statistics measured on many tile references. (11 October 2026)
+- Phase 2: generate the dataset. (11 October 2026)
+- Phase 3: train and validate the regressor. (11 October 2026)
+- Phase 4: predict lattice, bevel and noise parameters for the target, measure the gates, refine. (11 October 2026)
+- Strengths: instant inversion when the same template serves many references (a product line of ceramic materials), consistent results. (11 October 2026)
+- Failure modes: heavy upfront cost, domain gap between COP outputs and AI generated references, nothing beyond what the template can express, retraining after any template change. (11 October 2026)
+- Cost: high upfront (days), negligible per target. (11 October 2026)
+
+### 5.20 M19 Vision language recipe synthesis with visual feedback and tree search (11 October 2026)
+
+- Principle: a vision language model, the agent itself or a fine tuned one, proposes the next node or nodes as code (the Python that builds the COP network), conditioned on the reference, the current output and diagnostic boards, in the spirit of MultiMat (node by node generation with rendered intermediate outputs and backtracking) and VLMaterial (graphs as programs); the section 3 score supplies the value function MultiMat lacks (sections 1.13 and 1.14). (11 October 2026)
+- Step 1: assemble the context: reference and output shown as hillshades under the same light (`heighttonormal` then `light`), the signed residual map, mask overlays, the gate table, and the recipe library with names, one line descriptions and thumbnails. (11 October 2026)
+- Step 2: ask for three to five candidate next layers as code, each with at most eight parameters and the gate it intends to fix; validate every node name against the local Houdini 22 list before executing. (11 October 2026)
+- Step 3: execute each candidate headless, reject failures and resample, compute the gates of the valid ones. (11 October 2026)
+- Step 4: keep the best candidate if the acceptance rule passes; after i consecutive failures, backtrack by removing the last 2 to the power (i minus 1) layers, as MultiMat does, and explore an alternative branch. (11 October 2026)
+- Step 5: log prompt, code and metrics of every attempt, which feeds the database of M17. (11 October 2026)
+- Measurements driving it: gates, validity, acceptance history. (11 October 2026)
+- Phase 1 on the glazed tile: the model reads the reference and proposes a stack bond `tilepattern` with inset; executed and accepted. (11 October 2026)
+- Phase 2: it proposes the bevel through `feather` and a profile `remap`; accepted if gate D improves. (11 October 2026)
+- Phase 3: it proposes the painted lines, which requires the tracing tools of M08 exposed as callable recipes. (11 October 2026)
+- Phase 4: it proposes the mottling noise, accepted only if gates F to H improve. (11 October 2026)
+- Strengths: semantic understanding ("this looks like a crackle glaze"), novel compositions, direct use of the recipe library, and a natural fit with the current agent workflow. (11 October 2026)
+- Failure modes: hallucinated node names or parameters, subtle height differences invisible on raw grayscale (hence hillshades), and the known agent tendency to retune the settings of a method that cannot succeed, which the project's methodology rule of 10 October 2026 addresses by forcing method changes (/Users/zenray/.claude/CLAUDE.md). (11 October 2026)
+- Cost: medium, model tokens plus cooks per proposal; fine tuning a MultiMat style model would cost days of GPU time. (11 October 2026)
+
+### 5.21 M20 Over complete graph with backward elimination (11 October 2026)
+
+- Principle: start from a rich template containing every plausible layer, each scaled by a gain; because height layers add, the optimal gains of the deterministic layers follow from one linear least squares solve; then remove, one by one, the layers whose removal costs less than a threshold, which yields a minimal graph and avoids the myopia of greedy addition (PROPOSED; backward elimination is a classical model selection procedure). (11 October 2026)
+- Step 1: build the over complete graph within the node budget, every layer L_l multiplied by a gain g_l initialized at zero. (11 October 2026)
+- Step 2: cook each layer once at gain one, then solve min over g of the squared norm of (T minus the sum of g_l L_l minus a constant) on the deterministic masks, with a small ridge penalty against collinear layers. (11 October 2026)
+- Step 3: fit stochastic layer gains by variance matching, never by least squares, which would drive them to zero (section 3.1). (11 October 2026)
+- Step 4: remove the layer whose removal increases the score least, refit, and repeat while each removal costs under 1 percent (PROPOSED threshold). (11 October 2026)
+- Measurements driving it: least squares residual, score increase per removal, gates. (11 October 2026)
+- Phase 1 on the glazed tile: instantiate the full tile template (lattice, bevel, lines, cracks, chips, three noise bands, per tile table) at default parameters. (11 October 2026)
+- Phase 2: one linear solve of the deterministic gains on the structure masks. (11 October 2026)
+- Phase 3: refine the few nonlinear parameters (bevel width, line width) with M15. (11 October 2026)
+- Phase 4: prune layers with negligible gain (for example a scratches layer absent from the reference) and refit. (11 October 2026)
+- Strengths: the linear gain fit is exact and instant, pruning keeps the graph small, and the explore then optimize order matches the project's node budget doctrine (/Users/zenray/.claude/rules/ParametricHda1.md, 1 October 2026). (11 October 2026)
+- Failure modes: needs a good over complete template, collinear layers give unstable gains, and nonlinear blends (maximum, minimum, multiply) break the linear model. (11 October 2026)
+- Cost: low to medium. (11 October 2026)
+
+### 5.22 M21 Annotated discrepancy loop (11 October 2026)
+
+- Principle: a human remains the best detector of what looks wrong; after each layer the loop shows a fixed board and asks for one annotation (a red circle or arrow) on the worst region, and the next layer must target that region; this is the project rule of 10 October 2026 that an annotated image unblocks a stalled task (/Users/zenray/.claude/CLAUDE.md). (11 October 2026)
+- Step 1: after each layer render the board: reference and output hillshades under the same light, the signed residual in a diverging color map, mask overlays with their IoU, and the gate table. (11 October 2026)
+- Step 2: when two consecutive layers fail to improve their gate, or a gate stalls, request an annotated capture instead of a third text driven attempt. (11 October 2026)
+- Step 3: turn the annotation into a region mask, run the diagnostics of 2.9 inside it, choose the layer type accordingly, and verify the improvement both inside and outside the region. (11 October 2026)
+- Measurements driving it: local gates inside the annotated region, global gates outside it. (11 October 2026)
+- Phase 1 on the glazed tile: after the lattice, the annotation points at bevels that look too soft, which leads to the M06 profile. (11 October 2026)
+- Phase 2: an annotation on lines that look too thick leads to a width calibration in M08. (11 October 2026)
+- Phase 3: an annotation on corners missing their chips leads to M09. (11 October 2026)
+- Phase 4: an annotation on a glaze that looks plastic (missing micro ripple) leads to the high band of M13. (11 October 2026)
+- Strengths: catches perceptual defects that metrics miss, aligns with the way Matthieu works, costs almost no compute. (11 October 2026)
+- Failure modes: needs human time, can be subjective, and must never replace the gates, which still decide acceptance. (11 October 2026)
+- Cost: low compute, minutes of human attention. (11 October 2026)
+
+### 5.23 M22 Low order residual surface fit (11 October 2026)
+
+- Principle: the low frequency residual (mottling spanning several tiles, a gentle global warp) has few degrees of freedom, so a coarse control grid of G by G values, upsampled smoothly, reproduces it exactly with a few hundred numbers; it is the spatial counterpart of the per instance table of M07 (PROPOSED). (11 October 2026)
+- Step 1: after the structural layers, area average the residual onto a G by G grid with G between 8 and 32, excluding feature masks (lines, chips) so that they do not bias the cells. (11 October 2026)
+- Step 2: store the grid as a tiny layer, read it with the `file` COP and upsample it with `resample` (bicubic), or sample it bicubically in a `wrangle`, then add it. (11 October 2026)
+- Step 3: choose the smallest G that passes gate A without adding energy above the mottling band in the spectrum. (11 October 2026)
+- Measurements driving it: gate A, low band RAPS, residual energy below the grid frequency. (11 October 2026)
+- Phase 1 on the glazed tile: G = 8, one value per tile for an 8 by 8 wall, a continuous version of the M07 piston. (11 October 2026)
+- Phase 2: G = 16, capturing within tile low frequency mottling. (11 October 2026)
+- Phase 3: spectral check that no excess appears at the grid frequency. (11 October 2026)
+- Phase 4: hand the band above the grid to the noise of M13. (11 October 2026)
+- Strengths: exact low frequency identity with tiny data, trivial to build, very cheap. (11 October 2026)
+- Failure modes: data rather than procedure, not tileable unless the grid is made periodic, and it can absorb structural errors if applied before the structure is right. (11 October 2026)
+- Cost: very low. (11 October 2026)
+
+### 5.24 How the methods combine into one default pipeline (11 October 2026)
+
+- Measure first, once: absolute thresholds and class masks (M04 step 1), the self baseline and the RMSE floor of the stochastic residual (section 3.3), the tile lattice spectrum (M05 step 2). (11 October 2026)
+- Deterministic skeleton by direct inversion, no search: M05 lattice, then M06 edge profile, then M07 per tile table, then M08 lines and cracks, then M09 chips, then M22 if the low frequency mottling is to be reproduced exactly rather than statistically. (11 October 2026)
+- Stochastic closure: M13 band by band, M14 only if gates G or H still fail after M13, and a final per class quantile remap from M12. (11 October 2026)
+- Control loop: M01 decides every step with the builders above as its dictionary, M02 breaks ties by scale, the acceptance rule of 3.3 reverts any layer that does not pay, M20 prunes the graph every five accepted layers, and M21 is invoked when two consecutive layers fail. (11 October 2026)
+- Polish: M15 on at most eight parameters per category, deterministic and stochastic gates optimized in separate runs. (11 October 2026)
+- Investment track, only when references repeat: M17 grows its database from the logs of every run, M19 proposes candidates inside M01, M16 and M18 are justified only by a recurring product line of similar materials. (11 October 2026)
+- Expected order in which gates pass on the glazed tile: B for faces and grout after M05; C and D after M06; E and most of A after M07; B and C for lines after M08; I after M09; F, G and H after M13; F exactly after M12; J last. (11 October 2026)
+
+### 5.25 Symptom to method map (11 October 2026)
+
+<table><tr><th>Symptom seen in the residual or in the gates</th><th>Next method</th><th>Date (11 October 2026)</th></tr>
+<tr><td>periodic dips or ridges at the tile period still missing</td><td>M05</td><td>11 October 2026</td></tr>
+<tr><td>a ring of consistent sign along every edge</td><td>M06</td><td>11 October 2026</td></tr>
+<tr><td>stepwise offsets or tilts from one tile to the next</td><td>M07</td><td>11 October 2026</td></tr>
+<tr><td>thin curved ridges or grooves with a recognizable shape</td><td>M08</td><td>11 October 2026</td></tr>
+<tr><td>isolated pits, bites at edges, spots</td><td>M09</td><td>11 October 2026</td></tr>
+<tr><td>residual volume concentrated at one size and one polarity</td><td>M10</td><td>11 October 2026</td></tr>
+<tr><td>heights close but shading wrong (gradient histograms differ)</td><td>M11</td><td>11 October 2026</td></tr>
+<tr><td>right order, wrong amplitudes (high Spearman, high W1)</td><td>M12</td><td>11 October 2026</td></tr>
+<tr><td>smooth Gaussian like residual with a spectral deficit</td><td>M13</td><td>11 October 2026</td></tr>
+<tr><td>non Gaussian micro texture that noise cannot match (gate H fails)</td><td>M14</td><td>11 October 2026</td></tr>
+<tr><td>right topology, parameters slightly off</td><td>M15</td><td>11 October 2026</td></tr>
+<tr><td>many continuous parameters, black box search too slow</td><td>M16</td><td>11 October 2026</td></tr>
+<tr><td>new reference similar to earlier ones</td><td>M17 or M18</td><td>11 October 2026</td></tr>
+<tr><td>no clear diagnostic, or the loop stalls</td><td>M19, then M21</td><td>11 October 2026</td></tr>
+<tr><td>graph too large or layers redundant</td><td>M20</td><td>11 October 2026</td></tr>
+<tr><td>low frequency residual left after the structure</td><td>M22</td><td>11 October 2026</td></tr>
+<tr><td>spurious periodic peaks in the output spectrum</td><td>de-periodization inside M13 or M14 (section 2.3)</td><td>11 October 2026</td></tr>
+<tr><td>output flatter than the reference after blending</td><td>variance preserving blend or remap (section 2.4), not a new layer</td><td>11 October 2026</td></tr></table>
+
+### 5.26 The three most promising methods (11 October 2026)
+
+- M01 residual driven greedy pursuit: it is exactly the decision rule the task asks for, choosing the next layer by measured gain, one layer at a time, reverting what does not pay, and it hosts every other builder as a move. (11 October 2026)
+- M06 distance field transfer function fitting, fed by the masks of M04 and the lattice of M05: it gives pixel level identity of the dominant relief (grout, bevel, lines) from one measured curve, in two or three nodes, without any search. (11 October 2026)
+- M13 spectrum and histogram matched stochastic layers: it reaches statistical identity of the random part cheaply and is judged by distributions, which removes the regression to the mean trap that makes pixel metrics reject correct detail. (11 October 2026)
+
+## Coverage (11 October 2026)
+
+- Read in full or in substantial part: Lefebvre and Poulin 2000 (PDF pages 1 to 6); Hu et al. TOG 2022, Hu et al. SIGGRAPH 2022, MatFormer and Hu et al. 2023 through ar5iv; VLMaterial and MultiMat through arXiv HTML; the DiffMat README and its metric.py and descriptor.py; the SideFX pages for the Copernicus news of 20.5, 21 and 22, Distort, Tile Pattern, Histogram, Statistics by ID, Filter Frequencies, Python Snippet, Rasterize Curves, Trace SOP, the neural inference nodes and the Labs Substance Archive node; the local SideFX page for Substance Designer users and the local Houdini 22.0.368 COP list. (11 October 2026)
+- Read at abstract, summary or project page level only: MATch, DiffMat v2, Hu, Dorsey and Rushmeier 2019, Guo et al. 2020, Bourque and Dudek 2004, Li et al. 2024, Lv et al. 2025, Guehl et al. 2020, Hu et al. EGSR 2022, Heitz and Neyret 2018, Gabor noise by example, random phase textures, Portilla and Simoncelli, Gatys et al., Heitz et al. 2021, DISTS, Wang tiles, Efros and Leung, Efros and Freeman, Heeger and Bergen, ControlMat, MoGe 2, Marigold, StableNormal, Substance 3D Sampler, Materialize, ArmorLab, the SideFX tutorials and talks listed in 4.6, the COPstance and Substance forum threads, the Adobe Experience League page and the Adobe feature request. (11 October 2026)
+- Recalled references not re-read on 11 October 2026: SSIM, MS SSIM, LPIPS, the structure tensor of Bigün and Granlund, the periodic plus smooth decomposition of Moisan, Maragos granulometry, Serra morphology, Simakov bidirectional similarity, Mallat and Zhang matching pursuit, the Laplacian pyramid of Burt and Adelson, Lindeberg blob detection, Poisson image editing, the CMA ES tutorial of Hansen, and phasor noise of Tricard et al. (11 October 2026)
+- Not found or not accessible: full texts of MATch, DiffMat v2, Guehl et al. 2020 and Lv et al. 2025 (size limits, HTTP 403 or paywall); a confirmed SIGGRAPH 2025 or 2026 paper on procedural material graph inversion (MultiMat at ICLR 2026 and Lv et al. 2025 are the latest found); an odforce thread on slope blur or flood fill in Copernicus; the exact Houdini 22 release date; the Content Library listing of the Texture Synthesis scene; any native Copernicus SBSAR loader after September 2025. (11 October 2026)
+- UNVERIFIED items to test first in Houdini 22.0.368: absence of automatic differentiation in Copernicus; the expected layout of the `filterfrequencies` filter image; the distance units of the Tile Pattern Distance mode and of `feather`; numpy access in `pythonsnippet`; the behavior of `pointsfromblobs`; the best per ID lookup mechanism; Poisson node speed at 2048 pixels; `remap` ramp precision; op: references from Copernicus to a COP2 network; the number of parallel headless sessions the licenses allow. (11 October 2026)
+- PROPOSED items to calibrate on real targets: every threshold of the gates in 3.3, the acceptance rule, the descriptor of M17, and the 22 method designs of section 5. (11 October 2026)
+- Methods delivered (22): M01 residual driven greedy pursuit, M02 scale ordered macro meso micro build, M03 Laplacian pyramid band matching, M04 absolute threshold class masks, M05 lattice inversion by Fourier peak and run lengths, M06 distance field transfer function fitting, M07 per tile index mapping table, M08 vector tracing of line features, M09 detected instance stamping, M10 morphological top hat and granulometry, M11 gradient domain construction with Poisson integration, M12 histogram first rank space build, M13 spectrum and histogram matched stochastic layers, M14 semi procedural exemplar layer, M15 black box optimization of a frozen graph, M16 differentiable replica or proxy, M17 descriptor retrieval from a recipe database, M18 amortized parameter regression, M19 vision language recipe synthesis with tree search, M20 over complete graph with backward elimination, M21 annotated discrepancy loop, M22 low order residual surface fit. (11 October 2026)
+- Format check: a script verified that every non empty line of this file carries the date and that it contains no em dash, no en dash and no double hyphen. (11 October 2026)

@@ -1,0 +1,60 @@
+## 4. SideFX, « Copernicus for Substance 3D Designer users », intégré à la méthode (11 October 2026)
+
+- Source : page officielle SideFX de Houdini 22.0, en ligne `https://www.sidefx.com/docs/houdini/copernicus/substance_designer.html` et en local `/Applications/Houdini/Current/Frameworks/Houdini.framework/Versions/Current/Resources/houdini/help/copernicus/substance_designer.txt` ; les deux versions ont été comparées le 11 October 2026 et sont identiques. Demande de Matthieu du 11 October 2026 : intégrer cette page à toute la méthodologie et au dataset. (11 October 2026)
+- Lecture : la page traduit des concepts et des nœuds de Designer vers Copernicus ; elle ne donne aucune recette de height. Ce que la méthode en retient est la table d'équivalence (section 4.2), qui sert de dictionnaire de traduction quand une recette ou un tutoriel Designer doit être rejoué dans un graphe Copernicus, et les deux recettes de distance (section 4.3). (11 October 2026)
+
+### 4.1 Concepts (11 October 2026)
+
+| Substance 3D Designer | Copernicus, Houdini 22.0.368 | Usage dans la méthode | Date (11 October 2026) |
+|---|---|---|---|
+| Package (.sbs) | fichier .hip ; un réseau par matériau ; recettes et étagères à la place des templates | un copnet par matériau, une boîte réseau par couche | 11 October 2026 |
+| Project | un HDA (Houdini Digital Asset) | la méthode finale se fige en HDA avec au plus 8 paramètres par catégorie | 11 October 2026 |
+| Properties panel | Parameter editor ; les paramètres Attributes vont dans l'info window, les paramètres Base sur le copnet seulement | la résolution se règle sur le `rop_image` (setres, res1, res2), pas sur le copnet | 11 October 2026 |
+| Graph viewport | Network editor | rangement par boîtes, une boîte par couche | 11 October 2026 |
+| 2D et 3D viewports | Composite Viewer (image) et Scene Viewer (volume) | vérification d'une couche dans le Composite Viewer | 11 October 2026 |
+| Function graphs | VOPs et VEX | réservés aux formules introuvables, jamais moteur de la forme | 11 October 2026 |
+| Grayscale | Mono (signature f1) | toute height est une couche Mono | 11 October 2026 |
+| Frame | Network box | une boîte par couche ajoutée | 11 October 2026 |
+| Links | wires | idem | 11 October 2026 |
+
+### 4.2 Table d'équivalence des nœuds, complète, avec la note d'usage height (11 October 2026)
+
+| Nœud Designer | Nœud(s) Copernicus | Réglage donné par SideFX | Usage pour reproduire une height | Date (11 October 2026) |
+|---|---|---|---|---|
+| Alpha Merge | `blend` | Mode Add, alpha branché sur bg ou fg | addition de couches | 11 October 2026 |
+| Ambient Occlusion (HBAO) | `heighttoambientocclusion` | | carte AO dérivée de la height | 11 October 2026 |
+| Auto Levels | `equalize` | | normaliser une couche avant mesure | 11 October 2026 |
+| Base Material | `previewmaterial` | | aperçu 3D | 11 October 2026 |
+| Bevel | `feather` | | biseau de carreau depuis un masque | 11 October 2026 |
+| Directional Blur | `streakblur` | | stries, poils, coulures | 11 October 2026 |
+| Distance | `feather` et `extrapolateboundaries` | voir 4.3 | champ de distance, nettoyage des bords | 11 October 2026 |
+| Dot (Portal) | `null` et `fetch` | | sorties nommées, réutilisation entre réseaux | 11 October 2026 |
+| Flood Fill | `segmentbyconnectivity` et `uvmapbyid` | | une identité par îlot (carreau, éclat) | 11 October 2026 |
+| Flood Fill to Random Grayscale / Color | `randommono` et `randomrgb` | | variation par carreau | 11 October 2026 |
+| Gradient | nœuds Ramp (`ramp`) | | coordonnées de carreau, profils | 11 October 2026 |
+| Histogram (Scan, Range...) | nœuds Remap (`remap`) | Operation = Threshold pour imiter Histogram Scan | masques à seuil absolu, appariement d'histogramme par courbe | 11 October 2026 |
+| HSL | nœuds HSV (la valeur remplace la luminosité) | | base color | 11 October 2026 |
+| Levels | `remap` | | courbes de profil mesurées | 11 October 2026 |
+| Make It Tile | `tilepattern` et `feather` | | raccord et motif de carreaux | 11 October 2026 |
+| Min Max | `statistics` | | mesure dans le graphe | 11 October 2026 |
+| Output | `null` et `rop_image` | | export 16 bits en colorconversion raw | 11 October 2026 |
+| Perlin Noise | `fractalnoise` | | couche statistique calibrée par bande | 11 October 2026 |
+| RGBA Split | `channelsplit` | | extraction d'un canal | 11 October 2026 |
+| Shape | `sdfshape` puis `sdftomono` | | formes analytiques | 11 October 2026 |
+| Slope Blur | Distort by Slope (recette de `distort`) | | érosion le long de la pente | 11 October 2026 |
+| Splatter | `shapescatter` et `curvescatter` | | dispersion statistique d'éléments | 11 October 2026 |
+| Tile Generator | `tilepattern` | | grille de carreaux | 11 October 2026 |
+| Tile Sampler | `shapescatter` | | tampons dispersés | 11 October 2026 |
+| Uniform Color | `constant` | | valeur constante | 11 October 2026 |
+| Warp | `distort` | | déformation | 11 October 2026 |
+
+### 4.3 Les deux recettes « Distance » de SideFX, reformulées (11 October 2026)
+
+- Feather pour nettoyer un contour : `tilepattern` (sortie tiles) vers `feather` (entrée source), Feather Direction sur Circle pour un résultat lisse, Feather from High to Low pour étendre la forme dans le fond, puis réglage de Distance for Unit Change. (11 October 2026)
+- Feather pour agrandir ou rétrécir une forme : la même chaîne suivie d'un `remap` en Operation Threshold, Threshold When Greater ; le seuil règle la taille ; Feather from High to Low choisit l'agrandissement ou le rétrécissement. (11 October 2026)
+- Extrapolate Boundaries : le motif sur `source`, la forme de base sur `fillarea` (un `blur` préalable évite le grain), les fissures sur `mask` pour que le mélange reste dans les fissures, Exterior sur Unchanged, puis Threshold et Edge Padding ; si fillarea est l'inverse de source, Edge Padding fait croître chaque point jusqu'au voisin, ce qui fabrique des cellules. (11 October 2026)
+
+### 4.4 Ce que la table ne couvre pas, et la réponse de la méthode (11 October 2026)
+
+- Les nœuds Designer absents de la table (Histogram Range, Slope Blur Grayscale non directionnel, Non Uniform Blur, Height Blend, Multi Directional Warp, Vector Warp, Tile Sampler avec carte de masque, FX-Map, Pixel Processor) sont traités dans la section 5 de ce fichier, nœud par nœud, avec leur chaîne Copernicus de remplacement. (11 October 2026)
+- La reproduction d'une référence demande des briques qu'aucun nœud Designer ne donne directement et que Copernicus fournit : `maskfromcurves` (masque ou SDF de courbes fermées), `layerfromcurves` (courbes avec largeur et rampe de profil, tuilables), `rasterizegeo` (polygones portant une valeur, ordonnés en profondeur), `sopimport` (données mesurées stockées dans un `stash`). Ce sont elles qui permettent les couches mesurées de la méthode (section 1 et section 12). (11 October 2026)

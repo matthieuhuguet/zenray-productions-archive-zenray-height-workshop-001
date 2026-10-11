@@ -1,0 +1,82 @@
+[
+ {
+  "method": "M14_VectorRegions",
+  "score": 0.9242,
+  "pearson": 0.9707
+ },
+ {
+  "method": "M01_GreedyResidual",
+  "score": 0.8455,
+  "pearson": 0.939
+ },
+ {
+  "method": "M15_VisionGuided",
+  "score": 0.7471,
+  "pearson": 0.849
+ },
+ {
+  "method": "M10_Morphological",
+  "score": 0.7187,
+  "pearson": 0.8142
+ },
+ {
+  "method": "M16_DictionaryOMP",
+  "score": 0.6966,
+  "pearson": 0.7813
+ },
+ {
+  "method": "M06_ProfileFamily",
+  "score": 0.6027,
+  "pearson": 0.6812
+ },
+ {
+  "method": "M09_TileTables",
+  "score": 0.5873,
+  "pearson": 0.6766
+ },
+ {
+  "method": "M05_StructureCurves",
+  "score": 0.5793,
+  "pearson": 0.6214
+ },
+ {
+  "method": "M08_ParametricOptim",
+  "score": 0.5191,
+  "pearson": 0.5984
+ },
+ {
+  "method": "M04_MaskClassesStatistical",
+  "score": 0.4112,
+  "pearson": 0.3625
+ },
+ {
+  "method": "M07_HistogramAnchored",
+  "score": 0.3432,
+  "pearson": 0.3457
+ },
+ {
+  "method": "M12_SeedSearch",
+  "score": 0.3322,
+  "pearson": 0.3548
+ },
+ {
+  "method": "M02_HierarchyStatistical",
+  "score": 0.3083,
+  "pearson": 0.3206
+ },
+ {
+  "method": "M13_IsoContours",
+  "score": 0.2026,
+  "pearson": 0.1523
+ },
+ {
+  "method": "M03_FrequencyPyramid",
+  "score": 0.1494,
+  "pearson": 0.0697
+ },
+ {
+  "method": "M11_NoiseBank",
+  "score": 0.1136,
+  "pearson": 0.0018
+ }
+]

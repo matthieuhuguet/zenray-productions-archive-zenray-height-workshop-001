@@ -1,0 +1,33 @@
+## 9. Leçons des méthodes dépréciées, ce qui se garde et ce qui ne revient pas (11 October 2026)
+
+- Cadre : le 11 October 2026, Matthieu a déclaré dépréciées toutes les méthodes de reproduction de height du skill zenray-houdini et demandé d'y chercher ce qui était intéressant, la méthode « score » en particulier, qui approchait le résultat à 50 pour cent sans jamais dépasser ce palier. Cette section en tire les leçons mesurées. (11 October 2026)
+
+### 9.1 Pourquoi toutes plafonnaient (11 October 2026)
+
+- Les méthodes de la fenêtre (seize méthodes, boucle M01 de P9 à P44) fabriquaient la surface par familles de masques aléatoires ; or une famille aléatoire ne place jamais ses taches là où la référence les a, si bien que l'IoU de position restait entre 0,03 et 0,20 et que le contrôleur par fractions plafonnait vers 0,047. Le plafond venait du principe et non des réglages : aucune valeur ne fait coïncider une position tirée au hasard avec une position mesurée. (11 October 2026)
+- La règle « la référence ne sert qu'à mesurer » a été appliquée à des mesures globales (fractions, histogrammes, profils), jamais à des mesures de position ; la recherche de méthode du 11 October 2026 montre que la position des formes uniques (taches, motifs, éclats) est elle aussi une mesure, transportable sous forme de courbes et de polygones, et que c'est elle qui débloque l'identité visuelle. (11 October 2026)
+
+### 9.2 Ce qui se garde (11 October 2026)
+
+| Élément | Origine | Pourquoi il reste utile | Date (11 October 2026) |
+|---|---|---|---|
+| Masques noir et blanc à seuils absolus tirés de la référence | méthodologie du 10 October 2026 | mesure robuste de la géométrie des classes, jamais de seuil recalculé sur la sortie | 11 October 2026 |
+| Score à 12 composantes (`Metrics2.py`) | fenêtre, 10 et 11 October 2026 | vecteur d'erreur lisible ; ne sert plus de porte unique | 11 October 2026 |
+| Vérification par cellules | boucle M01 | localise l'écart, ce qu'un score global cache | 11 October 2026 |
+| Une cause par cycle, planche référence contre rendu à chaque cycle | boucle v47 | la règle « une couche à la fois » demandée le 11 October 2026 | 11 October 2026 |
+| Preuve de retour par comparaison d'octets (`cmp`) | boucle v47 | prouve qu'un retour arrière restaure exactement | 11 October 2026 |
+| Profils mesurés en coordonnées de forme (distance au bord, coordonnée d'éventail) | lys, 5 et 6 October 2026 | la mesure se fait dans le repère où le motif est stable | 11 October 2026 |
+| Répartition figée, gain amorti | boucle M01 | évite l'oscillation d'un contrôleur | 11 October 2026 |
+| Pièges Copernicus payés (Tile Pattern faux au joint, export au rop_image, MonotoneCubic sur les courbes de ton, rampes verticales qui montent) | toutes | voir aussi la section 12 | 11 October 2026 |
+
+### 9.3 Ce qui ne revient pas (11 October 2026)
+
+- Itérations de exactement 64 nodes, remplissage par des nodes identité, budget fixé avant la mesure : le nombre de nodes n'est pas une méthode. (11 October 2026)
+- Familles aléatoires pour reproduire des positions uniques : elles ne convergent pas. (11 October 2026)
+- Contrôleur par fractions seul : il voit des proportions, pas la nature ni la place de la surface. (11 October 2026)
+- Iso-contours remplis par `maskfromcurves` : le remplissage ignore les trous imbriqués ; la méthode M13 du 11 October 2026 le mesure (la corrélation baisse de 0,676 à 0,615 en essai). (11 October 2026)
+
+### 9.4 La méthode « score » réévaluée (11 October 2026)
+
+- Le score n'était pas faux : il mesurait honnêtement un générateur incapable de placer les formes. Rebranché sur des couches mesurées, le même type de score monte (section 10) ; il redevient un instrument de choix entre candidats (méthode M01 et M08) et non une porte. (11 October 2026)
+- Leçon de méthode générale, tirée de la littérature (section 8.3) : une métrique au pixel punit un détail aléatoire correct ; il faut séparer la part déterministe (identité au pixel exigée) de la part stochastique (identité statistique exigée), et calculer d'avance le plancher d'erreur de la seconde. (11 October 2026)

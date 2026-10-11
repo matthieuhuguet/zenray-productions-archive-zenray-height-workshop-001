@@ -1,0 +1,33 @@
+## 12. Dictionnaire des couches : du trait observé à la couche Copernicus (11 October 2026)
+
+- Usage : à chaque pas de la méthode, on regarde le résidu (référence moins résultat courant), on nomme le trait qui domine, puis on choisit dans cette table la couche qui l'explique ; chaque couche est vérifiée par une vraie construction et gardée seulement si elle paie. Les types de couches sont ceux du constructeur `/Users/zenray/.claude/tmp/tmp-zenray-height/Scripts/Recipe.py` (copié dans le skill), chacun testé en live le 11 October 2026. (11 October 2026)
+
+### 12.1 Table principale (11 October 2026)
+
+| Trait observé dans le résidu | Mesure qui le décrit | Couche (type de recette) | Nœuds Copernicus | Niveau d'identité | Date (11 October 2026) |
+|---|---|---|---|---|---|
+| bandes ou creux qui se répètent à pas fixe (joints, rangées) | autocorrélation des profils moyens (`Lattice.py`), centres des joints | `joint_profile` sur la distance au joint | `ramp` (repeat, cycles = cellules), `remap` (min, inversion), `blend` mode min, `remap` avec rampe mesurée | L1 | 11 October 2026 |
+| joint asymétrique (bourrelet d'un seul côté, ligne de cadre) | profil du résidu contre la distance à chaque côté | `side_profiles` | quatre `remap` à rampe mesurée sur fx, 1 moins fx, fy, 1 moins fy, `blend` add | L1 | 11 October 2026 |
+| marches d'un carreau à l'autre | moyenne du résidu par carreau ou par rangée | `row_table` (index mapping) | `remap` à rampe constante indexée par l'identité de rangée | L1 | 11 October 2026 |
+| pente propre à chaque carreau | plan des moindres carrés par carreau | `row_plane` | tables par rangée, `remap` des coordonnées locales, `blend` multiply et add | L1 | 11 October 2026 |
+| courbure propre à chaque carreau | quatre coins bilinéaires par carreau | `corners` | quatre tables, poids bilinéaires, `blend` multiply et add | L1 | 11 October 2026 |
+| taches lentes à des endroits précis (marbrures, coulures larges) | résidu flouté (sigma 32 puis 16 puis 8), postérisé en K niveaux, régions connexes | `regions` | `stash` de polygones (valeur en Cd, profondeur z par aire), `sopimport`, `rasterizegeo` en profondeur minimum, `channelextract`, `blur` | L2 | 11 October 2026 |
+| traits fins en relief qui dessinent un motif | crêtes de la hessienne, suppression des non-maxima, hystérésis, suivi en longues polylignes, amplitude par trait | `lines` | `stash` de courbes, `sopimport`, `layerfromcurves` (largeur, rampe de profil), sortie color (amplitude) multipliée par la sortie profile | L2 | 11 October 2026 |
+| éclats, piqûres, taches compactes | passe-haut sigma 6, seuil au quantile 98,5 pour cent dans chaque signe, composantes compactes | `regions` (variante blobs) | identique aux régions, adouci à 1 px | L2 | 11 October 2026 |
+| grain fin sans position remarquable | énergie par bande du résidu (1 à 4 px) | `noise` calibré par bande | `fractalnoise` (taille d'élément choisie par la table d'énergie unitaire, amplitude = énergie mesurée divisée par l'énergie unitaire, tuilé) | L0 | 11 October 2026 |
+| stries orientées | anisotropie (tenseur de structure) | `streaks` | `fractalnoise` puis `streakblur` à l'angle mesuré | L0 | 11 October 2026 |
+| classes claires ou sombres sans position à respecter | couverture de la classe aux seuils absolus | `noise_mask` | `fractalnoise` puis `remap` en smoothstep au seuil de couverture, puis gain | L0 | 11 October 2026 |
+| bon ordre des valeurs mais mauvaise amplitude | quantiles de la sortie contre ceux de la référence | `hist` | `remap` avec la courbe de transfert mesurée (17 points) | L1 | 11 October 2026 |
+| tout le reste à l'échelle de 2 à 4 px | résidu postérisé à sigma 2 | `regions` fines | identique aux régions | L3, sur accord de Matthieu | 11 October 2026 |
+
+### 12.2 Pièges payés pendant la construction de ces couches (11 October 2026)
+
+- La rampe verticale de Copernicus monte du bas vers le haut : l'identité de rangée vaut 1 en haut de l'image ; toute table mesurée de haut en bas doit être inversée avant d'entrer dans le graphe. (11 October 2026)
+- Une table à rampe constante lue exactement sur ses clés tombe au hasard d'un côté ou de l'autre de la frontière (arrondi flottant) : placer les clés un demi-pas avant chaque identité. (11 October 2026)
+- `maskfromcurves` remplit chaque courbe fermée sans tenir compte des trous imbriqués ; pour un champ à plusieurs niveaux, préférer des polygones de régions portant leur valeur, ordonnés en profondeur, rendus par `rasterizegeo` en mode Minimum (le polygone le plus haut en z gagne). (11 October 2026)
+- `layerfromcurves` et `maskfromcurves` prennent la taille en entrée 0 et les courbes en entrée 1 ; le canevas va de -1 à 1 en x et en y, y vers le haut. (11 October 2026)
+- Une simplification de Douglas-Peucker appliquée à une boucle fermée l'écrase en deux points (segment de base de longueur nulle) : couper la boucle en deux à son point le plus éloigné. (11 October 2026)
+- L'export PNG coupe les valeurs négatives : une couche de résidu se mesure dans le graphe ou décalée de 0,5, jamais exportée seule. (11 October 2026)
+- La résolution d'export est celle du `rop_image` (setres, res1, res2) ; `size1` à int16 pour une height 16 bits, `colorconversion` en raw. (11 October 2026)
+- Un nœud de type subnet créé par erreur dans un subnet d'objets refuse ensuite tout nœud COP (« Invalid node type name ») : vérifier le type du réseau avant d'y construire. (11 October 2026)
+- Un nom de boîte réseau doit être un nom de nœud valide : le libellé lisible va dans le commentaire. (11 October 2026)

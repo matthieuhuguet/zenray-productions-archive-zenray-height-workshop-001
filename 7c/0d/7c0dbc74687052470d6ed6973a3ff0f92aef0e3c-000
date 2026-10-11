@@ -1,0 +1,16 @@
+### Index mapping : où lire quoi dans Copernicus2.md (11 October 2026)
+
+| Besoin | Section de Copernicus2.md | Commande de routage | Date |
+|---|---|---|---|
+| appliquer la méthode, étape par étape | 1. La méthode courante | `python3 /Users/zenray/.claude/skills/zenray-houdini/scripts/query_copernicus2.py "méthode courante" --show` | 11 October 2026 |
+| savoir ce qui est permis (mesurer) et interdit (copier), niveaux L0 à L3 | 2. Doctrine | `query_copernicus2.py "Doctrine" --show` | 11 October 2026 |
+| paramètres exacts d'un nœud COP de Houdini 22.0.368 | 3. COP node reference | `query_copernicus2.py "<nom du nœud>" --level 3 --show` | 11 October 2026 |
+| traduire un nœud ou une recette Substance Designer | 4. SideFX (table officielle) puis 5. Designer node reference | `query_copernicus2.py "Slope Blur" --show` | 11 October 2026 |
+| techniques de Substance Painter, Javier Perez, artistes pro | 6. Painter, Perez, techniques | `query_copernicus2.py "Perez" --show` | 11 October 2026 |
+| guides locaux Copernicus et HeightField COP (veines, cloques, érosion) | 7. Local guides | `query_copernicus2.py "texture_veins" --show` | 11 October 2026 |
+| recherche académique, métriques, 22 méthodes | 8. State of the art | `query_copernicus2.py "metrics" --show` | 11 October 2026 |
+| ce que les anciennes méthodes ont appris | 9. Leçons des méthodes dépréciées | `query_copernicus2.py "Leçons" --show` | 11 October 2026 |
+| résultats de la recherche de méthode (16 x 4) | 10. Registre | `query_copernicus2.py "Registre" --show` | 11 October 2026 |
+| reconnaître une famille de matériau et sa recette de height | 11. Catalogue des familles | `query_copernicus2.py "<famille>" --show` | 11 October 2026 |
+| choisir la prochaine couche selon le trait observé | 12. Dictionnaire des couches | `query_copernicus2.py "Dictionnaire" --show` | 11 October 2026 |
+| mesures de Procedural Ceramic Wall Tiles | 13. Dossier de référence | `query_copernicus2.py "Dossier" --show` | 11 October 2026 |

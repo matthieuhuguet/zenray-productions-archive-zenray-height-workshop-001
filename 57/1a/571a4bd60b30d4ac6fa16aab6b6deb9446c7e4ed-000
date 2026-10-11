@@ -1,0 +1,168 @@
+## 10. Registre de la recherche de méthode, Procedural Ceramic Wall Tiles (11 October 2026)
+
+- Protocole (skill zenray-methodology) : seize méthodes de principes distincts, quatre phases chacune, chaque phase construite en vrai dans Copernicus (scène ouverte `/Users/zenray/Create/Build/Productions/ZenRayHoudini/LouisianaBayou/LouisianaBayou.hiplc`, réseau `/obj/ZRH_MethodSearch/<méthode>`), exportée en 16 bits et mesurée contre la référence à seuils absolus. Planche : `/Users/zenray/.claude/tmp/tmp-zenray-height/board/MethodSearch16x4.html`. (11 October 2026)
+- Lecture des colonnes : r = corrélation de Pearson, basse = corrélation après flou sigma 32, b1-2 et b4-8 = corrélation des bandes fines et moyennes, q25 et q75 = IoU des masques noir et blanc à seuils absolus, score = classement des essais (jamais une porte). (11 October 2026)
+
+| Méthode | Principe | P1 r | P2 r | P3 r | P4 r | P4 MAE | P4 b1-2 | P4 b4-8 | P4 q25 | P4 q75 | P4 score | Verdict | Date (11 October 2026) |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| M01_GreedyResidual | Greedy residual pursuit over a mixed dictionary, each candidate built and measured | 0.879 | 0.906 | 0.925 | 0.939 | 0.0321 | 0.67 | 0.96 | 0.66 | 0.75 | 0.846 | retenu comme règle de décision : à chaque phase il essaie toutes les couches candidates et choisit d'emblée les couches mesurées (régions, lignes) ; 0,939 en quatre phases, plus lent (une dizaine de constructions par phase) | 11 October 2026 |
+| M02_HierarchyStatistical | Macro meso micro hierarchy with statistical noise only | 0.395 | 0.600 | 0.389 | 0.321 | 0.1196 | 0.14 | 0.22 | 0.23 | 0.28 | 0.308 | abandonné : le bruit statistique au bon spectre mais à la mauvaise place fait baisser l'identité (0,60 puis 0,32) | 11 October 2026 |
+| M03_FrequencyPyramid | Frequency pyramid: one statistical noise per band, coarse to fine | 0.395 | 0.193 | 0.091 | 0.070 | 0.1676 | 0.08 | 0.10 | 0.17 | 0.20 | 0.149 | abandonné : une pyramide de bruits ne place aucune forme unique (0,07) | 11 October 2026 |
+| M04_MaskClassesStatistical | Black and white mask classes reproduced by thresholded noise with measured coverage | 0.395 | 0.200 | 0.391 | 0.362 | 0.0871 | 0.39 | 0.52 | 0.00 | 0.17 | 0.411 | abandonné : couverture des classes juste, positions fausses (0,36) | 11 October 2026 |
+| M05_StructureCurves | Exact structure, then traced curves and traced blobs | 0.395 | 0.600 | 0.603 | 0.621 | 0.0744 | 0.65 | 0.60 | 0.23 | 0.42 | 0.579 | partiel : la structure et les traits ne portent pas le champ basse fréquence (0,62) ; les lignes tracées restent utiles comme couche fine | 11 October 2026 |
+| M06_ProfileFamily | Everything as measured profiles of distance fields | 0.395 | 0.417 | 0.618 | 0.681 | 0.0697 | 0.44 | 0.56 | 0.38 | 0.42 | 0.603 | plafond de la structure pure (L1) mesuré : 0,68 ; indispensable comme socle, insuffisant seul | 11 October 2026 |
+| M07_HistogramAnchored | Each phase adds a layer then re-matches the reference histogram | 0.294 | 0.441 | 0.339 | 0.346 | 0.1115 | 0.15 | 0.32 | 0.23 | 0.30 | 0.343 | abandonné : rapprocher l'histogramme d'une structure pauvre étale l'erreur (0,35) | 11 October 2026 |
+| M08_ParametricOptim | Fixed parametric template, one parameter group optimised per phase (score method) | 0.395 | 0.682 | 0.632 | 0.598 | 0.0837 | 0.30 | 0.43 | 0.34 | 0.40 | 0.519 | abandonné comme méthode : l'optimisation règle bien la structure (0,68) mais ne peut que choisir le moins mauvais bruit ensuite (0,60) | 11 October 2026 |
+| M09_TileTables | Index mapping tables per tile row: offset, plane, bilinear corners, then structure | 0.459 | 0.555 | 0.558 | 0.677 | 0.0823 | 0.40 | 0.54 | 0.41 | 0.27 | 0.587 | socle utile (index mapping par carreau), plafonné vers 0,68 avec le profil de joint | 11 October 2026 |
+| M10_Morphological | Morphological decomposition: plateaus, bright top hat, dark top hat, then joints | 0.702 | 0.737 | 0.754 | 0.814 | 0.0672 | 0.71 | 0.61 | 0.53 | 0.17 | 0.719 | décomposition morphologique utile mais partielle : plateaux mesurés puis creux et bosses fines, 0,81 avec le profil de joint relatif ; les régions multi-échelles font mieux à nombre de couches égal | 11 October 2026 |
+| M11_NoiseBank | Example statistics: bank of noises matched by spectrum, streaks, histogram | -0.005 | -0.001 | 0.004 | 0.002 | 0.1504 | -0.00 | -0.00 | 0.14 | 0.15 | 0.114 | abandonné : synthèse statistique pure, corrélation nulle | 11 October 2026 |
+| M12_SeedSearch | Procedural selection: best of 16 noise realisations per band | 0.395 | 0.600 | 0.423 | 0.355 | 0.1163 | 0.14 | 0.23 | 0.25 | 0.30 | 0.332 | abandonné : choisir la meilleure de seize graines de bruit dégrade encore (0,60 puis 0,42) | 11 October 2026 |
+| M13_IsoContours | Iso contour staircase filled by maskfromcurves | 0.395 | 0.600 | 0.482 | 0.152 | 0.1651 | 0.28 | 0.12 | 0.21 | 0.05 | 0.203 | abandonné : le remplissage par maskfromcurves ignore les trous imbriqués | 11 October 2026 |
+| M14_VectorRegions | Multi scale vector regions (posterised residual traced as polygons), coarse to fine | 0.395 | 0.810 | 0.911 | 0.971 | 0.0193 | 0.89 | 0.98 | 0.78 | 0.85 | 0.924 | meilleur résultat, rejoué après correction de topologie le 11 October 2026 : 0,971, erreur moyenne 0,019 ; la phase 4 (sigma 2) relève du niveau L3, à valider par Matthieu | 11 October 2026 |
+| M15_VisionGuided | Layer chosen by eye on the residual, parameters measured | 0.395 | 0.832 | 0.833 | 0.849 | 0.0506 | 0.65 | 0.67 | 0.49 | 0.59 | 0.747 | choix à l'œil (joint, régions sigma 24, lignes, éclats) : 0,83 dès la deuxième couche ; l'œil choisit bien l'ordre mais la mesure doit régler les paramètres | 11 October 2026 |
+| M16_DictionaryOMP | Orthogonal matching pursuit over Copernicus rendered atoms | 0.731 | 0.775 | 0.780 | 0.781 | 0.0753 | 0.60 | 0.61 | 0.48 | 0.55 | 0.697 | abandonné : un dictionnaire fixe d'atomes rendus plafonne à 0,78, il ne contient pas les formes propres à l'image | 11 October 2026 |
+
+### M01_GreedyResidual (11 October 2026)
+
+- Principe : Greedy residual pursuit over a mixed dictionary, each candidate built and measured (11 October 2026)
+- P1 : regions: 8 posterised bins of residual low pass s8 at 1024 px, 1448 regions ; choix regions8 ; r 0.879, MAE 0.0434, score 0.754, 17 nodes, 91.3 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M01_GreedyResidual/P1.png` (11 October 2026)
+- P2 : side_profiles: per side joint profiles ; choix sides ; r 0.906, MAE 0.0387, score 0.795, 27 nodes, 126.1 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M01_GreedyResidual/P2.png` (11 October 2026)
+- P3 : regions: 8 posterised bins of residual low pass s8 at 1024 px, 10301 regions ; choix regions8 ; r 0.925, MAE 0.0340, score 0.824, 32 nodes, 146.4 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M01_GreedyResidual/P3.png` (11 October 2026)
+- P4 : regions: 2688 compact blobs of high pass s6 beyond quantile 0.985 ; choix blobs ; r 0.939, MAE 0.0321, score 0.846, 37 nodes, 144.0 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M01_GreedyResidual/P4.png` (11 October 2026)
+- Verdict : retenu comme règle de décision : à chaque phase il essaie toutes les couches candidates et choisit d'emblée les couches mesurées (régions, lignes) ; 0,939 en quatre phases, plus lent (une dizaine de constructions par phase) (11 October 2026)
+
+### M02_HierarchyStatistical (11 October 2026)
+
+- Principe : Macro meso micro hierarchy with statistical noise only (11 October 2026)
+- P1 : joint_profile: measured joint profile ; r 0.395, MAE 0.0853, score 0.434, 14 nodes, 1.9 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M02_HierarchyStatistical/P1.png` (11 October 2026)
+- P2 : row_table: per row offset ; r 0.600, MAE 0.0754, score 0.542, 16 nodes, 1.5 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M02_HierarchyStatistical/P2.png` (11 October 2026)
+- P3 : noise: statistical band 16-64 px ; r 0.389, MAE 0.1017, score 0.397, 18 nodes, 2.6 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M02_HierarchyStatistical/P3.png` (11 October 2026)
+- P4 : noise: statistical band 2-8 px ; r 0.321, MAE 0.1196, score 0.308, 20 nodes, 1.6 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M02_HierarchyStatistical/P4.png` (11 October 2026)
+- Verdict : abandonné : le bruit statistique au bon spectre mais à la mauvaise place fait baisser l'identité (0,60 puis 0,32) (11 October 2026)
+
+### M03_FrequencyPyramid (11 October 2026)
+
+- Principe : Frequency pyramid: one statistical noise per band, coarse to fine (11 October 2026)
+- P1 : joint_profile: measured joint profile ; r 0.395, MAE 0.0853, score 0.434, 14 nodes, 1.9 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M03_FrequencyPyramid/P1.png` (11 October 2026)
+- P2 : noise: statistical band 32-64 px ; r 0.193, MAE 0.1030, score 0.310, 16 nodes, 2.5 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M03_FrequencyPyramid/P2.png` (11 October 2026)
+- P3 : noise: statistical band 8-32 px ; r 0.091, MAE 0.1381, score 0.195, 18 nodes, 2.0 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M03_FrequencyPyramid/P3.png` (11 October 2026)
+- P4 : noise: statistical band 2-8 px ; r 0.070, MAE 0.1676, score 0.149, 20 nodes, 1.7 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M03_FrequencyPyramid/P4.png` (11 October 2026)
+- Verdict : abandonné : une pyramide de bruits ne place aucune forme unique (0,07) (11 October 2026)
+
+### M04_MaskClassesStatistical (11 October 2026)
+
+- Principe : Black and white mask classes reproduced by thresholded noise with measured coverage (11 October 2026)
+- P1 : joint_profile: measured joint profile ; r 0.395, MAE 0.0853, score 0.434, 14 nodes, 2.0 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M04_MaskClassesStatistical/P1.png` (11 October 2026)
+- P2 : noise_mask: statistical bright class, coverage 0.25 ; r 0.200, MAE 0.1083, score 0.301, 18 nodes, 1.5 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M04_MaskClassesStatistical/P2.png` (11 October 2026)
+- P3 : noise_mask: statistical dark class, coverage 0.25 ; r 0.391, MAE 0.0857, score 0.432, 22 nodes, 1.5 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M04_MaskClassesStatistical/P3.png` (11 October 2026)
+- P4 : noise_mask: statistical lines class, coverage 0.07 ; r 0.362, MAE 0.0871, score 0.411, 26 nodes, 1.6 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M04_MaskClassesStatistical/P4.png` (11 October 2026)
+- Verdict : abandonné : couverture des classes juste, positions fausses (0,36) (11 October 2026)
+
+### M05_StructureCurves (11 October 2026)
+
+- Principe : Exact structure, then traced curves and traced blobs (11 October 2026)
+- P1 : joint_profile: measured joint profile ; r 0.395, MAE 0.0853, score 0.434, 14 nodes, 2.6 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M05_StructureCurves/P1.png` (11 October 2026)
+- P2 : row_table: per row offset ; r 0.600, MAE 0.0754, score 0.542, 16 nodes, 1.8 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M05_StructureCurves/P2.png` (11 October 2026)
+- P3 : lines: traced ridge centrelines (5080) ; r 0.603, MAE 0.0754, score 0.559, 22 nodes, 15.7 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M05_StructureCurves/P3.png` (11 October 2026)
+- P4 : regions: 2038 compact blobs of high pass s6 beyond quantile 0.985 ; r 0.621, MAE 0.0744, score 0.579, 27 nodes, 79.0 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M05_StructureCurves/P4.png` (11 October 2026)
+- Verdict : partiel : la structure et les traits ne portent pas le champ basse fréquence (0,62) ; les lignes tracées restent utiles comme couche fine (11 October 2026)
+
+### M06_ProfileFamily (11 October 2026)
+
+- Principe : Everything as measured profiles of distance fields (11 October 2026)
+- P1 : joint_profile: measured joint profile ; r 0.395, MAE 0.0853, score 0.434, 14 nodes, 1.9 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M06_ProfileFamily/P1.png` (11 October 2026)
+- P2 : side_profiles: per side joint profiles ; r 0.417, MAE 0.0840, score 0.457, 24 nodes, 1.8 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M06_ProfileFamily/P2.png` (11 October 2026)
+- P3 : row_table: per row offset ; r 0.618, MAE 0.0743, score 0.559, 26 nodes, 59.8 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M06_ProfileFamily/P3.png` (11 October 2026)
+- P4 : row_plane: per row plane ; r 0.681, MAE 0.0697, score 0.603, 34 nodes, 1.7 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M06_ProfileFamily/P4.png` (11 October 2026)
+- Verdict : plafond de la structure pure (L1) mesuré : 0,68 ; indispensable comme socle, insuffisant seul (11 October 2026)
+
+### M07_HistogramAnchored (11 October 2026)
+
+- Principe : Each phase adds a layer then re-matches the reference histogram (11 October 2026)
+- P1 : joint_profile: measured joint profile ; r 0.294, MAE 0.1206, score 0.352, 15 nodes, 3.8 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M07_HistogramAnchored/P1.png` (11 October 2026)
+- P2 : row_table: per row offset ; r 0.441, MAE 0.1026, score 0.427, 18 nodes, 3.2 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M07_HistogramAnchored/P2.png` (11 October 2026)
+- P3 : noise: statistical band 2-8 px ; r 0.339, MAE 0.1141, score 0.334, 21 nodes, 3.3 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M07_HistogramAnchored/P3.png` (11 October 2026)
+- P4 : lines: traced ridge centrelines (3874) ; r 0.346, MAE 0.1115, score 0.343, 28 nodes, 26.7 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M07_HistogramAnchored/P4.png` (11 October 2026)
+- Verdict : abandonné : rapprocher l'histogramme d'une structure pauvre étale l'erreur (0,35) (11 October 2026)
+
+### M08_ParametricOptim (11 October 2026)
+
+- Principe : Fixed parametric template, one parameter group optimised per phase (score method) (11 October 2026)
+- P1 : joint_profile: measured joint profile ; choix {'gain': 1.3, 'offset': 0.0} ; r 0.395, MAE 0.0850, score 0.437, 14 nodes, 22.5 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M08_ParametricOptim/P1.png` (11 October 2026)
+- P2 : row_table: per row offset; row_plane: per row plane ; choix {'table_gain': 1.2, 'plane_gain': 1.0} ; r 0.682, MAE 0.0708, score 0.604, 24 nodes, 18.8 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M08_ParametricOptim/P2.png` (11 October 2026)
+- P3 : noise: statistical band 16-64 px ; choix {'band': [16, 64], 'gain': 0.5} ; r 0.632, MAE 0.0779, score 0.564, 26 nodes, 20.4 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M08_ParametricOptim/P3.png` (11 October 2026)
+- P4 : noise: statistical band 2-8 px ; choix {'band': [2, 8], 'gain': 0.5} ; r 0.598, MAE 0.0837, score 0.519, 28 nodes, 12.4 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M08_ParametricOptim/P4.png` (11 October 2026)
+- Verdict : abandonné comme méthode : l'optimisation règle bien la structure (0,68) mais ne peut que choisir le moins mauvais bruit ensuite (0,60) (11 October 2026)
+
+### M09_TileTables (11 October 2026)
+
+- Principe : Index mapping tables per tile row: offset, plane, bilinear corners, then structure (11 October 2026)
+- P1 : row_table: per row offset ; r 0.459, MAE 0.0828, score 0.393, 14 nodes, 1.6 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M09_TileTables/P1.png` (11 October 2026)
+- P2 : row_plane: per row plane ; r 0.555, MAE 0.0762, score 0.468, 22 nodes, 1.6 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M09_TileTables/P2.png` (11 October 2026)
+- P3 : corners: per row bilinear corners ; r 0.558, MAE 0.0759, score 0.471, 41 nodes, 1.6 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M09_TileTables/P3.png` (11 October 2026)
+- P4 : joint_profile: measured joint profile ; r 0.677, MAE 0.0823, score 0.587, 43 nodes, 50.0 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M09_TileTables/P4.png` (11 October 2026)
+- Verdict : socle utile (index mapping par carreau), plafonné vers 0,68 avec le profil de joint (11 October 2026)
+
+### M10_Morphological (11 October 2026)
+
+- Principe : Morphological decomposition: plateaus, bright top hat, dark top hat, then joints (11 October 2026)
+- P1 : regions: 4 posterised bins of residual low pass s32 at 512 px, 112 regions ; r 0.702, MAE 0.0675, score 0.569, 17 nodes, 2.2 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M10_Morphological/P1.png` (11 October 2026)
+- P2 : regions: 6000 compact blobs of high pass s3 beyond quantile 0.92 ; r 0.737, MAE 0.0655, score 0.640, 22 nodes, 3.8 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M10_Morphological/P2.png` (11 October 2026)
+- P3 : regions: 6000 compact blobs of high pass s3 beyond quantile 0.92 ; r 0.754, MAE 0.0638, score 0.668, 27 nodes, 5.3 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M10_Morphological/P3.png` (11 October 2026)
+- P4 : joint_profile: measured joint profile, relative ; r 0.814, MAE 0.0672, score 0.719, 29 nodes, 2.4 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M10_Morphological/P4.png` (11 October 2026)
+- Verdict : décomposition morphologique utile mais partielle : plateaux mesurés puis creux et bosses fines, 0,81 avec le profil de joint relatif ; les régions multi-échelles font mieux à nombre de couches égal (11 October 2026)
+
+### M11_NoiseBank (11 October 2026)
+
+- Principe : Example statistics: bank of noises matched by spectrum, streaks, histogram (11 October 2026)
+- P1 : noise: statistical band 16-64 px ; r -0.005, MAE 0.1218, score 0.150, 14 nodes, 2.6 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M11_NoiseBank/P1.png` (11 October 2026)
+- P2 : noise: statistical band 4-16 px ; r -0.001, MAE 0.1511, score 0.106, 16 nodes, 1.8 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M11_NoiseBank/P2.png` (11 October 2026)
+- P3 : streaks: statistical band 2-8 px ; r 0.004, MAE 0.2084, score 0.093, 20 nodes, 1.7 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M11_NoiseBank/P3.png` (11 October 2026)
+- P4 : hist: histogram matched to reference ; r 0.002, MAE 0.1504, score 0.114, 21 nodes, 1.7 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M11_NoiseBank/P4.png` (11 October 2026)
+- Verdict : abandonné : synthèse statistique pure, corrélation nulle (11 October 2026)
+
+### M12_SeedSearch (11 October 2026)
+
+- Principe : Procedural selection: best of 16 noise realisations per band (11 October 2026)
+- P1 : joint_profile: measured joint profile ; r 0.395, MAE 0.0853, score 0.434, 14 nodes, 2.1 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M12_SeedSearch/P1.png` (11 October 2026)
+- P2 : row_table: per row offset ; r 0.600, MAE 0.0754, score 0.542, 16 nodes, 1.5 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M12_SeedSearch/P2.png` (11 October 2026)
+- P3 : noise: statistical band 16-64 px ; choix {'offset': [42.34187401001589, 18.553273966761136]} ; r 0.423, MAE 0.0981, score 0.420, 18 nodes, 41.2 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M12_SeedSearch/P3.png` (11 October 2026)
+- P4 : noise: statistical band 2-8 px ; choix {'offset': [34.89775226296582, 3.022951904223609]} ; r 0.355, MAE 0.1163, score 0.332, 20 nodes, 30.0 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M12_SeedSearch/P4.png` (11 October 2026)
+- Verdict : abandonné : choisir la meilleure de seize graines de bruit dégrade encore (0,60 puis 0,42) (11 October 2026)
+
+### M13_IsoContours (11 October 2026)
+
+- Principe : Iso contour staircase filled by maskfromcurves (11 October 2026)
+- P1 : joint_profile: measured joint profile ; r 0.395, MAE 0.0853, score 0.434, 14 nodes, 2.6 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M13_IsoContours/P1.png` (11 October 2026)
+- P2 : row_table: per row offset ; r 0.600, MAE 0.0754, score 0.542, 16 nodes, 1.5 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M13_IsoContours/P2.png` (11 October 2026)
+- P3 : contours: 8 iso levels of residual low pass s16 ; r 0.482, MAE 0.1035, score 0.446, 57 nodes, 9.2 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M13_IsoContours/P3.png` (11 October 2026)
+- P4 : contours: 6 iso levels of residual low pass s4 ; r 0.152, MAE 0.1651, score 0.203, 88 nodes, 18.6 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M13_IsoContours/P4.png` (11 October 2026)
+- Verdict : abandonné : le remplissage par maskfromcurves ignore les trous imbriqués (11 October 2026)
+
+### M14_VectorRegions (11 October 2026)
+
+- Principe : Multi scale vector regions (posterised residual traced as polygons), coarse to fine (11 October 2026)
+- P1 : joint_profile: measured joint profile ; r 0.395, MAE 0.0853, score 0.434, 14 nodes, 1.8 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M14_VectorRegions/P1.png` (11 October 2026)
+- P2 : regions: 8 posterised bins of residual low pass s32 at 512 px, 188 regions ; r 0.810, MAE 0.0555, score 0.689, 19 nodes, 2.4 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M14_VectorRegions/P2.png` (11 October 2026)
+- P3 : regions: 8 posterised bins of residual low pass s8 at 1024 px, 5765 regions ; r 0.911, MAE 0.0374, score 0.801, 24 nodes, 7.1 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M14_VectorRegions/P3.png` (11 October 2026)
+- P4 : regions: 6 posterised bins of residual low pass s2 at 2048 px, 55528 regions ; r 0.971, MAE 0.0193, score 0.924, 29 nodes, 28.4 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M14_VectorRegions/P4.png` (11 October 2026)
+- Verdict : meilleur résultat, rejoué après correction de topologie le 11 October 2026 : 0,971, erreur moyenne 0,019 ; la phase 4 (sigma 2) relève du niveau L3, à valider par Matthieu (11 October 2026)
+
+### M15_VisionGuided (11 October 2026)
+
+- Principe : Layer chosen by eye on the residual, parameters measured (11 October 2026)
+- P1 : joint_profile: measured joint profile ; choix joint ; r 0.395, MAE 0.0853, score 0.434, 14 nodes, 2.0 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M15_VisionGuided/P1.png` (11 October 2026)
+- P2 : regions: 8 posterised bins of residual low pass s24 at 512 px, 297 regions ; choix regions24 ; r 0.832, MAE 0.0522, score 0.710, 19 nodes, 2.2 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M15_VisionGuided/P2.png` (11 October 2026)
+- P3 : lines: traced ridge centrelines (5121) ; choix lines ; r 0.833, MAE 0.0519, score 0.728, 25 nodes, 13.1 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M15_VisionGuided/P3.png` (11 October 2026)
+- P4 : regions: 2109 compact blobs of high pass s6 beyond quantile 0.985 ; choix blobs ; r 0.849, MAE 0.0506, score 0.747, 30 nodes, 2.5 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M15_VisionGuided/P4.png` (11 October 2026)
+- Verdict : choix à l'œil (joint, régions sigma 24, lignes, éclats) : 0,83 dès la deuxième couche ; l'œil choisit bien l'ordre mais la mesure doit régler les paramètres (11 October 2026)
+
+### M16_DictionaryOMP (11 October 2026)
+
+- Principe : Orthogonal matching pursuit over Copernicus rendered atoms (11 October 2026)
+- P1 : const: OMP bias; regions: atom regions32 weight 1.716 ; choix ['regions32'] ; r 0.731, MAE 0.0773, score 0.601, 20 nodes, 50.4 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M16_DictionaryOMP/P1.png` (11 October 2026)
+- P2 : const: OMP bias; regions: atom regions32 weight 1.446; joint_profile: atom joint weight 1.043; row_plane: atom planeA1 weight -0.272; row_table: atom row0 weight -0.035 ; choix ['regions32', 'joint', 'planeA1', 'row0'] ; r 0.775, MAE 0.0719, score 0.673, 35 nodes, 1.7 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M16_DictionaryOMP/P2.png` (11 October 2026)
+- P3 : const: OMP bias; regions: atom regions32 weight 1.439; joint_profile: atom joint weight 0.946; row_plane: atom planeA1 weight -0.269; row_table: atom row0 weight -0.056; regions: atom blobs weight 0.876; row_plane: atom planeB0 weight 0.166; lines: atom lines weight 0.310; row_plane: atom planeB3 we ; choix ['regions32', 'joint', 'planeA1', 'row0', 'blobs', 'planeB0', 'lines', 'planeB3'] ; r 0.780, MAE 0.0756, score 0.694, 66 nodes, 2.5 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M16_DictionaryOMP/P3.png` (11 October 2026)
+- P4 : const: OMP bias; regions: atom regions32 weight 1.449; joint_profile: atom joint weight 0.941; row_plane: atom planeA1 weight -0.260; row_table: atom row0 weight -0.049; regions: atom blobs weight 0.870; row_plane: atom planeB0 weight 0.162; lines: atom lines weight 0.308; row_plane: atom planeB3 we ; choix ['regions32', 'joint', 'planeA1', 'row0', 'blobs', 'planeB0', 'lines', 'planeB3', 'planeA3', 'row2', 'planeB2', 'planeA0', 'noise0.1_1', 'noise0.1_0', 'noise0.05_0', 'noise0.05_1'] ; r 0.781, MAE 0.0753, score 0.697, 108 nodes, 3.0 s ; image `/Users/zenray/.claude/tmp/tmp-zenray-height/versions/methods/M16_DictionaryOMP/P4.png` (11 October 2026)
+- Verdict : abandonné : un dictionnaire fixe d'atomes rendus plafonne à 0,78, il ne contient pas les formes propres à l'image (11 October 2026)
+

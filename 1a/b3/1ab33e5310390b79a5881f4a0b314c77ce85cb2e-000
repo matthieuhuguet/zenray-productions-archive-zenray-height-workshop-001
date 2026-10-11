@@ -1,0 +1,26 @@
+## 2. Doctrine : l'échelle d'identité, et la frontière entre mesurer et copier (11 October 2026)
+
+- Constat qui fonde la doctrine, mesuré le 11 October 2026 sur Procedural Ceramic Wall Tiles : une height de référence se décompose en une part déterministe (grille, joints, profils de biseau, valeurs par carreau), qu'un graphe procédural reproduit au pixel près à partir de quelques nombres mesurés, et une part propre à cette image (taches basse fréquence, dessin du motif en relief, éclats, fissures), dont la position n'obéit à aucune règle et qu'aucun générateur aléatoire ne place au bon endroit. (11 October 2026)
+- Conséquence : l'identité visuelle exige que la position des formes propres à l'image soit elle aussi mesurée, puis portée dans le graphe sous une forme vectorielle (courbes, polygones, tables), jamais sous forme de pixels. Les méthodes dépréciées échouaient précisément parce qu'elles ne mesuraient que des proportions (section 9). (11 October 2026)
+
+### 2.1 Les quatre niveaux d'identité (11 October 2026)
+
+| Niveau | Ce que le graphe contient | Ce qu'il reproduit | Généralise à d'autres variations | Date (11 October 2026) |
+|---|---|---|---|---|
+| L0 statistique | bruits calibrés par bande, histogramme | la matière, pas les positions | oui, une graine donne une autre tuile | 11 October 2026 |
+| L1 structurel | grille, profils mesurés sur des champs de distance, tables par carreau (index mapping) | la structure au pixel près | oui, paramètres éditables | 11 October 2026 |
+| L2 vectoriel unique | courbes tracées (motif, fissures), polygones d'éclats, régions basse fréquence | la position des formes uniques | partiellement : formes éditables, mais propres à cette référence | 11 October 2026 |
+| L3 vectorisation fine | régions de la bande la plus fine | l'image presque pixel pour pixel | non : c'est une vectorisation de la référence | 11 October 2026 |
+
+- Règle de choix : on monte d'un niveau seulement quand le niveau inférieur a rendu tout ce qu'il pouvait, mesures à l'appui, et l'on s'arrête au niveau qui donne l'identité visuelle demandée ; une référence répétitive (brique, carrelage uni) s'arrête souvent en L1, une référence peinte ou abîmée par une IA demande L2. (11 October 2026)
+
+### 2.2 Mesurer ou copier : la frontière, écrite pour qu'un agent la respecte (11 October 2026)
+
+- Interdit, sans exception : un nœud qui lit l'image de référence (File, image importée), une table de pixels échantillonnés (vignette de la référence, grille de valeurs plus fine que 2 par 2 par carreau), un traitement de l'image de référence dans le graphe. Règle de Matthieu du 5 October 2026, toujours en vigueur. (11 October 2026)
+- Permis, parce que ce sont des mesures transportées sous une forme d'artiste : des courbes tracées (le contour d'un motif, la ligne centrale d'un trait, avec largeur et profil), des polygones de régions portant une valeur, des tables de paramètres par carreau, des profils en fonction d'une distance, des courbes de transfert d'histogramme. Précédent : la règle du 5 October 2026 qui autorisait déjà le contour mesuré d'un pétale sous forme de spline. (11 October 2026)
+- Zone à décider par Matthieu : le niveau L3. Une vectorisation à l'échelle de 2 pixels reste techniquement une donnée vectorielle, mais elle équivaut à un tracé automatique de l'image entière ; la méthode la signale toujours, la mesure séparément, et ne l'emploie qu'avec son accord explicite. (11 October 2026)
+
+### 2.3 Les données mesurées vivent dans le graphe, visibles et éditables (11 October 2026)
+
+- Chaque jeu de données mesurées est stocké dans un nœud `stash` du réseau `/obj/ZRH_Data` (courbes et polygones avec leur valeur en attribut `Cd`), importé dans Copernicus par `sopimport`, puis rendu par `maskfromcurves`, `layerfromcurves` ou `rasterizegeo`. Rien n'est lu sur le disque à la cuisson. (11 October 2026)
+- Les courbes peuvent être reprises à la main : le nœud `curve3d` de Copernicus dessine et édite des courbes de Bézier ; un motif tracé devient ainsi un dessin modifiable plutôt qu'une copie figée. (11 October 2026)

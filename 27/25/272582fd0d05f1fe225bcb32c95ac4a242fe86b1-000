@@ -1,0 +1,40 @@
+## 13. Dossier de référence : Procedural Ceramic Wall Tiles (11 October 2026)
+
+- Nom de code donné par Matthieu le 11 October 2026 : Procedural Ceramic Wall Tiles ; planche IA 4 x 4 de 1920 px, colonnes base color, carte blanche (AO probable), normale, height ; fichier source copié sans modification dans `/Users/zenray/.claude/tmp/tmp-zenray-height/refs/source/ProceduralCeramicWallTiles_grid4x4.webp` (SHA256 4cc558d50091600ead5aa9020232a784ad5af00d933337db1888d29508cb9552). (11 October 2026)
+- Vidéo éclairée (lumière cuite, pas une base color) : `/Users/zenray/.claude/tmp/tmp-zenray-height/refs/source/ProceduralCeramicWallTiles_litvideo.mp4`, storyboard `/Users/zenray/.claude/tmp/tmp-zenray-height/refs/derived/storyboard/litvideo_storyboard_sheet.png` ; la vidéo assemble les quatre carreaux en médaillon symétrique, ce qui suggère un paramètre de disposition (miroir ou rotation par cellule) pour une version ultérieure. (11 October 2026)
+- Consigne de construction (Matthieu) : prendre la dernière colonne (quatre carreaux de height), la répéter quatre fois pour obtenir 4 x 4 carreaux ; même chose pour la base color, en miroir gauche-droite pour garder la height parfaite. Vérifié : le motif de la height est bien le miroir de celui de la base color, carreau par carreau. (11 October 2026)
+- Observation à signaler : dans la colonne height, les joints sont clairs (hauts) alors que dans la carte blanche ils sont sombres (occultés) ; physiquement la colonne 4 ressemble à une roughness ou à une height inversée. La consigne est de reproduire cette colonne telle quelle, ce que fait la méthode. (11 October 2026)
+
+### 13.1 Géométrie mesurée de la planche (11 October 2026)
+
+| Mesure | Valeur | Date (11 October 2026) |
+|---|---|---|
+| pitch | 477.56 | 11 October 2026 |
+| height_right_joint_x | 1893.0 | 11 October 2026 |
+| height_bottom_joint_y | 1897.6 | 11 October 2026 |
+| height_valid_x | [1422.0, 1911.0] | 11 October 2026 |
+| height_bad_rows | [1904.0, 1920.0] | 11 October 2026 |
+| bc_right_grout_x | 457.0 | 11 October 2026 |
+| bc_grout_rows_y | [462.0, 941.0, 1418.0, 1905.0] | 11 October 2026 |
+| bc_valid_x | [0.0, 462.5] | 11 October 2026 |
+| bc_bad_rows | [1911.0, 1920.0] | 11 October 2026 |
+| tiles_per_column | 4 | 11 October 2026 |
+| out_tile_px | 512 | 11 October 2026 |
+| fraction valide height / base color | 0.9966 / 0.9688 | 11 October 2026 |
+| statistiques height 4x4 | moyenne 0.5898, écart type 0.1202, p01 0.33, p99 0.8922 | 11 October 2026 |
+
+- Références reconstruites (2048 px, 512 px par carreau) : height 16 bits `/Users/zenray/.claude/tmp/tmp-zenray-height/refs/derived/ref_height_4x4_2048.png`, masque de validité `/Users/zenray/.claude/tmp/tmp-zenray-height/refs/derived/ref_height_valid_2048.png`, base color en miroir `/Users/zenray/.claude/tmp/tmp-zenray-height/refs/derived/ref_basecolor_4x4_2048.png` ; script `/Users/zenray/.claude/tmp/tmp-zenray-height/Scripts/PrepareReference.py`. (11 October 2026)
+
+### 13.2 Structure mesurée de la height (11 October 2026)
+
+- Profil contre la distance au joint (pixels à 2048, joint au centre) : d0 0.8305, d2 0.7998, d4 0.7441, d6 0.6846, d8 0.6203, d10 0.5801, d12 0.5687, d14 0.5667, d16 0.5677, d18 0.5729, d20 0.5862, d22 0.5938, d24 0.5898, d26 0.576, d28 0.5654, d30 0.5584 ; centre du carreau 0.6038. Le joint est une bande claire d'environ 14 px à mi-hauteur, suivie d'un léger bourrelet vers 9 à 12 px. (11 October 2026)
+- Joints horizontaux, coupe moyenne de -24 à +24 px : 0.5784, 0.6007, 0.6037, 0.5806, 0.6479, 0.7949, 0.8485, 0.7082, 0.6453, 0.5677, 0.5683, 0.5946, 0.5938 ; asymétrique, le carreau au-dessus du joint porte un bourrelet. (11 October 2026)
+- Joints verticaux, coupe moyenne de -24 à +24 px : 0.6231, 0.5702, 0.5263, 0.5373, 0.5779, 0.7287, 0.8102, 0.7687, 0.6101, 0.5676, 0.5733, 0.5738, 0.5788 ; une ligne de cadre intérieure apparaît vers 22 px à gauche du joint. (11 October 2026)
+- Carreau de la rangée 1 (intérieur, d > 40 px) : moyenne 0.5203, écart type 0.088, quantiles 1/10/25/50/75/90/99 pour cent [0.2996, 0.4099, 0.4686, 0.5238, 0.5763, 0.6222, 0.7335]. (11 October 2026)
+- Carreau de la rangée 2 (intérieur, d > 40 px) : moyenne 0.5266, écart type 0.0936, quantiles 1/10/25/50/75/90/99 pour cent [0.302, 0.415, 0.4611, 0.5235, 0.5894, 0.6493, 0.7488]. (11 October 2026)
+- Carreau de la rangée 3 (intérieur, d > 40 px) : moyenne 0.6101, écart type 0.0751, quantiles 1/10/25/50/75/90/99 pour cent [0.4738, 0.5195, 0.5525, 0.6041, 0.6596, 0.7071, 0.8119]. (11 October 2026)
+- Carreau de la rangée 4 (intérieur, d > 40 px) : moyenne 0.6735, écart type 0.1071, quantiles 1/10/25/50/75/90/99 pour cent [0.4525, 0.5286, 0.5867, 0.6813, 0.7577, 0.8032, 0.8945]. (11 October 2026)
+- Énergie par bande à l'intérieur des carreaux (écart type des bandes DoG) : 0.7-1.5 px 0.01121, 1.5-3 px 0.01418, 3-6 px 0.01572, 6-12 px 0.0173, 12-24 px 0.0197, 24-48 px 0.02258, 48-96 px 0.02476 ; spectre presque plat, légèrement plus fort aux basses fréquences. (11 October 2026)
+- Lignes en relief du motif (passe-haut sigma 3) : quantiles 1/5/50/95/99 pour cent [-0.0705, -0.0462, -0.0014, 0.0506, 0.0768] ; amplitude typique des traits +0,05 à +0,08. (11 October 2026)
+- Seuils absolus des masques noir et blanc (quantiles de la référence) : {'q10': 0.4493, 'q25': 0.5093, 'q50': 0.5777, 'q75': 0.6634, 'q90': 0.7597}. (11 October 2026)
+- Trame détectée par autocorrélation (`Lattice.py`) : 512 x 512 px, soit 4 x 4 carreaux, force 1,0 en x et 0,64 en y. (11 October 2026)
