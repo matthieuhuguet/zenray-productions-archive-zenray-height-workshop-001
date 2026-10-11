@@ -1,0 +1,12 @@
+[
+ {
+  "type": "noise",
+  "op": "base",
+  "amp": 0.2,
+  "center": 0.5,
+  "elementsize": 0.2,
+  "oct": 6,
+  "rough": 0.5,
+  "note": "unit noise probe"
+ }
+]

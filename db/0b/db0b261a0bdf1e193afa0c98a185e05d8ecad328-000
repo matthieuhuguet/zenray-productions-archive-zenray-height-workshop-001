@@ -3,6 +3,7 @@
 import json
 import re
 import sys
+import textwrap
 import zipfile
 
 HELP_ZIP, LIVE_JSON, OUT_MD = sys.argv[1], sys.argv[2], sys.argv[3]
@@ -45,7 +46,7 @@ def parse(text):
         overview = " ".join(overview.split()[:60])
     sections = {}
     for name in ("parameters", "inputs", "outputs", "related"):
-        m = re.search(r"^@" + name + r"\s*$([\s\S]*?)(?=^@\w+\s*$|\Z)", text, re.M)
+        m = re.search(r"^@" + name + r":?\s*$([\s\S]*?)(?=^@\w+:?\s*$|\Z)", text, re.M)
         sections[name] = m.group(1) if m else ""
     return head, (title.group(1) if title else ""), (clean(summ.group(1)) if summ else ""), overview, sections
 
@@ -54,6 +55,7 @@ def parse_entries(block):
     """Entries are 'Label:' lines at indent 0 followed by indented #id and description."""
     entries = []
     folder = ""
+    block = textwrap.dedent(block.strip("\n"))
     lines = block.split("\n")
     i = 0
     while i < len(lines):

@@ -1,0 +1,77 @@
+# 11 October 2026 : driver that builds a recipe in the live Houdini session, exports it and measures it against the reference.
+# FR : pilote qui construit une recette dans la session Houdini ouverte, l'exporte et la mesure contre la référence.
+import json
+import os
+import subprocess
+import sys
+import time
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import numpy as np
+from RefLib import load_gray
+import Measure as M
+
+ROOT = "/Users/zenray/.claude/tmp/tmp-zenray-height"
+BRIDGE = ["/opt/homebrew/bin/python3", "/Users/zenray/.claude/Memory1/Houdini/MCP/zrhoudini.py", "hom"]
+REF = os.path.join(ROOT, "refs/derived/ref_height_4x4_2048.png")
+VALID = os.path.join(ROOT, "refs/derived/ref_height_valid_2048.png")
+PARENT = "/obj/ZRH_MethodSearch"
+_ref = None
+
+
+def ref():
+    global _ref
+    if _ref is None:
+        _ref = (load_gray(REF), load_gray(VALID) > 0.5)
+    return _ref
+
+
+def hom(code, timeout=300):
+    out = subprocess.run(BRIDGE + [code, "live"], capture_output=True, text=True, timeout=timeout)
+    txt = out.stdout.strip()
+    try:
+        return json.loads(txt)
+    except Exception:
+        return {"ok": False, "raw": txt[-2000:], "stderr": out.stderr[-2000:]}
+
+
+def build(method, phase, recipe, res=2048):
+    mdir = os.path.join(ROOT, "methods", method)
+    os.makedirs(mdir, exist_ok=True)
+    rp = os.path.join(mdir, f"recipe_P{phase}.json")
+    json.dump(recipe, open(rp, "w"), indent=1)
+    png = os.path.join(ROOT, "versions", "methods", method, f"P{phase}.png")
+    code = (
+        "import hou, json\n"
+        "obj = hou.node('/obj')\n"
+        f"parent = hou.node('{PARENT}') or obj.createNode('subnet', '{PARENT.split('/')[-1]}')\n"
+        "g = {}\n"
+        f"exec(open('{ROOT}/Scripts/Recipe.py').read(), g)\n"
+        f"recipe = json.load(open('{rp}'))\n"
+        f"result = g['build']('{PARENT}/{method}', recipe, '{png}', {res})\n"
+    )
+    t0 = time.time()
+    r = hom(code)
+    r["seconds"] = round(time.time() - t0, 2)
+    r["png"] = png
+    return r
+
+
+def measure(method, phase):
+    png = os.path.join(ROOT, "versions", "methods", method, f"P{phase}.png")
+    r, v = ref()
+    c = load_gray(png)
+    m = M.measure(c, r, v)
+    od = os.path.join(ROOT, "measures", "methods", method)
+    os.makedirs(od, exist_ok=True)
+    jp = os.path.join(od, f"P{phase}.json")
+    json.dump(m, open(jp, "w"), indent=1)
+    M.panel(c, r, v, jp.replace(".json", "_panel.png"))
+    return m, c
+
+
+def summary(m):
+    return {"pearson": round(m["pearson"], 4), "mae": round(m["mae"], 4), "low32": round(m["lowpass32_corr"], 3),
+            "b1-2": m["bands"]["1-2"]["corr"], "b4-8": m["bands"]["4-8"]["corr"], "b16-32": m["bands"]["16-32"]["corr"],
+            "q25": m["masks"]["q25"]["iou_below"], "q75": m["masks"]["q75"]["iou_above"], "lines": round(m["lines_iou"], 3),
+            "struct": round(m["structure_index"], 3), "detail": round(m["detail_index"], 3)}

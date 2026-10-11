@@ -1,0 +1,152 @@
+# 11 October 2026 : ZenRay Height move library, real Copernicus nodes only (Ramp, Remap, Blend, Function, noises, curves).
+# Reuses the proven helpers of VegetationCollection01/Scripts/TrimNodes.py (node, lin, smooth, curve, mix, export).
+# FR : bibliothèque de « mouvements » Copernicus ; le Python construit et range, les nodes portent la forme.
+import os
+import hou
+
+LINEAR = hou.rampBasis.Linear
+SMOOTH = hou.rampBasis.MonotoneCubic
+CONSTANT = hou.rampBasis.Constant
+
+# Parameter interface of the library (single place), 11 October 2026
+P = {
+    "res": 2048,        # export resolution (the rop_image override drives the generators)
+    "tiles": 4,         # tiles per side
+}
+
+
+def ramp(points, rng=1.0, basis=LINEAR):
+    if not isinstance(basis, (list, tuple)):
+        basis = [basis] * len(points)
+    return hou.Ramp(list(basis), [x / rng for x, _ in points], [y for _, y in points])
+
+
+def node(net, kind, name, inputs=(), **parms):
+    n = net.node(name) or net.createNode(kind, name)
+    for i, src in enumerate(inputs):
+        if src is None:
+            continue
+        if isinstance(src, tuple):
+            n.setInput(i, src[0], src[1])
+        else:
+            n.setInput(i, src)
+    for k, v in parms.items():
+        n.parm(k).set(v)
+    return n
+
+
+def lin(net, name, src, in0, in1, out0=0.0, out1=1.0, method=0):
+    return node(net, "remap", name, [src], inputmin=in0, inputmax=in1, outputmin=out0, outputmax=out1, useramp=0, method=method)
+
+
+SMOOTHSTEP = [(i / 10.0, 3 * (i / 10.0) ** 2 - 2 * (i / 10.0) ** 3) for i in range(11)]
+
+
+def smooth(net, name, src, in0, in1, out0=0.0, out1=1.0):
+    n = node(net, "remap", name, [src], inputmin=in0, inputmax=in1, outputmin=out0, outputmax=out1, useramp=1)
+    n.parm("ramp").set(ramp(SMOOTHSTEP))
+    return n
+
+
+def curve(net, name, src, keys, rng, out0=0.0, out1=1.0, basis=LINEAR):
+    """Remap through a measured curve: keys are (input in [0, rng], output in [0, 1]) then scaled to [out0, out1]."""
+    keys = list(keys)
+    if keys[0][0] > 0:
+        keys.insert(0, (0.0, keys[0][1]))
+    if keys[-1][0] < rng:
+        keys.append((rng, keys[-1][1]))
+    n = node(net, "remap", name, [src], inputmin=0.0, inputmax=rng, outputmin=out0, outputmax=out1, useramp=1)
+    n.parm("ramp").set(ramp(keys, rng, basis))
+    return n
+
+
+MODES = {"blend": 0, "over": 1, "under": 2, "add": 3, "subtract": 4, "multiply": 5, "divide": 6, "screen": 7,
+         "hypot": 8, "difference": 9, "max": 12, "min": 13}
+
+
+def mix(net, name, a, b, mode, mask=None):
+    n = node(net, "blend", name, [a, b] + ([mask] if mask is not None else []), mode=MODES[mode] if isinstance(mode, str) else mode)
+    return n
+
+
+def scale(net, name, src, k, offset=0.0):
+    """value * k + offset with one Remap in extend mode (keeps negative values)."""
+    return node(net, "remap", name, [src], inputmin=0.0, inputmax=1.0, outputmin=offset, outputmax=offset + k, useramp=0, method=2)
+
+
+def const(net, name, value, like=None):
+    n = node(net, "constant", name, [like] if like is not None else (), signature="f1")
+    n.parm("f1").set(value)
+    return n
+
+
+def coords(net, prefix="C"):
+    """x01, y01 across the canvas; fx, fy local in each tile (0..1); tiles per side from P."""
+    t = P["tiles"]
+    x01 = node(net, "ramp", prefix + "_x01", signature="f1", rampType=0, method=0)
+    y01 = node(net, "ramp", prefix + "_y01", signature="f1", rampType=1, method=0)
+    fx = node(net, "ramp", prefix + "_fx", signature="f1", rampType=0, method=1, cycles=t)
+    fy = node(net, "ramp", prefix + "_fy", signature="f1", rampType=1, method=1, cycles=t)
+    for n in (x01, y01, fx, fy):
+        n.parm("rampmono").set(ramp([(0.0, 0.0), (1.0, 1.0)]))
+    return x01, y01, fx, fy
+
+
+def box_distance(net, fx, fy, prefix="D"):
+    """Distance to the nearest joint centre line inside each tile, in tile units (0 on the joint, 0.5 at the centre)."""
+    ix = lin(net, prefix + "_inv_fx", fx, 0.0, 1.0, 1.0, 0.0)
+    iy = lin(net, prefix + "_inv_fy", fy, 0.0, 1.0, 1.0, 0.0)
+    dx = mix(net, prefix + "_dx", fx, ix, "min")
+    dy = mix(net, prefix + "_dy", fy, iy, "min")
+    return mix(net, prefix + "_d", dx, dy, "min"), dx, dy
+
+
+def tile_index(net, x01, y01, prefix="I"):
+    """Normalised tile id in [0, 1]: (row * tiles + col) / (tiles * tiles - 1), via two stepped Remaps and a weighted add."""
+    t = P["tiles"]
+    keys = [(i / t, i / (t - 1)) for i in range(t)]
+    col = node(net, "remap", prefix + "_col", [x01], inputmin=0.0, inputmax=1.0, outputmin=0.0, outputmax=1.0, useramp=1)
+    col.parm("ramp").set(ramp(keys, 1.0, CONSTANT))
+    row = node(net, "remap", prefix + "_row", [y01], inputmin=0.0, inputmax=1.0, outputmin=0.0, outputmax=1.0, useramp=1)
+    row.parm("ramp").set(ramp(keys, 1.0, CONSTANT))
+    return col, row
+
+
+def table_by_row(net, name, row_norm, values):
+    """Index mapping: one value per tile row (row_norm is the stepped row id in [0, 1])."""
+    t = len(values)
+    # 11 October 2026 : keys sit half a step BEFORE each stepped id, so a lookup at exactly i/(t-1) never falls on a boundary
+    keys = [(0.0 if i == 0 else (i - 0.5) / (t - 1), v) for i, v in enumerate(values)]
+    lo, hi = min(values), max(values)
+    span = (hi - lo) or 1.0
+    n = node(net, "remap", name, [row_norm], inputmin=0.0, inputmax=1.0, outputmin=lo, outputmax=lo + span, useramp=1)
+    n.parm("ramp").set(ramp([(x, (v - lo) / span) for x, v in keys], 1.0, CONSTANT))
+    return n
+
+
+def export(net, src, path, res=None, bits=16):
+    """Export one mono layer to a 16-bit PNG through the ROP override resolution (raw colour)."""
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    r = node(net, "rop_image", "ZRH_export", [src])
+    r.parm("copoutput").set(path)
+    r.parm("colorconversion").set(2)
+    r.parm("setres").set(1)
+    r.parm("res1").set(res or P["res"])
+    r.parm("res2").set(res or P["res"])
+    if bits == 16:
+        r.parm("size1").set(2)
+    r.parm("execute").pressButton()
+    return path
+
+
+def box(net, label, nodes, color=(0.3, 0.3, 0.3)):
+    """Group the nodes of one phase in a network box named after the phase."""
+    import re
+    bname = re.sub(r"[^A-Za-z0-9_]", "_", label)[:60]
+    b = net.findNetworkBox(bname) or net.createNetworkBox(bname)
+    b.setComment(label)
+    b.setColor(hou.Color(color))
+    for n in nodes:
+        b.addItem(n)
+    b.fitAroundContents()
+    return b

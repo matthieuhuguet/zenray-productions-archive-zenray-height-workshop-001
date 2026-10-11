@@ -1,0 +1,31 @@
+# Part 06: Substance 3D Painter, Javier Perez and professional height techniques mapped to Copernicus 22 (11 October 2026)
+
+Dataset part for reproducing procedural HEIGHT maps in Houdini 22.0.368 Copernicus (COP). Built only from web pages, the local node list and the local note file, with no Houdini session opened. (11 October 2026)
+
+## Table of contents (11 October 2026)
+
+- TOC placeholder, regenerated from the headings at the end of the run (11 October 2026)
+
+## Conventions and reading guide (11 October 2026)
+
+- Evidence labels used in every entry: SOURCE means paraphrased from a page read on 11 October 2026 with its URL; OFFICIAL-MAP means stated on the SideFX page https://www.sidefx.com/docs/houdini/copernicus/substance_designer.html (local copy /Users/zenray/.claude/tmp/tmp-zenray-height/dataset/sidefx_substance_designer_equivalence.txt); LOCAL means read in /Users/zenray/.claude/skills/zenray-houdini/Copernicus1.md with its line number; SNIPPET means only a search result excerpt was available; UNVERIFIED means inferred by the author of this file and not read in any source (11 October 2026)
+- Every Copernicus chain that is not labelled OFFICIAL-MAP is an inference built from node documentation and carries the word UNVERIFIED; every "visual signature" line is also UNVERIFIED because it describes what a technique tends to look like, not a quoted statement (11 October 2026)
+- COP node names are internal names from /Users/zenray/.claude/tmp/tmp-zenray-height/dataset/cop_nodes_h22.txt (376 lines, Houdini 22.0.368); a name absent from that list is never proposed as a node (11 October 2026)
+- Tables are written as pipe-delimited rows with no Markdown delimiter row, because a delimiter row cannot carry the required date and would also contain a double hyphen sequence; each row ends with a last column holding the date (11 October 2026)
+- Painter pages on Experience League give no default values or numeric ranges for most parameters, so none are invented here; COP defaults are quoted only when the SideFX page states them (11 October 2026)
+- Documentation moved from helpx.adobe.com to experienceleague.adobe.com; helpx pages and ArtStation pages answered HTTP 403 to the fetch tool, several Gnomon Workshop lesson pages came back empty, and where a claim rests on a search excerpt it is labelled SNIPPET (11 October 2026)
+- Paraphrase policy: no documentation paragraph or article paragraph is copied; parameter names are kept exactly because they are identifiers (11 October 2026)
+
+### Node names in the local note file that do not exist in Houdini 22.0.368 (11 October 2026)
+
+The matrix and recipes in /Users/zenray/.claude/skills/zenray-houdini/Copernicus1.md use several names that are absent from the 376 internal names, and any agent copying them would fail to create the node. (11 October 2026)
+- `slopeblur` at Copernicus1.md lines 1005 and 1211 is not a COP; OFFICIAL-MAP says the Slope Blur node is the "Distort by Slope" recipe, that is a `slopedir` wired into the `dir` input of a `distort` (11 October 2026)
+- `edge_detect` at lines 930, 956, 1002, 1218, 1263 and 1286 must be `edgedetect` (line 1363 already uses the right name) (11 October 2026)
+- `shape` at line 996 is not a COP; OFFICIAL-MAP says Shape node = `sdfshape` wired into `sdftomono` (11 October 2026)
+- `warp` at lines 924, 1003, 1004, 1227, 1233, 1306 and 1321 is not a COP; OFFICIAL-MAP says Warp node = `distort` (11 October 2026)
+- `voronoi` at line 993 does not exist; use `cellularnoise`, `worleynoise` or `cellpattern` (11 October 2026)
+- `ambientocclusion` at line 1001 does not exist; use `heighttoambientocclusion` for a height input or the `occlusion` output of `bakegeometrytextures` for a mesh (11 October 2026)
+- `highpass` at lines 900 and 1240 is not a COP; the `sharpen` documentation says Gain 0 with a positive Amplitude makes a high-pass filter, so use `sharpen`, or `blur` followed by `blend` Subtract (UNVERIFIED for the second form) (11 October 2026)
+- `transform` at line 1302 does not exist; use `xform2d`; `blur_hq` is `blur`; `levels` and `histogram_scan` are `remap` (OFFICIAL-MAP); `normal` is `heighttonormal` (11 October 2026)
+- "HeightField Noise" named on https://www.sidefx.com/docs/houdini/heightfields_cop/baseterrain.html is not in the 376-name list, so it is probably a preset around `fractalnoise` (UNVERIFIED); build base noise with `fractalnoise` (11 October 2026)
+

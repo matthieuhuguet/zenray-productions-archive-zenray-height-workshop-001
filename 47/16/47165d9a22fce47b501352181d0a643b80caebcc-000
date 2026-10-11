@@ -1,0 +1,84 @@
+# 11 October 2026 : structural analysis of the 4x4 reference height (joints at multiples of 512 px in the 2048 frame)
+# FR : analyse structurelle de la height de référence 4x4 (joints aux multiples de 512 px).
+import json
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import numpy as np
+from RefLib import load_gray, blur, save_gray8
+
+REF, VALID, OUT = sys.argv[1], sys.argv[2], sys.argv[3]
+T = 512
+r = load_gray(REF)
+v = load_gray(VALID) > 0.5
+N = r.shape[0]
+yy, xx = np.mgrid[0:N, 0:N]
+dx = np.minimum(xx % T, T - (xx % T)).astype(np.float32)  # distance to nearest vertical joint centre
+dy = np.minimum(yy % T, T - (yy % T)).astype(np.float32)
+d = np.minimum(dx, dy)  # distance to nearest joint line (box distance inside a tile)
+res = {}
+
+# 1. profile versus distance to nearest joint (0..256 px), interior of tiles
+prof = []
+for k in range(0, 257, 2):
+    sel = v & (d >= k) & (d < k + 2)
+    prof.append([k, round(float(r[sel].mean()), 4), round(float(r[sel].std()), 4)])
+res["profile_vs_joint_distance"] = prof
+
+# 2. joint cross sections, separately horizontal and vertical, signed distance -60..60
+def cross(axis):
+    out = []
+    for s in range(-60, 61):
+        vals = []
+        for k in range(4):
+            c = k * T + s
+            c %= N
+            if axis == "rows":
+                band = r[c, :][v[c, :] & (dx[c, :] > 40)]
+            else:
+                band = r[:, c][v[:, c] & (dy[:, c] > 40)]
+            if band.size:
+                vals.append(band.mean())
+        out.append([s, round(float(np.mean(vals)), 4)])
+    return out
+res["joint_cross_rows"] = cross("rows")
+res["joint_cross_cols"] = cross("cols")
+
+# 3. per tile row (4 distinct tiles), interior d > 40
+tiles = []
+for i in range(4):
+    sel = v & (yy // T == i) & (d > 40)
+    a = r[sel]
+    tiles.append({"row": i, "mean": round(float(a.mean()), 4), "std": round(float(a.std()), 4),
+                  "q": [round(float(np.quantile(a, q)), 4) for q in (0.01, 0.1, 0.25, 0.5, 0.75, 0.9, 0.99)]})
+res["tiles"] = tiles
+
+# 4. band energies of the tile interiors (std of DoG bands), working at 2048
+inter = v & (d > 40)
+bands = {}
+for s0, s1 in ((0.7, 1.5), (1.5, 3), (3, 6), (6, 12), (12, 24), (24, 48), (48, 96)):
+    b = blur(r, s0) - blur(r, s1)
+    bands[f"{s0}-{s1}"] = round(float(b[inter].std()), 5)
+res["band_std_interior"] = bands
+
+# 5. thin raised lines: high-pass statistics
+hp = r - blur(r, 3.0)
+res["hp3_quantiles"] = [round(float(np.quantile(hp[inter], q)), 4) for q in (0.01, 0.05, 0.5, 0.95, 0.99)]
+save_gray8(np.clip(0.5 + hp * 4, 0, 1), os.path.join(os.path.dirname(OUT), "ref_hp3_x4.png"))
+low = blur(r, 24)
+save_gray8(np.clip((low - low[v].min()) / (low[v].max() - low[v].min() + 1e-6), 0, 1), os.path.join(os.path.dirname(OUT), "ref_low24.png"))
+res["low24_std_interior"] = round(float(low[inter].std()), 4)
+
+# 6. black and white masks at absolute reference quantiles (images for the eye)
+for q in (0.10, 0.25, 0.50, 0.75, 0.90):
+    t = float(np.quantile(r[v], q))
+    save_gray8((r > t).astype(np.float32), os.path.join(os.path.dirname(OUT), f"ref_mask_q{int(q*100):02d}.png"))
+    res.setdefault("mask_thresholds", {})[f"q{int(q*100):02d}"] = round(t, 4)
+
+json.dump(res, open(OUT, "w"), indent=1)
+print(json.dumps({k: res[k] for k in ("tiles", "band_std_interior", "hp3_quantiles", "low24_std_interior", "mask_thresholds")}, indent=1))
+print("profile d 0..60:", [p[1] for p in res["profile_vs_joint_distance"][:31]])
+print("profile d 60..256 step 8:", [p[1] for p in res["profile_vs_joint_distance"][30::4]])
+print("joint rows -24..24:", [x[1] for x in res["joint_cross_rows"][36:85]])
+print("joint cols -24..24:", [x[1] for x in res["joint_cross_cols"][36:85]])
