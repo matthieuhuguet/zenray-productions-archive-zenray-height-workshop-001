@@ -1,0 +1,50 @@
+{
+ "ceramic": {
+  "pearson_full": 0.9976,
+  "ssim_full": 0.9753,
+  "dir": "versions/final/CeramicWallTiles_F2",
+  "valid_mask": "refs/derived/ref_height_valid2_2048.png"
+ },
+ "window": {
+  "pearson_full": 0.9914,
+  "ssim_full": 0.9472,
+  "mae": 0.0185,
+  "seam_xy": [
+   1.23,
+   0.87
+  ],
+  "ref_seam_xy": [
+   5.6,
+   0.92
+  ],
+  "dir": "versions/final/Secondary_window_EQ"
+ },
+ "whitepaint": {
+  "pearson_full": 0.992,
+  "ssim_full": 0.9435,
+  "mae": 0.0129,
+  "seam_xy": [
+   1.05,
+   1.14
+  ],
+  "ref_seam_xy": [
+   4.2,
+   4.07
+  ],
+  "dir": "versions/final/Secondary_whitepaint_L6"
+ },
+ "tile": {
+  "pearson_full": 0.9978,
+  "ssim_full": 0.9591,
+  "mae": 0.0116,
+  "seam_xy": [
+   0.01,
+   0.0
+  ],
+  "ref_seam_xy": [
+   0.04,
+   0.18
+  ],
+  "dir": "versions/final/Secondary_tile_L5"
+ }
+}
