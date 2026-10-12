@@ -1,0 +1,86 @@
+{
+ "name": "Secondary_window_EQ",
+ "net": "/obj/ZRH_Secondary_window",
+ "reference": "refs/secondary/window_height_ref_2048.png",
+ "layers": [
+  {
+   "local": null,
+   "layer": "eq",
+   "status": "accepted",
+   "score": 0.9719,
+   "gain": 0.011,
+   "summary": {
+    "pearson": 0.9921,
+    "mae": 0.0183,
+    "low32": 1.0,
+    "b1-2": 0.9882,
+    "b4-8": 0.9996,
+    "b16-32": 1.0,
+    "q25": 0.9299,
+    "q75": 0.8758,
+    "lines": 0.731,
+    "struct": 0.961,
+    "detail": 0.929
+   },
+   "note": "frequency equaliser, least squares at full resolution",
+   "seconds": 6.6,
+   "nodes": 181,
+   "timing": {
+    "kept_layers": 30,
+    "new_layers": 1,
+    "t_nodes": 0.01,
+    "t_cook_export": 1.39
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/versions/final/Secondary_window_EQ/L01_eq.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.109,
+    "D_joint_profile_corr": 0.9974,
+    "D_joint_profile_mae_pct": 0.113,
+    "G_band_energy_ratio": {
+     "1-2": 0.999,
+     "2-4": 1.004,
+     "4-8": 0.981,
+     "8-16": 0.991,
+     "16-32": 0.998
+    },
+    "F_residual_w1_pct": 0.669,
+    "F_residual_std_ratio": 0.958,
+    "J_rmse": 0.0261,
+    "J_floor_if_stochastic": 0.1218
+   }
+  },
+  {
+   "local": null,
+   "layer": "hist",
+   "status": "rejected",
+   "score": 0.9723,
+   "gain": 0.0005,
+   "summary": {
+    "pearson": 0.9922,
+    "mae": 0.0182,
+    "low32": 1.0,
+    "b1-2": 0.9884,
+    "b4-8": 0.9995,
+    "b16-32": 0.9999,
+    "q25": 0.9298,
+    "q75": 0.879,
+    "lines": 0.731,
+    "struct": 0.962,
+    "detail": 0.929
+   },
+   "note": "histogram matched to reference",
+   "seconds": 6.2,
+   "nodes": 182,
+   "timing": {
+    "kept_layers": 31,
+    "new_layers": 1,
+    "t_nodes": 0.01,
+    "t_cook_export": 1.31
+   }
+  }
+ ],
+ "cells": [
+  1,
+  10
+ ]
+}
