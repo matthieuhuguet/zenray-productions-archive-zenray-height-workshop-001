@@ -1,0 +1,106 @@
+STEP 1/7 bridge | checking the Houdini bridge | 0.0 s
+STEP 2/7 input | /Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/src/NormalG.png | 0.1 s
+STEP 3/7 references | crop, square, 2048 px | 0.1 s
+STEP 4/7 height | plan L3: structure, regions 32 to 4 px, successive passes at 4, 2 and 1 px | 0.3 s
+BrokenTiles_NormalG_H1 joint_profile accepted 0.1971 {'pearson': 0.0694, 'mae': 0.0751, 'low32': 0.258, 'b1-2': 0.0169, 'b4-8': 0.0495, 'b16-32': 0.0901, 'q25': 0.0019, 'q75': 0.0, 'lines': 0.0, 'struct': 0.09, 'detail': 0.024} 8.7 s {'kept_layers': 0, 'new_layers': 1, 't_nodes': 0.01, 't_cook_export': 1.69} local None
+STEP 4/7 height | layer joint_profile accepted pearson 0.0694 | 12.6 s
+BrokenTiles_NormalG_H1 side_profiles rejected 0.1972 {'pearson': 0.0696, 'mae': 0.0751, 'low32': 0.258, 'b1-2': 0.0171, 'b4-8': 0.0501, 'b16-32': 0.0903, 'q25': 0.0019, 'q75': 0.0, 'lines': 0.0, 'struct': 0.09, 'detail': 0.024} 8.5 s {'kept_layers': 1, 'new_layers': 1, 't_nodes': 0.0, 't_cook_export': 0.1} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer side_profiles rejected pearson 0.0696 | 21.1 s
+BrokenTiles_NormalG_H1 row_table rejected 0.1971 {'pearson': 0.0694, 'mae': 0.0751, 'low32': 0.258, 'b1-2': 0.0169, 'b4-8': 0.0495, 'b16-32': 0.0901, 'q25': 0.0019, 'q75': 0.0, 'lines': 0.0, 'struct': 0.09, 'detail': 0.024} 12.5 s {'kept_layers': 1, 'new_layers': 1, 't_nodes': 0.01, 't_cook_export': 0.07} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer row_table rejected pearson 0.0694 | 33.6 s
+BrokenTiles_NormalG_H1 row_plane rejected 0.1976 {'pearson': 0.0712, 'mae': 0.0751, 'low32': 0.267, 'b1-2': 0.0169, 'b4-8': 0.0495, 'b16-32': 0.0896, 'q25': 0.0019, 'q75': 0.0, 'lines': 0.0, 'struct': 0.093, 'detail': 0.024} 9.9 s {'kept_layers': 1, 'new_layers': 1, 't_nodes': 0.0, 't_cook_export': 0.38} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer row_plane rejected pearson 0.0712 | 43.5 s
+BrokenTiles_NormalG_H1 corners rejected 0.1975 {'pearson': 0.0706, 'mae': 0.0752, 'low32': 0.265, 'b1-2': 0.0169, 'b4-8': 0.0495, 'b16-32': 0.0903, 'q25': 0.0019, 'q75': 0.0, 'lines': 0.0, 'struct': 0.092, 'detail': 0.024} 10.7 s {'kept_layers': 1, 'new_layers': 1, 't_nodes': 0.01, 't_cook_export': 0.48} local {'ok': False, 'pixels': 28084, 'before': 0.0499, 'after': 0.0488, 'ls_gain': 1.087}
+STEP 4/7 height | layer corners rejected pearson 0.0706 | 54.2 s
+BrokenTiles_NormalG_H1 regions_s32 accepted 0.3332 {'pearson': 0.2726, 'mae': 0.069, 'low32': 0.944, 'b1-2': 0.0169, 'b4-8': 0.0619, 'b16-32': 0.5898, 'q25': 0.087, 'q75': 0.0012, 'lines': 0.0, 'struct': 0.5, 'detail': 0.027} 7.0 s {'kept_layers': 1, 'new_layers': 1, 't_nodes': 0.06, 't_cook_export': 0.43} local {'ok': True, 'pixels': 2553263, 'before': 0.0791, 'after': 0.0694, 'ls_gain': 1.5}
+STEP 4/7 height | layer regions_s32 accepted pearson 0.2726 | 63.7 s
+BrokenTiles_NormalG_H1 regions_s16 accepted 0.4 {'pearson': 0.3443, 'mae': 0.0662, 'low32': 0.985, 'b1-2': 0.019, 'b4-8': 0.2049, 'b16-32': 0.8822, 'q25': 0.2351, 'q75': 0.1416, 'lines': 0.0, 'struct': 0.643, 'detail': 0.069} 8.5 s {'kept_layers': 2, 'new_layers': 1, 't_nodes': 0.14, 't_cook_export': 0.4} local {'ok': True, 'pixels': 1780701, 'before': 0.0799, 'after': 0.0737, 'ls_gain': 2.215}
+STEP 4/7 height | layer regions_s16 accepted pearson 0.3443 | 76.0 s
+BrokenTiles_NormalG_H1 regions_s8 accepted 0.4728 {'pearson': 0.4313, 'mae': 0.0633, 'low32': 0.994, 'b1-2': 0.0506, 'b4-8': 0.5789, 'b16-32': 0.9681, 'q25': 0.3175, 'q75': 0.2346, 'lines': 0.0, 'struct': 0.701, 'detail': 0.211} 12.1 s {'kept_layers': 3, 'new_layers': 1, 't_nodes': 0.41, 't_cook_export': 0.49} local {'ok': True, 'pixels': 1841336, 'before': 0.0878, 'after': 0.0816, 'ls_gain': 2.406}
+STEP 4/7 height | layer regions_s8 accepted pearson 0.4313 | 91.5 s
+BrokenTiles_NormalG_H1 lines accepted 0.4993 {'pearson': 0.4505, 'mae': 0.0625, 'low32': 0.987, 'b1-2': 0.3493, 'b4-8': 0.5083, 'b16-32': 0.9554, 'q25': 0.3157, 'q75': 0.2849, 'lines': 0.071, 'struct': 0.705, 'detail': 0.312} 18.8 s {'kept_layers': 4, 'new_layers': 1, 't_nodes': 0.12, 't_cook_export': 0.5} local {'ok': True, 'pixels': 170453, 'before': 0.1614, 'after': 0.1422, 'ls_gain': 0.68}
+STEP 4/7 height | layer lines accepted pearson 0.4505 | 112.6 s
+BrokenTiles_NormalG_H1 blobs accepted 0.5655 {'pearson': 0.5521, 'mae': 0.0597, 'low32': 0.983, 'b1-2': 0.508, 'b4-8': 0.6524, 'b16-32': 0.9409, 'q25': 0.3341, 'q75': 0.2979, 'lines': 0.134, 'struct': 0.705, 'detail': 0.469} 6.1 s {'kept_layers': 5, 'new_layers': 1, 't_nodes': 0.08, 't_cook_export': 0.69} local {'ok': True, 'pixels': 74364, 'before': 0.2746, 'after': 0.1203, 'ls_gain': 1.3}
+STEP 4/7 height | layer blobs accepted pearson 0.5521 | 121.4 s
+BrokenTiles_NormalG_H1 regions_s4 accepted 0.6257 {'pearson': 0.6274, 'mae': 0.0553, 'low32': 0.996, 'b1-2': 0.5281, 'b4-8': 0.8835, 'b16-32': 0.9817, 'q25': 0.4277, 'q75': 0.3514, 'lines': 0.137, 'struct': 0.75, 'detail': 0.564} 8.3 s {'kept_layers': 6, 'new_layers': 1, 't_nodes': 0.66, 't_cook_export': 0.55} local {'ok': True, 'pixels': 1751593, 'before': 0.0882, 'after': 0.0782, 'ls_gain': 2.279}
+STEP 4/7 height | layer regions_s4 accepted pearson 0.6274 | 132.0 s
+BrokenTiles_NormalG_H1 regions_s8_p2 accepted 0.6284 {'pearson': 0.6306, 'mae': 0.0552, 'low32': 0.997, 'b1-2': 0.5279, 'b4-8': 0.884, 'b16-32': 0.9871, 'q25': 0.4318, 'q75': 0.3564, 'lines': 0.137, 'struct': 0.753, 'detail': 0.564} 7.4 s {'kept_layers': 7, 'new_layers': 1, 't_nodes': 0.54, 't_cook_export': 0.57} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer regions_s8_p2 accepted pearson 0.6306 | 141.8 s
+BrokenTiles_NormalG_H1 regions_s4_p2 accepted 0.6505 {'pearson': 0.6584, 'mae': 0.0533, 'low32': 0.998, 'b1-2': 0.5447, 'b4-8': 0.9331, 'b16-32': 0.9904, 'q25': 0.4545, 'q75': 0.3867, 'lines': 0.14, 'struct': 0.765, 'detail': 0.597} 11.3 s {'kept_layers': 8, 'new_layers': 1, 't_nodes': 1.79, 't_cook_export': 0.58} local {'ok': True, 'pixels': 1070066, 'before': 0.0965, 'after': 0.0901, 'ls_gain': 3.574}
+STEP 4/7 height | layer regions_s4_p2 accepted pearson 0.6584 | 155.3 s
+BrokenTiles_NormalG_H1 lines_p2 accepted 0.6551 {'pearson': 0.663, 'mae': 0.053, 'low32': 0.997, 'b1-2': 0.567, 'b4-8': 0.9315, 'b16-32': 0.9892, 'q25': 0.4545, 'q75': 0.3952, 'lines': 0.153, 'struct': 0.766, 'detail': 0.607} 14.3 s {'kept_layers': 9, 'new_layers': 1, 't_nodes': 0.11, 't_cook_export': 0.44} local {'ok': True, 'pixels': 87719, 'before': 0.1378, 'after': 0.1216, 'ls_gain': 0.959, 'refit': True}
+STEP 4/7 height | layer lines_p2 accepted pearson 0.663 | 172.0 s
+BrokenTiles_NormalG_H1 blobs_p2 accepted 0.6567 {'pearson': 0.6654, 'mae': 0.0529, 'low32': 0.997, 'b1-2': 0.5737, 'b4-8': 0.9303, 'b16-32': 0.989, 'q25': 0.4552, 'q75': 0.3958, 'lines': 0.156, 'struct': 0.766, 'detail': 0.609} 5.8 s {'kept_layers': 10, 'new_layers': 1, 't_nodes': 0.01, 't_cook_export': 0.97} local {'ok': True, 'pixels': 3950, 'before': 0.2126, 'after': 0.1106, 'ls_gain': 1.266}
+STEP 4/7 height | layer blobs_p2 accepted pearson 0.6654 | 180.1 s
+BrokenTiles_NormalG_H1 regions_s4_p3 accepted 0.6685 {'pearson': 0.68, 'mae': 0.0519, 'low32': 0.998, 'b1-2': 0.5837, 'b4-8': 0.9513, 'b16-32': 0.9919, 'q25': 0.4698, 'q75': 0.4068, 'lines': 0.158, 'struct': 0.773, 'detail': 0.626} 16.7 s {'kept_layers': 11, 'new_layers': 1, 't_nodes': 5.42, 't_cook_export': 2.13} local {'ok': True, 'pixels': 521610, 'before': 0.1101, 'after': 0.106, 'ls_gain': 3.892}
+STEP 4/7 height | layer regions_s4_p3 accepted pearson 0.68 | 199.3 s
+BrokenTiles_NormalG_H1 regions_s4_p4 accepted 0.6756 {'pearson': 0.6886, 'mae': 0.0513, 'low32': 0.998, 'b1-2': 0.5904, 'b4-8': 0.9615, 'b16-32': 0.9931, 'q25': 0.4765, 'q75': 0.4161, 'lines': 0.16, 'struct': 0.776, 'detail': 0.635} 16.5 s {'kept_layers': 12, 'new_layers': 1, 't_nodes': 5.02, 't_cook_export': 2.19} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer regions_s4_p4 accepted pearson 0.6886 | 217.8 s
+BrokenTiles_NormalG_H1 regions_s4_p5 accepted 0.6806 {'pearson': 0.6946, 'mae': 0.0509, 'low32': 0.999, 'b1-2': 0.5955, 'b4-8': 0.9678, 'b16-32': 0.9939, 'q25': 0.4809, 'q75': 0.4226, 'lines': 0.161, 'struct': 0.779, 'detail': 0.641} 15.9 s {'kept_layers': 13, 'new_layers': 1, 't_nodes': 5.29, 't_cook_export': 1.62} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer regions_s4_p5 accepted pearson 0.6946 | 235.8 s
+BrokenTiles_NormalG_H1 regions_s4_p6 accepted 0.6844 {'pearson': 0.6992, 'mae': 0.0506, 'low32': 0.999, 'b1-2': 0.5997, 'b4-8': 0.972, 'b16-32': 0.9945, 'q25': 0.4844, 'q75': 0.4274, 'lines': 0.163, 'struct': 0.781, 'detail': 0.646} 17.2 s {'kept_layers': 14, 'new_layers': 1, 't_nodes': 5.97, 't_cook_export': 2.13} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer regions_s4_p6 accepted pearson 0.6992 | 255.1 s
+BrokenTiles_NormalG_H1 regions_s4_p7 accepted 0.6875 {'pearson': 0.7028, 'mae': 0.0503, 'low32': 0.999, 'b1-2': 0.6032, 'b4-8': 0.9751, 'b16-32': 0.995, 'q25': 0.4872, 'q75': 0.4312, 'lines': 0.164, 'struct': 0.782, 'detail': 0.65} 18.2 s {'kept_layers': 15, 'new_layers': 1, 't_nodes': 6.38, 't_cook_export': 2.06} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer regions_s4_p7 accepted pearson 0.7028 | 275.4 s
+BrokenTiles_NormalG_H1 regions_s4_p8 accepted 0.69 {'pearson': 0.7058, 'mae': 0.0501, 'low32': 0.999, 'b1-2': 0.6063, 'b4-8': 0.9774, 'b16-32': 0.9953, 'q25': 0.4892, 'q75': 0.434, 'lines': 0.165, 'struct': 0.783, 'detail': 0.653} 20.6 s {'kept_layers': 16, 'new_layers': 1, 't_nodes': 5.9, 't_cook_export': 4.5} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer regions_s4_p8 accepted pearson 0.7058 | 298.2 s
+BrokenTiles_NormalG_H1 regions_s2 accepted 0.723 {'pearson': 0.743, 'mae': 0.0471, 'low32': 0.999, 'b1-2': 0.7008, 'b4-8': 0.9862, 'b16-32': 0.9964, 'q25': 0.5168, 'q75': 0.465, 'lines': 0.177, 'struct': 0.795, 'detail': 0.697} 18.5 s {'kept_layers': 17, 'new_layers': 1, 't_nodes': 3.79, 't_cook_export': 1.59} local {'ok': True, 'pixels': 1004307, 'before': 0.0997, 'after': 0.0891, 'ls_gain': 3.811}
+STEP 4/7 height | layer regions_s2 accepted pearson 0.743 | 319.1 s
+BrokenTiles_NormalG_H1 regions_s2_p2 accepted 0.7407 {'pearson': 0.7625, 'mae': 0.0454, 'low32': 0.999, 'b1-2': 0.7482, 'b4-8': 0.9901, 'b16-32': 0.9969, 'q25': 0.5321, 'q75': 0.4826, 'lines': 0.185, 'struct': 0.802, 'detail': 0.718} 18.1 s {'kept_layers': 18, 'new_layers': 1, 't_nodes': 4.18, 't_cook_export': 1.44} local {'ok': True, 'pixels': 967025, 'before': 0.0936, 'after': 0.0875, 'ls_gain': 4.825}
+STEP 4/7 height | layer regions_s2_p2 accepted pearson 0.7625 | 339.4 s
+BrokenTiles_NormalG_H1 blobs_p3 rejected 0.7408 {'pearson': 0.7627, 'mae': 0.0454, 'low32': 0.999, 'b1-2': 0.7486, 'b4-8': 0.99, 'b16-32': 0.9969, 'q25': 0.5321, 'q75': 0.4826, 'lines': 0.186, 'struct': 0.802, 'detail': 0.719} 8.0 s {'kept_layers': 19, 'new_layers': 1, 't_nodes': 0.0, 't_cook_export': 1.13} local {'ok': True, 'pixels': 476, 'before': 0.209, 'after': 0.1267, 'ls_gain': 1.47}
+STEP 4/7 height | layer blobs_p3 rejected pearson 0.7627 | 347.4 s
+BrokenTiles_NormalG_H1 regions_s1 accepted 0.7877 {'pearson': 0.8159, 'mae': 0.0405, 'low32': 0.999, 'b1-2': 0.8611, 'b4-8': 0.9938, 'b16-32': 0.9978, 'q25': 0.5777, 'q75': 0.5297, 'lines': 0.215, 'struct': 0.821, 'detail': 0.762} 24.1 s {'kept_layers': 19, 'new_layers': 1, 't_nodes': 3.92, 't_cook_export': 1.29} local {'ok': True, 'pixels': 1008643, 'before': 0.0931, 'after': 0.0739, 'ls_gain': 2.972}
+STEP 4/7 height | layer regions_s1 accepted pearson 0.8159 | 373.8 s
+BrokenTiles_NormalG_H1 regions_s1_p2 accepted 0.8119 {'pearson': 0.8425, 'mae': 0.0377, 'low32': 1.0, 'b1-2': 0.9052, 'b4-8': 0.9961, 'b16-32': 0.9984, 'q25': 0.6026, 'q75': 0.5558, 'lines': 0.239, 'struct': 0.831, 'detail': 0.782} 19.5 s {'kept_layers': 20, 'new_layers': 1, 't_nodes': 3.97, 't_cook_export': 1.26} local {'ok': True, 'pixels': 735342, 'before': 0.0948, 'after': 0.0804, 'ls_gain': 3.728}
+STEP 4/7 height | layer regions_s1_p2 accepted pearson 0.8425 | 395.7 s
+BrokenTiles_NormalG_H1 regions_s2_p3 accepted 0.8145 {'pearson': 0.8449, 'mae': 0.0375, 'low32': 1.0, 'b1-2': 0.9088, 'b4-8': 0.9972, 'b16-32': 0.9988, 'q25': 0.6046, 'q75': 0.5587, 'lines': 0.244, 'struct': 0.832, 'detail': 0.785} 18.5 s {'kept_layers': 21, 'new_layers': 1, 't_nodes': 4.26, 't_cook_export': 1.4} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer regions_s2_p3 accepted pearson 0.8449 | 416.6 s
+BrokenTiles_NormalG_H1 regions_s1_p3 accepted 0.8281 {'pearson': 0.86, 'mae': 0.0359, 'low32': 1.0, 'b1-2': 0.9305, 'b4-8': 0.9977, 'b16-32': 0.999, 'q25': 0.619, 'q75': 0.574, 'lines': 0.286, 'struct': 0.838, 'detail': 0.802} 18.2 s {'kept_layers': 22, 'new_layers': 1, 't_nodes': 3.9, 't_cook_export': 1.3} local {'ok': True, 'pixels': 622532, 'before': 0.0896, 'after': 0.0792, 'ls_gain': 4.704}
+STEP 4/7 height | layer regions_s1_p3 accepted pearson 0.86 | 437.4 s
+BrokenTiles_NormalG_H1 regions_s1_p4 accepted 0.8376 {'pearson': 0.8705, 'mae': 0.0347, 'low32': 1.0, 'b1-2': 0.9437, 'b4-8': 0.9984, 'b16-32': 0.9993, 'q25': 0.6293, 'q75': 0.5851, 'lines': 0.326, 'struct': 0.843, 'detail': 0.816} 17.7 s {'kept_layers': 23, 'new_layers': 1, 't_nodes': 3.65, 't_cook_export': 1.42} local {'ok': True, 'pixels': 551654, 'before': 0.0845, 'after': 0.0758, 'ls_gain': 5.134}
+STEP 4/7 height | layer regions_s1_p4 accepted pearson 0.8705 | 457.5 s
+BrokenTiles_NormalG_H1 hist accepted 0.8406 {'pearson': 0.8701, 'mae': 0.0364, 'low32': 0.998, 'b1-2': 0.9442, 'b4-8': 0.9963, 'b16-32': 0.9966, 'q25': 0.6407, 'q75': 0.5854, 'lines': 0.393, 'struct': 0.844, 'detail': 0.832} 6.9 s {'kept_layers': 24, 'new_layers': 1, 't_nodes': 0.0, 't_cook_export': 1.29} local None
+STEP 4/7 height | layer hist accepted pearson 0.8701 | 467.0 s
+STEP 5/7 height | plan L5: pixel passes and measured equaliser, from the L3 result | 469.4 s
+BrokenTiles_NormalG_H2 resume 0.8406 {'pearson': 0.8701, 'mae': 0.0364, 'low32': 0.998, 'b1-2': 0.9442, 'b4-8': 0.9963, 'b16-32': 0.9966, 'q25': 0.6407, 'q75': 0.5854, 'lines': 0.393, 'struct': 0.844, 'detail': 0.832}
+BrokenTiles_NormalG_H2 pix_s05_k16 accepted 0.8514 {'pearson': 0.8844, 'mae': 0.0338, 'low32': 0.998, 'b1-2': 0.9547, 'b4-8': 0.9971, 'b16-32': 0.9979, 'q25': 0.6524, 'q75': 0.6014, 'lines': 0.428, 'struct': 0.85, 'detail': 0.844} 10.4 s {'kept_layers': 25, 'new_layers': 1, 't_nodes': 0.94, 't_cook_export': 1.55} local {'ok': True, 'pixels': 288660, 'before': 0.0609, 'after': 0.0245, 'ls_gain': 1.629}
+STEP 5/7 height | layer pix_s05_k16 accepted pearson 0.8844 | 488.6 s
+BrokenTiles_NormalG_H2 pix_s05_k16_p2 accepted 0.8547 {'pearson': 0.8884, 'mae': 0.033, 'low32': 0.998, 'b1-2': 0.9574, 'b4-8': 0.9973, 'b16-32': 0.9981, 'q25': 0.6562, 'q75': 0.6074, 'lines': 0.438, 'struct': 0.852, 'detail': 0.847} 8.7 s {'kept_layers': 26, 'new_layers': 1, 't_nodes': 0.54, 't_cook_export': 1.3} local {'ok': True, 'pixels': 80182, 'before': 0.0623, 'after': 0.0259, 'ls_gain': 1.601}
+STEP 5/7 height | layer pix_s05_k16_p2 accepted pearson 0.8884 | 499.8 s
+BrokenTiles_NormalG_H2 pix_s05_k16_p3 accepted 0.8557 {'pearson': 0.8896, 'mae': 0.0328, 'low32': 0.998, 'b1-2': 0.9581, 'b4-8': 0.9974, 'b16-32': 0.9981, 'q25': 0.6573, 'q75': 0.6092, 'lines': 0.441, 'struct': 0.852, 'detail': 0.848} 8.3 s {'kept_layers': 27, 'new_layers': 1, 't_nodes': 0.39, 't_cook_export': 1.46} local {'ok': True, 'pixels': 26317, 'before': 0.06, 'after': 0.0248, 'ls_gain': 1.558}
+STEP 5/7 height | layer pix_s05_k16_p3 accepted pearson 0.8896 | 510.6 s
+BrokenTiles_NormalG_H2 pix_s05_k16_m3 accepted 0.8671 {'pearson': 0.9018, 'mae': 0.0307, 'low32': 0.999, 'b1-2': 0.9654, 'b4-8': 0.9977, 'b16-32': 0.9985, 'q25': 0.6736, 'q75': 0.6278, 'lines': 0.47, 'struct': 0.859, 'detail': 0.857} 19.2 s {'kept_layers': 28, 'new_layers': 1, 't_nodes': 3.94, 't_cook_export': 1.41} local {'ok': True, 'pixels': 211574, 'before': 0.0706, 'after': 0.0294, 'ls_gain': 1.667}
+STEP 5/7 height | layer pix_s05_k16_m3 accepted pearson 0.9018 | 532.3 s
+BrokenTiles_NormalG_H2 pix_s05_k16_m3_p2 accepted 0.8731 {'pearson': 0.9074, 'mae': 0.0294, 'low32': 0.999, 'b1-2': 0.9682, 'b4-8': 0.9978, 'b16-32': 0.9987, 'q25': 0.6835, 'q75': 0.64, 'lines': 0.485, 'struct': 0.864, 'detail': 0.862} 17.9 s {'kept_layers': 29, 'new_layers': 1, 't_nodes': 3.49, 't_cook_export': 1.31} local {'ok': True, 'pixels': 134013, 'before': 0.0598, 'after': 0.0237, 'ls_gain': 1.564}
+STEP 5/7 height | layer pix_s05_k16_m3_p2 accepted pearson 0.9074 | 552.6 s
+BrokenTiles_NormalG_H2 eq accepted 0.8796 {'pearson': 0.9153, 'mae': 0.0288, 'low32': 0.999, 'b1-2': 0.9721, 'b4-8': 0.9977, 'b16-32': 0.9987, 'q25': 0.6874, 'q75': 0.6448, 'lines': 0.509, 'struct': 0.866, 'detail': 0.869} 7.1 s {'kept_layers': 30, 'new_layers': 1, 't_nodes': 0.01, 't_cook_export': 1.39} local None
+STEP 5/7 height | layer eq accepted pearson 0.9153 | 562.2 s
+BrokenTiles_NormalG_H2 hist rejected 0.8795 {'pearson': 0.9148, 'mae': 0.0293, 'low32': 0.999, 'b1-2': 0.9716, 'b4-8': 0.9971, 'b16-32': 0.9981, 'q25': 0.6895, 'q75': 0.6413, 'lines': 0.521, 'struct': 0.865, 'detail': 0.871} 6.1 s {'kept_layers': 31, 'new_layers': 1, 't_nodes': 0.0, 't_cook_export': 1.17} local None
+STEP 5/7 height | layer hist rejected pearson 0.9148 | 568.3 s
+STEP 6/7 tiling | seam layer if the reference does not tile | 572.2 s
+STEP 7/7 report | full resolution measures, boards, report | 578.6 s
+/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/NormalG/versions/final/BrokenTiles_NormalG_H1/board/Evolution.html
+/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/NormalG/versions/final/BrokenTiles_NormalG_H2/board/Evolution.html
+STEP done | pearson 0.9153 in 9.8 min | 586.8 s
+{
+ "name": "BrokenTiles_NormalG",
+ "work": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/NormalG",
+ "net": "/obj/ZRH_BrokenTiles_NormalG",
+ "height": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/NormalG/versions/final/BrokenTiles_NormalG_H2/FINAL_height.png",
+ "pearson_full": 0.9153,
+ "ssim_full": 0.7918,
+ "mae": 0.0288,
+ "seam_xy": [
+  0.84,
+  0.88
+ ],
+ "seam_layer": false,
+ "zoom": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/NormalG/zoom3_reference_vs_result.png",
+ "boards": [
+  "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/NormalG/versions/final/BrokenTiles_NormalG_H1/board/Evolution.html",
+  "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/NormalG/versions/final/BrokenTiles_NormalG_H2/board/Evolution.html"
+ ],
+ "basecolor": null,
+ "minutes": 9.8
+}
