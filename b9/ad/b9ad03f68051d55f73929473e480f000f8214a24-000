@@ -1,0 +1,92 @@
+# Approach C, derivation between maps plus residual correction (12 October 2026)
+
+Project zenray-height, Megascans Broken Tiles smvnfc2p, 2048 px. All scores are Pearson at full 2048 px against the original JPG (NormalR/NormalG against the extracted channels). Houdini not touched; everything measured offline in numpy. (12 October 2026)
+
+Scripts (12 October 2026): `/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/workflow_cavity/scripts/DeriveCommon.py`, `Relations.py`, `Relations2.py`, `Correct.py`, `Assemble.py`. Raw numbers: `relations.json`, `relations2.json`, `correct.json`, `assemble.json` in `/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/workflow_cavity/`. Derived 16-bit maps: `/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/workflow_cavity/derived/<Map>.png`. (12 October 2026)
+
+## 1. Cross-map relations measured on the references (12 October 2026)
+
+Features: 9 periodic gaussian difference bands (edges 0.5, 1, 2, 4, 8, 16, 32, 64 px) of a source map, optionally split into positive and negative parts, fitted by least squares (a few scalars, measured data). (12 October 2026)
+
+| Relation (references) | Pearson | Date |
+|---|---|---|
+| Gloss = 1 - Roughness | 0.9994 | 12 October 2026 |
+| Specular = a*Cavity + b | 0.9878 | 12 October 2026 |
+| Specular = poly3(Cavity), bands(Cavity), + Roughness + Disp + AO | 0.9879 to 0.9881 (no gain) | 12 October 2026 |
+| Bump = bands(Displacement) | 0.9884 | 12 October 2026 |
+| Cavity = split bands(Displacement) | 0.443 | 12 October 2026 |
+| Cavity = split bands(Displacement + Bump) | 0.507 | 12 October 2026 |
+| Cavity = split bands(divergence of Normal) | 0.427 | 12 October 2026 |
+| NormalR / NormalG = gradient of bands(Displacement) | 0.508 / 0.521 | 12 October 2026 |
+| Normal integrated to a height vs Bump / Displacement | <= 0.47 / 0.48 | 12 October 2026 |
+| AO = split bands(Displacement) | 0.819 | 12 October 2026 |
+
+Reading (12 October 2026): only three relations are strong. Gloss is Roughness inverted (exact), Specular is a linear Remap of Cavity (0.988, a ceiling that no nonlinearity or extra map lifts), and Bump is a band filter of the displacement (0.988, but only from the reference displacement). Cavity and the Normal are NOT derivable from the 2K displacement or bump: their pixel-scale content comes from a source the 2K height does not contain (the 8K scan), so they are independent maps at pixel level. (12 October 2026)
+
+Band variance shares (12 October 2026): Cavity has 56 percent of its variance below 1 px, Specular 59 percent, Bump 53 percent, NormalR 34 percent, Displacement 0.3 percent. (12 October 2026)
+
+JPEG check (12 October 2026): the Specular residual after a*Cavity+b is 2.42 percent of its variance, the 8-bit quantisation explains 0.45 percent; the step across 8x8 block boundaries is 0.92 to 1.01 times the inner step for every map, so the residual is real fine content, not block artefacts. Chasing it is not chasing compression noise. (12 October 2026)
+
+## 2. Residual correction by sparse exact points (12 October 2026)
+
+Method (12 October 2026): base prediction refit linearly, then the K pixels with the largest |residual| become points carrying their residual (this greedy choice is L2-optimal for K exact pixels). K is the smallest count that reaches the target. A coarser variant with one point per 2x2 or 4x4 cell was also tested. (12 October 2026)
+
+| Target <- base | Base Pearson | K for 0.99 | K for 0.995 | Date |
+|---|---|---|---|---|
+| Cavity <- H2 Cavity | 0.8423 | 1 456 395 (35 %) | 1 901 755 (45 %) | 12 October 2026 |
+| Cavity, 2x2 / 4x4 cells, all cells | 0.8423 | unreachable (ceiling 0.872 / 0.848) | unreachable | 12 October 2026 |
+| Specular <- H2 Specular | 0.8325 | 1 693 453 | 2 145 385 | 12 October 2026 |
+| Specular <- a*refCavity+b (ideal cavity) | 0.9878 | 84 169 | 544 788 | 12 October 2026 |
+| Specular <- a*Cavity@0.99+b | 0.9778 | 553 288 alone, or +258 800 on shared cavity positions | 1 137 832 | 12 October 2026 |
+| Specular <- a*Cavity@0.995+b | 0.9829 | +26 169 on shared cavity positions | +331 943 shared | 12 October 2026 |
+| Bump <- H2 Bump | 0.9468 | 109 669 | 237 740 | 12 October 2026 |
+| Bump <- bands(H2 Displacement) | 0.9253 | 297 290 | 544 482 | 12 October 2026 |
+| Bump <- bands(H2 Disp) + H2 Bump | 0.9545 | 126 337 | 282 867 | 12 October 2026 |
+| Bump <- bands(ref Displacement) (ideal) | 0.9884 | 11 869 | 362 819 | 12 October 2026 |
+| NormalR <- H1 snapshot L20 (0.77) + grad bands(Disp) | 0.7852 | 1 295 857 | 1 682 336 | 12 October 2026 |
+| NormalG <- grad bands(H2 Disp) (no NormalG run yet) | 0.5095 | 2 068 755 alone, 1 062 749 extra on NormalR positions | 2 471 653 | 12 October 2026 |
+| Roughness <- H2 | 0.9843 | 105 007 (160 000 so that Gloss reaches 0.9904) | 458 494 | 12 October 2026 |
+| AO <- H2 | 0.9905 | 0 | 138 131 | 12 October 2026 |
+| Displacement <- H2 | 0.9988 | 0 | 0 | 12 October 2026 |
+
+Key point (12 October 2026): the Cavity residual is dense, not sparse. 35 percent of all pixels must be stored to reach 0.99, and coarser cells cannot reach it at all (2x2 cells over the whole image stop at 0.872). The dark cracks and specks are not few isolated outliers: they are a dense grain, so no sparse representation exists. Correcting Specular through the Cavity works because both share positions: at Cavity 0.995 the Specular Remap needs only 26 169 extra points. (12 October 2026)
+
+## 3. The smallest set and its full measured result (12 October 2026)
+
+Pixel-level maps that must be stored: Cavity (it carries Specular too) and the two Normal channels. Bump and Roughness need only light corrections; Displacement and AO need none; Gloss and Specular derive. (12 October 2026)
+
+| Map | How it is produced | Pearson full 2048 | New points | Date |
+|---|---|---|---|---|
+| Displacement | existing H2 regions | 0.9988 | 0 | 12 October 2026 |
+| AO | existing H2 regions | 0.9905 | 0 | 12 October 2026 |
+| Roughness | H2 + points | 0.9913 | 160 000 | 12 October 2026 |
+| Gloss | 1 - Roughness, one Remap | 0.9904 | 0 | 12 October 2026 |
+| Cavity | H2 + points | 0.9950 | 1 901 755 | 12 October 2026 |
+| Specular | a*Cavity + b (Remap) + points on cavity positions | 0.9900 | 26 169 | 12 October 2026 |
+| Bump | weighted bands of H2 Displacement + H2 Bump + points | 0.9900 | 126 337 | 12 October 2026 |
+| NormalR | gradient bands of Disp + H1 snapshot + points | 0.9900 | 1 295 857 | 12 October 2026 |
+| NormalG | gradient bands of Disp + points (shares NormalR positions) | 0.9900 | 1 062 749 | 12 October 2026 |
+| Normal rebuilt (B = sqrt(1 - R2 - G2)) | from R and G | B 0.9232, mean angle 2.54 deg | 0 | 12 October 2026 |
+
+Note (12 October 2026): `assemble.json` lists Roughness 0.99 / Gloss 0.9891 at 105 007 points; the table uses the measured 160 000-point variant (Roughness 0.9913, Gloss 0.9904) so that Gloss also clears 0.99. (12 October 2026)
+
+## 4. Cost, stated honestly (12 October 2026)
+
+| Point set | Points | Values per point | Houdini size (P float3 + float values) | Date |
+|---|---|---|---|---|
+| Cavity + Specular (shared positions) | 1 927 924 | 2 | 38.6 MB | 12 October 2026 |
+| Roughness | 160 000 | 1 | 2.6 MB | 12 October 2026 |
+| Bump | 126 337 | 1 | 2.0 MB | 12 October 2026 |
+| NormalR + NormalG (shared positions) | 2 358 606 | 2 | 47.2 MB | 12 October 2026 |
+| Total | 4 572 867 | | about 90 MB (about 27 MB as uint32 index + uint8 values) | 12 October 2026 |
+
+The union of all positions covers 71.5 percent of the 4 194 304 pixels, and the total point count equals 1.09 full images. In plain words (12 October 2026): this set IS a stored image, in a less efficient form. The four 8-bit JPG-level maps that carry the pixel content (Cavity, NormalR, NormalG, plus the Specular/Bump/Roughness corrections) weigh about 4 MB each raw, while the point clouds cost 90 MB in Houdini. The derivations (Gloss, Specular, Bump bands, Normal B) are genuine and cheap; the pixel residual of Cavity and Normal is not compressible by geometry. (12 October 2026)
+
+## 5. Copernicus nodes the layer would need (12 October 2026)
+
+- Derivations (12 October 2026): `cop/remap` for Gloss = 1 - Roughness and Specular = a*Cavity + b; 8 `cop/blur` plus 8 subtract/weighted `cop/blend` for the displacement bands that feed Bump; `cop/derivative` (or a 1 px offset and subtract) on the bands for the Normal gradient terms; `cop/channeljoin` plus a small expression for B = sqrt(1 - R2 - G2). (12 October 2026)
+- Point corrections (12 October 2026): points carrying the residual values (measured vector data, loaded from file in SOPs), rasterised to a 2048 grid at 1 px by a SOP Volume Rasterize Attributes or by 1 px quads in `cop/rasterizegeo` (quads multiply the element count by 4 points + 1 primitive), brought in through `cop/geotolayer-2.0`, then added to the base with `cop/blend` (add). No COP Blur softening may be applied to these layers, since the content lives below 1 px. (12 October 2026)
+
+## 6. Verdict (12 October 2026)
+
+Derivation alone settles three maps: Gloss (from Roughness), Specular (from Cavity, plus 26 169 shared-position points once Cavity is at 0.995) and Bump (from the displacement bands, plus 126 337 points because our displacement lacks its 1 to 4 px detail). It cannot settle Cavity or the Normal, which are independent of the 2K height at pixel scale (best derivation 0.51 and 0.52). The smallest set that must be reproduced at pixel level is therefore {Cavity, NormalR, NormalG}, and reaching 0.99 on it costs 4.57 million exact points (about 90 MB in Houdini), which is equivalent to storing about one full image and therefore breaks the spirit of the no-image rule even though each point is measured vector data. Reaching 0.99 with a non-image representation would require a generative model of the 8K micro-grain, which Pearson at full resolution cannot reward, since it demands exact phase. (12 October 2026)

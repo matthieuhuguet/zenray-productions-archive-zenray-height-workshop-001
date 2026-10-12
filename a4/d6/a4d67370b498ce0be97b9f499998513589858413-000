@@ -1,0 +1,66 @@
+# Approach B : compact Copernicus-native elements for pixel-scale content (12 October 2026)
+
+All numbers below are measured (12 October 2026), Pearson at full 2048 px against the original map, offline in numpy (no Houdini touched). Starting point for each map is its current result after an affine fit (a*F+b, which Pearson ignores anyway).
+
+| Map | Start (file) | Start Pearson |
+|---|---|---|
+| Cavity | `Cavity/versions/final/BrokenTiles_Cavity_H2/FINAL_height.png` | 0.8423 |
+| Specular | `Specular/versions/final/BrokenTiles_Specular_H2/FINAL_height.png` | 0.8325 |
+| Bump | `Bump/versions/final/BrokenTiles_Bump_H2/FINAL_height.png` | 0.9468 |
+| NormalR | `NormalR/versions/final/BrokenTiles_NormalR_H1/L14_regions_s4_p4.png` (pipeline still running, latest accepted layer) | 0.6991 |
+
+## Verdict (12 October 2026)
+
+- 0.99 is reachable on all four maps with additive splats and short oriented segments, and with far fewer elements AND bytes than the 2.5 million polygons (485 MB) per region pass. (12 October 2026)
+- But only Bump is genuinely compact (about 181 000 to 204 000 points, 4 to 5 percent of the pixel count). For Cavity, Specular and NormalR, 0.99 needs 1.0 to 1.75 million elements, i.e. 24 to 42 percent of the 4.19 million pixels, and the dominant atom is a sigma 0.35 px splat, which is a single pixel. Honestly stated: for those maps the element set is a sparse re-encoding of the image grain, close to storing the image (Specular: estimated packed size about 0.9 of the lossless image; Cavity about 0.5). (12 October 2026)
+- Curves (oriented segments) help only modestly: minus 6 to 18 percent elements at 0.99. The crack lines are a small share of the residual; the bulk is a pixel-scale grain spread over the whole surface (see `data/Cavity_crop_ref_cur_resid.png`, right panel). (12 October 2026)
+
+## Method (12 October 2026)
+
+- Residual E = reference minus current result. Greedy matching pursuit by FFT correlation with wrap (tileable): each iteration takes local maxima (3x3) of the best energy gain over the dictionary, keeps the top max(20 000, 15 percent) of them, subtracts amplitude x kernel, repeats until Pearson >= 0.995. Then a least-squares amplitude refit (25 conjugate-gradient iterations, positions fixed) at checkpoints, plus an 8-bit amplitude quantisation check. (12 October 2026)
+- Dictionary "iso": isotropic additive Gaussian splats, sigma 0.35, 0.7, 1.2, 2.0, 3.2 px, peak = amplitude. Dictionary "iso+seg": iso plus oriented segments (Gaussian along 2.0 px, about 7 px long; across 0.5 or 0.9 px; 8 orientations), the building block of a crack curve. (12 October 2026)
+- Scripts: `workflow_cavity/scripts/AtomPursuit.py` (final method), `SplatPursuit.py` (first separable version, 4 sigmas starting at 0.6, kept because its atoms are saved and used for byte counts), `ResidualStats.py`, `AtomBytes.py`, `Summarize.py`. Data: `workflow_cavity/data/summary.json`, `*_iso*_atoms.json`, `residual_stats.json`, `atom_bytes.json`. (12 October 2026)
+
+## Elements needed per Pearson target (greedy, 12 October 2026)
+
+| Map | Dict | 0.95 | 0.97 | 0.98 | 0.99 | 0.995 | of which segments at 0.99 |
+|---|---|---|---|---|---|---|---|
+| Cavity | iso | 434 685 | 771 507 | 1 008 547 | 1 501 318 | 2 000 740 | 0 |
+| Cavity | iso+seg | 404 479 | 686 627 | 936 525 | 1 409 510 | 1 950 702 | 548 104 |
+| Specular | iso | 564 719 | 931 006 | 1 183 157 | 1 749 034 | 2 249 746 | 0 |
+| Specular | iso+seg | 509 021 | 867 427 | 1 133 743 | 1 621 808 | 2 173 529 | 633 061 |
+| Bump | iso | 39 272 | 79 609 | 119 859 | 204 306 | 294 189 | 0 |
+| Bump | iso+seg | 29 602 | 57 294 | 86 388 | 180 791 | 284 186 | 91 331 |
+| NormalR | iso | 401 901 | 635 785 | 839 574 | 1 225 883 | 1 637 561 | 0 |
+| NormalR | iso+seg | 306 457 | 488 397 | 648 837 | 1 002 482 | 1 439 395 | 574 442 |
+
+Least-squares refit (same positions, 12 October 2026): Cavity iso+seg 991 169 elements 0.9850 (greedy about 0.980 at that count); Cavity iso 1 961 039 elements 0.9963; Specular iso+seg 1 958 328 elements 0.9959; NormalR iso+seg 988 789 elements 0.9920 (so NormalR reaches 0.99 with under 1 million elements after refit); Bump iso+seg 99 597 elements 0.9856. The refit gains about 0.004 to 0.005 at equal count, roughly 5 to 10 percent fewer elements for a given score. 8-bit amplitudes cost at most 0.0013 (NormalR), usually under 0.0002. (12 October 2026)
+
+Kernel usage tells the nature of the content (12 October 2026): on Cavity iso, 1 681 533 of 2 000 740 atoms are sigma 0.35 px (a one-pixel dot), 273 393 are 0.7 px, under 46 000 are wider. Same pattern on Specular and NormalR. On Bump, 237 290 of 294 189 are 0.35 px too, but there are 10 times fewer of them.
+
+## Cost and honesty about "storing the image" (12 October 2026)
+
+| Map | Elements at 0.99 (best) | Share of pixels | Raw bgeo (20 B per point: P, amp, pscale) | Packed atoms (lzma, measured on SplatPursuit atoms) | Reference image, 8-bit lossless lzma | Equivalent to storing the image ? |
+|---|---|---|---|---|---|---|
+| Bump | 180 791 | 4.3 % | 3.6 MB | about 0.22 to 0.39 MB (0.14 to 0.25 of image) | 1.54 MB | No, genuinely compact |
+| NormalR | about 990 000 (refit) | 24 % | 20 MB | about 1.2 to 1.3 MB (about 0.4 of image) | 3.26 MB | Partly; start is an unfinished 0.699, much of the residual is large-scale that region passes would take |
+| Cavity | 1 409 510 | 34 % | 28 MB | about 1.5 MB (about 0.5 of image) | 2.86 MB | Close to it: a sparse pixel encoding of the grain |
+| Specular | 1 621 808 | 39 % | 32 MB | about 1.7 to 1.9 MB (about 0.9 of image) | 1.95 MB | Yes, effectively the image |
+
+- Packed sizes for the 0.99 counts are estimates from the measured ratio of about 1.0 to 1.2 bytes per atom (positions delta-coded, kernel id, 8-bit amplitude, lzma) on the saved SplatPursuit atom sets at the same score levels; exact bytes at 0.95 to 0.98 are in `data/atom_bytes.json`. (12 October 2026)
+- Against the region passes: 1.4 million points at 20 B is about 28 MB, roughly 17 times smaller than one 485 MB pass and about 45 percent fewer elements than 2.5 million polygons; for Bump it is about 130 times smaller. (12 October 2026)
+- The oracle bound agrees (`data/residual_stats.json`, 12 October 2026): keeping the exact top-N residual pixels needs 1 456 949 pixels for Cavity at 0.99, 1 695 079 for Specular, 1 473 844 for NormalR, but only 111 405 for Bump. JPEG 8x8 block structure is not the cause (block-edge energy ratio 0.99 to 1.01), nor is 8-bit quantisation (ceiling 0.9977 on Specular, above 0.9998 elsewhere). The residual is real per-pixel grain of the scan, and Pearson at 2048 px demands that exact noise realisation; a procedural noise with matched statistics would lower Pearson, not raise it. (12 October 2026)
+- Specular cannot borrow Cavity's elements: even the reference Cavity, affinely mapped, only gives r = 0.988 on Specular, below 0.99. (12 October 2026)
+
+## Copernicus implementation, checked in the reference (12 October 2026)
+
+- Recommended: `cop/stamppoint` (Stamp Points). Points come in from SOPs (or `cop/sopimport`); parameters Blend Method = Add (`blend`, menu entry Add; there is also Subtract), Wrap Mode = On (`wrap`) with Tile Size matching the image, Space = Image Space, stamp layer = a small Gaussian built procedurally in the graph (no image import), per-point scale from pscale and per-point value from Cd as amplitude. Signed amplitudes: two stamp nodes (Add for positive, Subtract for negative) or one with a bias removed afterwards. Segments: same node with stretch and angle attributes (`cop/configurestamps` provides Stretch X/Y and Angle), so a segment is still one point. Then a Blend (add) onto the current height. (12 October 2026)
+- `cop/rasterizecurves` (Units = Pixels, Width Attribute `width`, rasterises an arbitrary attribute such as a value) and `cop/layerfromcurves` (Width, Profile ramp) can draw cracks as curves, but overlaps resolve by depth sample, not by summation, so an additive residual model would need non-overlapping curve sets; fine for a few long cracks, not for this grain. (12 October 2026)
+- `cop/rasterizegsplats` reads P, Cd, GS_Alpha, orient, scale, but composites by alpha (front to back), not additively, so it does not reproduce a signed additive sum without workarounds; Stamp Points with Add is the exact match of what was simulated. (12 October 2026)
+- Node count per layer: SOP points (or sopimport) + 1 or 2 stamppoint + 1 small Gaussian kernel generator + 1 blend. Not verified in Houdini (Houdini busy, per instructions). (12 October 2026)
+
+## Recommendation (12 October 2026)
+
+- Bump: adopt splat pursuit as a final layer (about 180 000 to 200 000 points, a few MB, 0.947 to 0.99), after improving the reproduced displacement it derives from. (12 October 2026)
+- NormalR: let the running pipeline finish first; the splat layer should then only carry the pixel residual, likely well under 1 million points. (12 October 2026)
+- Cavity and Specular: 0.99 at 2048 px is reachable only by encoding about a third of the pixels individually, which is honest to call a stored image in vector form. If that is acceptable, the cheapest form is points with 8-bit amplitude (about 1.5 to 1.9 MB packed, 28 to 32 MB raw bgeo). Otherwise the target metric for these two maps should be stated at a scale above the grain (for example Pearson after a 2x box downsample, or band-limited Pearson), which is Matthieu's call, not mine. (12 October 2026)

@@ -1,0 +1,88 @@
+{
+ "maps": [
+  {
+   "map": "Displacement",
+   "how": "regions (existing H2)",
+   "pearson_full": 0.9988,
+   "new_points": 0
+  },
+  {
+   "map": "AO",
+   "how": "regions (existing H2)",
+   "pearson_full": 0.9905,
+   "new_points": 0
+  },
+  {
+   "map": "Roughness",
+   "how": "H2 + points",
+   "pearson_full": 0.99,
+   "new_points": 105007
+  },
+  {
+   "map": "Gloss",
+   "how": "1 - Roughness (one Remap)",
+   "pearson_full": 0.9891,
+   "new_points": 0
+  },
+  {
+   "map": "Cavity",
+   "how": "H2 + points",
+   "pearson_full": 0.995,
+   "new_points": 1901755
+  },
+  {
+   "map": "Specular",
+   "how": "a*Cavity+b (Remap) + extra points on cavity positions",
+   "pearson_full": 0.99,
+   "new_points": 26169
+  },
+  {
+   "map": "Bump",
+   "how": "bands(Disp)+H2 Bump (weighted blurs) + points",
+   "pearson_full": 0.99,
+   "new_points": 126337
+  },
+  {
+   "map": "NormalR",
+   "how": "grad bands(Disp) + H1 snapshot + points",
+   "pearson_full": 0.99,
+   "new_points": 1295857
+  },
+  {
+   "map": "NormalG",
+   "how": "grad bands(Disp) + points (shares NormalR positions)",
+   "pearson_full": 0.99,
+   "new_points": 1062749
+  },
+  {
+   "map": "Normal (rebuilt B)",
+   "pearson_B": 0.9232,
+   "mean_angle_deg": 2.54
+  }
+ ],
+ "cost": {
+  "point_sets": {
+   "cavity_spec": 1927924,
+   "rough": 105007,
+   "bump": 126337,
+   "normal": 2358606
+  },
+  "total_points": 4517874,
+  "union_pixels": 2997459,
+  "union_fraction_of_image": 0.715,
+  "bytes_houdini_float": 89432104,
+  "bytes_compact_index_u8": 26875900,
+  "equivalent_8bit_images": 1.08
+ },
+ "jpeg": {
+  "spec_resid_boundary_over_inner_step": 0.923,
+  "Cavity_boundary_over_inner_step": 0.998,
+  "Cavity_distinct_levels": 163,
+  "Specular_boundary_over_inner_step": 0.991,
+  "Specular_distinct_levels": 49,
+  "Bump_boundary_over_inner_step": 1.01,
+  "Bump_distinct_levels": 256,
+  "spec_quant_var_fraction": 0.0045,
+  "spec_resid_var_fraction": 0.0242
+ }
+}

@@ -1,0 +1,207 @@
+[
+ {
+  "name": "Cavity <- repro Cavity",
+  "block": 1,
+  "base_pearson": 0.8423,
+  "forced_points": 0,
+  "K_0.99": 1456395,
+  "extra_K_0.99": 1456395,
+  "K_0.995": 1901755,
+  "extra_K_0.995": 1901755,
+  "resid_var_below_1px": 0.85
+ },
+ {
+  "name": "Cavity <- repro Cavity, 2x2 cells",
+  "block": 2,
+  "base_pearson": 0.8423,
+  "K_0.99": null,
+  "K_0.995": null,
+  "ceiling_all_cells": 0.872
+ },
+ {
+  "name": "Cavity <- repro Cavity, 4x4 cells",
+  "block": 4,
+  "base_pearson": 0.8423,
+  "K_0.99": null,
+  "K_0.995": null,
+  "ceiling_all_cells": 0.8481
+ },
+ {
+  "name": "Specular <- repro Specular",
+  "block": 1,
+  "base_pearson": 0.8325,
+  "forced_points": 0,
+  "K_0.99": 1693453,
+  "extra_K_0.99": 1693453,
+  "K_0.995": 2145385,
+  "extra_K_0.995": 2145385,
+  "resid_var_below_1px": 0.849
+ },
+ {
+  "name": "Specular <- lin(ref Cavity) [ideal cavity]",
+  "block": 1,
+  "base_pearson": 0.9878,
+  "forced_points": 0,
+  "K_0.99": 84169,
+  "extra_K_0.99": 84169,
+  "K_0.995": 544788,
+  "extra_K_0.995": 544788,
+  "resid_var_below_1px": 0.774
+ },
+ {
+  "name": "Specular <- lin(Cavity fixed @0.99)",
+  "block": 1,
+  "base_pearson": 0.9778,
+  "forced_points": 0,
+  "K_0.99": 553288,
+  "extra_K_0.99": 553288,
+  "K_0.995": 1137832,
+  "extra_K_0.995": 1137832,
+  "resid_var_below_1px": 0.769
+ },
+ {
+  "name": "Specular <- lin(Cavity fixed @0.99), points shared",
+  "block": 1,
+  "base_pearson": 0.9778,
+  "forced_points": 1456395,
+  "pearson_with_forced": 0.9827,
+  "K_0.99": 1715195,
+  "extra_K_0.99": 258800,
+  "K_0.995": 2136392,
+  "extra_K_0.995": 679997,
+  "resid_var_below_1px": 0.769
+ },
+ {
+  "name": "Specular <- lin(Cavity fixed @0.995), points shared",
+  "block": 1,
+  "base_pearson": 0.9829,
+  "forced_points": 1901755,
+  "pearson_with_forced": 0.9889,
+  "K_0.99": 1927924,
+  "extra_K_0.99": 26169,
+  "K_0.995": 2233698,
+  "extra_K_0.995": 331943,
+  "resid_var_below_1px": 0.768
+ },
+ {
+  "name": "Specular <- lin(Cavity fixed @0.995)",
+  "block": 1,
+  "base_pearson": 0.9829,
+  "forced_points": 0,
+  "K_0.99": 330754,
+  "extra_K_0.99": 330754,
+  "K_0.995": 904656,
+  "extra_K_0.995": 904656,
+  "resid_var_below_1px": 0.768
+ },
+ {
+  "name": "Bump <- repro Bump",
+  "block": 1,
+  "base_pearson": 0.9468,
+  "forced_points": 0,
+  "K_0.99": 109669,
+  "extra_K_0.99": 109669,
+  "K_0.995": 237740,
+  "extra_K_0.995": 237740,
+  "resid_var_below_1px": 0.754
+ },
+ {
+  "name": "Bump <- bands(repro Displacement)",
+  "block": 1,
+  "base_pearson": 0.9253,
+  "forced_points": 0,
+  "K_0.99": 297290,
+  "extra_K_0.99": 297290,
+  "K_0.995": 544482,
+  "extra_K_0.995": 544482,
+  "resid_var_below_1px": 0.767
+ },
+ {
+  "name": "Bump <- bands(repro Disp) + repro Bump",
+  "block": 1,
+  "base_pearson": 0.9545,
+  "forced_points": 0,
+  "K_0.99": 126337,
+  "extra_K_0.99": 126337,
+  "K_0.995": 282867,
+  "extra_K_0.995": 282867,
+  "resid_var_below_1px": 0.781
+ },
+ {
+  "name": "Bump <- bands(ref Displacement) [ideal disp]",
+  "block": 1,
+  "base_pearson": 0.9884,
+  "forced_points": 0,
+  "K_0.99": 11869,
+  "extra_K_0.99": 11869,
+  "K_0.995": 362819,
+  "extra_K_0.995": 362819,
+  "resid_var_below_1px": 0.725
+ },
+ {
+  "name": "NormalR <- repro NormalR H1 snapshot L20_regions_s2_p2.png",
+  "block": 1,
+  "base_pearson": 0.7705,
+  "forced_points": 0,
+  "K_0.99": 1321470,
+  "extra_K_0.99": 1321470,
+  "K_0.995": 1708762,
+  "extra_K_0.995": 1708762,
+  "resid_var_below_1px": 0.565
+ },
+ {
+  "name": "NormalR <- grad bands(repro Disp) + repro NormalR",
+  "block": 1,
+  "base_pearson": 0.7852,
+  "forced_points": 0,
+  "K_0.99": 1295857,
+  "extra_K_0.99": 1295857,
+  "K_0.995": 1682336,
+  "extra_K_0.995": 1682336,
+  "resid_var_below_1px": 0.573
+ },
+ {
+  "name": "NormalG <- grad bands(repro Disp)",
+  "block": 1,
+  "base_pearson": 0.5095,
+  "forced_points": 0,
+  "K_0.99": 2068755,
+  "extra_K_0.99": 2068755,
+  "K_0.995": 2471653,
+  "extra_K_0.995": 2471653,
+  "resid_var_below_1px": 0.3
+ },
+ {
+  "name": "Roughness <- repro Roughness",
+  "block": 1,
+  "base_pearson": 0.9843,
+  "forced_points": 0,
+  "K_0.99": 105007,
+  "extra_K_0.99": 105007,
+  "K_0.995": 458494,
+  "extra_K_0.995": 458494,
+  "resid_var_below_1px": 0.788
+ },
+ {
+  "name": "AO <- repro AO",
+  "block": 1,
+  "base_pearson": 0.9905,
+  "forced_points": 0,
+  "K_0.99": 0,
+  "extra_K_0.99": 0,
+  "K_0.995": 138131,
+  "extra_K_0.995": 138131,
+  "resid_var_below_1px": 0.785
+ },
+ {
+  "name": "Displacement <- repro Displacement",
+  "block": 1,
+  "base_pearson": 0.9988,
+  "forced_points": 0,
+  "K_0.99": 0,
+  "extra_K_0.99": 0,
+  "K_0.995": 0,
+  "extra_K_0.995": 0,
+  "resid_var_below_1px": 0.351
+ }
+]
