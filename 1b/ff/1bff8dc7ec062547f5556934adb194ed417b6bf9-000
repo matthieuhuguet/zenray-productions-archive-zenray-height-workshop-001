@@ -1,0 +1,8 @@
+# BrokenTiles_NormalG, height reproduite (12 October 2026)
+
+- Ressemblance en pleine résolution : 0.9153 (SSIM 0.7918, erreur moyenne 0.0288)
+- Raccord au bord x ; y : 0.84 ; 0.88 (couche de raccord : non)
+- Height : `/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/NormalG/versions/final/BrokenTiles_NormalG_H2/FINAL_height.png`
+- Graphe Houdini : `/obj/ZRH_BrokenTiles_NormalG`
+- Zoom de contrôle : `/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/NormalG/zoom3_reference_vs_result.png`
+- Durée : 9.8 min
