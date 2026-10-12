@@ -1,0 +1,329 @@
+{
+ "name": "BrokenTiles_Roughness_H2",
+ "net": "/obj/ZRH_BrokenTiles_Roughness",
+ "reference": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Roughness/refs/BrokenTiles_Roughness_height_2048.png",
+ "layers": [
+  {
+   "local": {
+    "ok": true,
+    "pixels": 83389,
+    "before": 0.0956,
+    "after": 0.051,
+    "ls_gain": 1.969
+   },
+   "layer": "pix_s05_k16",
+   "status": "accepted",
+   "score": 0.9017,
+   "gain": 0.0031,
+   "summary": {
+    "pearson": 0.9785,
+    "mae": 0.0297,
+    "low32": 1.0,
+    "b1-2": 0.9475,
+    "b4-8": 0.9993,
+    "b16-32": 0.9999,
+    "q25": 0.8677,
+    "q75": 0.6803,
+    "lines": 0.437,
+    "struct": 0.91,
+    "detail": 0.845
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 19363 regions",
+   "seconds": 7.8,
+   "nodes": 135,
+   "timing": {
+    "kept_layers": 24,
+    "new_layers": 1,
+    "t_nodes": 0.38,
+    "t_cook_export": 1.06
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Roughness/versions/final/BrokenTiles_Roughness_H2/L01_pix_s05_k16.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.482,
+    "D_joint_profile_corr": 0.9968,
+    "D_joint_profile_mae_pct": 0.048,
+    "G_band_energy_ratio": {
+     "1-2": 0.879,
+     "2-4": 1.013,
+     "4-8": 1.023,
+     "8-16": 1.024,
+     "16-32": 1.025
+    },
+    "F_residual_w1_pct": 2.273,
+    "F_residual_std_ratio": 0.681,
+    "J_rmse": 0.0449,
+    "J_floor_if_stochastic": 0.0884
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 22540,
+    "before": 0.0943,
+    "after": 0.0509,
+    "ls_gain": 1.964
+   },
+   "layer": "pix_s05_k16_p2",
+   "status": "accepted",
+   "score": 0.9025,
+   "gain": 0.0008,
+   "summary": {
+    "pearson": 0.9789,
+    "mae": 0.0294,
+    "low32": 1.0,
+    "b1-2": 0.9495,
+    "b4-8": 0.9993,
+    "b16-32": 0.9999,
+    "q25": 0.8689,
+    "q75": 0.6818,
+    "lines": 0.444,
+    "struct": 0.91,
+    "detail": 0.847
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 10588 regions",
+   "seconds": 7.6,
+   "nodes": 140,
+   "timing": {
+    "kept_layers": 25,
+    "new_layers": 1,
+    "t_nodes": 0.18,
+    "t_cook_export": 1.25
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Roughness/versions/final/BrokenTiles_Roughness_H2/L02_pix_s05_k16_p2.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.471,
+    "D_joint_profile_corr": 0.9969,
+    "D_joint_profile_mae_pct": 0.043,
+    "G_band_energy_ratio": {
+     "1-2": 0.885,
+     "2-4": 1.015,
+     "4-8": 1.023,
+     "8-16": 1.024,
+     "16-32": 1.024
+    },
+    "F_residual_w1_pct": 2.253,
+    "F_residual_std_ratio": 0.687,
+    "J_rmse": 0.0444,
+    "J_floor_if_stochastic": 0.0884
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 6309,
+    "before": 0.0958,
+    "after": 0.053,
+    "ls_gain": 1.994
+   },
+   "layer": "pix_s05_k16_p3",
+   "status": "rejected",
+   "score": 0.9028,
+   "gain": 0.0002,
+   "summary": {
+    "pearson": 0.979,
+    "mae": 0.0294,
+    "low32": 1.0,
+    "b1-2": 0.9501,
+    "b4-8": 0.9993,
+    "b16-32": 0.9999,
+    "q25": 0.8693,
+    "q75": 0.6821,
+    "lines": 0.445,
+    "struct": 0.91,
+    "detail": 0.848
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 6106 regions",
+   "seconds": 7.0,
+   "nodes": 145,
+   "timing": {
+    "kept_layers": 26,
+    "new_layers": 1,
+    "t_nodes": 0.11,
+    "t_cook_export": 1.09
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 214324,
+    "before": 0.0674,
+    "after": 0.0306,
+    "ls_gain": 1.781
+   },
+   "layer": "pix_s05_k16_m3",
+   "status": "accepted",
+   "score": 0.911,
+   "gain": 0.0085,
+   "summary": {
+    "pearson": 0.9815,
+    "mae": 0.0275,
+    "low32": 1.0,
+    "b1-2": 0.9598,
+    "b4-8": 0.9994,
+    "b16-32": 0.9999,
+    "q25": 0.8763,
+    "q75": 0.694,
+    "lines": 0.479,
+    "struct": 0.914,
+    "detail": 0.859
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 216131 regions",
+   "seconds": 15.4,
+   "nodes": 145,
+   "timing": {
+    "kept_layers": 26,
+    "new_layers": 1,
+    "t_nodes": 2.79,
+    "t_cook_export": 1.04
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Roughness/versions/final/BrokenTiles_Roughness_H2/L03_pix_s05_k16_m3.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.402,
+    "D_joint_profile_corr": 0.9973,
+    "D_joint_profile_mae_pct": 0.065,
+    "G_band_energy_ratio": {
+     "1-2": 0.905,
+     "2-4": 1.014,
+     "4-8": 1.02,
+     "8-16": 1.02,
+     "16-32": 1.02
+    },
+    "F_residual_w1_pct": 2.076,
+    "F_residual_std_ratio": 0.715,
+    "J_rmse": 0.0416,
+    "J_floor_if_stochastic": 0.0884
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 168917,
+    "before": 0.0585,
+    "after": 0.0253,
+    "ls_gain": 1.708
+   },
+   "layer": "pix_s05_k16_m3_p2",
+   "status": "accepted",
+   "score": 0.9168,
+   "gain": 0.0058,
+   "summary": {
+    "pearson": 0.983,
+    "mae": 0.0261,
+    "low32": 1.0,
+    "b1-2": 0.9652,
+    "b4-8": 0.9994,
+    "b16-32": 0.9999,
+    "q25": 0.8818,
+    "q75": 0.7048,
+    "lines": 0.505,
+    "struct": 0.917,
+    "detail": 0.867
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 190701 regions",
+   "seconds": 15.8,
+   "nodes": 150,
+   "timing": {
+    "kept_layers": 27,
+    "new_layers": 1,
+    "t_nodes": 2.21,
+    "t_cook_export": 1.55
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Roughness/versions/final/BrokenTiles_Roughness_H2/L04_pix_s05_k16_m3_p2.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.348,
+    "D_joint_profile_corr": 0.9975,
+    "D_joint_profile_mae_pct": 0.04,
+    "G_band_energy_ratio": {
+     "1-2": 0.917,
+     "2-4": 1.013,
+     "4-8": 1.017,
+     "8-16": 1.017,
+     "16-32": 1.017
+    },
+    "F_residual_w1_pct": 1.949,
+    "F_residual_std_ratio": 0.735,
+    "J_rmse": 0.0398,
+    "J_floor_if_stochastic": 0.0884
+   }
+  },
+  {
+   "local": null,
+   "layer": "eq",
+   "status": "accepted",
+   "score": 0.9212,
+   "gain": 0.0044,
+   "summary": {
+    "pearson": 0.9843,
+    "mae": 0.0255,
+    "low32": 1.0,
+    "b1-2": 0.9691,
+    "b4-8": 0.9994,
+    "b16-32": 0.9999,
+    "q25": 0.8855,
+    "q75": 0.711,
+    "lines": 0.523,
+    "struct": 0.919,
+    "detail": 0.872
+   },
+   "note": "frequency equaliser, least squares at full resolution",
+   "seconds": 7.0,
+   "nodes": 164,
+   "timing": {
+    "kept_layers": 28,
+    "new_layers": 1,
+    "t_nodes": 0.01,
+    "t_cook_export": 1.54
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Roughness/versions/final/BrokenTiles_Roughness_H2/L05_eq.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.338,
+    "D_joint_profile_corr": 0.9974,
+    "D_joint_profile_mae_pct": 0.043,
+    "G_band_energy_ratio": {
+     "1-2": 0.974,
+     "2-4": 0.992,
+     "4-8": 1.002,
+     "8-16": 1.012,
+     "16-32": 1.016
+    },
+    "F_residual_w1_pct": 1.652,
+    "F_residual_std_ratio": 0.798,
+    "J_rmse": 0.0383,
+    "J_floor_if_stochastic": 0.0884
+   }
+  },
+  {
+   "local": null,
+   "layer": "hist",
+   "status": "rejected",
+   "score": 0.9212,
+   "gain": -0.0,
+   "summary": {
+    "pearson": 0.9843,
+    "mae": 0.0255,
+    "low32": 1.0,
+    "b1-2": 0.9691,
+    "b4-8": 0.9993,
+    "b16-32": 0.9999,
+    "q25": 0.8858,
+    "q75": 0.7104,
+    "lines": 0.522,
+    "struct": 0.919,
+    "detail": 0.872
+   },
+   "note": "histogram matched to reference",
+   "seconds": 6.8,
+   "nodes": 165,
+   "timing": {
+    "kept_layers": 29,
+    "new_layers": 1,
+    "t_nodes": 0.01,
+    "t_cook_export": 1.57
+   }
+  }
+ ],
+ "cells": [
+  1,
+  1
+ ]
+}
