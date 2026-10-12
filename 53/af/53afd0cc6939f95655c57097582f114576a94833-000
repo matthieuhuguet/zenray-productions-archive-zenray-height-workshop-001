@@ -1,0 +1,14 @@
+{
+ "path": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/AO/status.json",
+ "name": "BrokenTiles_AO",
+ "work": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/AO",
+ "started": "2026-10-12 02:24:41",
+ "pid": 81303,
+ "step": "done",
+ "detail": "pearson 0.9905 in 8.0 min",
+ "state": "done",
+ "updated": "2026-10-12 02:32:41",
+ "elapsed_s": 480.6,
+ "layers_done": 37,
+ "report": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/AO/report.json"
+}

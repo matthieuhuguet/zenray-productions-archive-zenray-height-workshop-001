@@ -1,0 +1,21 @@
+{
+ "name": "BrokenTiles_AO",
+ "work": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/AO",
+ "net": "/obj/ZRH_BrokenTiles_AO",
+ "height": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/AO/versions/final/BrokenTiles_AO_H2/FINAL_height.png",
+ "pearson_full": 0.9905,
+ "ssim_full": 0.8849,
+ "mae": 0.0175,
+ "seam_xy": [
+  0.82,
+  0.82
+ ],
+ "seam_layer": false,
+ "zoom": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/AO/zoom3_reference_vs_result.png",
+ "boards": [
+  "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/AO/versions/final/BrokenTiles_AO_H1/board/Evolution.html",
+  "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/AO/versions/final/BrokenTiles_AO_H2/board/Evolution.html"
+ ],
+ "basecolor": null,
+ "minutes": 8.0
+}
