@@ -1,0 +1,9 @@
+# BrokenTiles_Displacement, height reproduite (12 October 2026)
+
+- Ressemblance en pleine résolution : 0.9988 (SSIM 0.9911, erreur moyenne 0.0027)
+- Raccord au bord x ; y : 0.64 ; 0.79 (couche de raccord : non)
+- Height : `/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Displacement/versions/final/BrokenTiles_Displacement_H2/FINAL_height.png`
+- Graphe Houdini : `/obj/ZRH_BrokenTiles_Displacement`
+- Zoom de contrôle : `/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Displacement/zoom3_reference_vs_result.png`
+- Durée : 9.0 min
+- Base color : écart de couleur 4.27, image `/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Displacement/versions/final/BrokenTiles_Displacement_BC/FINAL_basecolor.png`, graphe `/obj/ZRH_BrokenTiles_Displacement_BC`
