@@ -1,0 +1,21 @@
+{
+ "name": "BrokenTiles_Roughness",
+ "work": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Roughness",
+ "net": "/obj/ZRH_BrokenTiles_Roughness",
+ "height": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Roughness/versions/final/BrokenTiles_Roughness_H2/FINAL_height.png",
+ "pearson_full": 0.9843,
+ "ssim_full": 0.7898,
+ "mae": 0.0255,
+ "seam_xy": [
+  0.87,
+  1.0
+ ],
+ "seam_layer": false,
+ "zoom": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Roughness/zoom3_reference_vs_result.png",
+ "boards": [
+  "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Roughness/versions/final/BrokenTiles_Roughness_H1/board/Evolution.html",
+  "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Roughness/versions/final/BrokenTiles_Roughness_H2/board/Evolution.html"
+ ],
+ "basecolor": null,
+ "minutes": 8.0
+}

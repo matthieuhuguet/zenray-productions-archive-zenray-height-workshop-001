@@ -1,0 +1,14 @@
+{
+ "path": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Roughness/status.json",
+ "name": "BrokenTiles_Roughness",
+ "work": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Roughness",
+ "started": "2026-10-12 02:16:42",
+ "pid": 68287,
+ "step": "done",
+ "detail": "pearson 0.9843 in 8.0 min",
+ "state": "done",
+ "updated": "2026-10-12 02:24:41",
+ "elapsed_s": 479.0,
+ "layers_done": 37,
+ "report": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Roughness/report.json"
+}
