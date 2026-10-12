@@ -1,0 +1,21 @@
+{
+ "before": {
+  "seam": {
+   "wrap_x": 0.0002912625460567142,
+   "inner_x_median": 0.04282739487359777,
+   "ratio_x": 0.006800846675740059,
+   "wrap_y": 1.2621476230378903e-05,
+   "inner_y_median": 0.01345230341394199,
+   "ratio_y": 0.0009382390392189625
+  },
+  "pearson": 0.9977853894233704
+ },
+ "layer": {
+  "type": "seam",
+  "shift_x": 0.0,
+  "shift_y": 0.0,
+  "width": 0.00390625,
+  "note": "tileable borders, cross-fade with the wrapped copy shifted by whole cells"
+ },
+ "applied": false
+}
