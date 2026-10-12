@@ -1,0 +1,14 @@
+{
+ "path": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/HeightJavier/status.json",
+ "name": "HeightJavier",
+ "work": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/HeightJavier",
+ "started": "2026-10-12 03:14:22",
+ "pid": 77935,
+ "step": "done",
+ "detail": "pearson 0.9937 in 9.9 min",
+ "state": "done",
+ "updated": "2026-10-12 03:24:13",
+ "elapsed_s": 591.1,
+ "layers_done": 37,
+ "report": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/HeightJavier/report.json"
+}
