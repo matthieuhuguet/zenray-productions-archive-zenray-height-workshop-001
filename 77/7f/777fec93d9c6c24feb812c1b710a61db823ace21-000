@@ -1,0 +1,15 @@
+#!/bin/zsh
+# 12 October 2026 : Megascans Broken Tiles, the height protocol applied to every independent map, one after the other
+B=/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles
+R=/Users/zenray/.claude/skills/zenray-houdini/scripts/height/reproduce.sh
+S=$B/src/Broken_Tiles_smvnfc2p_2K
+run() { mkdir -p $B/$1; $R --input $2 --name BrokenTiles_$1 --work $B/$1 ${@:3} > $B/$1/run.log 2>&1; echo "$1 done $(date +%H:%M) $(grep -o 'pearson [0-9.]* in [0-9.]* min' $B/$1/run.log | tail -1)"; }
+run Displacement ${S}_Displacement.jpg --basecolor ${S}_BaseColor.jpg
+run Roughness ${S}_Roughness.jpg --no-basecolor
+run AO ${S}_AO.jpg --no-basecolor
+run Cavity ${S}_Cavity.jpg --no-basecolor
+run Bump ${S}_Bump.jpg --no-basecolor
+run Specular ${S}_Specular.jpg --no-basecolor
+run NormalR $B/src/NormalR.png --no-basecolor
+run NormalG $B/src/NormalG.png --no-basecolor
+echo "ALL DONE $(date +%H:%M)"
