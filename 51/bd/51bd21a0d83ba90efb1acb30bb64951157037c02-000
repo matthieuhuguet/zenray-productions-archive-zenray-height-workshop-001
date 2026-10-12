@@ -1,0 +1,36 @@
+# 12 October 2026 : Megascans Broken Tiles, every map measured at full resolution against the original. Gloss is derived as
+# 1 - Roughness (one Remap in Copernicus); the normal is rebuilt from the reproduced R and G channels (B = sqrt(1 - x2 - y2)).
+import json, os, sys
+sys.path.insert(0, '/Users/zenray/.claude/skills/zenray-houdini/scripts/height')
+import numpy as np
+from PIL import Image
+import MeasureColor as MC
+B = '/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles'
+S = B + '/src/Broken_Tiles_smvnfc2p_2K_'
+g = lambda p: np.asarray(Image.open(p).convert('L'), np.float32) / 255.0 if p.endswith('.jpg') else (lambda a: a / (65535.0 if a.max() > 255 else 255.0))(np.asarray(Image.open(p), np.float32))
+pc = lambda a, b: float(np.corrcoef(a.ravel(), b.ravel())[0, 1])
+res = lambda m: f'{B}/{m}/versions/final/BrokenTiles_{m}_H2/FINAL_height.png'
+out = {}
+for m in ('Displacement', 'Roughness', 'AO', 'Cavity', 'Bump', 'Specular'):
+    if os.path.exists(res(m)):
+        r, c = g(S + m + '.jpg'), g(res(m))
+        out[m] = {'pearson_full': round(pc(c, r), 4), 'mae': round(float(np.abs(c - r).mean()), 4)}
+if os.path.exists(res('Roughness')):
+    out['Gloss (1 - Roughness)'] = {'pearson_full': round(pc(1 - g(res('Roughness')), g(S + 'Gloss.jpg')), 4)}
+if os.path.exists(res('NormalR')) and os.path.exists(res('NormalG')):
+    ref = np.asarray(Image.open(S + 'Normal.jpg').convert('RGB'), np.float32) / 255.0 * 2 - 1
+    x, y = g(res('NormalR')) * 2 - 1, g(res('NormalG')) * 2 - 1
+    z = np.sqrt(np.clip(1 - x * x - y * y, 0, 1))
+    n = np.stack([x, y, z], -1)
+    rn = ref / np.linalg.norm(ref, axis=-1, keepdims=True)
+    ang = np.degrees(np.arccos(np.clip((n * rn).sum(-1) / np.linalg.norm(n, axis=-1), -1, 1)))
+    out['Normal'] = {'pearson_R': round(pc(n[..., 0], ref[..., 0]), 4), 'pearson_G': round(pc(n[..., 1], ref[..., 1]), 4), 'pearson_B': round(pc(n[..., 2], ref[..., 2]), 4), 'mean_angle_deg': round(float(ang.mean()), 2)}
+    Image.fromarray(((n + 1) / 2 * 255).clip(0, 255).astype(np.uint8)).save(B + '/Normal_rebuilt.png')
+bc = f'{B}/Displacement/versions/final/BrokenTiles_Displacement_BC/FINAL_basecolor.png'
+if os.path.exists(bc):
+    ref = np.asarray(Image.open(S + 'BaseColor.jpg').convert('RGB').resize((2048, 2048)), np.float32) / 255.0
+    c = np.asarray(Image.open(bc).convert('RGB'), np.float32) / 255.0
+    m = MC.measure_color(c, ref, np.ones(ref.shape[:2], bool))
+    out['BaseColor'] = {'deltaE76_mean': round(m['deltaE76_mean'], 2), 'lum_pearson': round(m['lum_pearson'], 4), 'rgb_pearson': round(pc(c, ref), 4)}
+json.dump(out, open(B + '/MeasureAll.json', 'w'), indent=1)
+print(json.dumps(out, indent=1))
