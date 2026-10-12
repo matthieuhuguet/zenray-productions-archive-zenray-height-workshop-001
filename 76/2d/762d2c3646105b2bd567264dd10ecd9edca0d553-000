@@ -1,0 +1,14 @@
+{
+ "path": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/MosaicHeight17s/status.json",
+ "name": "MosaicHeight17s",
+ "work": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/MosaicHeight17s",
+ "started": "2026-10-12 01:31:42",
+ "pid": 87856,
+ "step": "done",
+ "detail": "pearson 0.9961 in 11.4 min",
+ "state": "done",
+ "updated": "2026-10-12 01:43:04",
+ "elapsed_s": 681.9,
+ "layers_done": 37,
+ "report": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/MosaicHeight17s/report.json"
+}
