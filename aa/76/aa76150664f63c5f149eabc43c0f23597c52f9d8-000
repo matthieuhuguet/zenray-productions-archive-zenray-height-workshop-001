@@ -1,0 +1,52 @@
+{
+ "name": "BrokenTiles_Displacement_BC",
+ "net": "/obj/ZRH_BrokenTiles_Displacement_BC",
+ "reference": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Displacement/refs/BrokenTiles_Displacement_basecolor_2048.png",
+ "layers": [
+  {
+   "layer": "glaze",
+   "status": "accepted",
+   "deltaE76_mean": 16.621,
+   "lum_pearson": 0.0,
+   "seconds": 1.6,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Displacement/versions/final/BrokenTiles_Displacement_BC/L01_glaze.png"
+  },
+  {
+   "layer": "colours_k6_256",
+   "status": "accepted",
+   "deltaE76_mean": 7.553,
+   "lum_pearson": 0.6782,
+   "seconds": 2.1,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Displacement/versions/final/BrokenTiles_Displacement_BC/L02_colours_k6_256.png"
+  },
+  {
+   "layer": "colours_k10_512",
+   "status": "accepted",
+   "deltaE76_mean": 6.118,
+   "lum_pearson": 0.7684,
+   "seconds": 4.4,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Displacement/versions/final/BrokenTiles_Displacement_BC/L03_colours_k10_512.png"
+  },
+  {
+   "layer": "colours_k14_1024",
+   "status": "accepted",
+   "deltaE76_mean": 5.111,
+   "lum_pearson": 0.8386,
+   "seconds": 10.7,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Displacement/versions/final/BrokenTiles_Displacement_BC/L04_colours_k14_1024.png"
+  },
+  {
+   "layer": "colours_k20_2048",
+   "status": "accepted",
+   "deltaE76_mean": 4.27,
+   "lum_pearson": 0.8965,
+   "seconds": 33.6,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Displacement/versions/final/BrokenTiles_Displacement_BC/L05_colours_k20_2048.png"
+  }
+ ],
+ "final": {
+  "deltaE76_mean": 4.27,
+  "lum_pearson": 0.8965,
+  "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Displacement/versions/final/BrokenTiles_Displacement_BC/FINAL_basecolor.png"
+ }
+}

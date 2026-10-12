@@ -1,0 +1,14 @@
+{
+ "path": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Displacement/status.json",
+ "name": "BrokenTiles_Displacement",
+ "work": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Displacement",
+ "started": "2026-10-12 02:07:43",
+ "pid": 55284,
+ "step": "done",
+ "detail": "pearson 0.9988 in 9.0 min",
+ "state": "done",
+ "updated": "2026-10-12 02:16:42",
+ "elapsed_s": 538.2,
+ "layers_done": 37,
+ "report": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Displacement/report.json"
+}
