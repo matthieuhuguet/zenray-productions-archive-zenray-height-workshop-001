@@ -1,0 +1,14 @@
+{
+ "path": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Specular/status.json",
+ "name": "BrokenTiles_Specular",
+ "work": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Specular",
+ "started": "2026-10-12 02:49:28",
+ "pid": 24816,
+ "step": "done",
+ "detail": "pearson 0.8325 in 8.2 min",
+ "state": "done",
+ "updated": "2026-10-12 02:57:39",
+ "elapsed_s": 490.8,
+ "layers_done": 37,
+ "report": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Specular/report.json"
+}
