@@ -1,0 +1,21 @@
+{
+ "name": "BrokenTiles_NormalR",
+ "work": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/NormalR",
+ "net": "/obj/ZRH_BrokenTiles_NormalR",
+ "height": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/NormalR/versions/final/BrokenTiles_NormalR_H2/FINAL_height.png",
+ "pearson_full": 0.9205,
+ "ssim_full": 0.7827,
+ "mae": 0.0287,
+ "seam_xy": [
+  0.83,
+  0.91
+ ],
+ "seam_layer": false,
+ "zoom": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/NormalR/zoom3_reference_vs_result.png",
+ "boards": [
+  "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/NormalR/versions/final/BrokenTiles_NormalR_H1/board/Evolution.html",
+  "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/NormalR/versions/final/BrokenTiles_NormalR_H2/board/Evolution.html"
+ ],
+ "basecolor": null,
+ "minutes": 16.4
+}

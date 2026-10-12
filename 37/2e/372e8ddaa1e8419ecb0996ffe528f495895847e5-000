@@ -1,0 +1,14 @@
+{
+ "path": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/NormalR/status.json",
+ "name": "BrokenTiles_NormalR",
+ "work": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/NormalR",
+ "started": "2026-10-12 02:57:39",
+ "pid": 47110,
+ "step": "done",
+ "detail": "pearson 0.9205 in 16.4 min",
+ "state": "done",
+ "updated": "2026-10-12 03:14:02",
+ "elapsed_s": 983.0,
+ "layers_done": 34,
+ "report": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/NormalR/report.json"
+}
