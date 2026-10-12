@@ -1,0 +1,346 @@
+{
+ "name": "HeightJavier_H2",
+ "net": "/obj/ZRH_HeightJavier",
+ "reference": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/HeightJavier/refs/HeightJavier_height_2048.png",
+ "layers": [
+  {
+   "local": {
+    "ok": true,
+    "pixels": 182040,
+    "before": 0.0646,
+    "after": 0.033,
+    "ls_gain": 1.891
+   },
+   "layer": "pix_s05_k16",
+   "status": "accepted",
+   "score": 0.965,
+   "gain": 0.0037,
+   "summary": {
+    "pearson": 0.9897,
+    "mae": 0.0159,
+    "low32": 1.0,
+    "b1-2": 0.9804,
+    "b4-8": 0.9998,
+    "b16-32": 1.0,
+    "q25": 0.9437,
+    "q75": 0.8479,
+    "lines": 0.566,
+    "struct": 0.958,
+    "detail": 0.886
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 39847 regions",
+   "seconds": 10.1,
+   "nodes": 138,
+   "timing": {
+    "kept_layers": 24,
+    "new_layers": 1,
+    "t_nodes": 0.71,
+    "t_cook_export": 1.26
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/HeightJavier/versions/final/HeightJavier_H2/L01_pix_s05_k16.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.066,
+    "D_joint_profile_corr": 0.9983,
+    "D_joint_profile_mae_pct": 0.109,
+    "G_band_energy_ratio": {
+     "1-2": 0.946,
+     "2-4": 0.996,
+     "4-8": 1.0,
+     "8-16": 1.0,
+     "16-32": 1.0
+    },
+    "F_residual_w1_pct": 0.766,
+    "F_residual_std_ratio": 1.01,
+    "J_rmse": 0.0283,
+    "J_floor_if_stochastic": 0.0726
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 81713,
+    "before": 0.0574,
+    "after": 0.0304,
+    "ls_gain": 1.923
+   },
+   "layer": "pix_s05_k16_p2",
+   "status": "accepted",
+   "score": 0.9664,
+   "gain": 0.0014,
+   "summary": {
+    "pearson": 0.9904,
+    "mae": 0.0153,
+    "low32": 1.0,
+    "b1-2": 0.9825,
+    "b4-8": 0.9998,
+    "b16-32": 1.0,
+    "q25": 0.946,
+    "q75": 0.8521,
+    "lines": 0.582,
+    "struct": 0.96,
+    "detail": 0.891
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 26214 regions",
+   "seconds": 8.5,
+   "nodes": 143,
+   "timing": {
+    "kept_layers": 25,
+    "new_layers": 1,
+    "t_nodes": 0.36,
+    "t_cook_export": 1.03
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/HeightJavier/versions/final/HeightJavier_H2/L02_pix_s05_k16_p2.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.068,
+    "D_joint_profile_corr": 0.9984,
+    "D_joint_profile_mae_pct": 0.109,
+    "G_band_energy_ratio": {
+     "1-2": 0.954,
+     "2-4": 0.998,
+     "4-8": 1.001,
+     "8-16": 1.0,
+     "16-32": 1.0
+    },
+    "F_residual_w1_pct": 0.741,
+    "F_residual_std_ratio": 1.013,
+    "J_rmse": 0.0273,
+    "J_floor_if_stochastic": 0.0726
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 37846,
+    "before": 0.0543,
+    "after": 0.0292,
+    "ls_gain": 1.943
+   },
+   "layer": "pix_s05_k16_p3",
+   "status": "accepted",
+   "score": 0.967,
+   "gain": 0.0006,
+   "summary": {
+    "pearson": 0.9907,
+    "mae": 0.0151,
+    "low32": 1.0,
+    "b1-2": 0.9834,
+    "b4-8": 0.9998,
+    "b16-32": 1.0,
+    "q25": 0.9469,
+    "q75": 0.8539,
+    "lines": 0.588,
+    "struct": 0.96,
+    "detail": 0.893
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 18332 regions",
+   "seconds": 8.5,
+   "nodes": 148,
+   "timing": {
+    "kept_layers": 26,
+    "new_layers": 1,
+    "t_nodes": 0.26,
+    "t_cook_export": 1.28
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/HeightJavier/versions/final/HeightJavier_H2/L03_pix_s05_k16_p3.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.069,
+    "D_joint_profile_corr": 0.9984,
+    "D_joint_profile_mae_pct": 0.108,
+    "G_band_energy_ratio": {
+     "1-2": 0.957,
+     "2-4": 0.999,
+     "4-8": 1.001,
+     "8-16": 1.0,
+     "16-32": 1.0
+    },
+    "F_residual_w1_pct": 0.731,
+    "F_residual_std_ratio": 1.015,
+    "J_rmse": 0.0269,
+    "J_floor_if_stochastic": 0.0726
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 215017,
+    "before": 0.0372,
+    "after": 0.0153,
+    "ls_gain": 1.614
+   },
+   "layer": "pix_s05_k16_m3",
+   "status": "accepted",
+   "score": 0.9703,
+   "gain": 0.0032,
+   "summary": {
+    "pearson": 0.9916,
+    "mae": 0.0139,
+    "low32": 1.0,
+    "b1-2": 0.9869,
+    "b4-8": 0.9998,
+    "b16-32": 1.0,
+    "q25": 0.9514,
+    "q75": 0.8649,
+    "lines": 0.61,
+    "struct": 0.963,
+    "detail": 0.899
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 277410 regions",
+   "seconds": 19.5,
+   "nodes": 153,
+   "timing": {
+    "kept_layers": 27,
+    "new_layers": 1,
+    "t_nodes": 4.05,
+    "t_cook_export": 1.26
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/HeightJavier/versions/final/HeightJavier_H2/L04_pix_s05_k16_m3.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.064,
+    "D_joint_profile_corr": 0.9986,
+    "D_joint_profile_mae_pct": 0.1,
+    "G_band_energy_ratio": {
+     "1-2": 0.967,
+     "2-4": 1.0,
+     "4-8": 1.001,
+     "8-16": 1.0,
+     "16-32": 1.0
+    },
+    "F_residual_w1_pct": 0.658,
+    "F_residual_std_ratio": 1.023,
+    "J_rmse": 0.0256,
+    "J_floor_if_stochastic": 0.0726
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 130138,
+    "before": 0.0342,
+    "after": 0.0147,
+    "ls_gain": 1.611
+   },
+   "layer": "pix_s05_k16_m3_p2",
+   "status": "accepted",
+   "score": 0.9721,
+   "gain": 0.0018,
+   "summary": {
+    "pearson": 0.9921,
+    "mae": 0.0132,
+    "low32": 1.0,
+    "b1-2": 0.9884,
+    "b4-8": 0.9998,
+    "b16-32": 1.0,
+    "q25": 0.9543,
+    "q75": 0.8717,
+    "lines": 0.622,
+    "struct": 0.965,
+    "detail": 0.902
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 253888 regions",
+   "seconds": 17.6,
+   "nodes": 158,
+   "timing": {
+    "kept_layers": 28,
+    "new_layers": 1,
+    "t_nodes": 3.27,
+    "t_cook_export": 1.17
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/HeightJavier/versions/final/HeightJavier_H2/L05_pix_s05_k16_m3_p2.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.063,
+    "D_joint_profile_corr": 0.9987,
+    "D_joint_profile_mae_pct": 0.094,
+    "G_band_energy_ratio": {
+     "1-2": 0.973,
+     "2-4": 1.001,
+     "4-8": 1.001,
+     "8-16": 1.0,
+     "16-32": 1.0
+    },
+    "F_residual_w1_pct": 0.615,
+    "F_residual_std_ratio": 1.028,
+    "J_rmse": 0.0248,
+    "J_floor_if_stochastic": 0.0726
+   }
+  },
+  {
+   "local": null,
+   "layer": "eq",
+   "status": "accepted",
+   "score": 0.9799,
+   "gain": 0.0077,
+   "summary": {
+    "pearson": 0.9968,
+    "mae": 0.0107,
+    "low32": 1.0,
+    "b1-2": 0.9873,
+    "b4-8": 0.9998,
+    "b16-32": 1.0,
+    "q25": 0.9606,
+    "q75": 0.889,
+    "lines": 0.743,
+    "struct": 0.97,
+    "detail": 0.932
+   },
+   "note": "frequency equaliser, least squares at full resolution",
+   "seconds": 7.0,
+   "nodes": 172,
+   "timing": {
+    "kept_layers": 29,
+    "new_layers": 1,
+    "t_nodes": 0.0,
+    "t_cook_export": 1.29
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/HeightJavier/versions/final/HeightJavier_H2/L06_eq.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.078,
+    "D_joint_profile_corr": 0.9984,
+    "D_joint_profile_mae_pct": 0.107,
+    "G_band_energy_ratio": {
+     "1-2": 0.997,
+     "2-4": 1.005,
+     "4-8": 0.987,
+     "8-16": 0.994,
+     "16-32": 0.998
+    },
+    "F_residual_w1_pct": 0.384,
+    "F_residual_std_ratio": 0.954,
+    "J_rmse": 0.0159,
+    "J_floor_if_stochastic": 0.0726
+   }
+  },
+  {
+   "local": null,
+   "layer": "hist",
+   "status": "rejected",
+   "score": 0.98,
+   "gain": 0.0002,
+   "summary": {
+    "pearson": 0.9968,
+    "mae": 0.0107,
+    "low32": 1.0,
+    "b1-2": 0.9874,
+    "b4-8": 0.9998,
+    "b16-32": 1.0,
+    "q25": 0.9604,
+    "q75": 0.8901,
+    "lines": 0.744,
+    "struct": 0.97,
+    "detail": 0.932
+   },
+   "note": "histogram matched to reference",
+   "seconds": 5.7,
+   "nodes": 173,
+   "timing": {
+    "kept_layers": 30,
+    "new_layers": 1,
+    "t_nodes": 0.0,
+    "t_cook_export": 1.01
+   }
+  }
+ ],
+ "cells": [
+  1,
+  1
+ ]
+}
