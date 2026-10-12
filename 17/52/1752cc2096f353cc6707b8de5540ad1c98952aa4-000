@@ -1,0 +1,346 @@
+{
+ "name": "BrokenTiles_NormalG_H2",
+ "net": "/obj/ZRH_BrokenTiles_NormalG",
+ "reference": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/NormalG/refs/BrokenTiles_NormalG_height_2048.png",
+ "layers": [
+  {
+   "local": {
+    "ok": true,
+    "pixels": 288660,
+    "before": 0.0609,
+    "after": 0.0245,
+    "ls_gain": 1.629
+   },
+   "layer": "pix_s05_k16",
+   "status": "accepted",
+   "score": 0.8514,
+   "gain": 0.0108,
+   "summary": {
+    "pearson": 0.8844,
+    "mae": 0.0338,
+    "low32": 0.998,
+    "b1-2": 0.9547,
+    "b4-8": 0.9971,
+    "b16-32": 0.9979,
+    "q25": 0.6524,
+    "q75": 0.6014,
+    "lines": 0.428,
+    "struct": 0.85,
+    "detail": 0.844
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 45087 regions",
+   "seconds": 10.4,
+   "nodes": 140,
+   "timing": {
+    "kept_layers": 25,
+    "new_layers": 1,
+    "t_nodes": 0.94,
+    "t_cook_export": 1.55
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/NormalG/versions/final/BrokenTiles_NormalG_H2/L01_pix_s05_k16.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.614,
+    "D_joint_profile_corr": 0.9875,
+    "D_joint_profile_mae_pct": 0.044,
+    "G_band_energy_ratio": {
+     "1-2": 0.935,
+     "2-4": 1.072,
+     "4-8": 1.085,
+     "8-16": 1.09,
+     "16-32": 1.107
+    },
+    "F_residual_w1_pct": 2.255,
+    "F_residual_std_ratio": 0.735,
+    "J_rmse": 0.0535,
+    "J_floor_if_stochastic": 0.1106
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 80182,
+    "before": 0.0623,
+    "after": 0.0259,
+    "ls_gain": 1.601
+   },
+   "layer": "pix_s05_k16_p2",
+   "status": "accepted",
+   "score": 0.8547,
+   "gain": 0.0033,
+   "summary": {
+    "pearson": 0.8884,
+    "mae": 0.033,
+    "low32": 0.998,
+    "b1-2": 0.9574,
+    "b4-8": 0.9973,
+    "b16-32": 0.9981,
+    "q25": 0.6562,
+    "q75": 0.6074,
+    "lines": 0.438,
+    "struct": 0.852,
+    "detail": 0.847
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 29705 regions",
+   "seconds": 8.7,
+   "nodes": 145,
+   "timing": {
+    "kept_layers": 26,
+    "new_layers": 1,
+    "t_nodes": 0.54,
+    "t_cook_export": 1.3
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/NormalG/versions/final/BrokenTiles_NormalG_H2/L02_pix_s05_k16_p2.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.573,
+    "D_joint_profile_corr": 0.9889,
+    "D_joint_profile_mae_pct": 0.045,
+    "G_band_energy_ratio": {
+     "1-2": 0.94,
+     "2-4": 1.068,
+     "4-8": 1.078,
+     "8-16": 1.083,
+     "16-32": 1.098
+    },
+    "F_residual_w1_pct": 2.207,
+    "F_residual_std_ratio": 0.743,
+    "J_rmse": 0.0526,
+    "J_floor_if_stochastic": 0.1106
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 26317,
+    "before": 0.06,
+    "after": 0.0248,
+    "ls_gain": 1.558
+   },
+   "layer": "pix_s05_k16_p3",
+   "status": "accepted",
+   "score": 0.8557,
+   "gain": 0.001,
+   "summary": {
+    "pearson": 0.8896,
+    "mae": 0.0328,
+    "low32": 0.998,
+    "b1-2": 0.9581,
+    "b4-8": 0.9974,
+    "b16-32": 0.9981,
+    "q25": 0.6573,
+    "q75": 0.6092,
+    "lines": 0.441,
+    "struct": 0.852,
+    "detail": 0.848
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 17752 regions",
+   "seconds": 8.3,
+   "nodes": 150,
+   "timing": {
+    "kept_layers": 27,
+    "new_layers": 1,
+    "t_nodes": 0.39,
+    "t_cook_export": 1.46
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/NormalG/versions/final/BrokenTiles_NormalG_H2/L03_pix_s05_k16_p3.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.56,
+    "D_joint_profile_corr": 0.989,
+    "D_joint_profile_mae_pct": 0.047,
+    "G_band_energy_ratio": {
+     "1-2": 0.942,
+     "2-4": 1.067,
+     "4-8": 1.076,
+     "8-16": 1.081,
+     "16-32": 1.096
+    },
+    "F_residual_w1_pct": 2.192,
+    "F_residual_std_ratio": 0.745,
+    "J_rmse": 0.0523,
+    "J_floor_if_stochastic": 0.1106
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 211574,
+    "before": 0.0706,
+    "after": 0.0294,
+    "ls_gain": 1.667
+   },
+   "layer": "pix_s05_k16_m3",
+   "status": "accepted",
+   "score": 0.8671,
+   "gain": 0.0115,
+   "summary": {
+    "pearson": 0.9018,
+    "mae": 0.0307,
+    "low32": 0.999,
+    "b1-2": 0.9654,
+    "b4-8": 0.9977,
+    "b16-32": 0.9985,
+    "q25": 0.6736,
+    "q75": 0.6278,
+    "lines": 0.47,
+    "struct": 0.859,
+    "detail": 0.857
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 273872 regions",
+   "seconds": 19.2,
+   "nodes": 155,
+   "timing": {
+    "kept_layers": 28,
+    "new_layers": 1,
+    "t_nodes": 3.94,
+    "t_cook_export": 1.41
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/NormalG/versions/final/BrokenTiles_NormalG_H2/L04_pix_s05_k16_m3.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.475,
+    "D_joint_profile_corr": 0.9895,
+    "D_joint_profile_mae_pct": 0.043,
+    "G_band_energy_ratio": {
+     "1-2": 0.95,
+     "2-4": 1.054,
+     "4-8": 1.06,
+     "8-16": 1.064,
+     "16-32": 1.078
+    },
+    "F_residual_w1_pct": 2.043,
+    "F_residual_std_ratio": 0.764,
+    "J_rmse": 0.0494,
+    "J_floor_if_stochastic": 0.1106
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 134013,
+    "before": 0.0598,
+    "after": 0.0237,
+    "ls_gain": 1.564
+   },
+   "layer": "pix_s05_k16_m3_p2",
+   "status": "accepted",
+   "score": 0.8731,
+   "gain": 0.006,
+   "summary": {
+    "pearson": 0.9074,
+    "mae": 0.0294,
+    "low32": 0.999,
+    "b1-2": 0.9682,
+    "b4-8": 0.9978,
+    "b16-32": 0.9987,
+    "q25": 0.6835,
+    "q75": 0.64,
+    "lines": 0.485,
+    "struct": 0.864,
+    "detail": 0.862
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 246458 regions",
+   "seconds": 17.9,
+   "nodes": 160,
+   "timing": {
+    "kept_layers": 29,
+    "new_layers": 1,
+    "t_nodes": 3.49,
+    "t_cook_export": 1.31
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/NormalG/versions/final/BrokenTiles_NormalG_H2/L05_pix_s05_k16_m3_p2.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.419,
+    "D_joint_profile_corr": 0.9892,
+    "D_joint_profile_mae_pct": 0.039,
+    "G_band_energy_ratio": {
+     "1-2": 0.953,
+     "2-4": 1.047,
+     "4-8": 1.052,
+     "8-16": 1.056,
+     "16-32": 1.068
+    },
+    "F_residual_w1_pct": 1.957,
+    "F_residual_std_ratio": 0.775,
+    "J_rmse": 0.048,
+    "J_floor_if_stochastic": 0.1106
+   }
+  },
+  {
+   "local": null,
+   "layer": "eq",
+   "status": "accepted",
+   "score": 0.8796,
+   "gain": 0.0064,
+   "summary": {
+    "pearson": 0.9153,
+    "mae": 0.0288,
+    "low32": 0.999,
+    "b1-2": 0.9721,
+    "b4-8": 0.9977,
+    "b16-32": 0.9987,
+    "q25": 0.6874,
+    "q75": 0.6448,
+    "lines": 0.509,
+    "struct": 0.866,
+    "detail": 0.869
+   },
+   "note": "frequency equaliser, least squares at full resolution",
+   "seconds": 7.1,
+   "nodes": 174,
+   "timing": {
+    "kept_layers": 30,
+    "new_layers": 1,
+    "t_nodes": 0.01,
+    "t_cook_export": 1.39
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/NormalG/versions/final/BrokenTiles_NormalG_H2/L06_eq.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.411,
+    "D_joint_profile_corr": 0.9888,
+    "D_joint_profile_mae_pct": 0.039,
+    "G_band_energy_ratio": {
+     "1-2": 0.979,
+     "2-4": 0.989,
+     "4-8": 1.015,
+     "8-16": 1.043,
+     "16-32": 1.065
+    },
+    "F_residual_w1_pct": 1.683,
+    "F_residual_std_ratio": 0.816,
+    "J_rmse": 0.046,
+    "J_floor_if_stochastic": 0.1106
+   }
+  },
+  {
+   "local": null,
+   "layer": "hist",
+   "status": "rejected",
+   "score": 0.8795,
+   "gain": -0.0001,
+   "summary": {
+    "pearson": 0.9148,
+    "mae": 0.0293,
+    "low32": 0.999,
+    "b1-2": 0.9716,
+    "b4-8": 0.9971,
+    "b16-32": 0.9981,
+    "q25": 0.6895,
+    "q75": 0.6413,
+    "lines": 0.521,
+    "struct": 0.865,
+    "detail": 0.871
+   },
+   "note": "histogram matched to reference",
+   "seconds": 6.1,
+   "nodes": 175,
+   "timing": {
+    "kept_layers": 31,
+    "new_layers": 1,
+    "t_nodes": 0.0,
+    "t_cook_export": 1.17
+   }
+  }
+ ],
+ "cells": [
+  1,
+  1
+ ]
+}
