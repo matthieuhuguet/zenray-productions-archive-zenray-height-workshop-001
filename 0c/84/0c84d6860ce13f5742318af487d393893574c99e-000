@@ -1,0 +1,28 @@
+# 12 October 2026 : measure cross-map relations on the references and on the reproduced maps.
+import sys, json
+sys.path.insert(0, sys.argv[1])
+from DeriveCommon import *
+R = {m: ref(m) for m in ('Displacement', 'Bump', 'Cavity', 'Specular', 'Roughness', 'Gloss', 'AO', 'NormalR', 'NormalG')}
+P = {m: repro(m) for m in ('Displacement', 'Bump', 'Cavity', 'Specular', 'Roughness', 'AO')}
+out = {}
+for m in P: out['repro_' + m] = pc(P[m], R[m])
+out['ref Spec~Cav'] = pc(lsfit([R['Cavity']], R['Specular'])[0], R['Specular'])
+out['ref Gloss~1-Rough'] = pc(1 - R['Roughness'], R['Gloss'])
+for src in ('Displacement', 'Bump'):
+    bd = bands(R[src])
+    for tgt in ('Bump', 'Cavity', 'Specular', 'AO', 'Displacement'):
+        if tgt == src: continue
+        out[f'ref {tgt}~bands({src})'] = pc(lsfit(bd, R[tgt])[0], R[tgt])
+        out[f'ref {tgt}~split bands({src})'] = pc(lsfit(split(bd), R[tgt])[0], R[tgt])
+    gx, gy = gradfeats(bd)
+    for t, f in (('NormalR', gx), ('NormalG', gy)):
+        out[f'ref {t}~grad bands({src})'] = pc(lsfit(f, R[t])[0], R[t])
+bd = bands(R['Displacement']) + bands(R['Bump'])
+out['ref Cavity~split bands(Disp+Bump)'] = pc(lsfit(split(bd), R['Cavity'])[0], R['Cavity'])
+out['ref Spec~split bands(Disp+Bump)+Cav'] = pc(lsfit(split(bd) + [R['Cavity']], R['Specular'])[0], R['Specular'])
+out['ref Spec~Cav+Rough+Disp'] = pc(lsfit([R['Cavity'], R['Roughness'], R['Displacement'], R['AO']], R['Specular'])[0], R['Specular'])
+# 12 October 2026 : variance fraction of each map per band
+for m in ('Displacement', 'Bump', 'Cavity', 'Specular', 'NormalR'):
+    bd = bands(R[m]); v = np.array([b.var() for b in bd]); out['bandvar ' + m] = [round(x, 3) for x in (v / v.sum()).tolist()]
+for k, v in out.items(): print(k, v if isinstance(v, list) else round(v, 4))
+json.dump(out, open(sys.argv[2], 'w'), indent=1)

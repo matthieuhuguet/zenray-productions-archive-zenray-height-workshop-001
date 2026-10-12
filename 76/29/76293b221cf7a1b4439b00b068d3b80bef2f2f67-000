@@ -1,0 +1,126 @@
+# 12 October 2026 : approach A, fast offline model of pixel scale residual region passes (no polygons traced): quantise the
+# residual into K levels, label 4-connected regions of equal level (vectorised run union-find), keep regions >= min_px, give
+# each kept region its value (bin value or measured region mean), add. Counts regions (= polygons) and boundary edges (~ vertices).
+# FR : modèle rapide hors ligne des passes de régions à l'échelle du pixel ; compte les régions et estime les sommets.
+import os
+import sys
+sys.path.insert(0, "/Users/zenray/.claude/skills/zenray-houdini/scripts/height")
+import numpy as np
+from RefLib import load_gray, blur
+
+B = "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/"
+# 12 October 2026 : map -> (original reference, current result)
+MAPS = {
+    "Cavity": ("src/Broken_Tiles_smvnfc2p_2K_Cavity.jpg", "Cavity/versions/final/BrokenTiles_Cavity_H2/FINAL_height.png"),
+    "Specular": ("src/Broken_Tiles_smvnfc2p_2K_Specular.jpg", "Specular/versions/final/BrokenTiles_Specular_H2/FINAL_height.png"),
+    "Bump": ("src/Broken_Tiles_smvnfc2p_2K_Bump.jpg", "Bump/versions/final/BrokenTiles_Bump_H2/FINAL_height.png"),
+    "NormalR": ("src/NormalR.png", "NormalR/versions/final/BrokenTiles_NormalR_H1/L18_regions_s4_p8.png"),
+}
+
+
+def pc(a, b):
+    a = a - a.mean(); b = b - b.mean()
+    return float((a * b).sum() / np.sqrt((a * a).sum() * (b * b).sum()))
+
+
+def load(m):
+    s, c = MAPS[m]
+    return load_gray(B + s).astype(np.float64), load_gray(B + c).astype(np.float64)
+
+
+def label_equal(L):
+    """4-connected components of equal values of an int image; returns (comp id per pixel, n). Vectorised. 12 October 2026."""
+    H, W = L.shape
+    start = np.ones((H, W), bool)
+    start[:, 1:] = L[:, 1:] != L[:, :-1]
+    run = np.cumsum(start.ravel()).reshape(H, W) - 1
+    nr = int(run.max()) + 1
+    eq = L[1:, :] == L[:-1, :]
+    a = run[:-1, :][eq]; b = run[1:, :][eq]
+    if len(a):
+        e = np.unique(a.astype(np.int64) * nr + b)
+        a = e // nr; b = e % nr
+    p = np.arange(nr)
+    while len(a):
+        pa = p[a]; pb = p[b]
+        mn = np.minimum(pa, pb)
+        changed = (pa != pb)
+        if not changed.any():
+            break
+        np.minimum.at(p, pa, mn); np.minimum.at(p, pb, mn)
+        for _ in range(6):
+            p = p[p]
+        keep = p[a] != p[b]
+        a = a[keep]; b = b[keep]
+    while True:
+        q = p[p]
+        if (q == p).all():
+            break
+        p = q
+    u, comp = np.unique(p, return_inverse=True)
+    return comp[run.ravel()].reshape(H, W), len(u)
+
+
+def quantise(low, K, mode, dz=0.0):
+    """Bins of the residual. mode 'quant' = quantile bins (Fit), 'value' = uniform in value between the 0.1 and 99.9
+    percentiles, extreme tails get their own outer bins. Returns bins and a dead mask (bin of |v| < dz, not drawn)."""
+    if mode == "quant":
+        t = np.quantile(low, np.linspace(0, 1, K + 1)[1:-1])
+    else:
+        lo, hi = np.quantile(low, [0.001, 0.999])
+        t = np.linspace(lo, hi, K + 1)[1:-1]
+    bins = np.digitize(low, t)
+    dead = np.abs(low) < dz if dz > 0 else np.zeros(low.shape, bool)
+    return bins, dead
+
+
+def one_pass(e, sigma=0.0, K=16, mode="value", min_px=1, val="mean", dz=0.0):
+    low = blur(e, sigma) if sigma > 0 else e
+    bins, dead = quantise(low, K, mode, dz)
+    bins = np.where(dead, -1, bins)
+    comp, n = label_equal(bins)
+    size = np.bincount(comp.ravel(), minlength=n)
+    cb = np.zeros(n, np.int64); cb[comp.ravel()] = bins.ravel()
+    if val == "mean":
+        v = np.bincount(comp.ravel(), weights=e.ravel(), minlength=n) / np.maximum(size, 1)
+    else:
+        med = np.array([np.median(low[bins == k]) if (bins == k).any() else 0.0 for k in range(K)])
+        v = med[np.clip(cb, 0, K - 1)]
+    keep = (size >= min_px) & (cb >= 0)
+    q = np.where(keep, v, 0.0)[comp]
+    # 12 October 2026 : boundary edges of kept regions, a proxy for the unsimplified marching squares vertex count
+    nb = 0
+    for d in ((0, 1), (1, 0)):
+        x = comp != np.roll(comp, -1, axis=d[0] if d[0] else 1)
+        kk = keep[comp]
+        nb += int((x & kk).sum() + (x & np.roll(kk, -1, axis=d[0] if d[0] else 1)).sum())
+    return q, int(keep.sum()), nb
+
+
+def run(m, cfg, passes):
+    r, c = load(m)
+    out = []
+    tot_p = tot_v = 0
+    for i in range(passes):
+        q, npoly, nv = one_pass(r - c, **cfg)
+        c = c + q
+        tot_p += npoly; tot_v += nv
+        out.append((i + 1, round(pc(c, r), 4), tot_p, tot_v))
+    return out
+
+
+def _task(args):
+    m, cfg, passes = args
+    return m, cfg, run(m, cfg, passes)
+
+
+if __name__ == "__main__":
+    import json
+    from concurrent.futures import ProcessPoolExecutor
+    maps = sys.argv[1].split(",")
+    passes = int(sys.argv[2])
+    grid = json.loads(sys.argv[3])
+    tasks = [(m, cfg, passes) for m in maps for cfg in grid]
+    with ProcessPoolExecutor(16) as ex:
+        for m, cfg, res in ex.map(_task, tasks):
+            print(m, json.dumps(cfg), res, flush=True)

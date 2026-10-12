@@ -1,0 +1,137 @@
+# 12 October 2026 : greedy matching pursuit of additive Gaussian splats on the residual of FINAL_height.png.
+# Models Copernicus Stamp Points (Blend = Add, Wrap = On) fed with points carrying amplitude + pscale.
+# Usage: python -I SplatPursuit.py <Map> [sigmas comma] [max_atoms]
+import sys, json, time, os
+import numpy as np
+from PIL import Image
+
+BASE = "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles"
+OUT = BASE + "/workflow_cavity/data"
+MAPS = {  # 12 October 2026 : reference, current result
+    "Cavity": ("src/Broken_Tiles_smvnfc2p_2K_Cavity.jpg", "Cavity/versions/final/BrokenTiles_Cavity_H2/FINAL_height.png"),
+    "Specular": ("src/Broken_Tiles_smvnfc2p_2K_Specular.jpg", "Specular/versions/final/BrokenTiles_Specular_H2/FINAL_height.png"),
+    "Bump": ("src/Broken_Tiles_smvnfc2p_2K_Bump.jpg", "Bump/versions/final/BrokenTiles_Bump_H2/FINAL_height.png"),
+    "NormalR": ("src/NormalR.png", "NormalR/versions/final/BrokenTiles_NormalR_H1/L14_regions_s4_p4.png"),
+}
+TARGETS = (0.95, 0.97, 0.98, 0.99, 0.995)
+
+
+def load(p):
+    a = np.asarray(Image.open(BASE + "/" + p)).astype(np.float64)
+    if a.ndim == 3:
+        a = a[..., :3].mean(-1)
+    return a
+
+
+def pearson(a, b):
+    a = a - a.mean(); b = b - b.mean()
+    return float((a * b).sum() / np.sqrt((a * a).sum() * (b * b).sum()))
+
+
+def kern(s):
+    r = max(1, int(np.ceil(3 * s)))
+    x = np.arange(-r, r + 1)
+    return np.exp(-0.5 * (x / s) ** 2)  # peak 1 per axis -> 2D peak 1
+
+
+def conv(img, k):  # separable, wrap
+    r = len(k) // 2
+    t = np.zeros_like(img)
+    for i, w in enumerate(k):
+        t += w * np.roll(img, i - r, axis=0)
+    o = np.zeros_like(img)
+    for i, w in enumerate(k):
+        o += w * np.roll(t, i - r, axis=1)
+    return o
+
+
+def localmax(g, w):
+    m = g.copy()
+    for ax in (0, 1):
+        base = m.copy()
+        for d in range(1, w + 1):
+            np.maximum(m, np.roll(base, d, ax), out=m)
+            np.maximum(m, np.roll(base, -d, ax), out=m)
+    return (g >= m) & (g > 0)
+
+
+def setup(name):
+    R = load(MAPS[name][0]); F = load(MAPS[name][1])
+    A = np.vstack([F.ravel(), np.ones(F.size)]).T
+    a, b = np.linalg.lstsq(A, R.ravel(), rcond=None)[0]
+    return R, a * F + b
+
+
+def run(name, sigmas, max_atoms, w=1, damp=1.0, qbits=0, tag=""):
+    R, X0 = setup(name)
+    E = R - X0
+    ks = [kern(s) for s in sigmas]
+    n2 = [float((np.outer(k, k) ** 2).sum()) for k in ks]
+    atoms = []  # (y, x, sigma_index, amp)
+    hist = [(0, pearson(X0, R))]
+    total = 0; t0 = time.time(); it = 0
+    while total < max_atoms:
+        it += 1
+        best = None
+        for si, k in enumerate(ks):
+            C = conv(E, k)
+            g = C * C / n2[si]
+            if best is None:
+                best, bs, bc = g, np.zeros(E.shape, np.int8), C / n2[si]
+            else:
+                m = g > best
+                best = np.where(m, g, best); bs[m] = si; bc = np.where(m, C / n2[si], bc)
+        lm = localmax(best, w)
+        idx = np.flatnonzero(lm)
+        K = int(min(max(20000, 0.15 * idx.size), max_atoms - total, idx.size))
+        sel = idx[np.argpartition(best.ravel()[idx], -K)[-K:]]
+        amp = bc.ravel()[sel] * damp
+        if qbits:
+            amp = quant(amp, qbits)
+        ys, xs = np.unravel_index(sel, E.shape)
+        sis = bs.ravel()[sel]
+        for si, k in enumerate(ks):
+            m = sis == si
+            if not m.any():
+                continue
+            imp = np.zeros_like(E)
+            np.add.at(imp, (ys[m], xs[m]), amp[m])
+            E -= conv(imp, k)
+        atoms.append(np.stack([ys, xs, sis, amp], 1))
+        total += K
+        p = pearson(R - E, R)
+        hist.append((total, p))
+        print(f"{name}{tag} it{it} atoms {total} pearson {p:.4f} ({time.time()-t0:.0f}s)", flush=True)
+        if p >= 0.996:
+            break
+    at = np.concatenate(atoms)
+    return dict(name=name, sigmas=sigmas, hist=hist, n_atoms=int(len(at)),
+                sigma_use=[int((at[:, 2] == i).sum()) for i in range(len(sigmas))],
+                amp_abs_mean=float(np.abs(at[:, 3]).mean()), atoms=at)
+
+
+def quant(a, bits):
+    lim = np.abs(a).max() + 1e-12
+    q = 2 ** (bits - 1) - 1
+    return np.round(a / lim * q) / q * lim
+
+
+def crossings(hist):
+    out = {}
+    for t in TARGETS:
+        hit = [n for n, p in hist if p >= t]
+        out[str(t)] = hit[0] if hit else None
+    return out
+
+
+if __name__ == "__main__":
+    name = sys.argv[1]
+    sig = [float(s) for s in (sys.argv[2] if len(sys.argv) > 2 else "0.6,1.0,1.6,2.6").split(",")]
+    mx = int(sys.argv[3]) if len(sys.argv) > 3 else 3_000_000
+    tag = sys.argv[4] if len(sys.argv) > 4 else ""
+    res = run(name, sig, mx, tag=tag)
+    os.makedirs(OUT, exist_ok=True)
+    np.save(f"{OUT}/{name}{tag}_atoms.npy", res.pop("atoms").astype(np.float32))
+    res["crossings"] = crossings(res["hist"])
+    json.dump(res, open(f"{OUT}/{name}{tag}_pursuit.json", "w"), indent=1)
+    print(json.dumps(res["crossings"]))

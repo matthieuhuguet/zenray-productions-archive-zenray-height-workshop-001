@@ -1,0 +1,77 @@
+# 12 October 2026 : build the whole derived set (bases + derivations + sparse residual points), measure every map at
+# 2048 px against its original, count points and bytes, and test whether the residuals are JPEG noise.
+# FR : assemble l'ensemble dérivé complet, mesure chaque carte, compte les points, teste le bruit JPEG.
+import sys, json, os
+sys.path.insert(0, sys.argv[1])
+from DeriveCommon import *
+from PIL import Image
+W = sys.argv[2]; os.makedirs(W + '/derived', exist_ok=True)
+R = {m: ref(m) for m in ('Displacement', 'Bump', 'Cavity', 'Specular', 'Roughness', 'Gloss', 'NormalR', 'NormalG', 'AO')}
+P = {m: repro(m) for m in ('Displacement', 'Bump', 'Cavity', 'Specular', 'Roughness', 'AO')}
+P['NormalR'] = load(W + '/NormalR_base_snapshot.png')
+
+
+def fix(T, feats, target, forced=None):
+    F, _ = lsfit(feats, T); r = T - F; a = np.abs(r).ravel().copy()
+    if forced is not None: a[forced.ravel()] = np.inf
+    order = np.argsort(-a); lo, hi = 0, a.size
+    while lo < hi:
+        k = (lo + hi) // 2; m = np.zeros(a.size, bool); m[order[:k]] = True
+        if pc(F + r * m.reshape(r.shape), T) >= target: hi = k
+        else: lo = k + 1
+    m = np.zeros(a.size, bool); m[order[:lo]] = True; m = m.reshape(r.shape)
+    return F + r * m, m
+
+
+def save16(a, name):
+    lo, hi = float(a.min()), float(a.max())
+    Image.fromarray((np.clip(a, 0, 1) * 65535 + 0.5).astype(np.uint16), mode='I;16').save(f'{W}/derived/{name}.png')
+
+
+rows, M = [], {}
+cav, mc = fix(R['Cavity'], [P['Cavity']], 0.995)
+spec, ms = fix(R['Specular'], [cav], 0.99, forced=mc)
+rough, mr = fix(R['Roughness'], [P['Roughness']], 0.99)
+bump, mb = fix(R['Bump'], bands(P['Displacement']) + [P['Bump']], 0.99)
+gx, gy = gradfeats(bands(P['Displacement']))
+nr, mnr = fix(R['NormalR'], gx + [P['NormalR']], 0.99)
+ng, mng = fix(R['NormalG'], gy, 0.99, forced=mnr)
+gloss = 1 - rough
+disp, ao = P['Displacement'], P['AO']
+maps = {'Displacement': (disp, None, 'regions (existing H2)'), 'AO': (ao, None, 'regions (existing H2)'),
+        'Roughness': (rough, mr, 'H2 + points'), 'Gloss': (gloss, None, '1 - Roughness (one Remap)'),
+        'Cavity': (cav, mc, 'H2 + points'), 'Specular': (spec, ms & ~mc, 'a*Cavity+b (Remap) + extra points on cavity positions'),
+        'Bump': (bump, mb, 'bands(Disp)+H2 Bump (weighted blurs) + points'),
+        'NormalR': (nr, mnr, 'grad bands(Disp) + H1 snapshot + points'), 'NormalG': (ng, mng & ~mnr, 'grad bands(Disp) + points (shares NormalR positions)')}
+for k, (a, m, how) in maps.items():
+    rows.append({'map': k, 'how': how, 'pearson_full': round(pc(a, R[k]), 4), 'new_points': int(m.sum()) if m is not None else 0})
+    save16(np.clip(a, 0, 1), k)
+# 12 October 2026 : rebuilt normal (B from R and G) angle error
+x, y = nr * 2 - 1, ng * 2 - 1; z = np.sqrt(np.clip(1 - x * x - y * y, 0, 1))
+refn = np.asarray(Image.open(S + 'Normal.jpg').convert('RGB'), np.float32) / 255 * 2 - 1
+n = np.stack([x, y, z], -1); n /= np.linalg.norm(n, axis=-1, keepdims=True) + 1e-9
+rn = refn / (np.linalg.norm(refn, axis=-1, keepdims=True) + 1e-9)
+ang = np.degrees(np.arccos(np.clip((n * rn).sum(-1), -1, 1)))
+rows.append({'map': 'Normal (rebuilt B)', 'pearson_B': round(pc(n[..., 2], refn[..., 2]), 4), 'mean_angle_deg': round(float(ang.mean()), 2)})
+# 12 October 2026 : unique point positions over the whole set and storage
+pos = {'cavity_spec': mc | ms, 'rough': mr, 'bump': mb, 'normal': mnr | mng}
+tot = sum(int(v.sum()) for v in pos.values())
+attrs = {'cavity_spec': 2, 'rough': 1, 'bump': 1, 'normal': 2}
+bytes_h = sum(int(v.sum()) * (12 + 4 * attrs[k]) for k, v in pos.items())   # P float3 + float values
+bytes_c = sum(int(v.sum()) * (4 + attrs[k]) for k, v in pos.items())        # uint32 index + uint8 values
+union = np.zeros((N, N), bool)
+for v in pos.values(): union |= v
+cost = {'point_sets': {k: int(v.sum()) for k, v in pos.items()}, 'total_points': tot, 'union_pixels': int(union.sum()),
+        'union_fraction_of_image': round(float(union.mean()), 3), 'bytes_houdini_float': bytes_h, 'bytes_compact_index_u8': bytes_c,
+        'equivalent_8bit_images': round(tot / N / N, 2)}
+# 12 October 2026 : JPEG noise test on the Specular residual after lin(ref Cavity): energy on 8x8 block boundaries
+F, _ = lsfit([R['Cavity']], R['Specular']); r = R['Specular'] - F
+dh = np.abs(np.diff(r, axis=1)); col = np.arange(N - 1) % 8
+jpeg = {'spec_resid_boundary_over_inner_step': round(float(dh[:, col == 7].mean() / dh[:, col != 7].mean()), 3)}
+for m in ('Cavity', 'Specular', 'Bump'):
+    d = np.abs(np.diff(R[m], axis=1)); jpeg[m + '_boundary_over_inner_step'] = round(float(d[:, col == 7].mean() / d[:, col != 7].mean()), 3)
+    jpeg[m + '_distinct_levels'] = int(len(np.unique((R[m] * 255).round())))
+q = 1 / 255; jpeg['spec_quant_var_fraction'] = round(float(q * q / 12 / R['Specular'].var()), 4)
+jpeg['spec_resid_var_fraction'] = round(float(r.var() / R['Specular'].var()), 4)
+out = {'maps': rows, 'cost': cost, 'jpeg': jpeg}
+print(json.dumps(out, indent=1)); json.dump(out, open(W + '/assemble.json', 'w'), indent=1)

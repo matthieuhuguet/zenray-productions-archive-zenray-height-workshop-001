@@ -1,0 +1,18 @@
+# 12 October 2026 : crossing table (elements needed per Pearson target) from AtomPursuit runs.
+import json, glob, os
+OUT = "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/workflow_cavity/data"
+T = (0.95, 0.97, 0.98, 0.99, 0.995)
+rows = {}
+for f in sorted(glob.glob(OUT + "/*_iso*_atoms.json")):
+    j = json.load(open(f)); key = f"{j['name']}/{j['kind']}"
+    h = j["hist"]
+    cr = {}
+    for t in T:
+        hit = [(n, s, p) for n, s, p in h if p >= t]
+        cr[str(t)] = dict(elements=hit[0][0], segments=hit[0][1], pearson=round(hit[0][2], 4)) if hit else None
+    rows[key] = dict(start=round(h[0][2], 4), last=dict(elements=h[-1][0], pearson=round(h[-1][2], 4)),
+                     crossings=cr, refits=j["refits"], kernel_use=j["kernel_use"])
+json.dump(rows, open(OUT + "/summary.json", "w"), indent=1)
+for k, v in rows.items():
+    print(k, "start", v["start"], {t: (c and c["elements"]) for t, c in v["crossings"].items()},
+          "refits", [(r["unique_atoms"], round(r["pearson_refit"], 4)) for r in v["refits"]])

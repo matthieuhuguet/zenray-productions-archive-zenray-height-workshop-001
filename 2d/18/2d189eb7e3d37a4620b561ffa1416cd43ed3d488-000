@@ -1,0 +1,22 @@
+# 12 October 2026 : read a PixelSim grid output, print the cheapest settings reaching a target and the score/polygon frontier
+import sys, json, ast
+rows = []
+for line in open(sys.argv[1]):
+    m, rest = line.split(" ", 1)
+    j = rest.index("} ") + 1
+    cfg = json.loads(rest[:j]); res = ast.literal_eval(rest[j + 1:])
+    for p, s, npoly, nv in res:
+        rows.append((m, p, s, npoly, nv, cfg))
+tgt = float(sys.argv[2]) if len(sys.argv) > 2 else 0.99
+for m in sorted(set(r[0] for r in rows)):
+    R = [r for r in rows if r[0] == m]
+    ok = sorted([r for r in R if r[2] >= tgt], key=lambda r: r[3])
+    print(f"== {m}: {len(ok)} reach {tgt}")
+    for r in ok[:5]:
+        print("  ", r[1], "passes", r[2], r[3], "polys", r[4], "edges", r[5])
+    R.sort(key=lambda r: r[3]); best = -1
+    fr = []
+    for r in R:
+        if r[2] > best:
+            best = r[2]; fr.append(r)
+    print("  frontier:", [(r[3], r[2]) for r in fr][::max(1, len(fr)//14)])

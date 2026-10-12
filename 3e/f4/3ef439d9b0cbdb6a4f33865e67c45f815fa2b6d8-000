@@ -1,0 +1,135 @@
+# 12 October 2026 : approach A, REAL polygons for a pixel scale residual pass, then a numpy rasteriser that follows
+# rasterizegeo (pixel centres, even-odd fill, the smallest polygon on top as the z order of Fit gives it), to score them.
+# Tracing uses Fit.contours_binary and Fit.simplify unchanged; labelling, values and culling are the improved copy:
+# value based bins, per region measured mean, regions fully in the wrap padding dropped, duplicate closing point dropped.
+# FR : vrais polygones d'une passe pixel, puis rastérisation numpy fidèle à rasterizegeo pour les noter.
+import os
+import sys
+import time
+sys.path.insert(0, "/Users/zenray/.claude/skills/zenray-houdini/scripts/height")
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import multiprocessing as mp
+import numpy as np
+import Fit as F
+from RefLib import blur
+from PixelSim import label_equal, quantise, load, pc
+
+N = 2048
+_G = {}
+
+
+def _trace(chunk):
+    comp, x0, y0, x1, y1, pad, eps, strip = _G["comp"], _G["x0"], _G["y0"], _G["x1"], _G["y1"], _G["pad"], _G["eps"], _G["strip"]
+    out = []
+    for k in chunk:
+        sub = comp[y0[k]:y1[k] + 1, x0[k]:x1[k] + 1] == k
+        loops = F.contours_binary(sub)
+        if not loops:
+            continue
+        outer = max(loops, key=lambda L: abs(F.polygon_area(L)))
+        pts = [((x + x0[k] - pad + 0.5) / N * 2 - 1, 1 - (y + y0[k] - pad + 0.5) / N * 2) for (y, x) in outer]
+        pts = F.simplify(pts, eps)
+        if strip and len(pts) > 1 and abs(pts[0][0] - pts[-1][0]) < 1e-12 and abs(pts[0][1] - pts[-1][1]) < 1e-12:
+            pts = pts[:-1]
+        if len(pts) < 3:
+            continue
+        out.append((int(k), pts))
+    return out
+
+
+def build_pass(e, sigma=0.0, K=16, mode="value", min_px=1, dz=0.0, simplify_px=0.5, pad=24, strip=True):
+    low = blur(e, sigma) if sigma > 0 else e
+    bins, dead = quantise(low, K, mode, dz)
+    bins = np.where(dead, -1, bins)
+    bp = np.pad(bins, pad, mode="wrap")
+    ep = np.pad(e, pad, mode="wrap")
+    comp, n = label_equal(bp)
+    H, W = bp.shape
+    size = np.bincount(comp.ravel(), minlength=n)
+    v = np.bincount(comp.ravel(), weights=ep.ravel(), minlength=n) / np.maximum(size, 1)
+    cb = np.zeros(n, np.int64); cb[comp.ravel()] = bp.ravel()
+    inside = np.zeros(n, bool); inside[np.unique(comp[pad:pad + N, pad:pad + N])] = True
+    keep = np.nonzero((size >= min_px) & (cb >= 0) & inside)[0]
+    yy, xx = np.indices((H, W))
+    y0 = np.full(n, 1 << 30); y1 = np.full(n, -1); x0 = np.full(n, 1 << 30); x1 = np.full(n, -1)
+    c = comp.ravel()
+    np.minimum.at(y0, c, yy.ravel()); np.maximum.at(y1, c, yy.ravel()); np.minimum.at(x0, c, xx.ravel()); np.maximum.at(x1, c, xx.ravel())
+    _G.update(comp=comp, x0=x0, y0=y0, x1=x1, y1=y1, pad=pad, eps=simplify_px / N * 2, strip=strip)
+    chunks = np.array_split(keep, 64)
+    polys = []
+    with mp.get_context("fork").Pool(16) as pool:
+        for part in pool.map(_trace, chunks):
+            polys.extend(part)
+    out = [{"pts": pts, "val": float(v[k]), "area": abs(F.polygon_area(pts))} for k, pts in polys]
+    out.sort(key=lambda p: -p["area"])
+    return out
+
+
+def rasterise(polys, n=N):
+    """Even-odd scanline fill at pixel centres; later (smaller) polygons win. Fully vectorised. 12 October 2026."""
+    cnt = np.array([len(p["pts"]) for p in polys])
+    P = np.concatenate([np.asarray(p["pts"], np.float64) for p in polys])
+    X = (P[:, 0] + 1) / 2 * n - 0.5
+    Y = (1 - P[:, 1]) / 2 * n - 0.5
+    pid = np.repeat(np.arange(len(polys)), cnt)
+    start = np.concatenate([[0], np.cumsum(cnt)[:-1]])
+    nxt = np.arange(len(P)) + 1
+    last = start + cnt - 1
+    nxt[last] = start
+    xa, ya, xb, yb = X, Y, X[nxt], Y[nxt]
+    lo = np.ceil(np.minimum(ya, yb)); hi = np.ceil(np.maximum(ya, yb))
+    nrow = (hi - lo).astype(np.int64)
+    m = nrow > 0
+    e_idx = np.repeat(np.nonzero(m)[0], nrow[m])
+    off = np.arange(len(e_idx)) - np.repeat(np.cumsum(nrow[m]) - nrow[m], nrow[m])
+    row = lo[e_idx] + off
+    t = (row - ya[e_idx]) / (yb[e_idx] - ya[e_idx])
+    xr = xa[e_idx] + t * (xb[e_idx] - xa[e_idx])
+    pp = pid[e_idx]
+    o = np.lexsort((xr, row, pp))
+    pp, row, xr = pp[o], row[o].astype(np.int64), xr[o]
+    # crossings come in pairs per (polygon, row)
+    xs0, xs1 = xr[0::2], xr[1::2]
+    pr, rr = pp[0::2], row[0::2]
+    c0 = np.ceil(xs0).astype(np.int64); c1 = np.ceil(xs1).astype(np.int64)
+    ok = (rr >= 0) & (rr < n)
+    c0 = np.clip(c0, 0, n); c1 = np.clip(c1, 0, n)
+    ln = np.where(ok, np.maximum(c1 - c0, 0), 0)
+    sidx = np.repeat(np.arange(len(ln)), ln)
+    px = c0[sidx] + (np.arange(len(sidx)) - np.repeat(np.cumsum(ln) - ln, ln))
+    flat = rr[sidx] * n + px
+    best = np.full(n * n, -1, np.int64)
+    np.maximum.at(best, flat, pr[sidx])
+    vals = np.array([p["val"] for p in polys])
+    img = np.where(best >= 0, vals[np.maximum(best, 0)], 0.0)
+    return img.reshape(n, n), int(len(P))
+
+
+def stored_bytes(npolys, npts):
+    """bgeo estimate: P float32 x3 + Cd float32 x3 per point, one vertex index per point, a small header per primitive.
+    Lean variant: one float 'val' per primitive instead of point Cd. 12 October 2026."""
+    full = npts * (12 + 12 + 4) + npolys * 8
+    lean = npts * (12 + 4) + npolys * (8 + 4)
+    return full, lean
+
+
+if __name__ == "__main__":
+    import json
+    m = sys.argv[1]
+    cfgs = json.loads(sys.argv[2])  # list of pass configs applied in sequence
+    r, c = load(m)
+    print(m, "start", round(pc(c, r), 4), flush=True)
+    tot_poly = tot_pts = 0
+    for i, cfg in enumerate(cfgs):
+        t0 = time.time()
+        polys = build_pass(r - c, **cfg)
+        q, npts = rasterise(polys)
+        c = c + q
+        tot_poly += len(polys); tot_pts += npts
+        full, lean = stored_bytes(tot_poly, tot_pts)
+        print(json.dumps({"map": m, "pass": i + 1, "cfg": cfg, "score": round(pc(c, r), 4), "polys": len(polys), "pts": npts,
+                          "cum_polys": tot_poly, "cum_pts": tot_pts, "MB_full": round(full / 1e6, 1), "MB_lean": round(lean / 1e6, 1),
+                          "s": round(time.time() - t0, 1)}), flush=True)
+    if len(sys.argv) > 3:
+        from RefLib import save_gray16
+        save_gray16(np.clip(c, 0, 1), sys.argv[3])

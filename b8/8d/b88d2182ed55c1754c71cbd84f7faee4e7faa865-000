@@ -1,0 +1,32 @@
+# 12 October 2026 : second round of relations: Spec from Cavity (nonlinear, banded), Cavity from Normal divergence, Normal from Bump/Cavity.
+import sys, json
+sys.path.insert(0, sys.argv[1])
+from DeriveCommon import *
+R = {m: ref(m) for m in ('Displacement', 'Bump', 'Cavity', 'Specular', 'NormalR', 'NormalG', 'AO')}
+out = {}
+c, s = R['Cavity'], R['Specular']
+out['Spec~poly3(Cav)'] = pc(lsfit([c, c * c, c ** 3], s)[0], s)
+out['Spec~bands(Cav)'] = pc(lsfit(bands(c), s)[0], s)
+out['Spec~split bands(Cav)'] = pc(lsfit(split(bands(c)), s)[0], s)
+out['Spec~split bands(Cav)+poly'] = pc(lsfit(split(bands(c)) + [c * c, c ** 3], s)[0], s)
+nx, ny = R['NormalR'] - 0.5, R['NormalG'] - 0.5
+div = (np.roll(nx, -1, 1) - np.roll(nx, 1, 1)) * 0.5 + (np.roll(ny, -1, 0) - np.roll(ny, 1, 0)) * 0.5
+out['Cav~split bands(div N)'] = pc(lsfit(split(bands(div)), c)[0], c)
+out['Spec~split bands(div N)'] = pc(lsfit(split(bands(div)), s)[0], s)
+# 12 October 2026 : integrate the normal into a height (Fourier, periodic) and test Bump, Disp
+f = np.fft.fftfreq(N)
+FX, FY = np.meshgrid(f, f)
+den = (2j * np.pi) * (FX ** 2 + FY ** 2); den[0, 0] = 1
+for sgx in (1, -1):
+    for sgy in (1, -1):
+        H = (FX * np.fft.fft2(sgx * nx) + FY * np.fft.fft2(sgy * ny)) / den; H[0, 0] = 0
+        h = np.real(np.fft.ifft2(H)).astype(np.float32)
+        out[f'Bump~h(N) {sgx},{sgy}'] = pc(h, R['Bump'])
+        out[f'Disp~h(N) {sgx},{sgy}'] = pc(h, R['Displacement'])
+        out[f'Bump~bands h(N) {sgx},{sgy}'] = pc(lsfit(bands(h), R['Bump'])[0], R['Bump'])
+gx, gy = gradfeats(bands(c))
+out['NormalR~grad bands(Cav)'] = pc(lsfit(gx, R['NormalR'])[0], R['NormalR'])
+out['Bump~split bands(Cav)'] = pc(lsfit(split(bands(c)), R['Bump'])[0], R['Bump'])
+out['Cav~split bands(Bump)+bands(divN)'] = pc(lsfit(split(bands(R['Bump'])) + split(bands(div)), c)[0], c)
+for k, v in out.items(): print(k, round(v, 4))
+json.dump(out, open(sys.argv[2], 'w'), indent=1)

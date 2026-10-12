@@ -1,0 +1,18 @@
+#!/bin/zsh
+# 12 October 2026 : real polygon builds (Fit tracing, simplify 0.45 px) and numpy rasterisation for the chosen settings
+P=/Users/zenray/.venvs/shorts/bin/python
+O=../real
+mkdir -p $O
+r() { $P -I PixelBuild.py $1 "$2" $O/$3.png >> $O/real.jsonl; }
+S=0.45
+r Cavity   "[{\"sigma\":0,\"K\":4,\"dz\":0.02,\"simplify_px\":$S},{\"sigma\":0,\"K\":4,\"dz\":0.02,\"simplify_px\":$S}]" Cavity_k4_dz02_x2
+r Cavity   "[{\"sigma\":0,\"K\":8,\"dz\":0,\"simplify_px\":$S}]" Cavity_k8_x1
+r Cavity   "[{\"sigma\":0.5,\"K\":4,\"dz\":0.02,\"simplify_px\":$S}]" Cavity_s05_k4_dz02_x1
+r Cavity   "[{\"sigma\":0,\"K\":8,\"dz\":0,\"simplify_px\":0.5}]" Cavity_k8_x1_simp05
+r Specular "[{\"sigma\":0,\"K\":4,\"dz\":0.005,\"simplify_px\":$S},{\"sigma\":0,\"K\":4,\"dz\":0.005,\"simplify_px\":$S}]" Specular_k4_dz005_x2
+r Specular "[{\"sigma\":0,\"K\":8,\"dz\":0,\"simplify_px\":$S}]" Specular_k8_x1
+r NormalR  "[{\"sigma\":0,\"K\":2,\"dz\":0.03,\"simplify_px\":$S},{\"sigma\":0,\"K\":2,\"dz\":0.03,\"simplify_px\":$S},{\"sigma\":0,\"K\":2,\"dz\":0.03,\"simplify_px\":$S}]" NormalR_k2_dz03_x3
+r NormalR  "[{\"sigma\":0,\"K\":8,\"dz\":0.01,\"simplify_px\":$S}]" NormalR_k8_dz01_x1
+r Bump     "[{\"sigma\":0,\"K\":4,\"dz\":0.03,\"simplify_px\":$S},{\"sigma\":0,\"K\":4,\"dz\":0.03,\"simplify_px\":$S}]" Bump_k4_dz03_x2
+r Bump     "[{\"sigma\":0.5,\"K\":2,\"dz\":0.015,\"simplify_px\":$S},{\"sigma\":0.5,\"K\":2,\"dz\":0.015,\"simplify_px\":$S}]" Bump_s05_k2_dz015_x2
+r Bump     "[{\"sigma\":0.5,\"K\":4,\"dz\":0.01,\"simplify_px\":$S}]" Bump_s05_k4_dz01_x1

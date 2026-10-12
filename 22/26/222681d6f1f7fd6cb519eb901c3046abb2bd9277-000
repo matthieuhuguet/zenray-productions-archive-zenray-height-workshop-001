@@ -1,0 +1,87 @@
+# 12 October 2026 : residual correction by sparse exact points. For a target map T and a base prediction P,
+# the base is linearly refit (two scalars), then the K pixels with the largest |residual| become points carrying
+# their residual. Greedy top-|r| is the L2-optimal choice of K exact pixels. Pearson at 2048 px for each K.
+# FR : correction du résidu par points exacts clairsemés ; on cherche le plus petit K qui atteint 0.99.
+import sys, json
+sys.path.insert(0, sys.argv[1])
+from DeriveCommon import *
+OUT = sys.argv[2]
+B2 = '/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles'
+R = {m: ref(m) for m in ('Displacement', 'Bump', 'Cavity', 'Specular', 'Roughness', 'NormalR', 'NormalG', 'AO')}
+P = {m: repro(m) for m in ('Displacement', 'Bump', 'Cavity', 'Specular', 'Roughness', 'AO')}
+P['NormalR'] = load(B2 + '/workflow_cavity/NormalR_base_snapshot.png')
+TARGETS = (0.99, 0.995)
+
+
+def curve(T, feats, name, block=1, forced=None):
+    F, _ = lsfit(feats, T)
+    r = T - F
+    if block > 1:
+        # 12 October 2026 : one point per block x block cell carrying the cell mean residual (cheaper, coarser)
+        rb = r.reshape(N // block, block, N // block, block).mean((1, 3))
+        a = np.abs(rb).ravel(); order = np.argsort(-a)
+        res = {'name': name, 'block': block, 'base_pearson': round(pc(F, T), 4)}
+        for t in TARGETS:
+            lo, hi = 0, a.size
+            while lo < hi:
+                k = (lo + hi) // 2
+                m = np.zeros(a.size, np.float32); m[order[:k]] = 1
+                C = F + np.repeat(np.repeat((rb.ravel() * m).reshape(rb.shape), block, 0), block, 1)
+                if pc(C, T) >= t: hi = k
+                else: lo = k + 1
+            res[f'K_{t}'] = int(lo) if lo < a.size else None
+        m = np.ones(a.size, np.float32)
+        res['ceiling_all_cells'] = round(pc(F + np.repeat(np.repeat(rb, block, 0), block, 1), T), 4)
+        return res, None
+    a = np.abs(r).ravel()
+    pre = np.zeros(a.size, bool)
+    if forced is not None: pre = forced.ravel().copy()
+    a2 = a.copy(); a2[pre] = np.inf
+    order = np.argsort(-a2)
+    nf = int(pre.sum())
+    res = {'name': name, 'block': 1, 'base_pearson': round(pc(F, T), 4), 'forced_points': nf}
+    if nf:
+        m = pre
+        res['pearson_with_forced'] = round(pc(F + r * m.reshape(r.shape), T), 4)
+    masks = {}
+    for t in TARGETS:
+        lo, hi = 0, a.size
+        while lo < hi:
+            k = (lo + hi) // 2
+            m = np.zeros(a.size, bool); m[order[:k]] = True
+            if pc(F + r * m.reshape(r.shape), T) >= t: hi = k
+            else: lo = k + 1
+        res[f'K_{t}'] = int(lo)
+        res[f'extra_K_{t}'] = int(max(0, lo - nf))
+        m = np.zeros(a.size, bool); m[order[:lo]] = True; masks[t] = m.reshape(r.shape)
+    # 12 October 2026 : variance share of the residual below 1 px, for context
+    rb = bands(r, (1,)); res['resid_var_below_1px'] = round(float(rb[0].var() / r.var()), 3)
+    return res, (F, r, masks)
+
+
+rep = []
+c_res, (Fc, rc, mc) = curve(R['Cavity'], [P['Cavity']], 'Cavity <- repro Cavity')
+rep.append(c_res)
+CavFix = Fc + rc * mc[0.99]   # 12 October 2026 : cavity corrected to exactly 0.99
+CavFix995 = Fc + rc * mc[0.995]
+for blk in (2, 4): rep.append(curve(R['Cavity'], [P['Cavity']], f'Cavity <- repro Cavity, {blk}x{blk} cells', blk)[0])
+rep.append(curve(R['Specular'], [P['Specular']], 'Specular <- repro Specular')[0])
+rep.append(curve(R['Specular'], [R['Cavity']], 'Specular <- lin(ref Cavity) [ideal cavity]')[0])
+rep.append(curve(R['Specular'], [CavFix], 'Specular <- lin(Cavity fixed @0.99)')[0])
+rep.append(curve(R['Specular'], [CavFix], 'Specular <- lin(Cavity fixed @0.99), points shared', forced=mc[0.99])[0])
+rep.append(curve(R['Specular'], [CavFix995], 'Specular <- lin(Cavity fixed @0.995), points shared', forced=mc[0.995])[0])
+rep.append(curve(R['Specular'], [CavFix995], 'Specular <- lin(Cavity fixed @0.995)')[0])
+rep.append(curve(R['Bump'], [P['Bump']], 'Bump <- repro Bump')[0])
+rep.append(curve(R['Bump'], bands(P['Displacement']), 'Bump <- bands(repro Displacement)')[0])
+rep.append(curve(R['Bump'], bands(P['Displacement']) + [P['Bump']], 'Bump <- bands(repro Disp) + repro Bump')[0])
+rep.append(curve(R['Bump'], bands(R['Displacement']), 'Bump <- bands(ref Displacement) [ideal disp]')[0])
+rep.append(curve(R['NormalR'], [P['NormalR']], 'NormalR <- repro NormalR H1 snapshot L20_regions_s2_p2.png')[0])
+gx, gy = gradfeats(bands(P['Displacement']))
+rep.append(curve(R['NormalR'], gx + [P['NormalR']], 'NormalR <- grad bands(repro Disp) + repro NormalR')[0])
+rep.append(curve(R['NormalG'], gy, 'NormalG <- grad bands(repro Disp)')[0])
+rep.append(curve(R['Roughness'], [P['Roughness']], 'Roughness <- repro Roughness')[0])
+rep.append(curve(R['AO'], [P['AO']], 'AO <- repro AO')[0])
+rep.append(curve(R['Displacement'], [P['Displacement']], 'Displacement <- repro Displacement')[0])
+for x in rep: print(json.dumps(x))
+json.dump(rep, open(OUT, 'w'), indent=1)
+np.save(OUT.replace('.json', '_cavfix_mask099.npy'), mc[0.99])

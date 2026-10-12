@@ -1,0 +1,28 @@
+Cavity start 0.8423
+{"map": "Cavity", "pass": 1, "cfg": {"sigma": 0, "K": 4, "dz": 0.02, "simplify_px": 0.45}, "score": 0.9875, "polys": 1027223, "pts": 4213338, "cum_polys": 1027223, "cum_pts": 4213338, "MB_full": 126.2, "MB_lean": 79.7, "s": 19.8}
+{"map": "Cavity", "pass": 2, "cfg": {"sigma": 0, "K": 4, "dz": 0.02, "simplify_px": 0.45}, "score": 0.9909, "polys": 139875, "pts": 559651, "cum_polys": 1167098, "cum_pts": 4772989, "MB_full": 143.0, "MB_lean": 90.4, "s": 3.1}
+Cavity start 0.8423
+{"map": "Cavity", "pass": 1, "cfg": {"sigma": 0, "K": 8, "dz": 0, "simplify_px": 0.45}, "score": 0.9911, "polys": 1310355, "pts": 5728255, "cum_polys": 1310355, "cum_pts": 5728255, "MB_full": 170.9, "MB_lean": 107.4, "s": 25.8}
+Cavity start 0.8423
+{"map": "Cavity", "pass": 1, "cfg": {"sigma": 0.5, "K": 4, "dz": 0.02, "simplify_px": 0.45}, "score": 0.9739, "polys": 688494, "pts": 2787833, "cum_polys": 688494, "cum_pts": 2787833, "MB_full": 83.6, "MB_lean": 52.9, "s": 12.0}
+Cavity start 0.8423
+{"map": "Cavity", "pass": 1, "cfg": {"sigma": 0, "K": 8, "dz": 0, "simplify_px": 0.5}, "score": 0.8746, "polys": 302573, "pts": 1474352, "cum_polys": 302573, "cum_pts": 1474352, "MB_full": 43.7, "MB_lean": 27.2, "s": 18.2}
+Specular start 0.8325
+{"map": "Specular", "pass": 1, "cfg": {"sigma": 0, "K": 4, "dz": 0.005, "simplify_px": 0.45}, "score": 0.9875, "polys": 1132821, "pts": 4669186, "cum_polys": 1132821, "cum_pts": 4669186, "MB_full": 139.8, "MB_lean": 88.3, "s": 19.4}
+{"map": "Specular", "pass": 2, "cfg": {"sigma": 0, "K": 4, "dz": 0.005, "simplify_px": 0.45}, "score": 0.9906, "polys": 139886, "pts": 559687, "cum_polys": 1272707, "cum_pts": 5228873, "MB_full": 156.6, "MB_lean": 98.9, "s": 4.0}
+Specular start 0.8325
+{"map": "Specular", "pass": 1, "cfg": {"sigma": 0, "K": 8, "dz": 0, "simplify_px": 0.45}, "score": 0.9913, "polys": 1426571, "pts": 6602874, "cum_polys": 1426571, "cum_pts": 6602874, "MB_full": 196.3, "MB_lean": 122.8, "s": 30.6}
+NormalR start 0.7159
+{"map": "NormalR", "pass": 1, "cfg": {"sigma": 0, "K": 2, "dz": 0.03, "simplify_px": 0.45}, "score": 0.9356, "polys": 360448, "pts": 1923132, "cum_polys": 360448, "cum_pts": 1923132, "MB_full": 56.7, "MB_lean": 35.1, "s": 11.5}
+{"map": "NormalR", "pass": 2, "cfg": {"sigma": 0, "K": 2, "dz": 0.03, "simplify_px": 0.45}, "score": 0.9854, "polys": 367832, "pts": 1614358, "cum_polys": 728280, "cum_pts": 3537490, "MB_full": 104.9, "MB_lean": 65.3, "s": 15.5}
+{"map": "NormalR", "pass": 3, "cfg": {"sigma": 0, "K": 2, "dz": 0.03, "simplify_px": 0.45}, "score": 0.9925, "polys": 145658, "pts": 590460, "cum_polys": 873938, "cum_pts": 4127950, "MB_full": 122.6, "MB_lean": 76.5, "s": 5.1}
+NormalR start 0.7159
+{"map": "NormalR", "pass": 1, "cfg": {"sigma": 0, "K": 8, "dz": 0.01, "simplify_px": 0.45}, "score": 0.9906, "polys": 1003455, "pts": 4656451, "cum_polys": 1003455, "cum_pts": 4656451, "MB_full": 138.4, "MB_lean": 86.5, "s": 25.9}
+Bump start 0.9468
+{"map": "Bump", "pass": 1, "cfg": {"sigma": 0, "K": 4, "dz": 0.03, "simplify_px": 0.45}, "score": 0.9886, "polys": 86057, "pts": 346017, "cum_polys": 86057, "cum_pts": 346017, "MB_full": 10.4, "MB_lean": 6.6, "s": 2.4}
+{"map": "Bump", "pass": 2, "cfg": {"sigma": 0, "K": 4, "dz": 0.03, "simplify_px": 0.45}, "score": 0.9899, "polys": 2700, "pts": 10984, "cum_polys": 88757, "cum_pts": 357001, "MB_full": 10.7, "MB_lean": 6.8, "s": 0.4}
+Bump start 0.9468
+{"map": "Bump", "pass": 1, "cfg": {"sigma": 0.5, "K": 2, "dz": 0.015, "simplify_px": 0.45}, "score": 0.9862, "polys": 82308, "pts": 334596, "cum_polys": 82308, "cum_pts": 334596, "MB_full": 10.0, "MB_lean": 6.3, "s": 3.1}
+{"map": "Bump", "pass": 2, "cfg": {"sigma": 0.5, "K": 2, "dz": 0.015, "simplify_px": 0.45}, "score": 0.991, "polys": 21578, "pts": 88100, "cum_polys": 103886, "cum_pts": 422696, "MB_full": 12.7, "MB_lean": 8.0, "s": 0.9}
+Bump start 0.9468
+{"map": "Bump", "pass": 1, "cfg": {"sigma": 0.5, "K": 4, "dz": 0.01, "simplify_px": 0.45}, "score": 0.9911, "polys": 144404, "pts": 582091, "cum_polys": 144404, "cum_pts": 582091, "MB_full": 17.5, "MB_lean": 11.0, "s": 4.8}

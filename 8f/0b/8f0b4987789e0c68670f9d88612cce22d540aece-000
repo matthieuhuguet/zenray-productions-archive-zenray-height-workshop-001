@@ -1,0 +1,68 @@
+# 12 October 2026 : shared loaders and band features for approach C (derivation between maps plus correction).
+# FR : chargeurs et bandes communs pour l'approche C (dérivation entre cartes plus correction).
+import numpy as np
+from PIL import Image
+B = '/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles'
+S = B + '/src/Broken_Tiles_smvnfc2p_2K_'
+N = 2048
+SIGMAS = (0.5, 1, 2, 4, 8, 16, 32, 64)  # 12 October 2026 : band edges in px
+
+
+def load(p):
+    im = Image.open(p)
+    if im.mode in ('I;16', 'I;16B', 'I'):
+        return np.asarray(im).astype(np.float32) / 65535.0
+    return np.asarray(im.convert('L')).astype(np.float32) / 255.0
+
+
+def ref(m):
+    return load(S + m + '.jpg') if not m.startswith('Normal') else load(B + '/src/' + m + '.png')
+
+
+def repro(m):
+    return load(f'{B}/{m}/versions/final/BrokenTiles_{m}_H2/FINAL_height.png')
+
+
+_F = {}
+def gk(s):
+    if s not in _F:
+        f = np.fft.fftfreq(N).astype(np.float32)
+        g = np.exp(-2 * (np.pi * s) ** 2 * f ** 2)
+        _F[s] = g[:, None] * g[None, :]
+    return _F[s]
+
+
+def gblur(a, s):
+    # 12 October 2026 : periodic gaussian blur through FFT (the maps tile)
+    return np.fft.irfft2(np.fft.rfft2(a) * gk(s)[:, :N // 2 + 1], s=a.shape).astype(np.float32)
+
+
+def bands(a, sig=SIGMAS):
+    out, prev = [], a
+    for s in sig:
+        b = gblur(a, s)
+        out.append(prev - b)
+        prev = b
+    out.append(prev - prev.mean())
+    return out
+
+
+def pc(a, b):
+    return float(np.corrcoef(a.ravel(), b.ravel())[0, 1])
+
+
+def lsfit(feats, y):
+    X = np.stack([f.ravel() for f in feats] + [np.ones(y.size, np.float32)], 1).astype(np.float64)
+    c, *_ = np.linalg.lstsq(X, y.ravel().astype(np.float64), rcond=None)
+    return (X @ c).reshape(y.shape).astype(np.float32), c
+
+
+def split(fs):
+    # 12 October 2026 : positive and negative parts, so concave and convex details weigh differently
+    return [np.maximum(f, 0) for f in fs] + [np.minimum(f, 0) for f in fs]
+
+
+def gradfeats(fs):
+    gx = [(np.roll(f, -1, 1) - np.roll(f, 1, 1)) * 0.5 for f in fs]
+    gy = [(np.roll(f, -1, 0) - np.roll(f, 1, 0)) * 0.5 for f in fs]
+    return gx, gy

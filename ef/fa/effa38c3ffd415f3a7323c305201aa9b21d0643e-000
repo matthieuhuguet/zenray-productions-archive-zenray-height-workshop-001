@@ -1,0 +1,37 @@
+# 12 October 2026 : residual statistics, oracle top-N pixel curve, crop previews.
+import sys, json, numpy as np
+from PIL import Image
+sys.path.insert(0, "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/workflow_cavity/scripts")
+import SplatPursuit as S
+out = {}
+for name in ["Cavity", "Specular", "Bump", "NormalR"]:
+    R, X = S.setup(name); E = R - X
+    lv = 255.0 / (R.max() - R.min() + 1e-9) if name == "NormalR" else 255.0  # 8-bit level scale (refs are 8-bit)
+    # 12 October 2026 : refs are 8-bit JPG / PNG -> work in 0..255 levels
+    sR = R.std(); sE = E.std()
+    flat = np.sort((E.ravel() - E.mean()) ** 2)[::-1]
+    cum = np.cumsum(flat); tot = flat.sum()
+    var_r = ((R - R.mean()) ** 2).sum()
+    curve = {}
+    for t in (0.97, 0.98, 0.99, 0.995):
+        # residual energy allowed: var_r*(1-t^2) approx (for X ~ R + small error)
+        allow = var_r * (1 - t * t)
+        need = tot - allow
+        curve[str(t)] = int(np.searchsorted(cum, need)) if need > 0 else 0
+    # 8x8 grid energy share (JPEG block boundary) : energy of E at block-boundary pixels vs others
+    yy, xx = np.indices(E.shape)
+    edge = (yy % 8 == 0) | (yy % 8 == 7) | (xx % 8 == 0) | (xx % 8 == 7)
+    e2 = (E - E.mean()) ** 2
+    out[name] = dict(ref_std_levels=float(sR), resid_std_levels=float(sE),
+                     quant_ceiling=float(np.sqrt(max(0, 1 - (1 / 12.0) / sR ** 2))),
+                     oracle_top_pixels=curve,
+                     block_edge_energy_ratio=float(e2[edge].mean() / e2[~edge].mean()))
+    c = slice(900, 1156)
+    def u8(a, lo, hi): return Image.fromarray(np.clip((a - lo) / (hi - lo) * 255, 0, 255).astype(np.uint8))
+    lo, hi = np.percentile(R, 0.5), np.percentile(R, 99.5)
+    row = np.concatenate([np.asarray(u8(R[c, c], lo, hi)), np.asarray(u8(X[c, c], lo, hi)),
+                          np.asarray(u8(E[c, c], -3 * sE, 3 * sE))], 1)
+    Image.fromarray(row).resize((768 * 2, 256 * 2), Image.NEAREST).save(
+        f"/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/workflow_cavity/data/{name}_crop_ref_cur_resid.png")
+print(json.dumps(out, indent=1))
+json.dump(out, open("/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/workflow_cavity/data/residual_stats.json", "w"), indent=1)

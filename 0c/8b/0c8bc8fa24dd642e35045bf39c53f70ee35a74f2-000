@@ -1,0 +1,32 @@
+# 12 October 2026 : honest storage comparison. Bytes of N atoms (raw Houdini attributes and lzma-packed)
+# versus the reference image stored losslessly (8-bit, lzma) : is the atom set equivalent to storing the image ?
+import sys, json, lzma, os
+import numpy as np
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import SplatPursuit as S
+
+RAW_POINT = 20  # 12 October 2026 : P float32 x3 + amp float32 + pscale float32 per point in bgeo
+out = {}
+for name in ["Cavity", "Specular", "Bump", "NormalR"]:
+    R = S.load(S.MAPS[name][0])
+    img = np.clip(np.round(R), 0, 255).astype(np.uint8)
+    img_lz = len(lzma.compress(img.tobytes(), preset=9))
+    at = np.load(f"{S.OUT}/{name}_atoms.npy")
+    js = json.load(open(f"{S.OUT}/{name}_pursuit.json"))
+    rows = {}
+    for t, n in js["crossings"].items():
+        if n is None:
+            continue
+        a = at[:n]
+        y, x, k, amp = a[:, 0].astype(np.int64), a[:, 1].astype(np.int64), a[:, 2].astype(np.uint8), a[:, 3]
+        o = np.lexsort((y * 2048 + x, k))
+        lin = (y * 2048 + x)[o]; kk = k[o]
+        d = np.diff(np.concatenate([[0], lin]))
+        d[np.r_[True, kk[1:] != kk[:-1]]] = lin[np.r_[True, kk[1:] != kk[:-1]]]
+        q = np.round(amp[o] / (np.abs(amp).max() + 1e-12) * 127).astype(np.int8)
+        packed = len(lzma.compress(d.astype(np.uint32).tobytes() + kk.tobytes() + q.tobytes(), preset=9))
+        rows[t] = dict(atoms=int(n), raw_bytes=int(n * RAW_POINT), lzma_bytes=packed,
+                       lzma_vs_image=round(packed / img_lz, 3), atoms_per_pixel=round(n / 2048 ** 2, 3))
+    out[name] = dict(image_8bit_raw=2048 * 2048, image_lzma=img_lz, at_target=rows)
+print(json.dumps(out, indent=1))
+json.dump(out, open(f"{S.OUT}/atom_bytes.json", "w"), indent=1)

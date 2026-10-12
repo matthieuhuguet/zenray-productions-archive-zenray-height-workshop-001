@@ -1,0 +1,136 @@
+# 12 October 2026 : matching pursuit with isotropic splats (Stamp Points, Blend Add) and oriented
+# short segments (curve pieces for Layer from Curves / Rasterize Curves with width + value),
+# FFT correlation with wrap (tileable), plus least-squares amplitude refit (conjugate gradient) at checkpoints.
+# Usage: python -I AtomPursuit.py <Map> <dict: iso|iso+seg> <max_atoms> [refit_checkpoints comma]
+import sys, json, time, os
+import numpy as np
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import SplatPursuit as S
+
+ISO = (0.35, 0.7, 1.2, 2.0, 3.2)        # 12 October 2026 : splat sigmas in px
+SEG_PERP = (0.5, 0.9)                    # 12 October 2026 : segment half-width sigma in px
+SEG_ALONG = 2.0                          # 12 October 2026 : along-axis sigma, ~7 px long segment
+N_ORIENT = 8
+H = W = 2048
+
+
+def make_kernels(kind):
+    ks, meta = [], []
+    for s in ISO:
+        r = int(np.ceil(3 * s)); y, x = np.mgrid[-r:r + 1, -r:r + 1]
+        ks.append(np.exp(-0.5 * (x * x + y * y) / s ** 2)); meta.append(("iso", s, 0.0))
+    if "seg" in kind:
+        for sp in SEG_PERP:
+            r = int(np.ceil(3 * SEG_ALONG)); y, x = np.mgrid[-r:r + 1, -r:r + 1]
+            for o in range(N_ORIENT):
+                th = np.pi * o / N_ORIENT
+                u = x * np.cos(th) + y * np.sin(th); v = -x * np.sin(th) + y * np.cos(th)
+                ks.append(np.exp(-0.5 * (u / SEG_ALONG) ** 2 - 0.5 * (v / sp) ** 2)); meta.append(("seg", sp, th))
+    return ks, meta
+
+
+def kfft(k):
+    r = k.shape[0] // 2
+    pad = np.zeros((H, W)); pad[:k.shape[0], :k.shape[1]] = k
+    pad = np.roll(pad, (-r, -r), (0, 1))
+    return np.fft.rfft2(pad)
+
+
+class Dict:
+    def __init__(self, kind):
+        self.ks, self.meta = make_kernels(kind)
+        self.F = [kfft(k) for k in self.ks]
+        self.n2 = [float((k * k).sum()) for k in self.ks]
+
+    def corr(self, E):
+        fE = np.fft.rfft2(E)
+        return [np.fft.irfft2(fE * np.conj(f), (H, W)) for f in self.F]
+
+    def synth(self, ys, xs, ki, amp):
+        acc = np.zeros((H, W // 2 + 1), complex)
+        for k in np.unique(ki):
+            m = ki == k; imp = np.zeros((H, W))
+            np.add.at(imp, (ys[m], xs[m]), amp[m])
+            acc += np.fft.rfft2(imp) * self.F[k]
+        return np.fft.irfft2(acc, (H, W))
+
+    def adjoint(self, r, ys, xs, ki):
+        fr = np.fft.rfft2(r); out = np.zeros(len(ys))
+        for k in np.unique(ki):
+            m = ki == k
+            c = np.fft.irfft2(fr * np.conj(self.F[k]), (H, W))
+            out[m] = c[ys[m], xs[m]]
+        return out
+
+
+def merge(ys, xs, ki, amp):
+    key = (ki.astype(np.int64) * H + ys) * W + xs
+    u, inv = np.unique(key, return_inverse=True)
+    a = np.zeros(len(u)); np.add.at(a, inv, amp)
+    ki2 = u // (H * W); rem = u % (H * W)
+    return rem // W, rem % W, ki2, a
+
+
+def refit(D, E0, ys, xs, ki, amp, iters=25):
+    # 12 October 2026 : CG on normal equations, warm start from greedy amplitudes
+    a = amp.copy()
+    r = E0 - D.synth(ys, xs, ki, a)
+    g = D.adjoint(r, ys, xs, ki); p = g.copy(); gg = g @ g
+    for _ in range(iters):
+        Ap = D.synth(ys, xs, ki, p)
+        al = gg / (Ap * Ap).sum()
+        a += al * p; r -= al * Ap
+        g = D.adjoint(r, ys, xs, ki); gn = g @ g
+        p = g + gn / gg * p; gg = gn
+    return a, r
+
+
+def run(name, kind, max_atoms, checkpoints):
+    R, X0 = S.setup(name); E0 = R - X0; E = E0.copy()
+    D = Dict(kind)
+    Ys, Xs, Ks, As = [], [], [], []
+    hist = [(0, 0, S.pearson(X0, R))]; total = 0; t0 = time.time(); it = 0
+    while total < max_atoms:
+        it += 1
+        C = D.corr(E)
+        gains = np.stack([c * c / n for c, n in zip(C, D.n2)])
+        bi = gains.argmax(0); best = np.take_along_axis(gains, bi[None], 0)[0]
+        lm = S.localmax(best, 1); idx = np.flatnonzero(lm)
+        K = int(min(max(20000, 0.15 * idx.size), max_atoms - total, idx.size))
+        sel = idx[np.argpartition(best.ravel()[idx], -K)[-K:]]
+        ys, xs = np.unravel_index(sel, E.shape); ki = bi.ravel()[sel]
+        amp = np.array([C[k][y, x] / D.n2[k] for k, y, x in zip(ki, ys, xs)]) if K < 1000 else \
+            np.stack(C).reshape(len(C), -1)[ki, sel] / np.array(D.n2)[ki]
+        E -= D.synth(ys, xs, ki, amp)
+        Ys.append(ys); Xs.append(xs); Ks.append(ki); As.append(amp); total += K
+        nseg = int(sum((np.array([D.meta[k][0] == "seg" for k in kk])).sum() for kk in Ks))
+        p = S.pearson(R - E, R); hist.append((total, nseg, p))
+        print(f"{name}/{kind} it{it} atoms {total} seg {nseg} pearson {p:.4f} ({time.time()-t0:.0f}s)", flush=True)
+        if p >= 0.995:
+            break
+    ys, xs, ki, amp = (np.concatenate(v) for v in (Ys, Xs, Ks, As))
+    refits = []
+    for n in checkpoints:
+        if n > len(ys):
+            continue
+        my, mx_, mk, ma = merge(ys[:n], xs[:n], ki[:n], amp[:n])
+        a2, r2 = refit(D, E0, my, mx_, mk, ma)
+        pf = S.pearson(R - r2, R)
+        # 12 October 2026 : 8-bit amplitude quantisation check after refit
+        q = S.quant(a2, 8); pq = S.pearson(R - (E0 - D.synth(my, mx_, mk, q)), R)
+        refits.append(dict(greedy_atoms=n, unique_atoms=int(len(my)), pearson_refit=pf, pearson_refit_q8=pq,
+                           n_seg=int(sum(D.meta[k][0] == "seg" for k in mk))))
+        print(f"{name}/{kind} refit {n} -> unique {len(my)} pearson {pf:.4f} q8 {pq:.4f}", flush=True)
+    use = {}
+    for k in range(len(D.ks)):
+        m = D.meta[k]; key = f"{m[0]}_{m[1]}"; use[key] = use.get(key, 0) + int((ki == k).sum())
+    return dict(name=name, kind=kind, hist=hist, refits=refits, kernel_use=use)
+
+
+if __name__ == "__main__":
+    name, kind, mx = sys.argv[1], sys.argv[2], int(sys.argv[3])
+    cps = [int(c) for c in sys.argv[4].split(",")] if len(sys.argv) > 4 else []
+    res = run(name, kind, mx, cps)
+    out = f"{S.OUT}/{name}_{kind.replace('+','_')}_atoms.json"
+    json.dump(res, open(out, "w"), indent=1)
+    print("wrote", out)
