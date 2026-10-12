@@ -1,0 +1,11 @@
+Bump/iso+seg it1 atoms 29602 seg 14715 pearson 0.9658 (17s)
+Bump/iso+seg it2 atoms 57294 seg 30429 pearson 0.9760 (98s)
+Bump/iso+seg it3 atoms 86388 seg 46196 pearson 0.9829 (146s)
+Bump/iso+seg it4 atoms 116795 seg 61445 pearson 0.9871 (165s)
+Bump/iso+seg it5 atoms 148290 seg 76442 pearson 0.9900 (183s)
+Bump/iso+seg it6 atoms 180791 seg 91331 pearson 0.9920 (200s)
+Bump/iso+seg it7 atoms 214257 seg 106445 pearson 0.9934 (210s)
+Bump/iso+seg it8 atoms 248705 seg 121623 pearson 0.9945 (229s)
+Bump/iso+seg it9 atoms 284186 seg 137399 pearson 0.9953 (236s)
+Bump/iso+seg refit 100000 -> unique 99597 pearson 0.9856 q8 0.9856
+wrote /Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/workflow_cavity/data/Bump_iso_seg_atoms.json
