@@ -1,0 +1,21 @@
+{
+ "name": "BrokenTiles_Cavity",
+ "work": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity",
+ "net": "/obj/ZRH_BrokenTiles_Cavity",
+ "height": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/versions/final/BrokenTiles_Cavity_H2/FINAL_height.png",
+ "pearson_full": 0.8423,
+ "ssim_full": 0.7498,
+ "mae": 0.0243,
+ "seam_xy": [
+  0.88,
+  0.88
+ ],
+ "seam_layer": false,
+ "zoom": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/zoom3_reference_vs_result.png",
+ "boards": [
+  "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/versions/final/BrokenTiles_Cavity_H1/board/Evolution.html",
+  "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/versions/final/BrokenTiles_Cavity_H2/board/Evolution.html"
+ ],
+ "basecolor": null,
+ "minutes": 7.7
+}

@@ -1,0 +1,106 @@
+STEP 1/7 bridge | checking the Houdini bridge | 0.1 s
+STEP 2/7 input | /Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/src/Broken_Tiles_smvnfc2p_2K_Cavity.jpg | 0.1 s
+STEP 3/7 references | crop, square, 2048 px | 0.1 s
+STEP 4/7 height | plan L3: structure, regions 32 to 4 px, successive passes at 4, 2 and 1 px | 0.3 s
+BrokenTiles_Cavity_H1 joint_profile accepted 0.2021 {'pearson': 0.0526, 'mae': 0.047, 'low32': 0.139, 'b1-2': 0.0143, 'b4-8': 0.0568, 'b16-32': 0.0991, 'q25': 0.0003, 'q75': 0.0, 'lines': 0.0, 'struct': 0.068, 'detail': 0.026} 6.2 s {'kept_layers': 0, 'new_layers': 1, 't_nodes': 0.01, 't_cook_export': 0.37} local None
+STEP 4/7 height | layer joint_profile accepted pearson 0.0526 | 8.8 s
+BrokenTiles_Cavity_H1 side_profiles rejected 0.2028 {'pearson': 0.0541, 'mae': 0.047, 'low32': 0.147, 'b1-2': 0.015, 'b4-8': 0.0575, 'b16-32': 0.098, 'q25': 0.0003, 'q75': 0.0, 'lines': 0.0, 'struct': 0.07, 'detail': 0.026} 5.5 s {'kept_layers': 1, 'new_layers': 1, 't_nodes': 0.0, 't_cook_export': 0.1} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer side_profiles rejected pearson 0.0541 | 14.2 s
+BrokenTiles_Cavity_H1 row_table rejected 0.2021 {'pearson': 0.0526, 'mae': 0.047, 'low32': 0.139, 'b1-2': 0.0143, 'b4-8': 0.0568, 'b16-32': 0.0991, 'q25': 0.0003, 'q75': 0.0, 'lines': 0.0, 'struct': 0.068, 'detail': 0.026} 5.1 s {'kept_layers': 1, 'new_layers': 1, 't_nodes': 0.01, 't_cook_export': 0.08} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer row_table rejected pearson 0.0526 | 19.4 s
+BrokenTiles_Cavity_H1 row_plane accepted 0.2155 {'pearson': 0.0903, 'mae': 0.0468, 'low32': 0.32, 'b1-2': 0.0143, 'b4-8': 0.0558, 'b16-32': 0.0944, 'q25': 0.0002, 'q75': 0.0, 'lines': 0.0, 'struct': 0.095, 'detail': 0.025} 5.1 s {'kept_layers': 1, 'new_layers': 1, 't_nodes': 0.0, 't_cook_export': 0.12} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0, 'refit': True}
+STEP 4/7 height | layer row_plane accepted pearson 0.0903 | 26.6 s
+BrokenTiles_Cavity_H1 corners rejected 0.2133 {'pearson': 0.0889, 'mae': 0.0468, 'low32': 0.319, 'b1-2': 0.0143, 'b4-8': 0.0542, 'b16-32': 0.0815, 'q25': 0.0029, 'q75': 0.0, 'lines': 0.0, 'struct': 0.085, 'detail': 0.025} 4.9 s {'kept_layers': 2, 'new_layers': 1, 't_nodes': 0.0, 't_cook_export': 0.19} local {'ok': True, 'pixels': 48332, 'before': 0.0415, 'after': 0.0372, 'ls_gain': 0.367}
+STEP 4/7 height | layer corners rejected pearson 0.0889 | 31.5 s
+BrokenTiles_Cavity_H1 regions_s32 accepted 0.3785 {'pearson': 0.333, 'mae': 0.0428, 'low32': 0.969, 'b1-2': 0.0145, 'b4-8': 0.0876, 'b16-32': 0.6879, 'q25': 0.2211, 'q75': 0.0, 'lines': 0.0, 'struct': 0.562, 'detail': 0.034} 5.6 s {'kept_layers': 2, 'new_layers': 1, 't_nodes': 0.05, 't_cook_export': 0.26} local {'ok': True, 'pixels': 2221056, 'before': 0.0498, 'after': 0.0428, 'ls_gain': 1.429}
+STEP 4/7 height | layer regions_s32 accepted pearson 0.333 | 39.3 s
+BrokenTiles_Cavity_H1 regions_s16 accepted 0.4357 {'pearson': 0.3913, 'mae': 0.0409, 'low32': 0.997, 'b1-2': 0.0169, 'b4-8': 0.2697, 'b16-32': 0.9226, 'q25': 0.2956, 'q75': 0.0104, 'lines': 0.0, 'struct': 0.643, 'detail': 0.088} 5.6 s {'kept_layers': 3, 'new_layers': 1, 't_nodes': 0.2, 't_cook_export': 0.27} local {'ok': True, 'pixels': 1219647, 'before': 0.0475, 'after': 0.0428, 'ls_gain': 1.746}
+STEP 4/7 height | layer regions_s16 accepted pearson 0.3913 | 46.9 s
+BrokenTiles_Cavity_H1 regions_s8 accepted 0.4919 {'pearson': 0.4467, 'mae': 0.0392, 'low32': 0.999, 'b1-2': 0.0503, 'b4-8': 0.6388, 'b16-32': 0.9887, 'q25': 0.3515, 'q75': 0.032, 'lines': 0.0, 'struct': 0.674, 'detail': 0.233} 6.3 s {'kept_layers': 4, 'new_layers': 1, 't_nodes': 0.38, 't_cook_export': 0.25} local {'ok': True, 'pixels': 1103161, 'before': 0.0509, 'after': 0.0465, 'ls_gain': 1.96}
+STEP 4/7 height | layer regions_s8 accepted pearson 0.4467 | 55.3 s
+BrokenTiles_Cavity_H1 lines accepted 0.4947 {'pearson': 0.4473, 'mae': 0.0388, 'low32': 0.998, 'b1-2': 0.2909, 'b4-8': 0.5014, 'b16-32': 0.9848, 'q25': 0.349, 'q75': 0.0511, 'lines': 0.013, 'struct': 0.676, 'detail': 0.24} 12.0 s {'kept_layers': 5, 'new_layers': 1, 't_nodes': 0.12, 't_cook_export': 0.31} local {'ok': True, 'pixels': 150762, 'before': 0.0573, 'after': 0.0478, 'ls_gain': 0.502, 'refit': True}
+STEP 4/7 height | layer lines accepted pearson 0.4473 | 69.7 s
+BrokenTiles_Cavity_H1 blobs accepted 0.4978 {'pearson': 0.4511, 'mae': 0.0388, 'low32': 0.998, 'b1-2': 0.3042, 'b4-8': 0.5001, 'b16-32': 0.9841, 'q25': 0.3498, 'q75': 0.0525, 'lines': 0.02, 'struct': 0.676, 'detail': 0.252} 6.2 s {'kept_layers': 6, 'new_layers': 1, 't_nodes': 0.01, 't_cook_export': 0.66} local {'ok': True, 'pixels': 5405, 'before': 0.1058, 'after': 0.0541, 'ls_gain': 1.166}
+STEP 4/7 height | layer blobs accepted pearson 0.4511 | 78.0 s
+BrokenTiles_Cavity_H1 regions_s4 accepted 0.5581 {'pearson': 0.5148, 'mae': 0.0372, 'low32': 1.0, 'b1-2': 0.3546, 'b4-8': 0.8811, 'b16-32': 0.9976, 'q25': 0.4107, 'q75': 0.065, 'lines': 0.019, 'struct': 0.694, 'detail': 0.452} 7.4 s {'kept_layers': 7, 'new_layers': 1, 't_nodes': 0.73, 't_cook_export': 0.55} local {'ok': True, 'pixels': 1158979, 'before': 0.0579, 'after': 0.0537, 'ls_gain': 2.083}
+STEP 4/7 height | layer regions_s4 accepted pearson 0.5148 | 87.6 s
+BrokenTiles_Cavity_H1 regions_s8_p2 accepted 0.56 {'pearson': 0.5178, 'mae': 0.0372, 'low32': 1.0, 'b1-2': 0.3549, 'b4-8': 0.8843, 'b16-32': 0.9989, 'q25': 0.4141, 'q75': 0.0714, 'lines': 0.019, 'struct': 0.697, 'detail': 0.453} 7.0 s {'kept_layers': 8, 'new_layers': 1, 't_nodes': 0.58, 't_cook_export': 0.41} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer regions_s8_p2 accepted pearson 0.5178 | 96.8 s
+BrokenTiles_Cavity_H1 regions_s4_p2 accepted 0.5804 {'pearson': 0.5416, 'mae': 0.0364, 'low32': 1.0, 'b1-2': 0.3952, 'b4-8': 0.9461, 'b16-32': 0.9995, 'q25': 0.431, 'q75': 0.085, 'lines': 0.018, 'struct': 0.703, 'detail': 0.51} 11.2 s {'kept_layers': 9, 'new_layers': 1, 't_nodes': 1.84, 't_cook_export': 0.49} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer regions_s4_p2 accepted pearson 0.5416 | 110.1 s
+BrokenTiles_Cavity_H1 lines_p2 accepted 0.5818 {'pearson': 0.5416, 'mae': 0.0363, 'low32': 1.0, 'b1-2': 0.4244, 'b4-8': 0.9393, 'b16-32': 0.9988, 'q25': 0.4306, 'q75': 0.0919, 'lines': 0.028, 'struct': 0.704, 'detail': 0.515} 12.3 s {'kept_layers': 10, 'new_layers': 1, 't_nodes': 0.11, 't_cook_export': 0.46} local {'ok': True, 'pixels': 78937, 'before': 0.0584, 'after': 0.0516, 'ls_gain': 0.47, 'refit': True}
+STEP 4/7 height | layer lines_p2 accepted pearson 0.5416 | 124.6 s
+BrokenTiles_Cavity_H1 blobs_p2 rejected 0.5819 {'pearson': 0.5418, 'mae': 0.0363, 'low32': 1.0, 'b1-2': 0.4255, 'b4-8': 0.939, 'b16-32': 0.9988, 'q25': 0.4307, 'q75': 0.092, 'lines': 0.028, 'struct': 0.704, 'detail': 0.516} 5.6 s {'kept_layers': 11, 'new_layers': 1, 't_nodes': 0.0, 't_cook_export': 0.62} local {'ok': True, 'pixels': 578, 'before': 0.107, 'after': 0.0641, 'ls_gain': 1.052}
+STEP 4/7 height | layer blobs_p2 rejected pearson 0.5418 | 130.2 s
+BrokenTiles_Cavity_H1 regions_s4_p3 accepted 0.5929 {'pearson': 0.555, 'mae': 0.036, 'low32': 1.0, 'b1-2': 0.4487, 'b4-8': 0.9649, 'b16-32': 0.9996, 'q25': 0.4399, 'q75': 0.0963, 'lines': 0.027, 'struct': 0.707, 'detail': 0.544} 12.5 s {'kept_layers': 11, 'new_layers': 1, 't_nodes': 2.11, 't_cook_export': 0.74} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer regions_s4_p3 accepted pearson 0.555 | 144.9 s
+BrokenTiles_Cavity_H1 regions_s4_p4 accepted 0.5995 {'pearson': 0.563, 'mae': 0.0358, 'low32': 1.0, 'b1-2': 0.4632, 'b4-8': 0.9764, 'b16-32': 0.9998, 'q25': 0.4438, 'q75': 0.1022, 'lines': 0.027, 'struct': 0.709, 'detail': 0.559} 13.1 s {'kept_layers': 12, 'new_layers': 1, 't_nodes': 2.16, 't_cook_export': 0.87} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer regions_s4_p4 accepted pearson 0.563 | 160.3 s
+BrokenTiles_Cavity_H1 regions_s4_p5 accepted 0.6041 {'pearson': 0.5685, 'mae': 0.0356, 'low32': 1.0, 'b1-2': 0.4735, 'b4-8': 0.9828, 'b16-32': 0.9998, 'q25': 0.4463, 'q75': 0.1067, 'lines': 0.027, 'struct': 0.711, 'detail': 0.569} 13.8 s {'kept_layers': 13, 'new_layers': 1, 't_nodes': 2.5, 't_cook_export': 0.86} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer regions_s4_p5 accepted pearson 0.5685 | 176.3 s
+BrokenTiles_Cavity_H1 regions_s4_p6 accepted 0.6076 {'pearson': 0.5727, 'mae': 0.0354, 'low32': 1.0, 'b1-2': 0.4814, 'b4-8': 0.9868, 'b16-32': 0.9999, 'q25': 0.4479, 'q75': 0.1102, 'lines': 0.027, 'struct': 0.712, 'detail': 0.576} 14.1 s {'kept_layers': 14, 'new_layers': 1, 't_nodes': 2.64, 't_cook_export': 0.93} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer regions_s4_p6 accepted pearson 0.5727 | 192.6 s
+BrokenTiles_Cavity_H1 regions_s4_p7 accepted 0.6104 {'pearson': 0.576, 'mae': 0.0353, 'low32': 1.0, 'b1-2': 0.4878, 'b4-8': 0.9895, 'b16-32': 0.9999, 'q25': 0.4492, 'q75': 0.1128, 'lines': 0.027, 'struct': 0.712, 'detail': 0.581} 14.2 s {'kept_layers': 15, 'new_layers': 1, 't_nodes': 2.55, 't_cook_export': 1.07} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer regions_s4_p7 accepted pearson 0.576 | 209.0 s
+BrokenTiles_Cavity_H1 regions_s4_p8 accepted 0.6127 {'pearson': 0.5787, 'mae': 0.0353, 'low32': 1.0, 'b1-2': 0.4933, 'b4-8': 0.9914, 'b16-32': 0.9999, 'q25': 0.4502, 'q75': 0.115, 'lines': 0.027, 'struct': 0.713, 'detail': 0.586} 14.3 s {'kept_layers': 16, 'new_layers': 1, 't_nodes': 2.64, 't_cook_export': 0.99} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer regions_s4_p8 accepted pearson 0.5787 | 225.6 s
+BrokenTiles_Cavity_H1 regions_s2 accepted 0.6405 {'pearson': 0.6109, 'mae': 0.0341, 'low32': 1.0, 'b1-2': 0.631, 'b4-8': 0.9961, 'b16-32': 0.9999, 'q25': 0.4641, 'q75': 0.1319, 'lines': 0.03, 'struct': 0.719, 'detail': 0.643} 15.9 s {'kept_layers': 17, 'new_layers': 1, 't_nodes': 3.41, 't_cook_export': 1.05} local {'ok': True, 'pixels': 401459, 'before': 0.0719, 'after': 0.0662, 'ls_gain': 5.052}
+STEP 4/7 height | layer regions_s2 accepted pearson 0.6109 | 243.6 s
+BrokenTiles_Cavity_H1 regions_s2_p2 accepted 0.6556 {'pearson': 0.6287, 'mae': 0.0335, 'low32': 1.0, 'b1-2': 0.6903, 'b4-8': 0.9978, 'b16-32': 0.9999, 'q25': 0.4711, 'q75': 0.1466, 'lines': 0.033, 'struct': 0.724, 'detail': 0.667} 15.6 s {'kept_layers': 18, 'new_layers': 1, 't_nodes': 3.51, 't_cook_export': 1.03} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer regions_s2_p2 accepted pearson 0.6287 | 261.3 s
+BrokenTiles_Cavity_H1 blobs_p3 rejected 0.6556 {'pearson': 0.6288, 'mae': 0.0335, 'low32': 1.0, 'b1-2': 0.6903, 'b4-8': 0.9978, 'b16-32': 0.9999, 'q25': 0.4711, 'q75': 0.1466, 'lines': 0.033, 'struct': 0.724, 'detail': 0.667} 5.6 s {'kept_layers': 19, 'new_layers': 1, 't_nodes': 0.01, 't_cook_export': 0.88} local {'ok': True, 'pixels': 29, 'ls_gain': 1.0}
+STEP 4/7 height | layer blobs_p3 rejected pearson 0.6288 | 266.9 s
+BrokenTiles_Cavity_H1 regions_s1 accepted 0.7011 {'pearson': 0.6882, 'mae': 0.0313, 'low32': 1.0, 'b1-2': 0.8302, 'b4-8': 0.9972, 'b16-32': 0.9997, 'q25': 0.4948, 'q75': 0.1845, 'lines': 0.044, 'struct': 0.736, 'detail': 0.712} 16.2 s {'kept_layers': 19, 'new_layers': 1, 't_nodes': 3.55, 't_cook_export': 1.25} local {'ok': True, 'pixels': 792028, 'before': 0.0701, 'after': 0.0598, 'ls_gain': 3.327}
+STEP 4/7 height | layer regions_s1 accepted pearson 0.6882 | 285.2 s
+BrokenTiles_Cavity_H1 regions_s1_p2 accepted 0.7252 {'pearson': 0.72, 'mae': 0.0301, 'low32': 1.0, 'b1-2': 0.8796, 'b4-8': 0.998, 'b16-32': 0.9998, 'q25': 0.5095, 'q75': 0.2072, 'lines': 0.052, 'struct': 0.743, 'detail': 0.729} 15.6 s {'kept_layers': 20, 'new_layers': 1, 't_nodes': 3.02, 't_cook_export': 1.28} local {'ok': True, 'pixels': 651421, 'before': 0.0653, 'after': 0.058, 'ls_gain': 4.177}
+STEP 4/7 height | layer regions_s1_p2 accepted pearson 0.72 | 302.9 s
+BrokenTiles_Cavity_H1 regions_s2_p3 accepted 0.7275 {'pearson': 0.7225, 'mae': 0.03, 'low32': 1.0, 'b1-2': 0.883, 'b4-8': 0.9993, 'b16-32': 0.9999, 'q25': 0.5103, 'q75': 0.2121, 'lines': 0.053, 'struct': 0.744, 'detail': 0.732} 16.0 s {'kept_layers': 21, 'new_layers': 1, 't_nodes': 3.62, 't_cook_export': 1.27} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer regions_s2_p3 accepted pearson 0.7225 | 321.0 s
+BrokenTiles_Cavity_H1 regions_s1_p3 accepted 0.7417 {'pearson': 0.7416, 'mae': 0.0292, 'low32': 1.0, 'b1-2': 0.9067, 'b4-8': 0.9988, 'b16-32': 0.9999, 'q25': 0.5187, 'q75': 0.2262, 'lines': 0.066, 'struct': 0.749, 'detail': 0.741} 15.3 s {'kept_layers': 22, 'new_layers': 1, 't_nodes': 2.93, 't_cook_export': 1.44} local {'ok': True, 'pixels': 209165, 'before': 0.0727, 'after': 0.0663, 'ls_gain': 5.583}
+STEP 4/7 height | layer regions_s1_p3 accepted pearson 0.7416 | 338.3 s
+BrokenTiles_Cavity_H1 regions_s1_p4 accepted 0.7521 {'pearson': 0.7557, 'mae': 0.0286, 'low32': 1.0, 'b1-2': 0.9221, 'b4-8': 0.9991, 'b16-32': 0.9999, 'q25': 0.5261, 'q75': 0.2362, 'lines': 0.082, 'struct': 0.752, 'detail': 0.749} 14.7 s {'kept_layers': 23, 'new_layers': 1, 't_nodes': 2.73, 't_cook_export': 1.3} local {'ok': True, 'pixels': 31922, 'before': 0.0887, 'after': 0.0807, 'ls_gain': 7.914}
+STEP 4/7 height | layer regions_s1_p4 accepted pearson 0.7557 | 355.2 s
+BrokenTiles_Cavity_H1 hist accepted 0.7618 {'pearson': 0.766, 'mae': 0.0295, 'low32': 0.997, 'b1-2': 0.9229, 'b4-8': 0.995, 'b16-32': 0.9962, 'q25': 0.5203, 'q75': 0.282, 'lines': 0.163, 'struct': 0.758, 'detail': 0.768} 6.1 s {'kept_layers': 24, 'new_layers': 1, 't_nodes': 0.01, 't_cook_export': 1.33} local None
+STEP 4/7 height | layer hist accepted pearson 0.766 | 363.3 s
+STEP 5/7 height | plan L5: pixel passes and measured equaliser, from the L3 result | 365.8 s
+BrokenTiles_Cavity_H2 resume 0.7618 {'pearson': 0.766, 'mae': 0.0295, 'low32': 0.997, 'b1-2': 0.9229, 'b4-8': 0.995, 'b16-32': 0.9962, 'q25': 0.5203, 'q75': 0.282, 'lines': 0.163, 'struct': 0.758, 'detail': 0.768}
+BrokenTiles_Cavity_H2 pix_s05_k16 accepted 0.7741 {'pearson': 0.7871, 'mae': 0.0281, 'low32': 0.999, 'b1-2': 0.9293, 'b4-8': 0.9944, 'b16-32': 0.9981, 'q25': 0.5282, 'q75': 0.2922, 'lines': 0.185, 'struct': 0.763, 'detail': 0.774} 8.3 s {'kept_layers': 25, 'new_layers': 1, 't_nodes': 0.36, 't_cook_export': 1.29} local {'ok': True, 'pixels': 137167, 'before': 0.0757, 'after': 0.0333, 'ls_gain': 1.561}
+STEP 5/7 height | layer pix_s05_k16 accepted pearson 0.7871 | 382.1 s
+BrokenTiles_Cavity_H2 pix_s05_k16_p2 accepted 0.7786 {'pearson': 0.7944, 'mae': 0.0276, 'low32': 0.999, 'b1-2': 0.9316, 'b4-8': 0.9945, 'b16-32': 0.9984, 'q25': 0.5321, 'q75': 0.2968, 'lines': 0.195, 'struct': 0.765, 'detail': 0.777} 7.5 s {'kept_layers': 26, 'new_layers': 1, 't_nodes': 0.22, 't_cook_export': 1.35} local {'ok': True, 'pixels': 52076, 'before': 0.0697, 'after': 0.0302, 'ls_gain': 1.569}
+STEP 5/7 height | layer pix_s05_k16_p2 accepted pearson 0.7944 | 391.8 s
+BrokenTiles_Cavity_H2 pix_s05_k16_p3 accepted 0.7804 {'pearson': 0.7974, 'mae': 0.0274, 'low32': 0.999, 'b1-2': 0.9325, 'b4-8': 0.9946, 'b16-32': 0.9985, 'q25': 0.5338, 'q75': 0.2987, 'lines': 0.199, 'struct': 0.766, 'detail': 0.779} 6.8 s {'kept_layers': 27, 'new_layers': 1, 't_nodes': 0.18, 't_cook_export': 1.06} local {'ok': True, 'pixels': 21420, 'before': 0.0695, 'after': 0.0308, 'ls_gain': 1.552}
+STEP 5/7 height | layer pix_s05_k16_p3 accepted pearson 0.7974 | 400.9 s
+BrokenTiles_Cavity_H2 pix_s05_k16_m3 accepted 0.7943 {'pearson': 0.8153, 'mae': 0.026, 'low32': 0.999, 'b1-2': 0.9411, 'b4-8': 0.9952, 'b16-32': 0.9986, 'q25': 0.5507, 'q75': 0.3188, 'lines': 0.224, 'struct': 0.773, 'detail': 0.787} 15.1 s {'kept_layers': 28, 'new_layers': 1, 't_nodes': 2.57, 't_cook_export': 1.46} local {'ok': True, 'pixels': 200056, 'before': 0.0496, 'after': 0.0206, 'ls_gain': 1.659}
+STEP 5/7 height | layer pix_s05_k16_m3 accepted pearson 0.8153 | 418.1 s
+BrokenTiles_Cavity_H2 pix_s05_k16_m3_p2 accepted 0.8033 {'pearson': 0.8267, 'mae': 0.025, 'low32': 0.999, 'b1-2': 0.9457, 'b4-8': 0.9953, 'b16-32': 0.9987, 'q25': 0.5621, 'q75': 0.3354, 'lines': 0.244, 'struct': 0.779, 'detail': 0.794} 13.1 s {'kept_layers': 29, 'new_layers': 1, 't_nodes': 2.21, 't_cook_export': 1.14} local {'ok': True, 'pixels': 134381, 'before': 0.0487, 'after': 0.0202, 'ls_gain': 1.63}
+STEP 5/7 height | layer pix_s05_k16_m3_p2 accepted pearson 0.8267 | 433.3 s
+BrokenTiles_Cavity_H2 eq accepted 0.8134 {'pearson': 0.8423, 'mae': 0.0243, 'low32': 0.999, 'b1-2': 0.9541, 'b4-8': 0.9946, 'b16-32': 0.9986, 'q25': 0.5731, 'q75': 0.3351, 'lines': 0.285, 'struct': 0.781, 'detail': 0.805} 6.1 s {'kept_layers': 30, 'new_layers': 1, 't_nodes': 0.01, 't_cook_export': 1.19} local None
+STEP 5/7 height | layer eq accepted pearson 0.8423 | 441.5 s
+BrokenTiles_Cavity_H2 hist rejected 0.813 {'pearson': 0.8391, 'mae': 0.0248, 'low32': 0.999, 'b1-2': 0.9543, 'b4-8': 0.9936, 'b16-32': 0.9982, 'q25': 0.5837, 'q75': 0.3355, 'lines': 0.302, 'struct': 0.783, 'detail': 0.809} 5.9 s {'kept_layers': 31, 'new_layers': 1, 't_nodes': 0.0, 't_cook_export': 1.28} local None
+STEP 5/7 height | layer hist rejected pearson 0.8391 | 447.4 s
+STEP 6/7 tiling | seam layer if the reference does not tile | 448.9 s
+STEP 7/7 report | full resolution measures, boards, report | 454.6 s
+/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/versions/final/BrokenTiles_Cavity_H2/board/Evolution.html
+/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/versions/final/BrokenTiles_Cavity_H1/board/Evolution.html
+STEP done | pearson 0.8423 in 7.7 min | 462.2 s
+{
+ "name": "BrokenTiles_Cavity",
+ "work": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity",
+ "net": "/obj/ZRH_BrokenTiles_Cavity",
+ "height": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/versions/final/BrokenTiles_Cavity_H2/FINAL_height.png",
+ "pearson_full": 0.8423,
+ "ssim_full": 0.7498,
+ "mae": 0.0243,
+ "seam_xy": [
+  0.88,
+  0.88
+ ],
+ "seam_layer": false,
+ "zoom": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/zoom3_reference_vs_result.png",
+ "boards": [
+  "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/versions/final/BrokenTiles_Cavity_H1/board/Evolution.html",
+  "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/versions/final/BrokenTiles_Cavity_H2/board/Evolution.html"
+ ],
+ "basecolor": null,
+ "minutes": 7.7
+}

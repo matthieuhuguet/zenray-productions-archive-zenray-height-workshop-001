@@ -1,0 +1,14 @@
+{
+ "path": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/status.json",
+ "name": "BrokenTiles_Cavity",
+ "work": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity",
+ "started": "2026-10-12 02:32:42",
+ "pid": 98022,
+ "step": "done",
+ "detail": "pearson 0.8423 in 7.7 min",
+ "state": "done",
+ "updated": "2026-10-12 02:40:24",
+ "elapsed_s": 462.2,
+ "layers_done": 37,
+ "report": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/report.json"
+}
