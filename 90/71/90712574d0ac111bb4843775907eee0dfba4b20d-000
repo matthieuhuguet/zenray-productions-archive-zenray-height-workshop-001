@@ -1,0 +1,40 @@
+{
+ "Displacement": {
+  "pearson_full": 0.9988,
+  "mae": 0.0027
+ },
+ "Roughness": {
+  "pearson_full": 0.9843,
+  "mae": 0.0255
+ },
+ "AO": {
+  "pearson_full": 0.9905,
+  "mae": 0.0175
+ },
+ "Cavity": {
+  "pearson_full": 0.8423,
+  "mae": 0.0243
+ },
+ "Bump": {
+  "pearson_full": 0.9468,
+  "mae": 0.0044
+ },
+ "Specular": {
+  "pearson_full": 0.8325,
+  "mae": 0.0066
+ },
+ "Gloss (1 - Roughness)": {
+  "pearson_full": 0.9835
+ },
+ "Normal": {
+  "pearson_R": 0.9205,
+  "pearson_G": 0.9153,
+  "pearson_B": 0.839,
+  "mean_angle_deg": 5.89
+ },
+ "BaseColor": {
+  "deltaE76_mean": 4.27,
+  "lum_pearson": 0.8965,
+  "rgb_pearson": 0.9252
+ }
+}
