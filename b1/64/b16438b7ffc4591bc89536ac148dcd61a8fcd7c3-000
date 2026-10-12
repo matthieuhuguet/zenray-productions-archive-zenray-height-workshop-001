@@ -1,0 +1,8 @@
+# BrokenTiles_Specular, height reproduite (12 October 2026)
+
+- Ressemblance en pleine résolution : 0.8325 (SSIM 0.9378, erreur moyenne 0.0066)
+- Raccord au bord x ; y : 0.96 ; 0.94 (couche de raccord : non)
+- Height : `/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Specular/versions/final/BrokenTiles_Specular_H2/FINAL_height.png`
+- Graphe Houdini : `/obj/ZRH_BrokenTiles_Specular`
+- Zoom de contrôle : `/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Specular/zoom3_reference_vs_result.png`
+- Durée : 8.2 min
