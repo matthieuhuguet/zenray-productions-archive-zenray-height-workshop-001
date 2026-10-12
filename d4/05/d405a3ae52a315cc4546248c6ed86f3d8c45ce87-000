@@ -81,3 +81,5 @@ json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
 07:08 state=running pending=202 backed=4917 active=1 err=none
 07:13 state=running pending=42 backed=5077 active=1 err=none
 07:18 state=running pending=23 backed=5096 active=1 err=none
+07:23 state=backed-up pending=0 backed=5119 active=0 err=none
+DONE all files backed up (5119)
