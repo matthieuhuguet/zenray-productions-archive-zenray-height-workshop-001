@@ -1,0 +1,41 @@
+{
+ "before": {
+  "seam": {
+   "wrap_x": 0.1160511948551175,
+   "inner_x_median": 0.020371941132225402,
+   "ratio_x": 5.696619389476914,
+   "wrap_y": 0.10917293672537198,
+   "inner_y_median": 0.027808494426381003,
+   "ratio_y": 3.92588448160657
+  },
+  "pearson": 0.9967672824859619
+ },
+ "layer": {
+  "type": "seam",
+  "shift_x": 0.5,
+  "shift_y": 0.5,
+  "width": 0.001953125,
+  "note": "tileable borders, cross-fade with the wrapped copy shifted by whole cells"
+ },
+ "applied": true,
+ "build": {
+  "nodes": 181,
+  "kept_layers": 30,
+  "new_layers": 1,
+  "t_nodes": 0.01,
+  "t_cook_export": 1.07,
+  "exported": true,
+  "errors": []
+ },
+ "after": {
+  "seam": {
+   "wrap_x": 0.017066373390662193,
+   "inner_x_median": 0.020385904657359788,
+   "ratio_x": 0.8371653687932281,
+   "wrap_y": 0.038894046265340876,
+   "inner_y_median": 0.027781173669382042,
+   "ratio_y": 1.400014510841436
+  },
+  "pearson": 0.9936680197715759
+ }
+}
