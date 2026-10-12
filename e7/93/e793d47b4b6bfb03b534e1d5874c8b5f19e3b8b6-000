@@ -1,0 +1,254 @@
+{
+ "name": "Secondary_window_L4",
+ "net": "/obj/ZRH_Secondary_window",
+ "reference": "refs/secondary/window_height_ref_2048.png",
+ "layers": [
+  {
+   "local": {
+    "ok": true,
+    "pixels": 174475,
+    "before": 0.0604,
+    "after": 0.0237,
+    "ls_gain": 1.65
+   },
+   "layer": "pix_s05_k16",
+   "status": "accepted",
+   "score": 0.9554,
+   "gain": 0.0034,
+   "summary": {
+    "pearson": 0.9822,
+    "mae": 0.0256,
+    "low32": 1.0,
+    "b1-2": 0.985,
+    "b4-8": 0.9997,
+    "b16-32": 1.0,
+    "q25": 0.9053,
+    "q75": 0.8251,
+    "lines": 0.586,
+    "struct": 0.946,
+    "detail": 0.892
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 73340 regions",
+   "seconds": 17.6,
+   "nodes": 152,
+   "timing": {
+    "kept_layers": 26,
+    "new_layers": 1,
+    "t_nodes": 1.74,
+    "t_cook_export": 3.77
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/versions/final/Secondary_window_L4/L01_pix_s05_k16.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.096,
+    "D_joint_profile_corr": 0.9965,
+    "D_joint_profile_mae_pct": 0.125,
+    "G_band_energy_ratio": {
+     "1-2": 0.926,
+     "2-4": 0.991,
+     "4-8": 0.999,
+     "8-16": 1.0,
+     "16-32": 1.0
+    },
+    "F_residual_w1_pct": 1.552,
+    "F_residual_std_ratio": 0.947,
+    "J_rmse": 0.0392,
+    "J_floor_if_stochastic": 0.1218
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 59521,
+    "before": 0.0525,
+    "after": 0.0188,
+    "ls_gain": 1.545
+   },
+   "layer": "pix_s05_k16_p2",
+   "status": "accepted",
+   "score": 0.9564,
+   "gain": 0.001,
+   "summary": {
+    "pearson": 0.9827,
+    "mae": 0.0251,
+    "low32": 1.0,
+    "b1-2": 0.9857,
+    "b4-8": 0.9997,
+    "b16-32": 1.0,
+    "q25": 0.9074,
+    "q75": 0.8283,
+    "lines": 0.593,
+    "struct": 0.947,
+    "detail": 0.894
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 59329 regions",
+   "seconds": 15.3,
+   "nodes": 157,
+   "timing": {
+    "kept_layers": 27,
+    "new_layers": 1,
+    "t_nodes": 0.82,
+    "t_cook_export": 2.55
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/versions/final/Secondary_window_L4/L02_pix_s05_k16_p2.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.097,
+    "D_joint_profile_corr": 0.9966,
+    "D_joint_profile_mae_pct": 0.124,
+    "G_band_energy_ratio": {
+     "1-2": 0.93,
+     "2-4": 0.992,
+     "4-8": 1.0,
+     "8-16": 1.0,
+     "16-32": 1.001
+    },
+    "F_residual_w1_pct": 1.521,
+    "F_residual_std_ratio": 0.95,
+    "J_rmse": 0.0386,
+    "J_floor_if_stochastic": 0.1218
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 23187,
+    "before": 0.0458,
+    "after": 0.0154,
+    "ls_gain": 1.488
+   },
+   "layer": "pix_s05_k16_p3",
+   "status": "rejected",
+   "score": 0.9568,
+   "gain": 0.0004,
+   "summary": {
+    "pearson": 0.9828,
+    "mae": 0.0249,
+    "low32": 1.0,
+    "b1-2": 0.9859,
+    "b4-8": 0.9997,
+    "b16-32": 1.0,
+    "q25": 0.9081,
+    "q75": 0.8295,
+    "lines": 0.595,
+    "struct": 0.948,
+    "detail": 0.895
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 50122 regions",
+   "seconds": 11.0,
+   "nodes": 162,
+   "timing": {
+    "kept_layers": 28,
+    "new_layers": 1,
+    "t_nodes": 0.86,
+    "t_cook_export": 1.75
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 172879,
+    "before": 0.0414,
+    "after": 0.0123,
+    "ls_gain": 1.401
+   },
+   "layer": "pix_s05_k16_m3",
+   "status": "accepted",
+   "score": 0.9592,
+   "gain": 0.0027,
+   "summary": {
+    "pearson": 0.9837,
+    "mae": 0.0238,
+    "low32": 1.0,
+    "b1-2": 0.9874,
+    "b4-8": 0.9997,
+    "b16-32": 1.0,
+    "q25": 0.9129,
+    "q75": 0.8366,
+    "lines": 0.606,
+    "struct": 0.95,
+    "detail": 0.898
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 355048 regions",
+   "seconds": 24.7,
+   "nodes": 162,
+   "timing": {
+    "kept_layers": 28,
+    "new_layers": 1,
+    "t_nodes": 4.75,
+    "t_cook_export": 1.88
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/versions/final/Secondary_window_L4/L03_pix_s05_k16_m3.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.1,
+    "D_joint_profile_corr": 0.9969,
+    "D_joint_profile_mae_pct": 0.117,
+    "G_band_energy_ratio": {
+     "1-2": 0.938,
+     "2-4": 0.993,
+     "4-8": 0.999,
+     "8-16": 1.0,
+     "16-32": 1.0
+    },
+    "F_residual_w1_pct": 1.435,
+    "F_residual_std_ratio": 0.959,
+    "J_rmse": 0.0375,
+    "J_floor_if_stochastic": 0.1218
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 133617,
+    "before": 0.0345,
+    "after": 0.0101,
+    "ls_gain": 1.377
+   },
+   "layer": "pix_s05_k16_m3_p2",
+   "status": "accepted",
+   "score": 0.9608,
+   "gain": 0.0017,
+   "summary": {
+    "pearson": 0.9842,
+    "mae": 0.0229,
+    "low32": 1.0,
+    "b1-2": 0.9883,
+    "b4-8": 0.9997,
+    "b16-32": 1.0,
+    "q25": 0.9162,
+    "q75": 0.8421,
+    "lines": 0.615,
+    "struct": 0.952,
+    "detail": 0.9
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 332617 regions",
+   "seconds": 29.6,
+   "nodes": 167,
+   "timing": {
+    "kept_layers": 29,
+    "new_layers": 1,
+    "t_nodes": 4.84,
+    "t_cook_export": 2.06
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/versions/final/Secondary_window_L4/L04_pix_s05_k16_m3_p2.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.102,
+    "D_joint_profile_corr": 0.9971,
+    "D_joint_profile_mae_pct": 0.114,
+    "G_band_energy_ratio": {
+     "1-2": 0.942,
+     "2-4": 0.994,
+     "4-8": 0.999,
+     "8-16": 1.0,
+     "16-32": 1.0
+    },
+    "F_residual_w1_pct": 1.378,
+    "F_residual_std_ratio": 0.964,
+    "J_rmse": 0.0369,
+    "J_floor_if_stochastic": 0.1218
+   }
+  }
+ ],
+ "cells": [
+  1,
+  10
+ ]
+}
