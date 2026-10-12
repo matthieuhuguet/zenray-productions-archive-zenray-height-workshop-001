@@ -1,0 +1,19 @@
+#!/bin/zsh
+# 12 October 2026 : keep zenray-height archiving until every file has a cloud proof; relaunch an archive when the service
+# is idle with files pending; stop and report if three archive errors leave the pending count unchanged.
+cd /Users/zenray/Create/Build/Productions/GithubProductions/ZenRayProgress
+PY=/Users/zenray/.venvs/shorts/bin/python
+last=-1; stuck=0
+while true; do
+  s=$(node scripts/Assets/Client.mjs status zenray-height 2>/dev/null | $PY -I -c "import json,sys;d=json.load(sys.stdin);s=d['sync'];j=[x['state'] for x in d.get('jobs',[]) if x.get('type')=='archive'];print(s['state'],s['pendingCount'],s['backedUpCount'],int(any(x in ('queued','running') for x in j)),(s['error'] or 'none').replace(' ','_'))")
+  set -- ${=s}; state=$1; pending=$2; done_=$3; active=$4; err=$5
+  echo "$(date +%H:%M) state=$state pending=$pending backed=$done_ active=$active err=$err"
+  if [ "$pending" = "0" ] && [ "$active" = "0" ]; then echo "DONE all files backed up ($done_)"; break; fi
+  if [ "$active" = "0" ]; then
+    if [ "$pending" = "$last" ] && [ "$err" != "none" ]; then stuck=$((stuck+1)); else stuck=0; fi
+    if [ $stuck -ge 3 ]; then echo "STUCK pending=$pending after 3 failed archives: $err"; break; fi
+    last=$pending
+    node scripts/Assets/Client.mjs archive zenray-height >/dev/null 2>&1 && echo "$(date +%H:%M) archive relaunched"
+  fi
+  sleep 300
+done
