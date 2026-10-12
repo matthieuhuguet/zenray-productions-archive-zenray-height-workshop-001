@@ -1,0 +1,346 @@
+{
+ "name": "MosaicHeight17s_H2",
+ "net": "/obj/ZRH_MosaicHeight17s",
+ "reference": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/MosaicHeight17s/refs/MosaicHeight17s_height_2048.png",
+ "layers": [
+  {
+   "local": {
+    "ok": true,
+    "pixels": 179214,
+    "before": 0.0559,
+    "after": 0.0257,
+    "ls_gain": 1.745
+   },
+   "layer": "pix_s05_k16",
+   "status": "accepted",
+   "score": 0.9649,
+   "gain": 0.0033,
+   "summary": {
+    "pearson": 0.9883,
+    "mae": 0.0157,
+    "low32": 1.0,
+    "b1-2": 0.986,
+    "b4-8": 0.9999,
+    "b16-32": 1.0,
+    "q25": 0.9078,
+    "q75": 0.8852,
+    "lines": 0.495,
+    "struct": 0.959,
+    "detail": 0.87
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 41351 regions",
+   "seconds": 11.8,
+   "nodes": 138,
+   "timing": {
+    "kept_layers": 24,
+    "new_layers": 1,
+    "t_nodes": 1.53,
+    "t_cook_export": 2.64
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/MosaicHeight17s/versions/final/MosaicHeight17s_H2/L01_pix_s05_k16.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.066,
+    "D_joint_profile_corr": 0.9995,
+    "D_joint_profile_mae_pct": 0.053,
+    "G_band_energy_ratio": {
+     "1-2": 0.965,
+     "2-4": 0.996,
+     "4-8": 1.0,
+     "8-16": 1.0,
+     "16-32": 1.0
+    },
+    "F_residual_w1_pct": 0.909,
+    "F_residual_std_ratio": 1.025,
+    "J_rmse": 0.026,
+    "J_floor_if_stochastic": 0.0722
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 85690,
+    "before": 0.0485,
+    "after": 0.0222,
+    "ls_gain": 1.713
+   },
+   "layer": "pix_s05_k16_p2",
+   "status": "accepted",
+   "score": 0.9664,
+   "gain": 0.0014,
+   "summary": {
+    "pearson": 0.989,
+    "mae": 0.0151,
+    "low32": 1.0,
+    "b1-2": 0.9871,
+    "b4-8": 0.9999,
+    "b16-32": 1.0,
+    "q25": 0.9101,
+    "q75": 0.8902,
+    "lines": 0.507,
+    "struct": 0.96,
+    "detail": 0.873
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 26527 regions",
+   "seconds": 10.7,
+   "nodes": 143,
+   "timing": {
+    "kept_layers": 25,
+    "new_layers": 1,
+    "t_nodes": 1.04,
+    "t_cook_export": 2.56
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/MosaicHeight17s/versions/final/MosaicHeight17s_H2/L02_pix_s05_k16_p2.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.068,
+    "D_joint_profile_corr": 0.9996,
+    "D_joint_profile_mae_pct": 0.053,
+    "G_band_energy_ratio": {
+     "1-2": 0.968,
+     "2-4": 0.997,
+     "4-8": 1.001,
+     "8-16": 1.001,
+     "16-32": 1.001
+    },
+    "F_residual_w1_pct": 0.868,
+    "F_residual_std_ratio": 1.023,
+    "J_rmse": 0.0252,
+    "J_floor_if_stochastic": 0.0722
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 43569,
+    "before": 0.0453,
+    "after": 0.0206,
+    "ls_gain": 1.697
+   },
+   "layer": "pix_s05_k16_p3",
+   "status": "accepted",
+   "score": 0.967,
+   "gain": 0.0007,
+   "summary": {
+    "pearson": 0.9894,
+    "mae": 0.0148,
+    "low32": 1.0,
+    "b1-2": 0.9876,
+    "b4-8": 0.9999,
+    "b16-32": 1.0,
+    "q25": 0.9113,
+    "q75": 0.8927,
+    "lines": 0.513,
+    "struct": 0.961,
+    "detail": 0.875
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 17862 regions",
+   "seconds": 13.1,
+   "nodes": 148,
+   "timing": {
+    "kept_layers": 26,
+    "new_layers": 1,
+    "t_nodes": 2.16,
+    "t_cook_export": 4.48
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/MosaicHeight17s/versions/final/MosaicHeight17s_H2/L03_pix_s05_k16_p3.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.071,
+    "D_joint_profile_corr": 0.9996,
+    "D_joint_profile_mae_pct": 0.055,
+    "G_band_energy_ratio": {
+     "1-2": 0.969,
+     "2-4": 0.997,
+     "4-8": 1.001,
+     "8-16": 1.001,
+     "16-32": 1.001
+    },
+    "F_residual_w1_pct": 0.848,
+    "F_residual_std_ratio": 1.022,
+    "J_rmse": 0.0248,
+    "J_floor_if_stochastic": 0.0722
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 208092,
+    "before": 0.0367,
+    "after": 0.0143,
+    "ls_gain": 1.555
+   },
+   "layer": "pix_s05_k16_m3",
+   "status": "accepted",
+   "score": 0.9699,
+   "gain": 0.0029,
+   "summary": {
+    "pearson": 0.9905,
+    "mae": 0.0137,
+    "low32": 1.0,
+    "b1-2": 0.99,
+    "b4-8": 0.9999,
+    "b16-32": 1.0,
+    "q25": 0.9198,
+    "q75": 0.9004,
+    "lines": 0.534,
+    "struct": 0.964,
+    "detail": 0.881
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 281459 regions",
+   "seconds": 23.6,
+   "nodes": 153,
+   "timing": {
+    "kept_layers": 27,
+    "new_layers": 1,
+    "t_nodes": 7.14,
+    "t_cook_export": 3.25
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/MosaicHeight17s/versions/final/MosaicHeight17s_H2/L04_pix_s05_k16_m3.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.069,
+    "D_joint_profile_corr": 0.9996,
+    "D_joint_profile_mae_pct": 0.048,
+    "G_band_energy_ratio": {
+     "1-2": 0.977,
+     "2-4": 0.999,
+     "4-8": 1.001,
+     "8-16": 1.001,
+     "16-32": 1.001
+    },
+    "F_residual_w1_pct": 0.768,
+    "F_residual_std_ratio": 1.026,
+    "J_rmse": 0.0234,
+    "J_floor_if_stochastic": 0.0722
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 137254,
+    "before": 0.0331,
+    "after": 0.0132,
+    "ls_gain": 1.535
+   },
+   "layer": "pix_s05_k16_m3_p2",
+   "status": "accepted",
+   "score": 0.9717,
+   "gain": 0.0018,
+   "summary": {
+    "pearson": 0.9912,
+    "mae": 0.0129,
+    "low32": 1.0,
+    "b1-2": 0.9912,
+    "b4-8": 0.9999,
+    "b16-32": 1.0,
+    "q25": 0.9252,
+    "q75": 0.9053,
+    "lines": 0.546,
+    "struct": 0.966,
+    "detail": 0.884
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 255603 regions",
+   "seconds": 24.2,
+   "nodes": 158,
+   "timing": {
+    "kept_layers": 28,
+    "new_layers": 1,
+    "t_nodes": 8.15,
+    "t_cook_export": 3.45
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/MosaicHeight17s/versions/final/MosaicHeight17s_H2/L05_pix_s05_k16_m3_p2.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.066,
+    "D_joint_profile_corr": 0.9997,
+    "D_joint_profile_mae_pct": 0.043,
+    "G_band_energy_ratio": {
+     "1-2": 0.981,
+     "2-4": 1.0,
+     "4-8": 1.002,
+     "8-16": 1.001,
+     "16-32": 1.001
+    },
+    "F_residual_w1_pct": 0.719,
+    "F_residual_std_ratio": 1.028,
+    "J_rmse": 0.0227,
+    "J_floor_if_stochastic": 0.0722
+   }
+  },
+  {
+   "local": null,
+   "layer": "eq",
+   "status": "accepted",
+   "score": 0.9812,
+   "gain": 0.0095,
+   "summary": {
+    "pearson": 0.9961,
+    "mae": 0.0104,
+    "low32": 1.0,
+    "b1-2": 0.9893,
+    "b4-8": 0.9998,
+    "b16-32": 0.9999,
+    "q25": 0.9301,
+    "q75": 0.933,
+    "lines": 0.658,
+    "struct": 0.973,
+    "detail": 0.912
+   },
+   "note": "frequency equaliser, least squares at full resolution",
+   "seconds": 8.2,
+   "nodes": 172,
+   "timing": {
+    "kept_layers": 29,
+    "new_layers": 1,
+    "t_nodes": 0.01,
+    "t_cook_export": 3.09
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/MosaicHeight17s/versions/final/MosaicHeight17s_H2/L06_eq.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.117,
+    "D_joint_profile_corr": 0.9996,
+    "D_joint_profile_mae_pct": 0.088,
+    "G_band_energy_ratio": {
+     "1-2": 1.004,
+     "2-4": 1.009,
+     "4-8": 0.993,
+     "8-16": 0.999,
+     "16-32": 1.003
+    },
+    "F_residual_w1_pct": 0.417,
+    "F_residual_std_ratio": 0.974,
+    "J_rmse": 0.0151,
+    "J_floor_if_stochastic": 0.0722
+   }
+  },
+  {
+   "local": null,
+   "layer": "hist",
+   "status": "rejected",
+   "score": 0.9813,
+   "gain": 0.0001,
+   "summary": {
+    "pearson": 0.9961,
+    "mae": 0.0104,
+    "low32": 1.0,
+    "b1-2": 0.9898,
+    "b4-8": 0.9998,
+    "b16-32": 0.9999,
+    "q25": 0.9315,
+    "q75": 0.9347,
+    "lines": 0.66,
+    "struct": 0.973,
+    "detail": 0.912
+   },
+   "note": "histogram matched to reference",
+   "seconds": 7.8,
+   "nodes": 173,
+   "timing": {
+    "kept_layers": 30,
+    "new_layers": 1,
+    "t_nodes": 0.01,
+    "t_cook_export": 3.13
+   }
+  }
+ ],
+ "cells": [
+  10,
+  1
+ ]
+}
