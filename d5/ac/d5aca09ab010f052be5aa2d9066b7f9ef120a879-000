@@ -1,0 +1,131 @@
+{
+ "Cavity": {
+  "image_8bit_raw": 4194304,
+  "image_lzma": 2855376,
+  "at_target": {
+   "0.95": {
+    "atoms": 773983,
+    "raw_bytes": 15479660,
+    "lzma_bytes": 949260,
+    "lzma_vs_image": 0.332,
+    "atoms_per_pixel": 0.185
+   },
+   "0.97": {
+    "atoms": 1440526,
+    "raw_bytes": 28810520,
+    "lzma_bytes": 1589492,
+    "lzma_vs_image": 0.557,
+    "atoms_per_pixel": 0.343
+   },
+   "0.98": {
+    "atoms": 2078356,
+    "raw_bytes": 41567120,
+    "lzma_bytes": 2149220,
+    "lzma_vs_image": 0.753,
+    "atoms_per_pixel": 0.496
+   }
+  }
+ },
+ "Specular": {
+  "image_8bit_raw": 4194304,
+  "image_lzma": 1954724,
+  "at_target": {
+   "0.95": {
+    "atoms": 985034,
+    "raw_bytes": 19700680,
+    "lzma_bytes": 1209068,
+    "lzma_vs_image": 0.619,
+    "atoms_per_pixel": 0.235
+   },
+   "0.97": {
+    "atoms": 1753733,
+    "raw_bytes": 35074660,
+    "lzma_bytes": 1958888,
+    "lzma_vs_image": 1.002,
+    "atoms_per_pixel": 0.418
+   },
+   "0.98": {
+    "atoms": 2475559,
+    "raw_bytes": 49511180,
+    "lzma_bytes": 2596740,
+    "lzma_vs_image": 1.328,
+    "atoms_per_pixel": 0.59
+   }
+  }
+ },
+ "Bump": {
+  "image_8bit_raw": 4194304,
+  "image_lzma": 1543540,
+  "at_target": {
+   "0.95": {
+    "atoms": 38538,
+    "raw_bytes": 770760,
+    "lzma_bytes": 69456,
+    "lzma_vs_image": 0.045,
+    "atoms_per_pixel": 0.009
+   },
+   "0.97": {
+    "atoms": 76578,
+    "raw_bytes": 1531560,
+    "lzma_bytes": 123464,
+    "lzma_vs_image": 0.08,
+    "atoms_per_pixel": 0.018
+   },
+   "0.98": {
+    "atoms": 156809,
+    "raw_bytes": 3136180,
+    "lzma_bytes": 215828,
+    "lzma_vs_image": 0.14,
+    "atoms_per_pixel": 0.037
+   },
+   "0.99": {
+    "atoms": 327612,
+    "raw_bytes": 6552240,
+    "lzma_bytes": 390788,
+    "lzma_vs_image": 0.253,
+    "atoms_per_pixel": 0.078
+   },
+   "0.995": {
+    "atoms": 705430,
+    "raw_bytes": 14108600,
+    "lzma_bytes": 710980,
+    "lzma_vs_image": 0.461,
+    "atoms_per_pixel": 0.168
+   }
+  }
+ },
+ "NormalR": {
+  "image_8bit_raw": 4194304,
+  "image_lzma": 3260108,
+  "at_target": {
+   "0.95": {
+    "atoms": 445412,
+    "raw_bytes": 8908240,
+    "lzma_bytes": 639824,
+    "lzma_vs_image": 0.196,
+    "atoms_per_pixel": 0.106
+   },
+   "0.97": {
+    "atoms": 783774,
+    "raw_bytes": 15675480,
+    "lzma_bytes": 1007536,
+    "lzma_vs_image": 0.309,
+    "atoms_per_pixel": 0.187
+   },
+   "0.98": {
+    "atoms": 1105057,
+    "raw_bytes": 22101140,
+    "lzma_bytes": 1323784,
+    "lzma_vs_image": 0.406,
+    "atoms_per_pixel": 0.263
+   },
+   "0.99": {
+    "atoms": 1927058,
+    "raw_bytes": 38541160,
+    "lzma_bytes": 2035284,
+    "lzma_vs_image": 0.624,
+    "atoms_per_pixel": 0.459
+   }
+  }
+ }
+}

@@ -1,0 +1,50 @@
+{
+ "Cavity": {
+  "ref_std_levels": 16.96413291140845,
+  "resid_std_levels": 9.142607841178716,
+  "quant_ceiling": 0.9998552038986364,
+  "oracle_top_pixels": {
+   "0.97": 737571,
+   "0.98": 999397,
+   "0.99": 1456949,
+   "0.995": 1902447
+  },
+  "block_edge_energy_ratio": 1.0004666784290859
+ },
+ "Specular": {
+  "ref_std_levels": 4.283935898953976,
+  "resid_std_levels": 2.3732242719691206,
+  "quant_ceiling": 0.997727014402353,
+  "oracle_top_pixels": {
+   "0.97": 898838,
+   "0.98": 1196677,
+   "0.99": 1695079,
+   "0.995": 2145976
+  },
+  "block_edge_energy_ratio": 0.9867346510196955
+ },
+ "Bump": {
+  "ref_std_levels": 9.611444150303399,
+  "resid_std_levels": 3.09370729776215,
+  "quant_ceiling": 0.9995488619694464,
+  "oracle_top_pixels": {
+   "0.97": 15686,
+   "0.98": 40483,
+   "0.99": 111405,
+   "0.995": 241386
+  },
+  "block_edge_energy_ratio": 1.0090806105647665
+ },
+ "NormalR": {
+  "ref_std_levels": 29.628721452390742,
+  "resid_std_levels": 21.185985926245436,
+  "quant_ceiling": 0.9999525350264558,
+  "oracle_top_pixels": {
+   "0.97": 872438,
+   "0.98": 1088750,
+   "0.99": 1473844,
+   "0.995": 1861805
+  },
+  "block_edge_energy_ratio": 0.9985752500536292
+ }
+}
