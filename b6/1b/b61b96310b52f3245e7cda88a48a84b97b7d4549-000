@@ -1,0 +1,1450 @@
+{
+ "name": "BrokenTiles_Cavity_H1",
+ "net": "/obj/ZRH_BrokenTiles_Cavity",
+ "reference": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/refs/BrokenTiles_Cavity_height_2048.png",
+ "layers": [
+  {
+   "local": null,
+   "layer": "joint_profile",
+   "status": "accepted",
+   "score": 0.2021,
+   "gain": null,
+   "summary": {
+    "pearson": 0.0526,
+    "mae": 0.047,
+    "low32": 0.139,
+    "b1-2": 0.0143,
+    "b4-8": 0.0568,
+    "b16-32": 0.0991,
+    "q25": 0.0003,
+    "q75": 0.0,
+    "lines": 0.0,
+    "struct": 0.068,
+    "detail": 0.026
+   },
+   "note": "measured joint profile",
+   "seconds": 6.2,
+   "nodes": 14,
+   "timing": {
+    "kept_layers": 0,
+    "new_layers": 1,
+    "t_nodes": 0.01,
+    "t_cook_export": 0.37
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/versions/final/BrokenTiles_Cavity_H1/L01_joint_profile.png",
+   "gates": {
+    "A_thumb64_mae_pct": 6.285,
+    "D_joint_profile_corr": -0.1582,
+    "D_joint_profile_mae_pct": 0.321,
+    "G_band_energy_ratio": {
+     "1-2": 0.016,
+     "2-4": 0.032,
+     "4-8": 0.057,
+     "8-16": 0.085,
+     "16-32": 0.104
+    },
+    "F_residual_w1_pct": 10.225,
+    "F_residual_std_ratio": 0.008,
+    "J_rmse": 0.0664,
+    "J_floor_if_stochastic": 0.0745
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 0,
+    "ls_gain": 1.0
+   },
+   "layer": "side_profiles",
+   "status": "rejected",
+   "score": 0.2028,
+   "gain": 0.0006,
+   "summary": {
+    "pearson": 0.0541,
+    "mae": 0.047,
+    "low32": 0.147,
+    "b1-2": 0.015,
+    "b4-8": 0.0575,
+    "b16-32": 0.098,
+    "q25": 0.0003,
+    "q75": 0.0,
+    "lines": 0.0,
+    "struct": 0.07,
+    "detail": 0.026
+   },
+   "note": "per side joint profiles",
+   "seconds": 5.5,
+   "nodes": 27,
+   "timing": {
+    "kept_layers": 1,
+    "new_layers": 1,
+    "t_nodes": 0.0,
+    "t_cook_export": 0.1
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 0,
+    "ls_gain": 1.0
+   },
+   "layer": "row_table",
+   "status": "rejected",
+   "score": 0.2021,
+   "gain": -0.0,
+   "summary": {
+    "pearson": 0.0526,
+    "mae": 0.047,
+    "low32": 0.139,
+    "b1-2": 0.0143,
+    "b4-8": 0.0568,
+    "b16-32": 0.0991,
+    "q25": 0.0003,
+    "q75": 0.0,
+    "lines": 0.0,
+    "struct": 0.068,
+    "detail": 0.026
+   },
+   "note": "per row offset",
+   "seconds": 5.1,
+   "nodes": 19,
+   "timing": {
+    "kept_layers": 1,
+    "new_layers": 1,
+    "t_nodes": 0.01,
+    "t_cook_export": 0.08
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 0,
+    "ls_gain": 1.0,
+    "refit": true
+   },
+   "layer": "row_plane",
+   "status": "accepted",
+   "score": 0.2155,
+   "gain": 0.0134,
+   "summary": {
+    "pearson": 0.0903,
+    "mae": 0.0468,
+    "low32": 0.32,
+    "b1-2": 0.0143,
+    "b4-8": 0.0558,
+    "b16-32": 0.0944,
+    "q25": 0.0002,
+    "q75": 0.0,
+    "lines": 0.0,
+    "struct": 0.095,
+    "detail": 0.025
+   },
+   "note": "per row plane",
+   "seconds": 5.1,
+   "nodes": 26,
+   "timing": {
+    "kept_layers": 1,
+    "new_layers": 1,
+    "t_nodes": 0.0,
+    "t_cook_export": 0.12
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/versions/final/BrokenTiles_Cavity_H1/L02_row_plane.png",
+   "gates": {
+    "A_thumb64_mae_pct": 6.187,
+    "D_joint_profile_corr": -0.1364,
+    "D_joint_profile_mae_pct": 0.319,
+    "G_band_energy_ratio": {
+     "1-2": 0.016,
+     "2-4": 0.032,
+     "4-8": 0.057,
+     "8-16": 0.086,
+     "16-32": 0.109
+    },
+    "F_residual_w1_pct": 10.224,
+    "F_residual_std_ratio": 0.008,
+    "J_rmse": 0.0663,
+    "J_floor_if_stochastic": 0.0745
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 48332,
+    "before": 0.0415,
+    "after": 0.0372,
+    "ls_gain": 0.367
+   },
+   "layer": "corners",
+   "status": "rejected",
+   "score": 0.2133,
+   "gain": -0.0022,
+   "summary": {
+    "pearson": 0.0889,
+    "mae": 0.0468,
+    "low32": 0.319,
+    "b1-2": 0.0143,
+    "b4-8": 0.0542,
+    "b16-32": 0.0815,
+    "q25": 0.0029,
+    "q75": 0.0,
+    "lines": 0.0,
+    "struct": 0.085,
+    "detail": 0.025
+   },
+   "note": "per row bilinear corners",
+   "seconds": 4.9,
+   "nodes": 46,
+   "timing": {
+    "kept_layers": 2,
+    "new_layers": 1,
+    "t_nodes": 0.0,
+    "t_cook_export": 0.19
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 2221056,
+    "before": 0.0498,
+    "after": 0.0428,
+    "ls_gain": 1.429
+   },
+   "layer": "regions_s32",
+   "status": "accepted",
+   "score": 0.3785,
+   "gain": 0.163,
+   "summary": {
+    "pearson": 0.333,
+    "mae": 0.0428,
+    "low32": 0.969,
+    "b1-2": 0.0145,
+    "b4-8": 0.0876,
+    "b16-32": 0.6879,
+    "q25": 0.2211,
+    "q75": 0.0,
+    "lines": 0.0,
+    "struct": 0.562,
+    "detail": 0.034
+   },
+   "note": "8 posterised bins of residual low pass s32 at 512 px, 304 regions",
+   "seconds": 5.6,
+   "nodes": 31,
+   "timing": {
+    "kept_layers": 2,
+    "new_layers": 1,
+    "t_nodes": 0.05,
+    "t_cook_export": 0.26
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/versions/final/BrokenTiles_Cavity_H1/L03_regions_s32.png",
+   "gates": {
+    "A_thumb64_mae_pct": 3.609,
+    "D_joint_profile_corr": 0.3885,
+    "D_joint_profile_mae_pct": 0.177,
+    "G_band_energy_ratio": {
+     "1-2": 0.016,
+     "2-4": 0.032,
+     "4-8": 0.063,
+     "8-16": 0.131,
+     "16-32": 0.31
+    },
+    "F_residual_w1_pct": 10.224,
+    "F_residual_std_ratio": 0.008,
+    "J_rmse": 0.063,
+    "J_floor_if_stochastic": 0.0745
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 1219647,
+    "before": 0.0475,
+    "after": 0.0428,
+    "ls_gain": 1.746
+   },
+   "layer": "regions_s16",
+   "status": "accepted",
+   "score": 0.4357,
+   "gain": 0.0572,
+   "summary": {
+    "pearson": 0.3913,
+    "mae": 0.0409,
+    "low32": 0.997,
+    "b1-2": 0.0169,
+    "b4-8": 0.2697,
+    "b16-32": 0.9226,
+    "q25": 0.2956,
+    "q75": 0.0104,
+    "lines": 0.0,
+    "struct": 0.643,
+    "detail": 0.088
+   },
+   "note": "8 posterised bins of residual low pass s16 at 512 px, 3627 regions",
+   "seconds": 5.6,
+   "nodes": 36,
+   "timing": {
+    "kept_layers": 3,
+    "new_layers": 1,
+    "t_nodes": 0.2,
+    "t_cook_export": 0.27
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/versions/final/BrokenTiles_Cavity_H1/L04_regions_s16.png",
+   "gates": {
+    "A_thumb64_mae_pct": 2.014,
+    "D_joint_profile_corr": 0.7218,
+    "D_joint_profile_mae_pct": 0.118,
+    "G_band_energy_ratio": {
+     "1-2": 0.016,
+     "2-4": 0.038,
+     "4-8": 0.107,
+     "8-16": 0.306,
+     "16-32": 0.641
+    },
+    "F_residual_w1_pct": 10.222,
+    "F_residual_std_ratio": 0.008,
+    "J_rmse": 0.0613,
+    "J_floor_if_stochastic": 0.0745
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 1103161,
+    "before": 0.0509,
+    "after": 0.0465,
+    "ls_gain": 1.96
+   },
+   "layer": "regions_s8",
+   "status": "accepted",
+   "score": 0.4919,
+   "gain": 0.0562,
+   "summary": {
+    "pearson": 0.4467,
+    "mae": 0.0392,
+    "low32": 0.999,
+    "b1-2": 0.0503,
+    "b4-8": 0.6388,
+    "b16-32": 0.9887,
+    "q25": 0.3515,
+    "q75": 0.032,
+    "lines": 0.0,
+    "struct": 0.674,
+    "detail": 0.233
+   },
+   "note": "8 posterised bins of residual low pass s8 at 1024 px, 11879 regions",
+   "seconds": 6.3,
+   "nodes": 41,
+   "timing": {
+    "kept_layers": 4,
+    "new_layers": 1,
+    "t_nodes": 0.38,
+    "t_cook_export": 0.25
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/versions/final/BrokenTiles_Cavity_H1/L05_regions_s8.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.867,
+    "D_joint_profile_corr": 0.8243,
+    "D_joint_profile_mae_pct": 0.095,
+    "G_band_energy_ratio": {
+     "1-2": 0.022,
+     "2-4": 0.081,
+     "4-8": 0.278,
+     "8-16": 0.62,
+     "16-32": 0.886
+    },
+    "F_residual_w1_pct": 10.195,
+    "F_residual_std_ratio": 0.01,
+    "J_rmse": 0.0596,
+    "J_floor_if_stochastic": 0.0745
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 150762,
+    "before": 0.0573,
+    "after": 0.0478,
+    "ls_gain": 0.502,
+    "refit": true
+   },
+   "layer": "lines",
+   "status": "accepted",
+   "score": 0.4947,
+   "gain": 0.0028,
+   "summary": {
+    "pearson": 0.4473,
+    "mae": 0.0388,
+    "low32": 0.998,
+    "b1-2": 0.2909,
+    "b4-8": 0.5014,
+    "b16-32": 0.9848,
+    "q25": 0.349,
+    "q75": 0.0511,
+    "lines": 0.013,
+    "struct": 0.676,
+    "detail": 0.24
+   },
+   "note": "traced ridge centrelines (6297)",
+   "seconds": 12.0,
+   "nodes": 48,
+   "timing": {
+    "kept_layers": 5,
+    "new_layers": 1,
+    "t_nodes": 0.12,
+    "t_cook_export": 0.31
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/versions/final/BrokenTiles_Cavity_H1/L06_lines.png",
+   "gates": {
+    "A_thumb64_mae_pct": 1.092,
+    "D_joint_profile_corr": 0.8037,
+    "D_joint_profile_mae_pct": 0.476,
+    "G_band_energy_ratio": {
+     "1-2": 0.173,
+     "2-4": 0.18,
+     "4-8": 0.284,
+     "8-16": 0.585,
+     "16-32": 0.844
+    },
+    "F_residual_w1_pct": 9.559,
+    "F_residual_std_ratio": 0.151,
+    "J_rmse": 0.0596,
+    "J_floor_if_stochastic": 0.0745
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 5405,
+    "before": 0.1058,
+    "after": 0.0541,
+    "ls_gain": 1.166
+   },
+   "layer": "blobs",
+   "status": "accepted",
+   "score": 0.4978,
+   "gain": 0.0031,
+   "summary": {
+    "pearson": 0.4511,
+    "mae": 0.0388,
+    "low32": 0.998,
+    "b1-2": 0.3042,
+    "b4-8": 0.5001,
+    "b16-32": 0.9841,
+    "q25": 0.3498,
+    "q75": 0.0525,
+    "lines": 0.02,
+    "struct": 0.676,
+    "detail": 0.252
+   },
+   "note": "173 compact blobs of high pass s6 beyond quantile 0.985",
+   "seconds": 6.2,
+   "nodes": 53,
+   "timing": {
+    "kept_layers": 6,
+    "new_layers": 1,
+    "t_nodes": 0.01,
+    "t_cook_export": 0.66
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/versions/final/BrokenTiles_Cavity_H1/L07_blobs.png",
+   "gates": {
+    "A_thumb64_mae_pct": 1.103,
+    "D_joint_profile_corr": 0.8078,
+    "D_joint_profile_mae_pct": 0.487,
+    "G_band_energy_ratio": {
+     "1-2": 0.186,
+     "2-4": 0.194,
+     "4-8": 0.288,
+     "8-16": 0.584,
+     "16-32": 0.841
+    },
+    "F_residual_w1_pct": 9.536,
+    "F_residual_std_ratio": 0.158,
+    "J_rmse": 0.0595,
+    "J_floor_if_stochastic": 0.0745
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 1158979,
+    "before": 0.0579,
+    "after": 0.0537,
+    "ls_gain": 2.083
+   },
+   "layer": "regions_s4",
+   "status": "accepted",
+   "score": 0.5581,
+   "gain": 0.0604,
+   "summary": {
+    "pearson": 0.5148,
+    "mae": 0.0372,
+    "low32": 1.0,
+    "b1-2": 0.3546,
+    "b4-8": 0.8811,
+    "b16-32": 0.9976,
+    "q25": 0.4107,
+    "q75": 0.065,
+    "lines": 0.019,
+    "struct": 0.694,
+    "detail": 0.452
+   },
+   "note": "8 posterised bins of residual low pass s4 at 1024 px, 22938 regions",
+   "seconds": 7.4,
+   "nodes": 58,
+   "timing": {
+    "kept_layers": 7,
+    "new_layers": 1,
+    "t_nodes": 0.73,
+    "t_cook_export": 0.55
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/versions/final/BrokenTiles_Cavity_H1/L08_regions_s4.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.426,
+    "D_joint_profile_corr": 0.863,
+    "D_joint_profile_mae_pct": 0.114,
+    "G_band_energy_ratio": {
+     "1-2": 0.197,
+     "2-4": 0.279,
+     "4-8": 0.562,
+     "8-16": 0.849,
+     "16-32": 0.968
+    },
+    "F_residual_w1_pct": 9.399,
+    "F_residual_std_ratio": 0.163,
+    "J_rmse": 0.0571,
+    "J_floor_if_stochastic": 0.0745
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 0,
+    "ls_gain": 1.0
+   },
+   "layer": "regions_s8_p2",
+   "status": "accepted",
+   "score": 0.56,
+   "gain": 0.0019,
+   "summary": {
+    "pearson": 0.5178,
+    "mae": 0.0372,
+    "low32": 1.0,
+    "b1-2": 0.3549,
+    "b4-8": 0.8843,
+    "b16-32": 0.9989,
+    "q25": 0.4141,
+    "q75": 0.0714,
+    "lines": 0.019,
+    "struct": 0.697,
+    "detail": 0.453
+   },
+   "note": "8 posterised bins of residual low pass s8 at 1024 px, 19393 regions",
+   "seconds": 7.0,
+   "nodes": 63,
+   "timing": {
+    "kept_layers": 8,
+    "new_layers": 1,
+    "t_nodes": 0.58,
+    "t_cook_export": 0.41
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/versions/final/BrokenTiles_Cavity_H1/L09_regions_s8_p2.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.344,
+    "D_joint_profile_corr": 0.8648,
+    "D_joint_profile_mae_pct": 0.087,
+    "G_band_energy_ratio": {
+     "1-2": 0.198,
+     "2-4": 0.294,
+     "4-8": 0.611,
+     "8-16": 0.897,
+     "16-32": 0.983
+    },
+    "F_residual_w1_pct": 9.383,
+    "F_residual_std_ratio": 0.164,
+    "J_rmse": 0.057,
+    "J_floor_if_stochastic": 0.0745
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 0,
+    "ls_gain": 1.0
+   },
+   "layer": "regions_s4_p2",
+   "status": "accepted",
+   "score": 0.5804,
+   "gain": 0.0204,
+   "summary": {
+    "pearson": 0.5416,
+    "mae": 0.0364,
+    "low32": 1.0,
+    "b1-2": 0.3952,
+    "b4-8": 0.9461,
+    "b16-32": 0.9995,
+    "q25": 0.431,
+    "q75": 0.085,
+    "lines": 0.018,
+    "struct": 0.703,
+    "detail": 0.51
+   },
+   "note": "8 posterised bins of residual low pass s4 at 2048 px, 55395 regions",
+   "seconds": 11.2,
+   "nodes": 68,
+   "timing": {
+    "kept_layers": 9,
+    "new_layers": 1,
+    "t_nodes": 1.84,
+    "t_cook_export": 0.49
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/versions/final/BrokenTiles_Cavity_H1/L10_regions_s4_p2.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.252,
+    "D_joint_profile_corr": 0.8827,
+    "D_joint_profile_mae_pct": 0.082,
+    "G_band_energy_ratio": {
+     "1-2": 0.212,
+     "2-4": 0.389,
+     "4-8": 0.754,
+     "8-16": 0.952,
+     "16-32": 0.994
+    },
+    "F_residual_w1_pct": 9.258,
+    "F_residual_std_ratio": 0.168,
+    "J_rmse": 0.056,
+    "J_floor_if_stochastic": 0.0745
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 78937,
+    "before": 0.0584,
+    "after": 0.0516,
+    "ls_gain": 0.47,
+    "refit": true
+   },
+   "layer": "lines_p2",
+   "status": "accepted",
+   "score": 0.5818,
+   "gain": 0.0014,
+   "summary": {
+    "pearson": 0.5416,
+    "mae": 0.0363,
+    "low32": 1.0,
+    "b1-2": 0.4244,
+    "b4-8": 0.9393,
+    "b16-32": 0.9988,
+    "q25": 0.4306,
+    "q75": 0.0919,
+    "lines": 0.028,
+    "struct": 0.704,
+    "detail": 0.515
+   },
+   "note": "traced ridge centrelines (6660)",
+   "seconds": 12.3,
+   "nodes": 75,
+   "timing": {
+    "kept_layers": 10,
+    "new_layers": 1,
+    "t_nodes": 0.11,
+    "t_cook_export": 0.46
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/versions/final/BrokenTiles_Cavity_H1/L11_lines_p2.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.355,
+    "D_joint_profile_corr": 0.8848,
+    "D_joint_profile_mae_pct": 0.233,
+    "G_band_energy_ratio": {
+     "1-2": 0.246,
+     "2-4": 0.395,
+     "4-8": 0.735,
+     "8-16": 0.928,
+     "16-32": 0.973
+    },
+    "F_residual_w1_pct": 9.013,
+    "F_residual_std_ratio": 0.203,
+    "J_rmse": 0.056,
+    "J_floor_if_stochastic": 0.0745
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 578,
+    "before": 0.107,
+    "after": 0.0641,
+    "ls_gain": 1.052
+   },
+   "layer": "blobs_p2",
+   "status": "rejected",
+   "score": 0.5819,
+   "gain": 0.0001,
+   "summary": {
+    "pearson": 0.5418,
+    "mae": 0.0363,
+    "low32": 1.0,
+    "b1-2": 0.4255,
+    "b4-8": 0.939,
+    "b16-32": 0.9988,
+    "q25": 0.4307,
+    "q75": 0.092,
+    "lines": 0.028,
+    "struct": 0.704,
+    "detail": 0.516
+   },
+   "note": "25 compact blobs of high pass s3 beyond quantile 0.985",
+   "seconds": 5.6,
+   "nodes": 80,
+   "timing": {
+    "kept_layers": 11,
+    "new_layers": 1,
+    "t_nodes": 0.0,
+    "t_cook_export": 0.62
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 0,
+    "ls_gain": 1.0
+   },
+   "layer": "regions_s4_p3",
+   "status": "accepted",
+   "score": 0.5929,
+   "gain": 0.0112,
+   "summary": {
+    "pearson": 0.555,
+    "mae": 0.036,
+    "low32": 1.0,
+    "b1-2": 0.4487,
+    "b4-8": 0.9649,
+    "b16-32": 0.9996,
+    "q25": 0.4399,
+    "q75": 0.0963,
+    "lines": 0.027,
+    "struct": 0.707,
+    "detail": 0.544
+   },
+   "note": "8 posterised bins of residual low pass s4 at 2048 px, 62867 regions",
+   "seconds": 12.5,
+   "nodes": 80,
+   "timing": {
+    "kept_layers": 11,
+    "new_layers": 1,
+    "t_nodes": 2.11,
+    "t_cook_export": 0.74
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/versions/final/BrokenTiles_Cavity_H1/L12_regions_s4_p3.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.215,
+    "D_joint_profile_corr": 0.8961,
+    "D_joint_profile_mae_pct": 0.079,
+    "G_band_energy_ratio": {
+     "1-2": 0.259,
+     "2-4": 0.467,
+     "4-8": 0.822,
+     "8-16": 0.967,
+     "16-32": 0.995
+    },
+    "F_residual_w1_pct": 8.913,
+    "F_residual_std_ratio": 0.207,
+    "J_rmse": 0.0554,
+    "J_floor_if_stochastic": 0.0745
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 0,
+    "ls_gain": 1.0
+   },
+   "layer": "regions_s4_p4",
+   "status": "accepted",
+   "score": 0.5995,
+   "gain": 0.0066,
+   "summary": {
+    "pearson": 0.563,
+    "mae": 0.0358,
+    "low32": 1.0,
+    "b1-2": 0.4632,
+    "b4-8": 0.9764,
+    "b16-32": 0.9998,
+    "q25": 0.4438,
+    "q75": 0.1022,
+    "lines": 0.027,
+    "struct": 0.709,
+    "detail": 0.559
+   },
+   "note": "8 posterised bins of residual low pass s4 at 2048 px, 73751 regions",
+   "seconds": 13.1,
+   "nodes": 85,
+   "timing": {
+    "kept_layers": 12,
+    "new_layers": 1,
+    "t_nodes": 2.16,
+    "t_cook_export": 0.87
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/versions/final/BrokenTiles_Cavity_H1/L13_regions_s4_p4.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.188,
+    "D_joint_profile_corr": 0.9009,
+    "D_joint_profile_mae_pct": 0.075,
+    "G_band_energy_ratio": {
+     "1-2": 0.271,
+     "2-4": 0.519,
+     "4-8": 0.869,
+     "8-16": 0.979,
+     "16-32": 0.998
+    },
+    "F_residual_w1_pct": 8.838,
+    "F_residual_std_ratio": 0.21,
+    "J_rmse": 0.055,
+    "J_floor_if_stochastic": 0.0745
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 0,
+    "ls_gain": 1.0
+   },
+   "layer": "regions_s4_p5",
+   "status": "accepted",
+   "score": 0.6041,
+   "gain": 0.0046,
+   "summary": {
+    "pearson": 0.5685,
+    "mae": 0.0356,
+    "low32": 1.0,
+    "b1-2": 0.4735,
+    "b4-8": 0.9828,
+    "b16-32": 0.9998,
+    "q25": 0.4463,
+    "q75": 0.1067,
+    "lines": 0.027,
+    "struct": 0.711,
+    "detail": 0.569
+   },
+   "note": "8 posterised bins of residual low pass s4 at 2048 px, 81531 regions",
+   "seconds": 13.8,
+   "nodes": 90,
+   "timing": {
+    "kept_layers": 13,
+    "new_layers": 1,
+    "t_nodes": 2.5,
+    "t_cook_export": 0.86
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/versions/final/BrokenTiles_Cavity_H1/L14_regions_s4_p5.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.173,
+    "D_joint_profile_corr": 0.9041,
+    "D_joint_profile_mae_pct": 0.074,
+    "G_band_energy_ratio": {
+     "1-2": 0.281,
+     "2-4": 0.558,
+     "4-8": 0.898,
+     "8-16": 0.985,
+     "16-32": 0.999
+    },
+    "F_residual_w1_pct": 8.775,
+    "F_residual_std_ratio": 0.213,
+    "J_rmse": 0.0548,
+    "J_floor_if_stochastic": 0.0745
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 0,
+    "ls_gain": 1.0
+   },
+   "layer": "regions_s4_p6",
+   "status": "accepted",
+   "score": 0.6076,
+   "gain": 0.0035,
+   "summary": {
+    "pearson": 0.5727,
+    "mae": 0.0354,
+    "low32": 1.0,
+    "b1-2": 0.4814,
+    "b4-8": 0.9868,
+    "b16-32": 0.9999,
+    "q25": 0.4479,
+    "q75": 0.1102,
+    "lines": 0.027,
+    "struct": 0.712,
+    "detail": 0.576
+   },
+   "note": "8 posterised bins of residual low pass s4 at 2048 px, 87550 regions",
+   "seconds": 14.1,
+   "nodes": 95,
+   "timing": {
+    "kept_layers": 14,
+    "new_layers": 1,
+    "t_nodes": 2.64,
+    "t_cook_export": 0.93
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/versions/final/BrokenTiles_Cavity_H1/L15_regions_s4_p6.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.162,
+    "D_joint_profile_corr": 0.9062,
+    "D_joint_profile_mae_pct": 0.073,
+    "G_band_energy_ratio": {
+     "1-2": 0.29,
+     "2-4": 0.59,
+     "4-8": 0.917,
+     "8-16": 0.988,
+     "16-32": 0.999
+    },
+    "F_residual_w1_pct": 8.722,
+    "F_residual_std_ratio": 0.215,
+    "J_rmse": 0.0546,
+    "J_floor_if_stochastic": 0.0745
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 0,
+    "ls_gain": 1.0
+   },
+   "layer": "regions_s4_p7",
+   "status": "accepted",
+   "score": 0.6104,
+   "gain": 0.0028,
+   "summary": {
+    "pearson": 0.576,
+    "mae": 0.0353,
+    "low32": 1.0,
+    "b1-2": 0.4878,
+    "b4-8": 0.9895,
+    "b16-32": 0.9999,
+    "q25": 0.4492,
+    "q75": 0.1128,
+    "lines": 0.027,
+    "struct": 0.712,
+    "detail": 0.581
+   },
+   "note": "8 posterised bins of residual low pass s4 at 2048 px, 92317 regions",
+   "seconds": 14.2,
+   "nodes": 100,
+   "timing": {
+    "kept_layers": 15,
+    "new_layers": 1,
+    "t_nodes": 2.55,
+    "t_cook_export": 1.07
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/versions/final/BrokenTiles_Cavity_H1/L16_regions_s4_p7.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.154,
+    "D_joint_profile_corr": 0.9076,
+    "D_joint_profile_mae_pct": 0.072,
+    "G_band_energy_ratio": {
+     "1-2": 0.298,
+     "2-4": 0.616,
+     "4-8": 0.931,
+     "8-16": 0.991,
+     "16-32": 0.999
+    },
+    "F_residual_w1_pct": 8.676,
+    "F_residual_std_ratio": 0.217,
+    "J_rmse": 0.0544,
+    "J_floor_if_stochastic": 0.0745
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 0,
+    "ls_gain": 1.0
+   },
+   "layer": "regions_s4_p8",
+   "status": "accepted",
+   "score": 0.6127,
+   "gain": 0.0023,
+   "summary": {
+    "pearson": 0.5787,
+    "mae": 0.0353,
+    "low32": 1.0,
+    "b1-2": 0.4933,
+    "b4-8": 0.9914,
+    "b16-32": 0.9999,
+    "q25": 0.4502,
+    "q75": 0.115,
+    "lines": 0.027,
+    "struct": 0.713,
+    "detail": 0.586
+   },
+   "note": "8 posterised bins of residual low pass s4 at 2048 px, 96520 regions",
+   "seconds": 14.3,
+   "nodes": 105,
+   "timing": {
+    "kept_layers": 16,
+    "new_layers": 1,
+    "t_nodes": 2.64,
+    "t_cook_export": 0.99
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/versions/final/BrokenTiles_Cavity_H1/L17_regions_s4_p8.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.148,
+    "D_joint_profile_corr": 0.9087,
+    "D_joint_profile_mae_pct": 0.072,
+    "G_band_energy_ratio": {
+     "1-2": 0.305,
+     "2-4": 0.638,
+     "4-8": 0.942,
+     "8-16": 0.992,
+     "16-32": 0.999
+    },
+    "F_residual_w1_pct": 8.635,
+    "F_residual_std_ratio": 0.219,
+    "J_rmse": 0.0543,
+    "J_floor_if_stochastic": 0.0745
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 401459,
+    "before": 0.0719,
+    "after": 0.0662,
+    "ls_gain": 5.052
+   },
+   "layer": "regions_s2",
+   "status": "accepted",
+   "score": 0.6405,
+   "gain": 0.0278,
+   "summary": {
+    "pearson": 0.6109,
+    "mae": 0.0341,
+    "low32": 1.0,
+    "b1-2": 0.631,
+    "b4-8": 0.9961,
+    "b16-32": 0.9999,
+    "q25": 0.4641,
+    "q75": 0.1319,
+    "lines": 0.03,
+    "struct": 0.719,
+    "detail": 0.643
+   },
+   "note": "8 posterised bins of residual low pass s2 at 2048 px, 129917 regions",
+   "seconds": 15.9,
+   "nodes": 110,
+   "timing": {
+    "kept_layers": 17,
+    "new_layers": 1,
+    "t_nodes": 3.41,
+    "t_cook_export": 1.05
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/versions/final/BrokenTiles_Cavity_H1/L18_regions_s2.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.126,
+    "D_joint_profile_corr": 0.9144,
+    "D_joint_profile_mae_pct": 0.07,
+    "G_band_energy_ratio": {
+     "1-2": 0.363,
+     "2-4": 0.73,
+     "4-8": 0.964,
+     "8-16": 0.997,
+     "16-32": 1.002
+    },
+    "F_residual_w1_pct": 8.359,
+    "F_residual_std_ratio": 0.237,
+    "J_rmse": 0.0527,
+    "J_floor_if_stochastic": 0.0745
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 0,
+    "ls_gain": 1.0
+   },
+   "layer": "regions_s2_p2",
+   "status": "accepted",
+   "score": 0.6556,
+   "gain": 0.0152,
+   "summary": {
+    "pearson": 0.6287,
+    "mae": 0.0335,
+    "low32": 1.0,
+    "b1-2": 0.6903,
+    "b4-8": 0.9978,
+    "b16-32": 0.9999,
+    "q25": 0.4711,
+    "q75": 0.1466,
+    "lines": 0.033,
+    "struct": 0.724,
+    "detail": 0.667
+   },
+   "note": "8 posterised bins of residual low pass s2 at 2048 px, 145046 regions",
+   "seconds": 15.6,
+   "nodes": 115,
+   "timing": {
+    "kept_layers": 18,
+    "new_layers": 1,
+    "t_nodes": 3.51,
+    "t_cook_export": 1.03
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/versions/final/BrokenTiles_Cavity_H1/L19_regions_s2_p2.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.113,
+    "D_joint_profile_corr": 0.917,
+    "D_joint_profile_mae_pct": 0.07,
+    "G_band_energy_ratio": {
+     "1-2": 0.416,
+     "2-4": 0.793,
+     "4-8": 0.977,
+     "8-16": 0.999,
+     "16-32": 1.002
+    },
+    "F_residual_w1_pct": 8.105,
+    "F_residual_std_ratio": 0.254,
+    "J_rmse": 0.0518,
+    "J_floor_if_stochastic": 0.0745
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 29,
+    "ls_gain": 1.0
+   },
+   "layer": "blobs_p3",
+   "status": "rejected",
+   "score": 0.6556,
+   "gain": 0.0,
+   "summary": {
+    "pearson": 0.6288,
+    "mae": 0.0335,
+    "low32": 1.0,
+    "b1-2": 0.6903,
+    "b4-8": 0.9978,
+    "b16-32": 0.9999,
+    "q25": 0.4711,
+    "q75": 0.1466,
+    "lines": 0.033,
+    "struct": 0.724,
+    "detail": 0.667
+   },
+   "note": "3 compact blobs of high pass s2 beyond quantile 0.985",
+   "seconds": 5.6,
+   "nodes": 120,
+   "timing": {
+    "kept_layers": 19,
+    "new_layers": 1,
+    "t_nodes": 0.01,
+    "t_cook_export": 0.88
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 792028,
+    "before": 0.0701,
+    "after": 0.0598,
+    "ls_gain": 3.327
+   },
+   "layer": "regions_s1",
+   "status": "accepted",
+   "score": 0.7011,
+   "gain": 0.0454,
+   "summary": {
+    "pearson": 0.6882,
+    "mae": 0.0313,
+    "low32": 1.0,
+    "b1-2": 0.8302,
+    "b4-8": 0.9972,
+    "b16-32": 0.9997,
+    "q25": 0.4948,
+    "q75": 0.1845,
+    "lines": 0.044,
+    "struct": 0.736,
+    "detail": 0.712
+   },
+   "note": "8 posterised bins of residual low pass s1 at 2048 px, 151458 regions",
+   "seconds": 16.2,
+   "nodes": 120,
+   "timing": {
+    "kept_layers": 19,
+    "new_layers": 1,
+    "t_nodes": 3.55,
+    "t_cook_export": 1.25
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/versions/final/BrokenTiles_Cavity_H1/L20_regions_s1.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.14,
+    "D_joint_profile_corr": 0.9288,
+    "D_joint_profile_mae_pct": 0.064,
+    "G_band_energy_ratio": {
+     "1-2": 0.55,
+     "2-4": 0.886,
+     "4-8": 0.996,
+     "8-16": 1.005,
+     "16-32": 1.006
+    },
+    "F_residual_w1_pct": 7.429,
+    "F_residual_std_ratio": 0.316,
+    "J_rmse": 0.0484,
+    "J_floor_if_stochastic": 0.0745
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 651421,
+    "before": 0.0653,
+    "after": 0.058,
+    "ls_gain": 4.177
+   },
+   "layer": "regions_s1_p2",
+   "status": "accepted",
+   "score": 0.7252,
+   "gain": 0.0241,
+   "summary": {
+    "pearson": 0.72,
+    "mae": 0.0301,
+    "low32": 1.0,
+    "b1-2": 0.8796,
+    "b4-8": 0.998,
+    "b16-32": 0.9998,
+    "q25": 0.5095,
+    "q75": 0.2072,
+    "lines": 0.052,
+    "struct": 0.743,
+    "detail": 0.729
+   },
+   "note": "8 posterised bins of residual low pass s1 at 2048 px, 154905 regions",
+   "seconds": 15.6,
+   "nodes": 125,
+   "timing": {
+    "kept_layers": 20,
+    "new_layers": 1,
+    "t_nodes": 3.02,
+    "t_cook_export": 1.28
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/versions/final/BrokenTiles_Cavity_H1/L21_regions_s1_p2.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.118,
+    "D_joint_profile_corr": 0.9352,
+    "D_joint_profile_mae_pct": 0.061,
+    "G_band_energy_ratio": {
+     "1-2": 0.635,
+     "2-4": 0.928,
+     "4-8": 0.998,
+     "8-16": 1.002,
+     "16-32": 1.003
+    },
+    "F_residual_w1_pct": 6.95,
+    "F_residual_std_ratio": 0.363,
+    "J_rmse": 0.0464,
+    "J_floor_if_stochastic": 0.0745
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 0,
+    "ls_gain": 1.0
+   },
+   "layer": "regions_s2_p3",
+   "status": "accepted",
+   "score": 0.7275,
+   "gain": 0.0023,
+   "summary": {
+    "pearson": 0.7225,
+    "mae": 0.03,
+    "low32": 1.0,
+    "b1-2": 0.883,
+    "b4-8": 0.9993,
+    "b16-32": 0.9999,
+    "q25": 0.5103,
+    "q75": 0.2121,
+    "lines": 0.053,
+    "struct": 0.744,
+    "detail": 0.732
+   },
+   "note": "8 posterised bins of residual low pass s2 at 2048 px, 150932 regions",
+   "seconds": 16.0,
+   "nodes": 130,
+   "timing": {
+    "kept_layers": 21,
+    "new_layers": 1,
+    "t_nodes": 3.62,
+    "t_cook_export": 1.27
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/versions/final/BrokenTiles_Cavity_H1/L22_regions_s2_p3.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.079,
+    "D_joint_profile_corr": 0.9364,
+    "D_joint_profile_mae_pct": 0.06,
+    "G_band_energy_ratio": {
+     "1-2": 0.651,
+     "2-4": 0.938,
+     "4-8": 0.996,
+     "8-16": 1.0,
+     "16-32": 1.0
+    },
+    "F_residual_w1_pct": 6.853,
+    "F_residual_std_ratio": 0.37,
+    "J_rmse": 0.0462,
+    "J_floor_if_stochastic": 0.0745
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 209165,
+    "before": 0.0727,
+    "after": 0.0663,
+    "ls_gain": 5.583
+   },
+   "layer": "regions_s1_p3",
+   "status": "accepted",
+   "score": 0.7417,
+   "gain": 0.0141,
+   "summary": {
+    "pearson": 0.7416,
+    "mae": 0.0292,
+    "low32": 1.0,
+    "b1-2": 0.9067,
+    "b4-8": 0.9988,
+    "b16-32": 0.9999,
+    "q25": 0.5187,
+    "q75": 0.2262,
+    "lines": 0.066,
+    "struct": 0.749,
+    "detail": 0.741
+   },
+   "note": "8 posterised bins of residual low pass s1 at 2048 px, 142566 regions",
+   "seconds": 15.3,
+   "nodes": 135,
+   "timing": {
+    "kept_layers": 22,
+    "new_layers": 1,
+    "t_nodes": 2.93,
+    "t_cook_export": 1.44
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/versions/final/BrokenTiles_Cavity_H1/L23_regions_s1_p3.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.096,
+    "D_joint_profile_corr": 0.9413,
+    "D_joint_profile_mae_pct": 0.058,
+    "G_band_energy_ratio": {
+     "1-2": 0.707,
+     "2-4": 0.96,
+     "4-8": 1.001,
+     "8-16": 1.001,
+     "16-32": 1.001
+    },
+    "F_residual_w1_pct": 6.527,
+    "F_residual_std_ratio": 0.404,
+    "J_rmse": 0.0448,
+    "J_floor_if_stochastic": 0.0745
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 31922,
+    "before": 0.0887,
+    "after": 0.0807,
+    "ls_gain": 7.914
+   },
+   "layer": "regions_s1_p4",
+   "status": "accepted",
+   "score": 0.7521,
+   "gain": 0.0104,
+   "summary": {
+    "pearson": 0.7557,
+    "mae": 0.0286,
+    "low32": 1.0,
+    "b1-2": 0.9221,
+    "b4-8": 0.9991,
+    "b16-32": 0.9999,
+    "q25": 0.5261,
+    "q75": 0.2362,
+    "lines": 0.082,
+    "struct": 0.752,
+    "detail": 0.749
+   },
+   "note": "8 posterised bins of residual low pass s1 at 2048 px, 133862 regions",
+   "seconds": 14.7,
+   "nodes": 140,
+   "timing": {
+    "kept_layers": 23,
+    "new_layers": 1,
+    "t_nodes": 2.73,
+    "t_cook_export": 1.3
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/versions/final/BrokenTiles_Cavity_H1/L24_regions_s1_p4.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.085,
+    "D_joint_profile_corr": 0.9451,
+    "D_joint_profile_mae_pct": 0.058,
+    "G_band_energy_ratio": {
+     "1-2": 0.747,
+     "2-4": 0.973,
+     "4-8": 1.0,
+     "8-16": 1.0,
+     "16-32": 1.0
+    },
+    "F_residual_w1_pct": 6.274,
+    "F_residual_std_ratio": 0.431,
+    "J_rmse": 0.0438,
+    "J_floor_if_stochastic": 0.0745
+   }
+  },
+  {
+   "local": null,
+   "layer": "hist",
+   "status": "accepted",
+   "score": 0.7618,
+   "gain": 0.0097,
+   "summary": {
+    "pearson": 0.766,
+    "mae": 0.0295,
+    "low32": 0.997,
+    "b1-2": 0.9229,
+    "b4-8": 0.995,
+    "b16-32": 0.9962,
+    "q25": 0.5203,
+    "q75": 0.282,
+    "lines": 0.163,
+    "struct": 0.758,
+    "detail": 0.768
+   },
+   "note": "histogram matched to reference",
+   "seconds": 6.1,
+   "nodes": 141,
+   "timing": {
+    "kept_layers": 24,
+    "new_layers": 1,
+    "t_nodes": 0.01,
+    "t_cook_export": 1.33
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Cavity/versions/final/BrokenTiles_Cavity_H1/L25_hist.png",
+   "gates": {
+    "A_thumb64_mae_pct": 1.765,
+    "D_joint_profile_corr": 0.9452,
+    "D_joint_profile_mae_pct": 0.316,
+    "G_band_energy_ratio": {
+     "1-2": 1.024,
+     "2-4": 1.312,
+     "4-8": 1.328,
+     "8-16": 1.302,
+     "16-32": 1.277
+    },
+    "F_residual_w1_pct": 4.872,
+    "F_residual_std_ratio": 0.592,
+    "J_rmse": 0.0438,
+    "J_floor_if_stochastic": 0.0745
+   }
+  }
+ ],
+ "cells": [
+  1,
+  1
+ ],
+ "fade": 0.01953125
+}
