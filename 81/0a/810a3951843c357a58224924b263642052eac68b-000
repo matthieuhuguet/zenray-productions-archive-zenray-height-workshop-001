@@ -1,0 +1,321 @@
+{
+ "name": "BrokenTiles_Displacement_H2",
+ "net": "/obj/ZRH_BrokenTiles_Displacement",
+ "reference": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Displacement/refs/BrokenTiles_Displacement_height_2048.png",
+ "layers": [
+  {
+   "local": {
+    "ok": true,
+    "pixels": 348253,
+    "before": 0.0279,
+    "after": 0.0174,
+    "ls_gain": 2.145
+   },
+   "layer": "pix_s05_k16",
+   "status": "accepted",
+   "score": 0.9899,
+   "gain": 0.0035,
+   "summary": {
+    "pearson": 0.9978,
+    "mae": 0.0036,
+    "low32": 1.0,
+    "b1-2": 0.9815,
+    "b4-8": 0.9959,
+    "b16-32": 0.9982,
+    "q25": 0.9601,
+    "q75": 0.9702,
+    "lines": 0.682,
+    "struct": 0.985,
+    "detail": 0.913
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 47715 regions",
+   "seconds": 9.1,
+   "nodes": 115,
+   "timing": {
+    "kept_layers": 19,
+    "new_layers": 1,
+    "t_nodes": 0.98,
+    "t_cook_export": 0.83
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Displacement/versions/final/BrokenTiles_Displacement_H2/L01_pix_s05_k16.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.111,
+    "D_joint_profile_corr": 0.9993,
+    "D_joint_profile_mae_pct": 0.015,
+    "G_band_energy_ratio": {
+     "1-2": 0.971,
+     "2-4": 0.987,
+     "4-8": 0.974,
+     "8-16": 0.976,
+     "16-32": 0.985
+    },
+    "F_residual_w1_pct": 0.11,
+    "F_residual_std_ratio": 0.951,
+    "J_rmse": 0.0099,
+    "J_floor_if_stochastic": 0.0211
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 0,
+    "ls_gain": 1.0
+   },
+   "layer": "pix_s05_k16_p2",
+   "status": "accepted",
+   "score": 0.9912,
+   "gain": 0.0013,
+   "summary": {
+    "pearson": 0.9982,
+    "mae": 0.0033,
+    "low32": 1.0,
+    "b1-2": 0.9862,
+    "b4-8": 0.9968,
+    "b16-32": 0.9986,
+    "q25": 0.964,
+    "q75": 0.972,
+    "lines": 0.711,
+    "struct": 0.987,
+    "detail": 0.922
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 36842 regions",
+   "seconds": 8.4,
+   "nodes": 120,
+   "timing": {
+    "kept_layers": 20,
+    "new_layers": 1,
+    "t_nodes": 0.67,
+    "t_cook_export": 0.84
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Displacement/versions/final/BrokenTiles_Displacement_H2/L02_pix_s05_k16_p2.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.091,
+    "D_joint_profile_corr": 0.9993,
+    "D_joint_profile_mae_pct": 0.014,
+    "G_band_energy_ratio": {
+     "1-2": 0.98,
+     "2-4": 0.992,
+     "4-8": 0.98,
+     "8-16": 0.98,
+     "16-32": 0.987
+    },
+    "F_residual_w1_pct": 0.101,
+    "F_residual_std_ratio": 0.961,
+    "J_rmse": 0.009,
+    "J_floor_if_stochastic": 0.0211
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 0,
+    "ls_gain": 1.0
+   },
+   "layer": "pix_s05_k16_p3",
+   "status": "accepted",
+   "score": 0.9919,
+   "gain": 0.0006,
+   "summary": {
+    "pearson": 0.9985,
+    "mae": 0.0031,
+    "low32": 1.0,
+    "b1-2": 0.9884,
+    "b4-8": 0.9974,
+    "b16-32": 0.9988,
+    "q25": 0.9657,
+    "q75": 0.9727,
+    "lines": 0.722,
+    "struct": 0.987,
+    "detail": 0.926
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 25313 regions",
+   "seconds": 7.8,
+   "nodes": 125,
+   "timing": {
+    "kept_layers": 21,
+    "new_layers": 1,
+    "t_nodes": 0.49,
+    "t_cook_export": 1.0
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Displacement/versions/final/BrokenTiles_Displacement_H2/L03_pix_s05_k16_p3.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.078,
+    "D_joint_profile_corr": 0.9994,
+    "D_joint_profile_mae_pct": 0.013,
+    "G_band_energy_ratio": {
+     "1-2": 0.984,
+     "2-4": 0.995,
+     "4-8": 0.984,
+     "8-16": 0.984,
+     "16-32": 0.989
+    },
+    "F_residual_w1_pct": 0.098,
+    "F_residual_std_ratio": 0.966,
+    "J_rmse": 0.0084,
+    "J_floor_if_stochastic": 0.0211
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 0,
+    "ls_gain": 1.0
+   },
+   "layer": "pix_s05_k16_m3",
+   "status": "accepted",
+   "score": 0.9926,
+   "gain": 0.0007,
+   "summary": {
+    "pearson": 0.9987,
+    "mae": 0.0028,
+    "low32": 1.0,
+    "b1-2": 0.9905,
+    "b4-8": 0.9978,
+    "b16-32": 0.999,
+    "q25": 0.9678,
+    "q75": 0.9737,
+    "lines": 0.74,
+    "struct": 0.988,
+    "detail": 0.931
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 251250 regions",
+   "seconds": 16.0,
+   "nodes": 130,
+   "timing": {
+    "kept_layers": 22,
+    "new_layers": 1,
+    "t_nodes": 3.23,
+    "t_cook_export": 1.03
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Displacement/versions/final/BrokenTiles_Displacement_H2/L04_pix_s05_k16_m3.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.069,
+    "D_joint_profile_corr": 0.9995,
+    "D_joint_profile_mae_pct": 0.012,
+    "G_band_energy_ratio": {
+     "1-2": 0.987,
+     "2-4": 0.996,
+     "4-8": 0.987,
+     "8-16": 0.986,
+     "16-32": 0.991
+    },
+    "F_residual_w1_pct": 0.092,
+    "F_residual_std_ratio": 0.97,
+    "J_rmse": 0.0078,
+    "J_floor_if_stochastic": 0.0211
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 0,
+    "ls_gain": 1.0
+   },
+   "layer": "pix_s05_k16_m3_p2",
+   "status": "rejected",
+   "score": 0.993,
+   "gain": 0.0004,
+   "summary": {
+    "pearson": 0.9988,
+    "mae": 0.0026,
+    "low32": 1.0,
+    "b1-2": 0.9918,
+    "b4-8": 0.9981,
+    "b16-32": 0.9991,
+    "q25": 0.9692,
+    "q75": 0.9743,
+    "lines": 0.751,
+    "struct": 0.988,
+    "detail": 0.935
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 222541 regions",
+   "seconds": 14.8,
+   "nodes": 135,
+   "timing": {
+    "kept_layers": 23,
+    "new_layers": 1,
+    "t_nodes": 2.78,
+    "t_cook_export": 1.09
+   }
+  },
+  {
+   "local": null,
+   "layer": "eq",
+   "status": "accepted",
+   "score": 0.9934,
+   "gain": 0.0008,
+   "summary": {
+    "pearson": 0.9988,
+    "mae": 0.0027,
+    "low32": 1.0,
+    "b1-2": 0.9906,
+    "b4-8": 0.9978,
+    "b16-32": 0.999,
+    "q25": 0.9688,
+    "q75": 0.9743,
+    "lines": 0.77,
+    "struct": 0.988,
+    "detail": 0.939
+   },
+   "note": "frequency equaliser, least squares at full resolution",
+   "seconds": 6.0,
+   "nodes": 144,
+   "timing": {
+    "kept_layers": 23,
+    "new_layers": 1,
+    "t_nodes": 0.01,
+    "t_cook_export": 0.98
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/BrokenTiles/Displacement/versions/final/BrokenTiles_Displacement_H2/L05_eq.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.07,
+    "D_joint_profile_corr": 0.9995,
+    "D_joint_profile_mae_pct": 0.012,
+    "G_band_energy_ratio": {
+     "1-2": 0.993,
+     "2-4": 1.003,
+     "4-8": 0.994,
+     "8-16": 0.989,
+     "16-32": 0.991
+    },
+    "F_residual_w1_pct": 0.092,
+    "F_residual_std_ratio": 0.946,
+    "J_rmse": 0.0073,
+    "J_floor_if_stochastic": 0.0211
+   }
+  },
+  {
+   "local": null,
+   "layer": "hist",
+   "status": "rejected",
+   "score": 0.9938,
+   "gain": 0.0004,
+   "summary": {
+    "pearson": 0.9988,
+    "mae": 0.003,
+    "low32": 1.0,
+    "b1-2": 0.9906,
+    "b4-8": 0.9977,
+    "b16-32": 0.9989,
+    "q25": 0.9772,
+    "q75": 0.9771,
+    "lines": 0.771,
+    "struct": 0.99,
+    "detail": 0.939
+   },
+   "note": "histogram matched to reference",
+   "seconds": 5.6,
+   "nodes": 145,
+   "timing": {
+    "kept_layers": 24,
+    "new_layers": 1,
+    "t_nodes": 0.0,
+    "t_cook_export": 1.02
+   }
+  }
+ ],
+ "cells": [
+  1,
+  1
+ ]
+}
