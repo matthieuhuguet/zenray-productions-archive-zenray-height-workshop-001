@@ -11,3 +11,29 @@
 02:47 state=queued pending=2260 backed=1694 active=1 err=none
 02:52 state=queued pending=2462 backed=1694 active=1 err=none
 02:57 state=running pending=2623 backed=1694 active=1 err=none
+03:03 state=running pending=2609 backed=1822 active=1 err=none
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import json,sys;d=json.load(sys.stdin);s=d['sync'];j=[x['state'] for x in d.get('jobs',[]) if x.get('type')=='archive'];print(s['state'],s['pendingCount'],s['backedUpCount'],int(any(x in ('queued','running') for x in j)),(s['error'] or 'none').replace(' ','_'))
+                      ~~~~~~~~~^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/json/__init__.py", line 298, in load
+    return loads(fp.read(),
+        cls=cls, object_hook=object_hook,
+        parse_float=parse_float, parse_int=parse_int,
+        parse_constant=parse_constant, object_pairs_hook=object_pairs_hook, **kw)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/json/__init__.py", line 352, in loads
+    return _default_decoder.decode(s)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/json/decoder.py", line 345, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/json/decoder.py", line 363, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+03:08 state= pending= backed= active= err=
+03:13 state=queued pending=2727 backed=1820 active=1 err=none
+03:18 state=queued pending=2972 backed=1820 active=1 err=none
+03:23 state=queued pending=3139 backed=1820 active=1 err=none
+03:28 state=queued pending=3296 backed=1820 active=1 err=none
+03:33 state=queued pending=3291 backed=1825 active=1 err=none
+03:38 state=queued pending=3291 backed=1825 active=1 err=none
