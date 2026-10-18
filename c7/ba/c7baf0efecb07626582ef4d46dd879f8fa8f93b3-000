@@ -1,0 +1,336 @@
+{
+ "name": "ConcreteStains_H2",
+ "net": "/obj/ZRH_ConcreteStains",
+ "reference": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ConcreteStains/refs/ConcreteStains_height_2048.png",
+ "layers": [
+  {
+   "local": {
+    "ok": true,
+    "pixels": 0,
+    "ls_gain": 1.0
+   },
+   "layer": "pix_s05_k16",
+   "status": "accepted",
+   "score": 0.9851,
+   "gain": 0.0025,
+   "summary": {
+    "pearson": 0.9897,
+    "mae": 0.0016,
+    "low32": 1.0,
+    "b1-2": 0.9539,
+    "b4-8": 0.9818,
+    "b16-32": 0.9968,
+    "q25": 0.965,
+    "q75": 0.9457,
+    "lines": 0.77,
+    "struct": 0.981,
+    "detail": 0.921
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 45063 regions",
+   "seconds": 9.7,
+   "nodes": 161,
+   "timing": {
+    "kept_layers": 24,
+    "new_layers": 1,
+    "t_nodes": 0.85,
+    "t_cook_export": 0.89
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ConcreteStains/versions/final/ConcreteStains_H2/L01_pix_s05_k16.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.249,
+    "D_joint_profile_corr": 0.9022,
+    "D_joint_profile_mae_pct": 0.245,
+    "G_band_energy_ratio": {
+     "1-2": 0.921,
+     "2-4": 0.947,
+     "4-8": 0.937,
+     "8-16": 0.937,
+     "16-32": 0.958
+    },
+    "F_residual_w1_pct": 0.174,
+    "F_residual_std_ratio": 0.911,
+    "J_rmse": 0.006,
+    "J_floor_if_stochastic": 0.0108
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 0,
+    "ls_gain": 1.0
+   },
+   "layer": "pix_s05_k16_p2",
+   "status": "accepted",
+   "score": 0.9863,
+   "gain": 0.0012,
+   "summary": {
+    "pearson": 0.9907,
+    "mae": 0.0015,
+    "low32": 1.0,
+    "b1-2": 0.9584,
+    "b4-8": 0.9836,
+    "b16-32": 0.9971,
+    "q25": 0.9676,
+    "q75": 0.9478,
+    "lines": 0.792,
+    "struct": 0.982,
+    "detail": 0.929
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 32372 regions",
+   "seconds": 8.9,
+   "nodes": 166,
+   "timing": {
+    "kept_layers": 25,
+    "new_layers": 1,
+    "t_nodes": 0.59,
+    "t_cook_export": 1.06
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ConcreteStains/versions/final/ConcreteStains_H2/L02_pix_s05_k16_p2.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.229,
+    "D_joint_profile_corr": 0.9087,
+    "D_joint_profile_mae_pct": 0.234,
+    "G_band_energy_ratio": {
+     "1-2": 0.925,
+     "2-4": 0.951,
+     "4-8": 0.941,
+     "8-16": 0.941,
+     "16-32": 0.961
+    },
+    "F_residual_w1_pct": 0.155,
+    "F_residual_std_ratio": 0.91,
+    "J_rmse": 0.0057,
+    "J_floor_if_stochastic": 0.0108
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 0,
+    "ls_gain": 1.0
+   },
+   "layer": "pix_s05_k16_p3",
+   "status": "accepted",
+   "score": 0.9871,
+   "gain": 0.0008,
+   "summary": {
+    "pearson": 0.9914,
+    "mae": 0.0014,
+    "low32": 1.0,
+    "b1-2": 0.9614,
+    "b4-8": 0.985,
+    "b16-32": 0.9974,
+    "q25": 0.969,
+    "q75": 0.9492,
+    "lines": 0.804,
+    "struct": 0.983,
+    "detail": 0.933
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 22755 regions",
+   "seconds": 8.0,
+   "nodes": 171,
+   "timing": {
+    "kept_layers": 26,
+    "new_layers": 1,
+    "t_nodes": 0.42,
+    "t_cook_export": 0.92
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ConcreteStains/versions/final/ConcreteStains_H2/L03_pix_s05_k16_p3.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.213,
+    "D_joint_profile_corr": 0.9106,
+    "D_joint_profile_mae_pct": 0.226,
+    "G_band_energy_ratio": {
+     "1-2": 0.928,
+     "2-4": 0.953,
+     "4-8": 0.945,
+     "8-16": 0.945,
+     "16-32": 0.963
+    },
+    "F_residual_w1_pct": 0.143,
+    "F_residual_std_ratio": 0.911,
+    "J_rmse": 0.0055,
+    "J_floor_if_stochastic": 0.0108
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 0,
+    "ls_gain": 1.0
+   },
+   "layer": "pix_s05_k16_m3",
+   "status": "accepted",
+   "score": 0.9883,
+   "gain": 0.0012,
+   "summary": {
+    "pearson": 0.992,
+    "mae": 0.0012,
+    "low32": 1.0,
+    "b1-2": 0.9644,
+    "b4-8": 0.9862,
+    "b16-32": 0.9976,
+    "q25": 0.9722,
+    "q75": 0.9538,
+    "lines": 0.825,
+    "struct": 0.985,
+    "detail": 0.939
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 277798 regions",
+   "seconds": 18.2,
+   "nodes": 176,
+   "timing": {
+    "kept_layers": 27,
+    "new_layers": 1,
+    "t_nodes": 3.65,
+    "t_cook_export": 0.96
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ConcreteStains/versions/final/ConcreteStains_H2/L04_pix_s05_k16_m3.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.199,
+    "D_joint_profile_corr": 0.9134,
+    "D_joint_profile_mae_pct": 0.216,
+    "G_band_energy_ratio": {
+     "1-2": 0.934,
+     "2-4": 0.956,
+     "4-8": 0.947,
+     "8-16": 0.948,
+     "16-32": 0.966
+    },
+    "F_residual_w1_pct": 0.122,
+    "F_residual_std_ratio": 0.915,
+    "J_rmse": 0.0053,
+    "J_floor_if_stochastic": 0.0108
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 0,
+    "ls_gain": 1.0
+   },
+   "layer": "pix_s05_k16_m3_p2",
+   "status": "accepted",
+   "score": 0.9891,
+   "gain": 0.0009,
+   "summary": {
+    "pearson": 0.9925,
+    "mae": 0.0012,
+    "low32": 1.0,
+    "b1-2": 0.9665,
+    "b4-8": 0.9871,
+    "b16-32": 0.9977,
+    "q25": 0.9746,
+    "q75": 0.9574,
+    "lines": 0.839,
+    "struct": 0.986,
+    "detail": 0.944
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 252253 regions",
+   "seconds": 17.5,
+   "nodes": 181,
+   "timing": {
+    "kept_layers": 28,
+    "new_layers": 1,
+    "t_nodes": 3.63,
+    "t_cook_export": 1.02
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ConcreteStains/versions/final/ConcreteStains_H2/L05_pix_s05_k16_m3_p2.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.19,
+    "D_joint_profile_corr": 0.9147,
+    "D_joint_profile_mae_pct": 0.205,
+    "G_band_energy_ratio": {
+     "1-2": 0.937,
+     "2-4": 0.958,
+     "4-8": 0.95,
+     "8-16": 0.951,
+     "16-32": 0.967
+    },
+    "F_residual_w1_pct": 0.108,
+    "F_residual_std_ratio": 0.917,
+    "J_rmse": 0.0051,
+    "J_floor_if_stochastic": 0.0108
+   }
+  },
+  {
+   "local": null,
+   "layer": "eq",
+   "status": "accepted",
+   "score": 0.99,
+   "gain": 0.0009,
+   "summary": {
+    "pearson": 0.9929,
+    "mae": 0.001,
+    "low32": 1.0,
+    "b1-2": 0.9665,
+    "b4-8": 0.987,
+    "b16-32": 0.9977,
+    "q25": 0.9773,
+    "q75": 0.9604,
+    "lines": 0.864,
+    "struct": 0.987,
+    "detail": 0.95
+   },
+   "note": "frequency equaliser, least squares at full resolution",
+   "seconds": 6.9,
+   "nodes": 195,
+   "timing": {
+    "kept_layers": 29,
+    "new_layers": 1,
+    "t_nodes": 0.01,
+    "t_cook_export": 1.34
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ConcreteStains/versions/final/ConcreteStains_H2/L06_eq.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.194,
+    "D_joint_profile_corr": 0.9015,
+    "D_joint_profile_mae_pct": 0.212,
+    "G_band_energy_ratio": {
+     "1-2": 0.967,
+     "2-4": 0.992,
+     "4-8": 0.971,
+     "8-16": 0.958,
+     "16-32": 0.969
+    },
+    "F_residual_w1_pct": 0.058,
+    "F_residual_std_ratio": 0.927,
+    "J_rmse": 0.005,
+    "J_floor_if_stochastic": 0.0108
+   }
+  },
+  {
+   "local": null,
+   "layer": "hist",
+   "status": "rejected",
+   "score": 0.9893,
+   "gain": -0.0007,
+   "summary": {
+    "pearson": 0.9921,
+    "mae": 0.0016,
+    "low32": 1.0,
+    "b1-2": 0.962,
+    "b4-8": 0.9863,
+    "b16-32": 0.9982,
+    "q25": 0.9769,
+    "q75": 0.9626,
+    "lines": 0.812,
+    "struct": 0.987,
+    "detail": 0.935
+   },
+   "note": "histogram matched to reference",
+   "seconds": 6.0,
+   "nodes": 196,
+   "timing": {
+    "kept_layers": 30,
+    "new_layers": 1,
+    "t_nodes": 0.01,
+    "t_cook_export": 1.13
+   }
+  }
+ ],
+ "cells": [
+  1,
+  1
+ ]
+}
