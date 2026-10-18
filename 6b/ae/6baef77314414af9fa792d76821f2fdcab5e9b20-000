@@ -1,0 +1,14 @@
+{
+ "path": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ConcreteStains/status.json",
+ "name": "ConcreteStains",
+ "work": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ConcreteStains",
+ "started": "2026-10-18 22:29:20",
+ "pid": 13238,
+ "step": "done",
+ "detail": "pearson 0.986 in 8.4 min",
+ "state": "done",
+ "updated": "2026-10-18 22:37:45",
+ "elapsed_s": 504.6,
+ "layers_done": 37,
+ "report": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ConcreteStains/report.json"
+}
