@@ -1,0 +1,1468 @@
+{
+ "name": "RoofTiles36_H1",
+ "net": "/obj/ZRH_RoofTiles36",
+ "reference": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/RoofTiles36/refs/RoofTiles36_height_2048.png",
+ "layers": [
+  {
+   "local": null,
+   "layer": "joint_profile",
+   "status": "accepted",
+   "score": 0.5645,
+   "gain": null,
+   "summary": {
+    "pearson": 0.7947,
+    "mae": 0.1106,
+    "low32": 0.958,
+    "b1-2": 0.0423,
+    "b4-8": 0.3524,
+    "b16-32": 0.8976,
+    "q25": 0.2098,
+    "q75": 0.0,
+    "lines": 0.0,
+    "struct": 0.603,
+    "detail": 0.13
+   },
+   "note": "measured joint profile",
+   "seconds": 6.5,
+   "nodes": 14,
+   "timing": {
+    "kept_layers": 0,
+    "new_layers": 1,
+    "t_nodes": 0.01,
+    "t_cook_export": 1.43
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/RoofTiles36/versions/final/RoofTiles36_H1/L01_joint_profile.png",
+   "gates": {
+    "A_thumb64_mae_pct": 7.028,
+    "D_joint_profile_corr": 0.982,
+    "D_joint_profile_mae_pct": 2.588,
+    "G_band_energy_ratio": {
+     "1-2": 0.052,
+     "2-4": 0.14,
+     "4-8": 0.376,
+     "8-16": 0.713,
+     "16-32": 0.899
+    },
+    "F_residual_w1_pct": 4.748,
+    "F_residual_std_ratio": 0.041,
+    "J_rmse": 0.1656,
+    "J_floor_if_stochastic": 0.0953
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 1670856,
+    "before": 0.1546,
+    "after": 0.137,
+    "ls_gain": 1.028
+   },
+   "layer": "side_profiles",
+   "status": "accepted",
+   "score": 0.5898,
+   "gain": 0.0253,
+   "summary": {
+    "pearson": 0.814,
+    "mae": 0.1034,
+    "low32": 0.961,
+    "b1-2": 0.0617,
+    "b4-8": 0.4179,
+    "b16-32": 0.9237,
+    "q25": 0.283,
+    "q75": 0.0095,
+    "lines": 0.0,
+    "struct": 0.628,
+    "detail": 0.16
+   },
+   "note": "per side joint profiles",
+   "seconds": 5.1,
+   "nodes": 27,
+   "timing": {
+    "kept_layers": 1,
+    "new_layers": 1,
+    "t_nodes": 0.0,
+    "t_cook_export": 0.11
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/RoofTiles36/versions/final/RoofTiles36_H1/L02_side_profiles.png",
+   "gates": {
+    "A_thumb64_mae_pct": 6.399,
+    "D_joint_profile_corr": 0.9888,
+    "D_joint_profile_mae_pct": 2.111,
+    "G_band_energy_ratio": {
+     "1-2": 0.074,
+     "2-4": 0.181,
+     "4-8": 0.448,
+     "8-16": 0.753,
+     "16-32": 0.92
+    },
+    "F_residual_w1_pct": 4.697,
+    "F_residual_std_ratio": 0.06,
+    "J_rmse": 0.1583,
+    "J_floor_if_stochastic": 0.0953
+   }
+  },
+  {
+   "local": {
+    "ok": false,
+    "pixels": 1656522,
+    "before": 0.1258,
+    "after": 0.1254,
+    "ls_gain": 1.151,
+    "refit": true
+   },
+   "layer": "row_table",
+   "status": "rejected",
+   "score": 0.5919,
+   "gain": 0.0021,
+   "summary": {
+    "pearson": 0.8146,
+    "mae": 0.1033,
+    "low32": 0.962,
+    "b1-2": 0.0616,
+    "b4-8": 0.4172,
+    "b16-32": 0.9244,
+    "q25": 0.325,
+    "q75": 0.0192,
+    "lines": 0.0,
+    "struct": 0.639,
+    "detail": 0.159
+   },
+   "note": "per row offset",
+   "seconds": 4.8,
+   "nodes": 31,
+   "timing": {
+    "kept_layers": 2,
+    "new_layers": 1,
+    "t_nodes": 0.0,
+    "t_cook_export": 0.08
+   }
+  },
+  {
+   "local": {
+    "ok": false,
+    "pixels": 2078102,
+    "before": 0.1289,
+    "after": 0.1269,
+    "ls_gain": 1.523
+   },
+   "layer": "row_plane",
+   "status": "rejected",
+   "score": 0.5958,
+   "gain": 0.006,
+   "summary": {
+    "pearson": 0.8198,
+    "mae": 0.1024,
+    "low32": 0.97,
+    "b1-2": 0.0623,
+    "b4-8": 0.4232,
+    "b16-32": 0.9281,
+    "q25": 0.3399,
+    "q75": 0.0298,
+    "lines": 0.0,
+    "struct": 0.647,
+    "detail": 0.162
+   },
+   "note": "per row plane",
+   "seconds": 4.8,
+   "nodes": 36,
+   "timing": {
+    "kept_layers": 2,
+    "new_layers": 1,
+    "t_nodes": 0.01,
+    "t_cook_export": 0.14
+   }
+  },
+  {
+   "local": {
+    "ok": false,
+    "pixels": 2534708,
+    "before": 0.1204,
+    "after": 0.119,
+    "ls_gain": 1.151
+   },
+   "layer": "corners",
+   "status": "rejected",
+   "score": 0.5975,
+   "gain": 0.0077,
+   "summary": {
+    "pearson": 0.8203,
+    "mae": 0.1025,
+    "low32": 0.971,
+    "b1-2": 0.0619,
+    "b4-8": 0.4219,
+    "b16-32": 0.9288,
+    "q25": 0.3593,
+    "q75": 0.0574,
+    "lines": 0.0,
+    "struct": 0.657,
+    "detail": 0.161
+   },
+   "note": "per row bilinear corners",
+   "seconds": 4.9,
+   "nodes": 47,
+   "timing": {
+    "kept_layers": 2,
+    "new_layers": 1,
+    "t_nodes": 0.01,
+    "t_cook_export": 0.19
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 3048337,
+    "before": 0.1138,
+    "after": 0.1083,
+    "ls_gain": 1.945
+   },
+   "layer": "regions_s32",
+   "status": "accepted",
+   "score": 0.604,
+   "gain": 0.0142,
+   "summary": {
+    "pearson": 0.8351,
+    "mae": 0.0994,
+    "low32": 0.992,
+    "b1-2": 0.0617,
+    "b4-8": 0.427,
+    "b16-32": 0.943,
+    "q25": 0.3371,
+    "q75": 0.1001,
+    "lines": 0.0,
+    "struct": 0.672,
+    "detail": 0.162
+   },
+   "note": "8 posterised bins of residual low pass s32 at 512 px, 482 regions",
+   "seconds": 5.8,
+   "nodes": 32,
+   "timing": {
+    "kept_layers": 2,
+    "new_layers": 1,
+    "t_nodes": 0.08,
+    "t_cook_export": 0.39
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/RoofTiles36/versions/final/RoofTiles36_H1/L03_regions_s32.png",
+   "gates": {
+    "A_thumb64_mae_pct": 5.035,
+    "D_joint_profile_corr": 0.9921,
+    "D_joint_profile_mae_pct": 1.789,
+    "G_band_energy_ratio": {
+     "1-2": 0.074,
+     "2-4": 0.182,
+     "4-8": 0.448,
+     "8-16": 0.743,
+     "16-32": 0.91
+    },
+    "F_residual_w1_pct": 4.703,
+    "F_residual_std_ratio": 0.061,
+    "J_rmse": 0.1502,
+    "J_floor_if_stochastic": 0.0953
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 2750610,
+    "before": 0.1186,
+    "after": 0.1084,
+    "ls_gain": 2.387
+   },
+   "layer": "regions_s16",
+   "status": "accepted",
+   "score": 0.6296,
+   "gain": 0.0256,
+   "summary": {
+    "pearson": 0.8575,
+    "mae": 0.0926,
+    "low32": 0.998,
+    "b1-2": 0.0623,
+    "b4-8": 0.4683,
+    "b16-32": 0.9769,
+    "q25": 0.459,
+    "q75": 0.2084,
+    "lines": 0.0,
+    "struct": 0.728,
+    "detail": 0.175
+   },
+   "note": "8 posterised bins of residual low pass s16 at 512 px, 3530 regions",
+   "seconds": 5.4,
+   "nodes": 37,
+   "timing": {
+    "kept_layers": 3,
+    "new_layers": 1,
+    "t_nodes": 0.12,
+    "t_cook_export": 0.25
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/RoofTiles36/versions/final/RoofTiles36_H1/L04_regions_s16.png",
+   "gates": {
+    "A_thumb64_mae_pct": 3.415,
+    "D_joint_profile_corr": 0.9956,
+    "D_joint_profile_mae_pct": 1.254,
+    "G_band_energy_ratio": {
+     "1-2": 0.076,
+     "2-4": 0.185,
+     "4-8": 0.451,
+     "8-16": 0.756,
+     "16-32": 0.93
+    },
+    "F_residual_w1_pct": 4.705,
+    "F_residual_std_ratio": 0.062,
+    "J_rmse": 0.1406,
+    "J_floor_if_stochastic": 0.0953
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 2793160,
+    "before": 0.1135,
+    "after": 0.0979,
+    "ls_gain": 2.326
+   },
+   "layer": "regions_s8",
+   "status": "accepted",
+   "score": 0.6738,
+   "gain": 0.0442,
+   "summary": {
+    "pearson": 0.8851,
+    "mae": 0.0821,
+    "low32": 0.999,
+    "b1-2": 0.0828,
+    "b4-8": 0.6459,
+    "b16-32": 0.9938,
+    "q25": 0.6669,
+    "q75": 0.2966,
+    "lines": 0.0,
+    "struct": 0.791,
+    "detail": 0.246
+   },
+   "note": "8 posterised bins of residual low pass s8 at 1024 px, 9606 regions",
+   "seconds": 6.2,
+   "nodes": 42,
+   "timing": {
+    "kept_layers": 4,
+    "new_layers": 1,
+    "t_nodes": 0.39,
+    "t_cook_export": 0.23
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/RoofTiles36/versions/final/RoofTiles36_H1/L05_regions_s8.png",
+   "gates": {
+    "A_thumb64_mae_pct": 1.949,
+    "D_joint_profile_corr": 0.9977,
+    "D_joint_profile_mae_pct": 0.795,
+    "G_band_energy_ratio": {
+     "1-2": 0.081,
+     "2-4": 0.203,
+     "4-8": 0.498,
+     "8-16": 0.826,
+     "16-32": 0.965
+    },
+    "F_residual_w1_pct": 4.688,
+    "F_residual_std_ratio": 0.066,
+    "J_rmse": 0.1272,
+    "J_floor_if_stochastic": 0.0953
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 180079,
+    "before": 0.2181,
+    "after": 0.1511,
+    "ls_gain": 1.183
+   },
+   "layer": "lines",
+   "status": "accepted",
+   "score": 0.7113,
+   "gain": 0.0375,
+   "summary": {
+    "pearson": 0.8951,
+    "mae": 0.0792,
+    "low32": 0.999,
+    "b1-2": 0.4762,
+    "b4-8": 0.6648,
+    "b16-32": 0.9936,
+    "q25": 0.6669,
+    "q75": 0.3433,
+    "lines": 0.103,
+    "struct": 0.8,
+    "detail": 0.421
+   },
+   "note": "traced ridge centrelines (2779)",
+   "seconds": 14.1,
+   "nodes": 48,
+   "timing": {
+    "kept_layers": 5,
+    "new_layers": 1,
+    "t_nodes": 0.08,
+    "t_cook_export": 1.34
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/RoofTiles36/versions/final/RoofTiles36_H1/L06_lines.png",
+   "gates": {
+    "A_thumb64_mae_pct": 2.084,
+    "D_joint_profile_corr": 0.9975,
+    "D_joint_profile_mae_pct": 1.103,
+    "G_band_energy_ratio": {
+     "1-2": 0.244,
+     "2-4": 0.254,
+     "4-8": 0.516,
+     "8-16": 0.839,
+     "16-32": 0.975
+    },
+    "F_residual_w1_pct": 3.997,
+    "F_residual_std_ratio": 0.382,
+    "J_rmse": 0.122,
+    "J_floor_if_stochastic": 0.0953
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 201774,
+    "before": 0.3179,
+    "after": 0.1484,
+    "ls_gain": 1.388
+   },
+   "layer": "blobs",
+   "status": "accepted",
+   "score": 0.7589,
+   "gain": 0.0476,
+   "summary": {
+    "pearson": 0.9271,
+    "mae": 0.071,
+    "low32": 0.999,
+    "b1-2": 0.6803,
+    "b4-8": 0.7971,
+    "b16-32": 0.9947,
+    "q25": 0.6673,
+    "q75": 0.38,
+    "lines": 0.325,
+    "struct": 0.808,
+    "detail": 0.636
+   },
+   "note": "2169 compact blobs of high pass s6 beyond quantile 0.985",
+   "seconds": 6.0,
+   "nodes": 53,
+   "timing": {
+    "kept_layers": 6,
+    "new_layers": 1,
+    "t_nodes": 0.06,
+    "t_cook_export": 0.31
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/RoofTiles36/versions/final/RoofTiles36_H1/L07_blobs.png",
+   "gates": {
+    "A_thumb64_mae_pct": 1.915,
+    "D_joint_profile_corr": 0.9972,
+    "D_joint_profile_mae_pct": 1.128,
+    "G_band_energy_ratio": {
+     "1-2": 0.513,
+     "2-4": 0.454,
+     "4-8": 0.581,
+     "8-16": 0.864,
+     "16-32": 0.978
+    },
+    "F_residual_w1_pct": 3.28,
+    "F_residual_std_ratio": 0.612,
+    "J_rmse": 0.1032,
+    "J_floor_if_stochastic": 0.0953
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 2499519,
+    "before": 0.0948,
+    "after": 0.073,
+    "ls_gain": 2.161
+   },
+   "layer": "regions_s4",
+   "status": "accepted",
+   "score": 0.8016,
+   "gain": 0.0426,
+   "summary": {
+    "pearson": 0.9489,
+    "mae": 0.0579,
+    "low32": 0.999,
+    "b1-2": 0.7017,
+    "b4-8": 0.9309,
+    "b16-32": 0.998,
+    "q25": 0.8363,
+    "q75": 0.459,
+    "lines": 0.334,
+    "struct": 0.858,
+    "detail": 0.7
+   },
+   "note": "8 posterised bins of residual low pass s4 at 1024 px, 20891 regions",
+   "seconds": 6.9,
+   "nodes": 58,
+   "timing": {
+    "kept_layers": 7,
+    "new_layers": 1,
+    "t_nodes": 0.56,
+    "t_cook_export": 0.36
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/RoofTiles36/versions/final/RoofTiles36_H1/L08_regions_s4.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.998,
+    "D_joint_profile_corr": 0.9989,
+    "D_joint_profile_mae_pct": 0.514,
+    "G_band_energy_ratio": {
+     "1-2": 0.527,
+     "2-4": 0.529,
+     "4-8": 0.719,
+     "8-16": 0.922,
+     "16-32": 0.988
+    },
+    "F_residual_w1_pct": 3.209,
+    "F_residual_std_ratio": 0.619,
+    "J_rmse": 0.0867,
+    "J_floor_if_stochastic": 0.0953
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 645053,
+    "before": 0.1097,
+    "after": 0.1038,
+    "ls_gain": 4.418
+   },
+   "layer": "regions_s8_p2",
+   "status": "accepted",
+   "score": 0.8046,
+   "gain": 0.0031,
+   "summary": {
+    "pearson": 0.9507,
+    "mae": 0.0568,
+    "low32": 1.0,
+    "b1-2": 0.7018,
+    "b4-8": 0.936,
+    "b16-32": 0.9987,
+    "q25": 0.8574,
+    "q75": 0.4646,
+    "lines": 0.334,
+    "struct": 0.864,
+    "detail": 0.702
+   },
+   "note": "8 posterised bins of residual low pass s8 at 1024 px, 16392 regions",
+   "seconds": 6.6,
+   "nodes": 63,
+   "timing": {
+    "kept_layers": 8,
+    "new_layers": 1,
+    "t_nodes": 0.46,
+    "t_cook_export": 0.36
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/RoofTiles36/versions/final/RoofTiles36_H1/L09_regions_s8_p2.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.836,
+    "D_joint_profile_corr": 0.9992,
+    "D_joint_profile_mae_pct": 0.417,
+    "G_band_energy_ratio": {
+     "1-2": 0.528,
+     "2-4": 0.539,
+     "4-8": 0.743,
+     "8-16": 0.935,
+     "16-32": 0.989
+    },
+    "F_residual_w1_pct": 3.2,
+    "F_residual_std_ratio": 0.619,
+    "J_rmse": 0.0851,
+    "J_floor_if_stochastic": 0.0953
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 1555856,
+    "before": 0.0894,
+    "after": 0.0763,
+    "ls_gain": 3.185
+   },
+   "layer": "regions_s4_p2",
+   "status": "accepted",
+   "score": 0.821,
+   "gain": 0.0164,
+   "summary": {
+    "pearson": 0.9587,
+    "mae": 0.0516,
+    "low32": 1.0,
+    "b1-2": 0.7213,
+    "b4-8": 0.9662,
+    "b16-32": 0.9991,
+    "q25": 0.8741,
+    "q75": 0.5047,
+    "lines": 0.343,
+    "struct": 0.875,
+    "detail": 0.727
+   },
+   "note": "8 posterised bins of residual low pass s4 at 2048 px, 45966 regions",
+   "seconds": 10.6,
+   "nodes": 68,
+   "timing": {
+    "kept_layers": 9,
+    "new_layers": 1,
+    "t_nodes": 1.44,
+    "t_cook_export": 0.49
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/RoofTiles36/versions/final/RoofTiles36_H1/L10_regions_s4_p2.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.641,
+    "D_joint_profile_corr": 0.9995,
+    "D_joint_profile_mae_pct": 0.321,
+    "G_band_energy_ratio": {
+     "1-2": 0.549,
+     "2-4": 0.611,
+     "4-8": 0.821,
+     "8-16": 0.954,
+     "16-32": 0.992
+    },
+    "F_residual_w1_pct": 3.096,
+    "F_residual_std_ratio": 0.63,
+    "J_rmse": 0.078,
+    "J_floor_if_stochastic": 0.0953
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 157775,
+    "before": 0.1282,
+    "after": 0.0968,
+    "ls_gain": 0.633
+   },
+   "layer": "lines_p2",
+   "status": "accepted",
+   "score": 0.8327,
+   "gain": 0.0116,
+   "summary": {
+    "pearson": 0.9601,
+    "mae": 0.0504,
+    "low32": 1.0,
+    "b1-2": 0.767,
+    "b4-8": 0.965,
+    "b16-32": 0.999,
+    "q25": 0.8741,
+    "q75": 0.5376,
+    "lines": 0.376,
+    "struct": 0.882,
+    "detail": 0.749
+   },
+   "note": "traced ridge centrelines (6318)",
+   "seconds": 11.6,
+   "nodes": 74,
+   "timing": {
+    "kept_layers": 10,
+    "new_layers": 1,
+    "t_nodes": 0.1,
+    "t_cook_export": 0.48
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/RoofTiles36/versions/final/RoofTiles36_H1/L11_lines_p2.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.86,
+    "D_joint_profile_corr": 0.9995,
+    "D_joint_profile_mae_pct": 0.627,
+    "G_band_energy_ratio": {
+     "1-2": 0.613,
+     "2-4": 0.647,
+     "4-8": 0.837,
+     "8-16": 0.965,
+     "16-32": 1.002
+    },
+    "F_residual_w1_pct": 2.668,
+    "F_residual_std_ratio": 0.753,
+    "J_rmse": 0.0765,
+    "J_floor_if_stochastic": 0.0953
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 68422,
+    "before": 0.1601,
+    "after": 0.0863,
+    "ls_gain": 1.406
+   },
+   "layer": "blobs_p2",
+   "status": "accepted",
+   "score": 0.8373,
+   "gain": 0.0046,
+   "summary": {
+    "pearson": 0.9628,
+    "mae": 0.0492,
+    "low32": 1.0,
+    "b1-2": 0.7921,
+    "b4-8": 0.9652,
+    "b16-32": 0.9989,
+    "q25": 0.8742,
+    "q75": 0.5444,
+    "lines": 0.41,
+    "struct": 0.883,
+    "detail": 0.766
+   },
+   "note": "1714 compact blobs of high pass s3 beyond quantile 0.985",
+   "seconds": 5.6,
+   "nodes": 79,
+   "timing": {
+    "kept_layers": 11,
+    "new_layers": 1,
+    "t_nodes": 0.03,
+    "t_cook_export": 0.48
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/RoofTiles36/versions/final/RoofTiles36_H1/L12_blobs_p2.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.863,
+    "D_joint_profile_corr": 0.9994,
+    "D_joint_profile_mae_pct": 0.637,
+    "G_band_energy_ratio": {
+     "1-2": 0.637,
+     "2-4": 0.661,
+     "4-8": 0.841,
+     "8-16": 0.967,
+     "16-32": 1.002
+    },
+    "F_residual_w1_pct": 2.595,
+    "F_residual_std_ratio": 0.767,
+    "J_rmse": 0.074,
+    "J_floor_if_stochastic": 0.0953
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 1401395,
+    "before": 0.0789,
+    "after": 0.0708,
+    "ls_gain": 2.964
+   },
+   "layer": "regions_s4_p3",
+   "status": "accepted",
+   "score": 0.8453,
+   "gain": 0.008,
+   "summary": {
+    "pearson": 0.9669,
+    "mae": 0.0462,
+    "low32": 1.0,
+    "b1-2": 0.8016,
+    "b4-8": 0.9788,
+    "b16-32": 0.9993,
+    "q25": 0.8698,
+    "q75": 0.5528,
+    "lines": 0.416,
+    "struct": 0.884,
+    "detail": 0.778
+   },
+   "note": "8 posterised bins of residual low pass s4 at 2048 px, 48402 regions",
+   "seconds": 10.9,
+   "nodes": 84,
+   "timing": {
+    "kept_layers": 12,
+    "new_layers": 1,
+    "t_nodes": 1.59,
+    "t_cook_export": 0.62
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/RoofTiles36/versions/final/RoofTiles36_H1/L13_regions_s4_p3.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.514,
+    "D_joint_profile_corr": 0.9996,
+    "D_joint_profile_mae_pct": 0.268,
+    "G_band_energy_ratio": {
+     "1-2": 0.65,
+     "2-4": 0.703,
+     "4-8": 0.875,
+     "8-16": 0.968,
+     "16-32": 0.996
+    },
+    "F_residual_w1_pct": 2.532,
+    "F_residual_std_ratio": 0.774,
+    "J_rmse": 0.0698,
+    "J_floor_if_stochastic": 0.0953
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 827034,
+    "before": 0.0818,
+    "after": 0.0754,
+    "ls_gain": 5.013
+   },
+   "layer": "regions_s4_p4",
+   "status": "accepted",
+   "score": 0.8503,
+   "gain": 0.005,
+   "summary": {
+    "pearson": 0.9691,
+    "mae": 0.0446,
+    "low32": 1.0,
+    "b1-2": 0.8085,
+    "b4-8": 0.9843,
+    "b16-32": 0.9995,
+    "q25": 0.8618,
+    "q75": 0.566,
+    "lines": 0.42,
+    "struct": 0.885,
+    "detail": 0.785
+   },
+   "note": "8 posterised bins of residual low pass s4 at 2048 px, 60411 regions",
+   "seconds": 11.8,
+   "nodes": 89,
+   "timing": {
+    "kept_layers": 13,
+    "new_layers": 1,
+    "t_nodes": 1.86,
+    "t_cook_export": 0.74
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/RoofTiles36/versions/final/RoofTiles36_H1/L14_regions_s4_p4.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.444,
+    "D_joint_profile_corr": 0.9997,
+    "D_joint_profile_mae_pct": 0.235,
+    "G_band_energy_ratio": {
+     "1-2": 0.661,
+     "2-4": 0.735,
+     "4-8": 0.898,
+     "8-16": 0.973,
+     "16-32": 0.997
+    },
+    "F_residual_w1_pct": 2.482,
+    "F_residual_std_ratio": 0.78,
+    "J_rmse": 0.0674,
+    "J_floor_if_stochastic": 0.0953
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 207811,
+    "before": 0.0791,
+    "after": 0.0724,
+    "ls_gain": 6.677
+   },
+   "layer": "regions_s4_p5",
+   "status": "accepted",
+   "score": 0.8539,
+   "gain": 0.0036,
+   "summary": {
+    "pearson": 0.9706,
+    "mae": 0.0434,
+    "low32": 1.0,
+    "b1-2": 0.8138,
+    "b4-8": 0.9874,
+    "b16-32": 0.9996,
+    "q25": 0.8541,
+    "q75": 0.5753,
+    "lines": 0.424,
+    "struct": 0.886,
+    "detail": 0.79
+   },
+   "note": "8 posterised bins of residual low pass s4 at 2048 px, 71064 regions",
+   "seconds": 12.2,
+   "nodes": 94,
+   "timing": {
+    "kept_layers": 14,
+    "new_layers": 1,
+    "t_nodes": 1.9,
+    "t_cook_export": 0.8
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/RoofTiles36/versions/final/RoofTiles36_H1/L15_regions_s4_p5.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.401,
+    "D_joint_profile_corr": 0.9997,
+    "D_joint_profile_mae_pct": 0.214,
+    "G_band_energy_ratio": {
+     "1-2": 0.671,
+     "2-4": 0.761,
+     "4-8": 0.914,
+     "8-16": 0.977,
+     "16-32": 0.997
+    },
+    "F_residual_w1_pct": 2.441,
+    "F_residual_std_ratio": 0.785,
+    "J_rmse": 0.0658,
+    "J_floor_if_stochastic": 0.0953
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 0,
+    "ls_gain": 1.0
+   },
+   "layer": "regions_s4_p6",
+   "status": "accepted",
+   "score": 0.8566,
+   "gain": 0.0028,
+   "summary": {
+    "pearson": 0.9717,
+    "mae": 0.0426,
+    "low32": 1.0,
+    "b1-2": 0.8181,
+    "b4-8": 0.9893,
+    "b16-32": 0.9996,
+    "q25": 0.8478,
+    "q75": 0.5826,
+    "lines": 0.428,
+    "struct": 0.886,
+    "detail": 0.794
+   },
+   "note": "8 posterised bins of residual low pass s4 at 2048 px, 79963 regions",
+   "seconds": 12.4,
+   "nodes": 99,
+   "timing": {
+    "kept_layers": 15,
+    "new_layers": 1,
+    "t_nodes": 2.05,
+    "t_cook_export": 0.84
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/RoofTiles36/versions/final/RoofTiles36_H1/L16_regions_s4_p6.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.369,
+    "D_joint_profile_corr": 0.9998,
+    "D_joint_profile_mae_pct": 0.202,
+    "G_band_energy_ratio": {
+     "1-2": 0.679,
+     "2-4": 0.781,
+     "4-8": 0.926,
+     "8-16": 0.979,
+     "16-32": 0.998
+    },
+    "F_residual_w1_pct": 2.406,
+    "F_residual_std_ratio": 0.789,
+    "J_rmse": 0.0645,
+    "J_floor_if_stochastic": 0.0953
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 0,
+    "ls_gain": 1.0
+   },
+   "layer": "regions_s4_p7",
+   "status": "accepted",
+   "score": 0.8588,
+   "gain": 0.0022,
+   "summary": {
+    "pearson": 0.9725,
+    "mae": 0.0419,
+    "low32": 1.0,
+    "b1-2": 0.8216,
+    "b4-8": 0.9906,
+    "b16-32": 0.9997,
+    "q25": 0.8416,
+    "q75": 0.5883,
+    "lines": 0.431,
+    "struct": 0.886,
+    "detail": 0.797
+   },
+   "note": "8 posterised bins of residual low pass s4 at 2048 px, 86824 regions",
+   "seconds": 12.8,
+   "nodes": 104,
+   "timing": {
+    "kept_layers": 16,
+    "new_layers": 1,
+    "t_nodes": 2.07,
+    "t_cook_export": 0.85
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/RoofTiles36/versions/final/RoofTiles36_H1/L17_regions_s4_p7.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.345,
+    "D_joint_profile_corr": 0.9998,
+    "D_joint_profile_mae_pct": 0.195,
+    "G_band_energy_ratio": {
+     "1-2": 0.687,
+     "2-4": 0.797,
+     "4-8": 0.935,
+     "8-16": 0.981,
+     "16-32": 0.998
+    },
+    "F_residual_w1_pct": 2.376,
+    "F_residual_std_ratio": 0.793,
+    "J_rmse": 0.0635,
+    "J_floor_if_stochastic": 0.0953
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 0,
+    "ls_gain": 1.0
+   },
+   "layer": "regions_s4_p8",
+   "status": "accepted",
+   "score": 0.8606,
+   "gain": 0.0018,
+   "summary": {
+    "pearson": 0.9732,
+    "mae": 0.0414,
+    "low32": 1.0,
+    "b1-2": 0.8246,
+    "b4-8": 0.9916,
+    "b16-32": 0.9997,
+    "q25": 0.8366,
+    "q75": 0.5929,
+    "lines": 0.433,
+    "struct": 0.886,
+    "detail": 0.8
+   },
+   "note": "8 posterised bins of residual low pass s4 at 2048 px, 91469 regions",
+   "seconds": 13.2,
+   "nodes": 109,
+   "timing": {
+    "kept_layers": 17,
+    "new_layers": 1,
+    "t_nodes": 2.26,
+    "t_cook_export": 0.88
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/RoofTiles36/versions/final/RoofTiles36_H1/L18_regions_s4_p8.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.326,
+    "D_joint_profile_corr": 0.9998,
+    "D_joint_profile_mae_pct": 0.189,
+    "G_band_energy_ratio": {
+     "1-2": 0.694,
+     "2-4": 0.811,
+     "4-8": 0.941,
+     "8-16": 0.983,
+     "16-32": 0.998
+    },
+    "F_residual_w1_pct": 2.349,
+    "F_residual_std_ratio": 0.797,
+    "J_rmse": 0.0627,
+    "J_floor_if_stochastic": 0.0953
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 1265037,
+    "before": 0.0731,
+    "after": 0.0596,
+    "ls_gain": 3.31
+   },
+   "layer": "regions_s2",
+   "status": "accepted",
+   "score": 0.8804,
+   "gain": 0.0198,
+   "summary": {
+    "pearson": 0.9785,
+    "mae": 0.0367,
+    "low32": 1.0,
+    "b1-2": 0.8712,
+    "b4-8": 0.995,
+    "b16-32": 0.9998,
+    "q25": 0.8397,
+    "q75": 0.6374,
+    "lines": 0.456,
+    "struct": 0.895,
+    "detail": 0.824
+   },
+   "note": "8 posterised bins of residual low pass s2 at 2048 px, 105670 regions",
+   "seconds": 14.4,
+   "nodes": 114,
+   "timing": {
+    "kept_layers": 18,
+    "new_layers": 1,
+    "t_nodes": 2.66,
+    "t_cook_export": 1.14
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/RoofTiles36/versions/final/RoofTiles36_H1/L19_regions_s2.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.266,
+    "D_joint_profile_corr": 0.9998,
+    "D_joint_profile_mae_pct": 0.163,
+    "G_band_energy_ratio": {
+     "1-2": 0.74,
+     "2-4": 0.868,
+     "4-8": 0.959,
+     "8-16": 0.988,
+     "16-32": 0.999
+    },
+    "F_residual_w1_pct": 2.173,
+    "F_residual_std_ratio": 0.825,
+    "J_rmse": 0.0562,
+    "J_floor_if_stochastic": 0.0953
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 954054,
+    "before": 0.0704,
+    "after": 0.0608,
+    "ls_gain": 4.246
+   },
+   "layer": "regions_s2_p2",
+   "status": "accepted",
+   "score": 0.8915,
+   "gain": 0.0111,
+   "summary": {
+    "pearson": 0.9813,
+    "mae": 0.034,
+    "low32": 1.0,
+    "b1-2": 0.8952,
+    "b4-8": 0.9964,
+    "b16-32": 0.9998,
+    "q25": 0.8389,
+    "q75": 0.6629,
+    "lines": 0.47,
+    "struct": 0.9,
+    "detail": 0.836
+   },
+   "note": "8 posterised bins of residual low pass s2 at 2048 px, 112058 regions",
+   "seconds": 14.1,
+   "nodes": 119,
+   "timing": {
+    "kept_layers": 19,
+    "new_layers": 1,
+    "t_nodes": 2.46,
+    "t_cook_export": 1.15
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/RoofTiles36/versions/final/RoofTiles36_H1/L20_regions_s2_p2.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.231,
+    "D_joint_profile_corr": 0.9999,
+    "D_joint_profile_mae_pct": 0.154,
+    "G_band_energy_ratio": {
+     "1-2": 0.775,
+     "2-4": 0.902,
+     "4-8": 0.969,
+     "8-16": 0.99,
+     "16-32": 1.0
+    },
+    "F_residual_w1_pct": 2.018,
+    "F_residual_std_ratio": 0.848,
+    "J_rmse": 0.0525,
+    "J_floor_if_stochastic": 0.0953
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 17284,
+    "before": 0.1176,
+    "after": 0.0798,
+    "ls_gain": 1.213
+   },
+   "layer": "blobs_p3",
+   "status": "rejected",
+   "score": 0.8919,
+   "gain": 0.0004,
+   "summary": {
+    "pearson": 0.9815,
+    "mae": 0.0338,
+    "low32": 1.0,
+    "b1-2": 0.896,
+    "b4-8": 0.9963,
+    "b16-32": 0.9998,
+    "q25": 0.8389,
+    "q75": 0.6637,
+    "lines": 0.473,
+    "struct": 0.9,
+    "detail": 0.837
+   },
+   "note": "530 compact blobs of high pass s2 beyond quantile 0.985",
+   "seconds": 6.0,
+   "nodes": 124,
+   "timing": {
+    "kept_layers": 20,
+    "new_layers": 1,
+    "t_nodes": 0.05,
+    "t_cook_export": 1.07
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 1269089,
+    "before": 0.0638,
+    "after": 0.0428,
+    "ls_gain": 2.485
+   },
+   "layer": "regions_s1",
+   "status": "accepted",
+   "score": 0.9177,
+   "gain": 0.0262,
+   "summary": {
+    "pearson": 0.987,
+    "mae": 0.0273,
+    "low32": 1.0,
+    "b1-2": 0.9453,
+    "b4-8": 0.998,
+    "b16-32": 0.9999,
+    "q25": 0.8514,
+    "q75": 0.7265,
+    "lines": 0.507,
+    "struct": 0.916,
+    "detail": 0.861
+   },
+   "note": "8 posterised bins of residual low pass s1 at 2048 px, 132870 regions",
+   "seconds": 15.7,
+   "nodes": 124,
+   "timing": {
+    "kept_layers": 20,
+    "new_layers": 1,
+    "t_nodes": 2.79,
+    "t_cook_export": 1.17
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/RoofTiles36/versions/final/RoofTiles36_H1/L21_regions_s1.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.193,
+    "D_joint_profile_corr": 0.9999,
+    "D_joint_profile_mae_pct": 0.147,
+    "G_band_energy_ratio": {
+     "1-2": 0.846,
+     "2-4": 0.948,
+     "4-8": 0.983,
+     "8-16": 0.994,
+     "16-32": 1.0
+    },
+    "F_residual_w1_pct": 1.629,
+    "F_residual_std_ratio": 0.899,
+    "J_rmse": 0.0438,
+    "J_floor_if_stochastic": 0.0953
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 815452,
+    "before": 0.0596,
+    "after": 0.0437,
+    "ls_gain": 2.986
+   },
+   "layer": "regions_s1_p2",
+   "status": "accepted",
+   "score": 0.9312,
+   "gain": 0.0135,
+   "summary": {
+    "pearson": 0.9897,
+    "mae": 0.0237,
+    "low32": 1.0,
+    "b1-2": 0.9654,
+    "b4-8": 0.9988,
+    "b16-32": 0.9999,
+    "q25": 0.8609,
+    "q75": 0.762,
+    "lines": 0.536,
+    "struct": 0.925,
+    "detail": 0.874
+   },
+   "note": "8 posterised bins of residual low pass s1 at 2048 px, 141937 regions",
+   "seconds": 16.0,
+   "nodes": 129,
+   "timing": {
+    "kept_layers": 21,
+    "new_layers": 1,
+    "t_nodes": 3.1,
+    "t_cook_export": 1.42
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/RoofTiles36/versions/final/RoofTiles36_H1/L22_regions_s1_p2.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.169,
+    "D_joint_profile_corr": 0.9999,
+    "D_joint_profile_mae_pct": 0.149,
+    "G_band_energy_ratio": {
+     "1-2": 0.888,
+     "2-4": 0.969,
+     "4-8": 0.99,
+     "8-16": 0.996,
+     "16-32": 1.0
+    },
+    "F_residual_w1_pct": 1.371,
+    "F_residual_std_ratio": 0.933,
+    "J_rmse": 0.0391,
+    "J_floor_if_stochastic": 0.0953
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 0,
+    "ls_gain": 1.0
+   },
+   "layer": "regions_s2_p3",
+   "status": "accepted",
+   "score": 0.933,
+   "gain": 0.0017,
+   "summary": {
+    "pearson": 0.99,
+    "mae": 0.0232,
+    "low32": 1.0,
+    "b1-2": 0.9674,
+    "b4-8": 0.9991,
+    "b16-32": 0.9999,
+    "q25": 0.8557,
+    "q75": 0.7663,
+    "lines": 0.542,
+    "struct": 0.924,
+    "detail": 0.876
+   },
+   "note": "8 posterised bins of residual low pass s2 at 2048 px, 123068 regions",
+   "seconds": 15.2,
+   "nodes": 134,
+   "timing": {
+    "kept_layers": 22,
+    "new_layers": 1,
+    "t_nodes": 2.94,
+    "t_cook_export": 1.56
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/RoofTiles36/versions/final/RoofTiles36_H1/L23_regions_s2_p3.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.142,
+    "D_joint_profile_corr": 0.9999,
+    "D_joint_profile_mae_pct": 0.138,
+    "G_band_energy_ratio": {
+     "1-2": 0.897,
+     "2-4": 0.974,
+     "4-8": 0.992,
+     "8-16": 0.997,
+     "16-32": 1.0
+    },
+    "F_residual_w1_pct": 1.326,
+    "F_residual_std_ratio": 0.94,
+    "J_rmse": 0.0385,
+    "J_floor_if_stochastic": 0.0953
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 658468,
+    "before": 0.0521,
+    "after": 0.0411,
+    "ls_gain": 3.7
+   },
+   "layer": "regions_s1_p3",
+   "status": "accepted",
+   "score": 0.9405,
+   "gain": 0.0075,
+   "summary": {
+    "pearson": 0.9913,
+    "mae": 0.0212,
+    "low32": 1.0,
+    "b1-2": 0.9765,
+    "b4-8": 0.9993,
+    "b16-32": 1.0,
+    "q25": 0.8736,
+    "q75": 0.7865,
+    "lines": 0.567,
+    "struct": 0.932,
+    "detail": 0.885
+   },
+   "note": "8 posterised bins of residual low pass s1 at 2048 px, 145281 regions",
+   "seconds": 16.0,
+   "nodes": 139,
+   "timing": {
+    "kept_layers": 23,
+    "new_layers": 1,
+    "t_nodes": 3.01,
+    "t_cook_export": 1.52
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/RoofTiles36/versions/final/RoofTiles36_H1/L24_regions_s1_p3.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.134,
+    "D_joint_profile_corr": 0.9999,
+    "D_joint_profile_mae_pct": 0.138,
+    "G_band_energy_ratio": {
+     "1-2": 0.921,
+     "2-4": 0.982,
+     "4-8": 0.994,
+     "8-16": 0.997,
+     "16-32": 1.0
+    },
+    "F_residual_w1_pct": 1.166,
+    "F_residual_std_ratio": 0.961,
+    "J_rmse": 0.0359,
+    "J_floor_if_stochastic": 0.0953
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 464109,
+    "before": 0.0481,
+    "after": 0.039,
+    "ls_gain": 3.99
+   },
+   "layer": "regions_s1_p4",
+   "status": "accepted",
+   "score": 0.9455,
+   "gain": 0.0051,
+   "summary": {
+    "pearson": 0.9922,
+    "mae": 0.0197,
+    "low32": 1.0,
+    "b1-2": 0.982,
+    "b4-8": 0.9995,
+    "b16-32": 1.0,
+    "q25": 0.8795,
+    "q75": 0.8013,
+    "lines": 0.585,
+    "struct": 0.936,
+    "detail": 0.891
+   },
+   "note": "8 posterised bins of residual low pass s1 at 2048 px, 148127 regions",
+   "seconds": 16.0,
+   "nodes": 144,
+   "timing": {
+    "kept_layers": 24,
+    "new_layers": 1,
+    "t_nodes": 3.14,
+    "t_cook_export": 1.5
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/RoofTiles36/versions/final/RoofTiles36_H1/L25_regions_s1_p4.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.118,
+    "D_joint_profile_corr": 1.0,
+    "D_joint_profile_mae_pct": 0.131,
+    "G_band_energy_ratio": {
+     "1-2": 0.937,
+     "2-4": 0.988,
+     "4-8": 0.996,
+     "8-16": 0.998,
+     "16-32": 1.0
+    },
+    "F_residual_w1_pct": 1.048,
+    "F_residual_std_ratio": 0.976,
+    "J_rmse": 0.0341,
+    "J_floor_if_stochastic": 0.0953
+   }
+  },
+  {
+   "local": null,
+   "layer": "hist",
+   "status": "rejected",
+   "score": 0.937,
+   "gain": -0.0085,
+   "summary": {
+    "pearson": 0.9923,
+    "mae": 0.0199,
+    "low32": 1.0,
+    "b1-2": 0.9827,
+    "b4-8": 0.9993,
+    "b16-32": 0.9999,
+    "q25": 0.8476,
+    "q75": 0.8071,
+    "lines": 0.592,
+    "struct": 0.931,
+    "detail": 0.893
+   },
+   "note": "histogram matched to reference",
+   "seconds": 6.2,
+   "nodes": 145,
+   "timing": {
+    "kept_layers": 25,
+    "new_layers": 1,
+    "t_nodes": 0.01,
+    "t_cook_export": 1.46
+   }
+  }
+ ],
+ "cells": [
+  6,
+  6
+ ],
+ "fade": 0.076171875
+}
