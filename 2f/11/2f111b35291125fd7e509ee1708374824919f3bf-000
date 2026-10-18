@@ -1,0 +1,13 @@
+{
+ "path": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/RoofTiles36/status.json",
+ "name": "RoofTiles36",
+ "work": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/RoofTiles36",
+ "started": "2026-10-18 18:02:22",
+ "pid": 38905,
+ "step": "5/7 height",
+ "detail": "layer pix_s05_k16_p3 accepted pearson 0.9955",
+ "state": "running",
+ "updated": "2026-10-18 18:09:00",
+ "elapsed_s": 398.3,
+ "layers_done": 33
+}
