@@ -1,0 +1,21 @@
+{
+ "name": "RoofTiles36",
+ "work": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/RoofTiles36",
+ "net": "/obj/ZRH_RoofTiles36",
+ "height": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/RoofTiles36/versions/final/RoofTiles36_H2/FINAL_height.png",
+ "pearson_full": 0.9978,
+ "ssim_full": 0.959,
+ "mae": 0.0116,
+ "seam_xy": [
+  0.42,
+  0.02
+ ],
+ "seam_layer": false,
+ "zoom": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/RoofTiles36/zoom3_reference_vs_result.png",
+ "boards": [
+  "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/RoofTiles36/versions/final/RoofTiles36_H1/board/Evolution.html",
+  "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/RoofTiles36/versions/final/RoofTiles36_H2/board/Evolution.html"
+ ],
+ "basecolor": null,
+ "minutes": 7.9
+}
