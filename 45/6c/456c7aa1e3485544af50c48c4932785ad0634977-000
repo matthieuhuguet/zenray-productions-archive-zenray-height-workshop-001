@@ -1,0 +1,21 @@
+{
+ "name": "ArchAI512",
+ "work": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ArchAI512",
+ "net": "/obj/ZRH_ArchAI512",
+ "height": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ArchAI512/versions/final/ArchAI512_H2/FINAL_height.png",
+ "pearson_full": 0.9951,
+ "ssim_full": 0.9612,
+ "mae": 0.0113,
+ "seam_xy": [
+  0.3,
+  0.49
+ ],
+ "seam_layer": false,
+ "zoom": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ArchAI512/zoom3_reference_vs_result.png",
+ "boards": [
+  "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ArchAI512/versions/final/ArchAI512_H1/board/Evolution.html",
+  "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ArchAI512/versions/final/ArchAI512_H2/board/Evolution.html"
+ ],
+ "basecolor": null,
+ "minutes": 8.6
+}

@@ -1,0 +1,14 @@
+{
+ "path": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ArchAI512/status.json",
+ "name": "ArchAI512",
+ "work": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ArchAI512",
+ "started": "2026-10-21 18:45:24",
+ "pid": 72287,
+ "step": "done",
+ "detail": "pearson 0.9951 in 8.6 min",
+ "state": "done",
+ "updated": "2026-10-21 18:53:59",
+ "elapsed_s": 515.3,
+ "layers_done": 37,
+ "report": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ArchAI512/report.json"
+}
