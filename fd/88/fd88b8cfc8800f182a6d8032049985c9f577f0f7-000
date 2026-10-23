@@ -1,0 +1,148 @@
+{
+ "date": "23 October 2026 13:17",
+ "graph": "/obj/ZRH_ArchAI512",
+ "basecolor": "/Users/zenray/.claude/tmp/tmp-houdini-september-2026/tmp-bayou-louisiana/03_work/uv/ZenRayUV_5Methods_19-October-2026/runs/height-inputs/tmp-ZRUV_Arch512/heights/ai_01_basecolor_chatgpt-image.png",
+ "params": {
+  "bands_px": [
+   2.0,
+   6.0,
+   16.0,
+   48.0
+  ],
+  "detail_range": 0.3,
+  "bins": 64,
+  "backfit_iters": 8,
+  "region_levels": [
+   [
+    8,
+    256
+   ],
+   [
+    12,
+    512
+   ],
+   [
+    16,
+    1024
+   ],
+   [
+    24,
+    2048
+   ],
+   [
+    32,
+    2048
+   ],
+   [
+    48,
+    2048
+   ]
+  ],
+  "region_sigma": 0.5,
+  "region_soft_px": 0.5,
+  "keep_gain": 0.05,
+  "res": 2048
+ },
+ "layers": [
+  {
+   "layer": "gradient_maps",
+   "status": "accepted",
+   "deltaE76_mean": 9.4893,
+   "deltaE76_p90": 16.8281,
+   "deltaE76_blur4_mean": 6.7501,
+   "lum_pearson": 0.7036,
+   "lum_ssim": 0.5688,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZRH_ArchAI512_BC/L01_gradient_maps.png"
+  },
+  {
+   "layer": "regions_k8_256",
+   "status": "accepted",
+   "polys": 3305,
+   "seconds": 1.9,
+   "deltaE76_mean": 6.7124,
+   "deltaE76_p90": 13.9494,
+   "deltaE76_blur4_mean": 2.7439,
+   "lum_pearson": 0.812,
+   "lum_ssim": 0.5571,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZRH_ArchAI512_BC/L02_regions_k8_256.png"
+  },
+  {
+   "layer": "regions_k12_512",
+   "status": "accepted",
+   "polys": 18691,
+   "seconds": 2.6,
+   "deltaE76_mean": 5.9845,
+   "deltaE76_p90": 12.5387,
+   "deltaE76_blur4_mean": 1.4682,
+   "lum_pearson": 0.8484,
+   "lum_ssim": 0.564,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZRH_ArchAI512_BC/L03_regions_k12_512.png"
+  },
+  {
+   "layer": "regions_k16_1024",
+   "status": "accepted",
+   "polys": 86075,
+   "seconds": 4.3,
+   "deltaE76_mean": 5.0088,
+   "deltaE76_p90": 10.5397,
+   "deltaE76_blur4_mean": 0.6747,
+   "lum_pearson": 0.8951,
+   "lum_ssim": 0.635,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZRH_ArchAI512_BC/L04_regions_k16_1024.png"
+  },
+  {
+   "layer": "regions_k24_2048",
+   "status": "accepted",
+   "polys": 354102,
+   "seconds": 30.2,
+   "deltaE76_mean": 4.3033,
+   "deltaE76_p90": 9.0846,
+   "deltaE76_blur4_mean": 0.5653,
+   "lum_pearson": 0.9239,
+   "lum_ssim": 0.7124,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZRH_ArchAI512_BC/L05_regions_k24_2048.png"
+  },
+  {
+   "layer": "regions_k32_2048",
+   "status": "accepted",
+   "polys": 396434,
+   "seconds": 34.2,
+   "deltaE76_mean": 3.905,
+   "deltaE76_p90": 8.2363,
+   "deltaE76_blur4_mean": 0.4381,
+   "lum_pearson": 0.9395,
+   "lum_ssim": 0.7575,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZRH_ArchAI512_BC/L06_regions_k32_2048.png"
+  },
+  {
+   "layer": "regions_k48_2048",
+   "status": "accepted",
+   "polys": 426900,
+   "seconds": 41.6,
+   "deltaE76_mean": 3.6545,
+   "deltaE76_p90": 7.6986,
+   "deltaE76_blur4_mean": 0.37,
+   "lum_pearson": 0.9475,
+   "lum_ssim": 0.7853,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZRH_ArchAI512_BC/L07_regions_k48_2048.png"
+  }
+ ],
+ "final": {
+  "islands": {
+   "deltaE76_mean": 3.6545,
+   "deltaE76_p90": 7.6986,
+   "deltaE76_blur4_mean": 0.37,
+   "lum_pearson": 0.9475,
+   "lum_ssim": 0.7853
+  },
+  "whole_sheet": {
+   "deltaE76_mean": 3.2713,
+   "deltaE76_p90": 7.2901,
+   "deltaE76_blur4_mean": 0.3368,
+   "lum_pearson": 0.9604,
+   "lum_ssim": 0.7933
+  },
+  "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZRH_ArchAI512_BC/FINAL_basecolor.png",
+  "seconds": 379.0
+ }
+}

@@ -1,0 +1,116 @@
+{
+ "date": "23 October 2026 13:09",
+ "graph": "/obj/ZRH_ArchAI512",
+ "basecolor": "/Users/zenray/.claude/tmp/tmp-houdini-september-2026/tmp-bayou-louisiana/03_work/uv/ZenRayUV_5Methods_19-October-2026/runs/height-inputs/tmp-ZRUV_Arch512/heights/ai_01_basecolor_chatgpt-image.png",
+ "params": {
+  "bands_px": [
+   2.0,
+   6.0,
+   16.0,
+   48.0
+  ],
+  "detail_range": 0.3,
+  "bins": 64,
+  "backfit_iters": 8,
+  "region_levels": [
+   [
+    8,
+    256
+   ],
+   [
+    12,
+    512
+   ],
+   [
+    16,
+    1024
+   ],
+   [
+    24,
+    2048
+   ]
+  ],
+  "region_sigma": 1.0,
+  "region_soft_px": 1.0,
+  "keep_gain": 0.05,
+  "res": 2048
+ },
+ "layers": [
+  {
+   "layer": "gradient_maps",
+   "status": "accepted",
+   "deltaE76_mean": 9.4893,
+   "deltaE76_p90": 16.8281,
+   "deltaE76_blur4_mean": 6.7501,
+   "lum_pearson": 0.7036,
+   "lum_ssim": 0.5688,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZRH_ArchAI512_BC/L01_gradient_maps.png"
+  },
+  {
+   "layer": "regions_k8_256",
+   "status": "accepted",
+   "polys": 3330,
+   "seconds": 1.8,
+   "deltaE76_mean": 6.6406,
+   "deltaE76_p90": 13.7544,
+   "deltaE76_blur4_mean": 2.696,
+   "lum_pearson": 0.817,
+   "lum_ssim": 0.5627,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZRH_ArchAI512_BC/L02_regions_k8_256.png"
+  },
+  {
+   "layer": "regions_k12_512",
+   "status": "accepted",
+   "polys": 19272,
+   "seconds": 2.2,
+   "deltaE76_mean": 5.8665,
+   "deltaE76_p90": 12.2722,
+   "deltaE76_blur4_mean": 1.391,
+   "lum_pearson": 0.8559,
+   "lum_ssim": 0.5748,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZRH_ArchAI512_BC/L03_regions_k12_512.png"
+  },
+  {
+   "layer": "regions_k16_1024",
+   "status": "accepted",
+   "polys": 85480,
+   "seconds": 4.1,
+   "deltaE76_mean": 4.8612,
+   "deltaE76_p90": 10.1945,
+   "deltaE76_blur4_mean": 0.6112,
+   "lum_pearson": 0.9015,
+   "lum_ssim": 0.649,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZRH_ArchAI512_BC/L04_regions_k16_1024.png"
+  },
+  {
+   "layer": "regions_k24_2048",
+   "status": "accepted",
+   "polys": 322620,
+   "seconds": 10.6,
+   "deltaE76_mean": 4.1723,
+   "deltaE76_p90": 8.762,
+   "deltaE76_blur4_mean": 0.4691,
+   "lum_pearson": 0.9283,
+   "lum_ssim": 0.7228,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZRH_ArchAI512_BC/L05_regions_k24_2048.png"
+  }
+ ],
+ "final": {
+  "islands": {
+   "deltaE76_mean": 4.1723,
+   "deltaE76_p90": 8.762,
+   "deltaE76_blur4_mean": 0.4691,
+   "lum_pearson": 0.9283,
+   "lum_ssim": 0.7228
+  },
+  "whole_sheet": {
+   "deltaE76_mean": 3.6967,
+   "deltaE76_p90": 8.1609,
+   "deltaE76_blur4_mean": 0.4403,
+   "lum_pearson": 0.9487,
+   "lum_ssim": 0.7503
+  },
+  "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZRH_ArchAI512_BC/FINAL_basecolor.png",
+  "seconds": 119.5
+ }
+}
