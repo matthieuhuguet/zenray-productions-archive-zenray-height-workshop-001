@@ -1,0 +1,90 @@
+{
+ "before": {
+  "seam": {
+   "wrap_x": 0.012396272417390719,
+   "inner_x_median": 0.00373335400945507,
+   "ratio_x": 3.320411722541177,
+   "wrap_y": 0.05194223194848746,
+   "inner_y_median": 0.003236833930714056,
+   "ratio_y": 16.047234136917503
+  },
+  "pearson": 0.9928833011330523,
+  "verify": {
+   "ok": false,
+   "fails": [
+    "horizontal joint: jump 6.21",
+    "horizontal joint: step 2.59",
+    "horizontal joint: detail high 1.79",
+    "vertical joint: jump 1.87"
+   ],
+   "y": {
+    "jump_ratio": 6.213732715819695,
+    "step_ratio": 2.5941539878053255,
+    "detail_high_ratio": 1.794291983821366,
+    "detail_low_ratio": 1.2533703778484746
+   },
+   "x": {
+    "jump_ratio": 1.8699691407166055,
+    "step_ratio": 0.5228632232438795,
+    "detail_high_ratio": 0.836960999108123,
+    "detail_low_ratio": 0.9614157344661727
+   }
+  }
+ },
+ "applied": true,
+ "build": {
+  "nodes": 278,
+  "kept_layers": 31,
+  "new_layers": 0,
+  "t_nodes": 0.01,
+  "t_cook_export": 1.6,
+  "exported": true,
+  "errors": []
+ },
+ "verdict": {
+  "ok": false,
+  "fails": [
+   "vertical joint: detail low 0.70"
+  ],
+  "y": {
+   "jump_ratio": 0.8835199820277543,
+   "step_ratio": 0.6578299821023071,
+   "detail_high_ratio": 1.0258846411179796,
+   "detail_low_ratio": 0.9387907765268814
+  },
+  "x": {
+   "jump_ratio": 0.6718803295239525,
+   "step_ratio": 0.5146626180202438,
+   "detail_high_ratio": 0.7663819210422969,
+   "detail_low_ratio": 0.7025152888901091
+  }
+ },
+ "after": {
+  "seam": {
+   "wrap_x": 7.599592208862305e-07,
+   "inner_x_median": 0.0037173070304561406,
+   "ratio_x": 0.000204438109270995,
+   "wrap_y": 1.475214958190918e-06,
+   "inner_y_median": 0.0032392629655078053,
+   "ratio_y": 0.0004554168568280022
+  },
+  "pearson": 0.9063153053109881
+ },
+ "pearson_vs_untiled": 0.9206956043526608,
+ "predicted_vs_graph": 0.9940623091797945,
+ "plan": {
+  "x": {
+   "overlap_mean": 13.7,
+   "overlap_max": 28.4,
+   "slide_abs": 1.2
+  },
+  "y": {
+   "overlap_mean": 10.9,
+   "overlap_max": 20.2,
+   "slide_abs": 0.0
+  },
+  "work_x": true,
+  "work_y": true
+ },
+ "grid": "/Users/zenray/.claude/tmp/tmp-zenray-height/seamless-allcases/graph/Concrete/checks/grid_2x2_preview.png"
+}
