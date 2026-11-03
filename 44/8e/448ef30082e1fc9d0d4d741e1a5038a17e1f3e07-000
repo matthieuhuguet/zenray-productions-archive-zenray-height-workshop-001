@@ -1,0 +1,151 @@
+{
+ "name": "ZorahMaterials04_H6",
+ "net": "/obj/ZRH_ZorahMaterials04",
+ "reference": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials04/refs/ZorahMaterials04_height_2048.png",
+ "layers": [
+  {
+   "local": {
+    "ok": true,
+    "pixels": 14308,
+    "before": 0.0173,
+    "after": 0.0062,
+    "ls_gain": 1.462
+   },
+   "layer": "pix_H6_a",
+   "status": "rejected",
+   "score": 0.9721,
+   "gain": 0.0003,
+   "summary": {
+    "pearson": 0.9907,
+    "mae": 0.0061,
+    "low32": 1.0,
+    "b1-2": 0.9958,
+    "b4-8": 0.9996,
+    "b16-32": 0.9998,
+    "q25": 0.8646,
+    "q75": 0.831,
+    "lines": 0.795,
+    "struct": 0.939,
+    "detail": 0.947
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 92502 regions",
+   "seconds": 12.5,
+   "nodes": 216,
+   "timing": {
+    "kept_layers": 39,
+    "new_layers": 1,
+    "t_nodes": 0.87,
+    "t_cook_export": 2.19
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 19233,
+    "before": 0.0168,
+    "after": 0.0056,
+    "ls_gain": 1.425
+   },
+   "layer": "pix_H6_b",
+   "status": "rejected",
+   "score": 0.9723,
+   "gain": 0.0005,
+   "summary": {
+    "pearson": 0.9908,
+    "mae": 0.006,
+    "low32": 1.0,
+    "b1-2": 0.9958,
+    "b4-8": 0.9996,
+    "b16-32": 0.9998,
+    "q25": 0.8658,
+    "q75": 0.832,
+    "lines": 0.796,
+    "struct": 0.939,
+    "detail": 0.948
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 619993 regions",
+   "seconds": 30.4,
+   "nodes": 216,
+   "timing": {
+    "kept_layers": 39,
+    "new_layers": 1,
+    "t_nodes": 7.22,
+    "t_cook_export": 2.22
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 14308,
+    "before": 0.0173,
+    "after": 0.0062,
+    "ls_gain": 1.462
+   },
+   "layer": "pix_H6_c",
+   "status": "rejected",
+   "score": 0.9721,
+   "gain": 0.0003,
+   "summary": {
+    "pearson": 0.9907,
+    "mae": 0.0061,
+    "low32": 1.0,
+    "b1-2": 0.9958,
+    "b4-8": 0.9996,
+    "b16-32": 0.9998,
+    "q25": 0.8646,
+    "q75": 0.831,
+    "lines": 0.795,
+    "struct": 0.939,
+    "detail": 0.947
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 92502 regions",
+   "seconds": 10.5,
+   "nodes": 216,
+   "timing": {
+    "kept_layers": 39,
+    "new_layers": 1,
+    "t_nodes": 0.78,
+    "t_cook_export": 1.75
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 19233,
+    "before": 0.0168,
+    "after": 0.0056,
+    "ls_gain": 1.425
+   },
+   "layer": "pix_H6_d",
+   "status": "rejected",
+   "score": 0.9723,
+   "gain": 0.0005,
+   "summary": {
+    "pearson": 0.9908,
+    "mae": 0.006,
+    "low32": 1.0,
+    "b1-2": 0.9958,
+    "b4-8": 0.9996,
+    "b16-32": 0.9998,
+    "q25": 0.8658,
+    "q75": 0.832,
+    "lines": 0.796,
+    "struct": 0.939,
+    "detail": 0.948
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 619993 regions",
+   "seconds": 26.2,
+   "nodes": 216,
+   "timing": {
+    "kept_layers": 39,
+    "new_layers": 1,
+    "t_nodes": 7.3,
+    "t_cook_export": 2.07
+   }
+  }
+ ],
+ "cells": [
+  1,
+  6
+ ]
+}
