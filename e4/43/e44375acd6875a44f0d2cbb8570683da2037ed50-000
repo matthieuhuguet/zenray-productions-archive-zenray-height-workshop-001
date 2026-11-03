@@ -1,0 +1,88 @@
+{
+ "name": "AlienSkinRef_BC",
+ "net": "/obj/ZRH_AlienSkinRef_BC",
+ "reference": "/Users/zenray/.claude/tmp/tmp-alien-skin-2-november-2026/refs/flat_aligned_2048.png",
+ "layers": [
+  {
+   "layer": "glaze",
+   "status": "accepted",
+   "deltaE76_mean": 15.279,
+   "lum_pearson": -0.0,
+   "seconds": 2.1,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_BC/L01_glaze.png"
+  },
+  {
+   "layer": "colours_k6_256",
+   "status": "accepted",
+   "deltaE76_mean": 9.746,
+   "lum_pearson": 0.7671,
+   "seconds": 4.7,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_BC/L02_colours_k6_256.png"
+  },
+  {
+   "layer": "colours_k10_512",
+   "status": "accepted",
+   "deltaE76_mean": 7.105,
+   "lum_pearson": 0.8589,
+   "seconds": 14.2,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_BC/L03_colours_k10_512.png"
+  },
+  {
+   "layer": "colours_k14_1024",
+   "status": "accepted",
+   "deltaE76_mean": 5.095,
+   "lum_pearson": 0.9256,
+   "seconds": 21.8,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_BC/L04_colours_k14_1024.png"
+  },
+  {
+   "layer": "colours_k20_2048",
+   "status": "accepted",
+   "deltaE76_mean": 3.723,
+   "lum_pearson": 0.9643,
+   "seconds": 69.1,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_BC/L05_colours_k20_2048.png"
+  },
+  {
+   "layer": "colours_k32_2048",
+   "status": "accepted",
+   "deltaE76_mean": 3.299,
+   "lum_pearson": 0.9688,
+   "seconds": 85.3,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_BC/L06_colours_k32_2048.png"
+  },
+  {
+   "layer": "colours_k48_2048",
+   "status": "accepted",
+   "deltaE76_mean": 3.106,
+   "lum_pearson": 0.9701,
+   "seconds": 124.6,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_BC/L07_colours_k48_2048.png"
+  }
+ ],
+ "seam": {
+  "layer": {
+   "type": "seamless",
+   "version": 5,
+   "tag": "AlienSkinRef_H2_bc",
+   "res": 2048,
+   "cells": 256,
+   "tone_reach_px": 256.0,
+   "seal_px": 6.0,
+   "seal_sigma_px": 2.0,
+   "detail_px": 1.0,
+   "note": "displace near the joints so the reliefs meet, remove the tone jump, seal the last lines",
+   "payload": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_H2/payloads/8f98de10c482141e21b75151dc5c55d9.json",
+   "payload_key": "field",
+   "sig": "ef526144eae130cfd77c91ddead1f36b",
+   "colour": true
+  },
+  "deltaE_before": 3.106,
+  "deltaE_after": 3.62
+ },
+ "final": {
+  "deltaE76_mean": 3.62,
+  "lum_pearson": 0.9511,
+  "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_BC/FINAL_basecolor.png"
+ }
+}

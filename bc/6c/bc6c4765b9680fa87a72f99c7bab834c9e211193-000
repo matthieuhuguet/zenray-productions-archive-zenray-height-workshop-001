@@ -1,0 +1,21 @@
+{
+ "name": "AlienSkinRef",
+ "work": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef",
+ "net": "/obj/ZRH_AlienSkinRef",
+ "height": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_H2/FINAL_height.png",
+ "pearson_full": 0.9953,
+ "ssim_full": 0.9777,
+ "mae": 0.0056,
+ "seam_xy": [
+  1.01,
+  1.13
+ ],
+ "seam_layer": true,
+ "zoom": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/zoom3_reference_vs_result.png",
+ "boards": [
+  "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_H1/board/Evolution.html",
+  "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_H2/board/Evolution.html"
+ ],
+ "basecolor": null,
+ "minutes": 8.1
+}

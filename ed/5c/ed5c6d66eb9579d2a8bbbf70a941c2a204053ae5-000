@@ -1,0 +1,106 @@
+STEP 1/7 bridge | checking the Houdini bridge | 0.1 s
+STEP 2/7 input | /Users/zenray/.claude/tmp/tmp-alien-skin-2-november-2026/Sources/alienskinref.png | 0.1 s
+STEP 3/7 references | crop, square, 2048 px | 0.1 s
+STEP 4/7 height | plan L3: structure, regions 32 to 4 px, successive passes at 4, 2 and 1 px | 0.3 s
+AlienSkinRef_H1 joint_profile accepted 0.2472 {'pearson': 0.1046, 'mae': 0.142, 'low32': 0.165, 'b1-2': 0.0302, 'b4-8': 0.0754, 'b16-32': 0.1024, 'q25': 0.0, 'q75': 0.0042, 'lines': 0.0, 'struct': 0.075, 'detail': 0.039} 5.8 s {'kept_layers': 0, 'new_layers': 1, 't_nodes': 0.01, 't_cook_export': 0.12} local None
+STEP 4/7 height | layer joint_profile accepted pearson 0.1046 | 8.5 s
+AlienSkinRef_H1 side_profiles rejected 0.2497 {'pearson': 0.1092, 'mae': 0.1419, 'low32': 0.174, 'b1-2': 0.0309, 'b4-8': 0.078, 'b16-32': 0.1057, 'q25': 0.0, 'q75': 0.0042, 'lines': 0.0, 'struct': 0.079, 'detail': 0.04} 5.1 s {'kept_layers': 1, 'new_layers': 1, 't_nodes': 0.0, 't_cook_export': 0.07} local {'ok': False, 'pixels': 256058, 'before': 0.149, 'after': 0.1479, 'ls_gain': 0.989, 'refit': True}
+STEP 4/7 height | layer side_profiles rejected pearson 0.1092 | 13.6 s
+AlienSkinRef_H1 row_table rejected 0.2472 {'pearson': 0.1046, 'mae': 0.142, 'low32': 0.165, 'b1-2': 0.0302, 'b4-8': 0.0754, 'b16-32': 0.1024, 'q25': 0.0, 'q75': 0.0042, 'lines': 0.0, 'struct': 0.075, 'detail': 0.039} 4.6 s {'kept_layers': 1, 'new_layers': 1, 't_nodes': 0.01, 't_cook_export': 0.09} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer row_table rejected pearson 0.1046 | 18.2 s
+AlienSkinRef_H1 row_plane rejected 0.2466 {'pearson': 0.1031, 'mae': 0.142, 'low32': 0.158, 'b1-2': 0.0299, 'b4-8': 0.0753, 'b16-32': 0.1025, 'q25': 0.0, 'q75': 0.0042, 'lines': 0.0, 'struct': 0.073, 'detail': 0.039} 4.7 s {'kept_layers': 1, 'new_layers': 1, 't_nodes': 0.01, 't_cook_export': 0.15} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer row_plane rejected pearson 0.1031 | 22.9 s
+AlienSkinRef_H1 corners rejected 0.2467 {'pearson': 0.1016, 'mae': 0.142, 'low32': 0.146, 'b1-2': 0.0301, 'b4-8': 0.0748, 'b16-32': 0.1062, 'q25': 0.0, 'q75': 0.0042, 'lines': 0.0, 'struct': 0.072, 'detail': 0.039} 4.8 s {'kept_layers': 1, 'new_layers': 1, 't_nodes': 0.01, 't_cook_export': 0.19} local {'ok': False, 'pixels': 530908, 'before': 0.1597, 'after': 0.1593, 'ls_gain': -0.025}
+STEP 4/7 height | layer corners rejected pearson 0.1016 | 27.6 s
+AlienSkinRef_H1 regions_s32 accepted 0.5142 {'pearson': 0.5863, 'mae': 0.1227, 'low32': 0.883, 'b1-2': 0.0373, 'b4-8': 0.1662, 'b16-32': 0.6935, 'q25': 0.0, 'q75': 0.0814, 'lines': 0.0, 'struct': 0.511, 'detail': 0.07} 5.3 s {'kept_layers': 1, 'new_layers': 1, 't_nodes': 0.11, 't_cook_export': 0.22} local {'ok': True, 'pixels': 3338715, 'before': 0.1469, 'after': 0.1228, 'ls_gain': 2.427}
+STEP 4/7 height | layer regions_s32 accepted pearson 0.5863 | 35.0 s
+AlienSkinRef_H1 regions_s16 accepted 0.6797 {'pearson': 0.8142, 'mae': 0.0829, 'low32': 0.987, 'b1-2': 0.0758, 'b4-8': 0.4374, 'b16-32': 0.9362, 'q25': 0.2239, 'q75': 0.5138, 'lines': 0.0, 'struct': 0.73, 'detail': 0.176} 5.2 s {'kept_layers': 2, 'new_layers': 1, 't_nodes': 0.12, 't_cook_export': 0.21} local {'ok': True, 'pixels': 3650144, 'before': 0.1303, 'after': 0.0847, 'ls_gain': 1.933}
+STEP 4/7 height | layer regions_s16 accepted pearson 0.8142 | 42.4 s
+AlienSkinRef_H1 regions_s8 accepted 0.8015 {'pearson': 0.9178, 'mae': 0.0497, 'low32': 0.997, 'b1-2': 0.2028, 'b4-8': 0.7571, 'b16-32': 0.99, 'q25': 0.6117, 'q75': 0.7287, 'lines': 0.0, 'struct': 0.865, 'detail': 0.352} 5.9 s {'kept_layers': 3, 'new_layers': 1, 't_nodes': 0.29, 't_cook_export': 0.22} local {'ok': True, 'pixels': 3533508, 'before': 0.0922, 'after': 0.0529, 'ls_gain': 1.655}
+STEP 4/7 height | layer regions_s8 accepted pearson 0.9178 | 50.4 s
+AlienSkinRef_H1 lines accepted 0.8136 {'pearson': 0.9192, 'mae': 0.049, 'low32': 0.997, 'b1-2': 0.3642, 'b4-8': 0.7832, 'b16-32': 0.9901, 'q25': 0.6117, 'q75': 0.7427, 'lines': 0.161, 'struct': 0.868, 'detail': 0.466} 21.1 s {'kept_layers': 4, 'new_layers': 1, 't_nodes': 0.09, 't_cook_export': 0.54} local {'ok': True, 'pixels': 109038, 'before': 0.1363, 'after': 0.1108, 'ls_gain': 0.732}
+STEP 4/7 height | layer lines accepted pearson 0.9192 | 73.8 s
+AlienSkinRef_H1 blobs accepted 0.8478 {'pearson': 0.9386, 'mae': 0.0455, 'low32': 0.996, 'b1-2': 0.6554, 'b4-8': 0.8601, 'b16-32': 0.99, 'q25': 0.6269, 'q75': 0.7659, 'lines': 0.354, 'struct': 0.875, 'detail': 0.653} 6.1 s {'kept_layers': 5, 'new_layers': 1, 't_nodes': 0.06, 't_cook_export': 0.33} local {'ok': True, 'pixels': 150276, 'before': 0.1945, 'after': 0.0955, 'ls_gain': 1.482}
+STEP 4/7 height | layer blobs accepted pearson 0.9386 | 82.0 s
+AlienSkinRef_H1 regions_s4 accepted 0.9042 {'pearson': 0.9719, 'mae': 0.028, 'low32': 0.998, 'b1-2': 0.6929, 'b4-8': 0.9572, 'b16-32': 0.9973, 'q25': 0.8143, 'q75': 0.847, 'lines': 0.364, 'struct': 0.931, 'detail': 0.717} 7.2 s {'kept_layers': 6, 'new_layers': 1, 't_nodes': 0.59, 't_cook_export': 0.44} local {'ok': True, 'pixels': 2712721, 'before': 0.0588, 'after': 0.0326, 'ls_gain': 1.682}
+STEP 4/7 height | layer regions_s4 accepted pearson 0.9719 | 91.4 s
+AlienSkinRef_H1 regions_s8_p2 accepted 0.9073 {'pearson': 0.9737, 'mae': 0.0269, 'low32': 0.998, 'b1-2': 0.6941, 'b4-8': 0.9583, 'b16-32': 0.9979, 'q25': 0.8266, 'q75': 0.8507, 'lines': 0.365, 'struct': 0.934, 'detail': 0.718} 7.0 s {'kept_layers': 7, 'new_layers': 1, 't_nodes': 0.53, 't_cook_export': 0.38} local {'ok': True, 'pixels': 780377, 'before': 0.0541, 'after': 0.0491, 'ls_gain': 3.816}
+STEP 4/7 height | layer regions_s8_p2 accepted pearson 0.9737 | 100.7 s
+AlienSkinRef_H1 regions_s4_p2 accepted 0.9229 {'pearson': 0.9799, 'mae': 0.0224, 'low32': 0.999, 'b1-2': 0.7193, 'b4-8': 0.977, 'b16-32': 0.9985, 'q25': 0.8607, 'q75': 0.873, 'lines': 0.372, 'struct': 0.946, 'detail': 0.741} 11.8 s {'kept_layers': 8, 'new_layers': 1, 't_nodes': 1.93, 't_cook_export': 0.47} local {'ok': True, 'pixels': 1155232, 'before': 0.0494, 'after': 0.0374, 'ls_gain': 2.676}
+STEP 4/7 height | layer regions_s4_p2 accepted pearson 0.9799 | 114.7 s
+AlienSkinRef_H1 lines_p2 accepted 0.9243 {'pearson': 0.9803, 'mae': 0.0221, 'low32': 0.999, 'b1-2': 0.7322, 'b4-8': 0.9772, 'b16-32': 0.9985, 'q25': 0.8609, 'q75': 0.8759, 'lines': 0.386, 'struct': 0.947, 'detail': 0.748} 14.8 s {'kept_layers': 9, 'new_layers': 1, 't_nodes': 0.11, 't_cook_export': 0.44} local {'ok': True, 'pixels': 76646, 'before': 0.0613, 'after': 0.048, 'ls_gain': 0.929, 'refit': True}
+STEP 4/7 height | layer lines_p2 accepted pearson 0.9803 | 131.8 s
+AlienSkinRef_H1 blobs_p2 accepted 0.9268 {'pearson': 0.9813, 'mae': 0.0217, 'low32': 0.999, 'b1-2': 0.7565, 'b4-8': 0.9781, 'b16-32': 0.9985, 'q25': 0.8613, 'q75': 0.879, 'lines': 0.416, 'struct': 0.947, 'detail': 0.764} 6.0 s {'kept_layers': 10, 'new_layers': 1, 't_nodes': 0.03, 't_cook_export': 0.53} local {'ok': True, 'pixels': 31373, 'before': 0.1015, 'after': 0.0529, 'ls_gain': 1.49}
+STEP 4/7 height | layer blobs_p2 accepted pearson 0.9813 | 140.0 s
+AlienSkinRef_H1 regions_s4_p3 accepted 0.9336 {'pearson': 0.9836, 'mae': 0.0198, 'low32': 0.999, 'b1-2': 0.7695, 'b4-8': 0.9843, 'b16-32': 0.9988, 'q25': 0.876, 'q75': 0.8877, 'lines': 0.422, 'struct': 0.952, 'detail': 0.774} 13.5 s {'kept_layers': 11, 'new_layers': 1, 't_nodes': 2.16, 't_cook_export': 0.63} local {'ok': True, 'pixels': 481573, 'before': 0.0359, 'after': 0.0296, 'ls_gain': 2.784}
+STEP 4/7 height | layer regions_s4_p3 accepted pearson 0.9836 | 155.8 s
+AlienSkinRef_H1 regions_s4_p4 accepted 0.9375 {'pearson': 0.9848, 'mae': 0.0188, 'low32': 0.999, 'b1-2': 0.7781, 'b4-8': 0.9871, 'b16-32': 0.9989, 'q25': 0.8839, 'q75': 0.893, 'lines': 0.427, 'struct': 0.955, 'detail': 0.781} 14.0 s {'kept_layers': 12, 'new_layers': 1, 't_nodes': 2.45, 't_cook_export': 0.71} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer regions_s4_p4 accepted pearson 0.9848 | 172.0 s
+AlienSkinRef_H1 regions_s4_p5 accepted 0.94 {'pearson': 0.9856, 'mae': 0.0181, 'low32': 0.999, 'b1-2': 0.7844, 'b4-8': 0.9886, 'b16-32': 0.999, 'q25': 0.8889, 'q75': 0.8964, 'lines': 0.43, 'struct': 0.957, 'detail': 0.785} 15.7 s {'kept_layers': 13, 'new_layers': 1, 't_nodes': 3.0, 't_cook_export': 0.81} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer regions_s4_p5 accepted pearson 0.9856 | 190.1 s
+AlienSkinRef_H1 regions_s4_p6 accepted 0.9418 {'pearson': 0.9861, 'mae': 0.0176, 'low32': 0.999, 'b1-2': 0.7894, 'b4-8': 0.9896, 'b16-32': 0.999, 'q25': 0.8923, 'q75': 0.899, 'lines': 0.434, 'struct': 0.958, 'detail': 0.789} 15.4 s {'kept_layers': 14, 'new_layers': 1, 't_nodes': 3.0, 't_cook_export': 0.85} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer regions_s4_p6 accepted pearson 0.9861 | 207.8 s
+AlienSkinRef_H1 regions_s4_p7 accepted 0.9432 {'pearson': 0.9865, 'mae': 0.0173, 'low32': 0.999, 'b1-2': 0.7934, 'b4-8': 0.9904, 'b16-32': 0.9991, 'q25': 0.8949, 'q75': 0.9008, 'lines': 0.437, 'struct': 0.959, 'detail': 0.792} 15.7 s {'kept_layers': 15, 'new_layers': 1, 't_nodes': 3.09, 't_cook_export': 1.0} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer regions_s4_p7 accepted pearson 0.9865 | 225.8 s
+AlienSkinRef_H1 regions_s4_p8 accepted 0.9443 {'pearson': 0.9868, 'mae': 0.017, 'low32': 0.999, 'b1-2': 0.7967, 'b4-8': 0.9909, 'b16-32': 0.9991, 'q25': 0.897, 'q75': 0.9022, 'lines': 0.44, 'struct': 0.959, 'detail': 0.794} 15.6 s {'kept_layers': 16, 'new_layers': 1, 't_nodes': 3.1, 't_cook_export': 0.9} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer regions_s4_p8 accepted pearson 0.9868 | 243.7 s
+AlienSkinRef_H1 regions_s2 accepted 0.9541 {'pearson': 0.9889, 'mae': 0.0147, 'low32': 0.999, 'b1-2': 0.841, 'b4-8': 0.9931, 'b16-32': 0.9992, 'q25': 0.9127, 'q75': 0.9139, 'lines': 0.467, 'struct': 0.965, 'detail': 0.817} 17.3 s {'kept_layers': 17, 'new_layers': 1, 't_nodes': 3.62, 't_cook_export': 0.8} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer regions_s2 accepted pearson 0.9889 | 263.4 s
+AlienSkinRef_H1 regions_s2_p2 accepted 0.9597 {'pearson': 0.99, 'mae': 0.0134, 'low32': 0.999, 'b1-2': 0.8671, 'b4-8': 0.9942, 'b16-32': 0.9993, 'q25': 0.9223, 'q75': 0.9207, 'lines': 0.488, 'struct': 0.968, 'detail': 0.831} 16.6 s {'kept_layers': 18, 'new_layers': 1, 't_nodes': 3.55, 't_cook_export': 0.83} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer regions_s2_p2 accepted pearson 0.99 | 282.2 s
+AlienSkinRef_H1 blobs_p3 rejected 0.9598 {'pearson': 0.9901, 'mae': 0.0134, 'low32': 0.999, 'b1-2': 0.8683, 'b4-8': 0.9942, 'b16-32': 0.9993, 'q25': 0.9224, 'q75': 0.9209, 'lines': 0.489, 'struct': 0.968, 'detail': 0.832} 5.9 s {'kept_layers': 19, 'new_layers': 1, 't_nodes': 0.01, 't_cook_export': 0.75} local {'ok': True, 'pixels': 3015, 'before': 0.083, 'after': 0.0441, 'ls_gain': 1.359}
+STEP 4/7 height | layer blobs_p3 rejected pearson 0.9901 | 288.2 s
+AlienSkinRef_H1 regions_s1 accepted 0.9695 {'pearson': 0.9921, 'mae': 0.011, 'low32': 0.999, 'b1-2': 0.9173, 'b4-8': 0.9957, 'b16-32': 0.9995, 'q25': 0.9389, 'q75': 0.934, 'lines': 0.543, 'struct': 0.974, 'detail': 0.86} 16.8 s {'kept_layers': 19, 'new_layers': 1, 't_nodes': 3.62, 't_cook_export': 0.86} local {'ok': True, 'pixels': 753608, 'before': 0.0351, 'after': 0.0253, 'ls_gain': 2.937}
+STEP 4/7 height | layer regions_s1 accepted pearson 0.9921 | 307.3 s
+AlienSkinRef_H1 regions_s1_p2 accepted 0.9743 {'pearson': 0.9932, 'mae': 0.0097, 'low32': 0.999, 'b1-2': 0.9403, 'b4-8': 0.9965, 'b16-32': 0.9995, 'q25': 0.948, 'q75': 0.9413, 'lines': 0.576, 'struct': 0.978, 'detail': 0.875} 17.3 s {'kept_layers': 20, 'new_layers': 1, 't_nodes': 3.56, 't_cook_export': 0.89} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer regions_s1_p2 accepted pearson 0.9932 | 326.8 s
+AlienSkinRef_H1 regions_s2_p3 rejected 0.9751 {'pearson': 0.9934, 'mae': 0.0095, 'low32': 1.0, 'b1-2': 0.9432, 'b4-8': 0.9967, 'b16-32': 0.9996, 'q25': 0.9496, 'q75': 0.9425, 'lines': 0.581, 'struct': 0.978, 'detail': 0.878} 17.1 s {'kept_layers': 21, 'new_layers': 1, 't_nodes': 3.68, 't_cook_export': 1.0} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer regions_s2_p3 rejected pearson 0.9934 | 343.9 s
+AlienSkinRef_H1 regions_s1_p3 accepted 0.977 {'pearson': 0.9938, 'mae': 0.0089, 'low32': 1.0, 'b1-2': 0.9527, 'b4-8': 0.997, 'b16-32': 0.9996, 'q25': 0.9532, 'q75': 0.9458, 'lines': 0.597, 'struct': 0.98, 'detail': 0.884} 15.1 s {'kept_layers': 21, 'new_layers': 1, 't_nodes': 3.07, 't_cook_export': 0.84} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer regions_s1_p3 accepted pearson 0.9938 | 361.1 s
+AlienSkinRef_H1 regions_s1_p4 accepted 0.9788 {'pearson': 0.9943, 'mae': 0.0084, 'low32': 1.0, 'b1-2': 0.9606, 'b4-8': 0.9973, 'b16-32': 0.9996, 'q25': 0.9564, 'q75': 0.9489, 'lines': 0.612, 'struct': 0.981, 'detail': 0.89} 14.5 s {'kept_layers': 22, 'new_layers': 1, 't_nodes': 2.81, 't_cook_export': 0.86} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer regions_s1_p4 accepted pearson 0.9943 | 377.6 s
+AlienSkinRef_H1 hist rejected 0.9788 {'pearson': 0.9943, 'mae': 0.0084, 'low32': 1.0, 'b1-2': 0.9606, 'b4-8': 0.9973, 'b16-32': 0.9996, 'q25': 0.9565, 'q75': 0.9491, 'lines': 0.612, 'struct': 0.981, 'detail': 0.891} 5.5 s {'kept_layers': 23, 'new_layers': 1, 't_nodes': 0.01, 't_cook_export': 0.85} local None
+STEP 4/7 height | layer hist rejected pearson 0.9943 | 383.1 s
+STEP 5/7 height | plan L5: pixel passes and measured equaliser, from the L3 result | 385.0 s
+AlienSkinRef_H2 resume 0.9788 {'pearson': 0.9943, 'mae': 0.0084, 'low32': 1.0, 'b1-2': 0.9606, 'b4-8': 0.9973, 'b16-32': 0.9996, 'q25': 0.9564, 'q75': 0.9489, 'lines': 0.612, 'struct': 0.981, 'detail': 0.89}
+AlienSkinRef_H2 pix_s05_k16 accepted 0.9819 {'pearson': 0.9956, 'mae': 0.0074, 'low32': 1.0, 'b1-2': 0.9713, 'b4-8': 0.9981, 'b16-32': 0.9998, 'q25': 0.959, 'q75': 0.9548, 'lines': 0.666, 'struct': 0.983, 'detail': 0.907} 8.3 s {'kept_layers': 23, 'new_layers': 1, 't_nodes': 0.41, 't_cook_export': 0.86} local {'ok': True, 'pixels': 260175, 'before': 0.0467, 'after': 0.0307, 'ls_gain': 2.394}
+STEP 5/7 height | layer pix_s05_k16 accepted pearson 0.9956 | 401.0 s
+AlienSkinRef_H2 pix_s05_k16_p2 accepted 0.9831 {'pearson': 0.9961, 'mae': 0.007, 'low32': 1.0, 'b1-2': 0.9758, 'b4-8': 0.9986, 'b16-32': 0.9998, 'q25': 0.9599, 'q75': 0.9566, 'lines': 0.685, 'struct': 0.983, 'detail': 0.914} 7.3 s {'kept_layers': 24, 'new_layers': 1, 't_nodes': 0.29, 't_cook_export': 0.81} local {'ok': True, 'pixels': 135062, 'before': 0.0459, 'after': 0.0342, 'ls_gain': 3.412}
+STEP 5/7 height | layer pix_s05_k16_p2 accepted pearson 0.9961 | 410.3 s
+AlienSkinRef_H2 pix_s05_k16_p3 accepted 0.9838 {'pearson': 0.9964, 'mae': 0.0068, 'low32': 1.0, 'b1-2': 0.9783, 'b4-8': 0.999, 'b16-32': 0.9999, 'q25': 0.9602, 'q75': 0.9574, 'lines': 0.695, 'struct': 0.983, 'detail': 0.917} 6.6 s {'kept_layers': 25, 'new_layers': 1, 't_nodes': 0.14, 't_cook_export': 0.84} local {'ok': True, 'pixels': 75872, 'before': 0.049, 'after': 0.0381, 'ls_gain': 3.981}
+STEP 5/7 height | layer pix_s05_k16_p3 accepted pearson 0.9964 | 419.0 s
+AlienSkinRef_H2 pix_s05_k16_m3 accepted 0.9854 {'pearson': 0.9968, 'mae': 0.0062, 'low32': 1.0, 'b1-2': 0.9823, 'b4-8': 0.9992, 'b16-32': 0.9999, 'q25': 0.9636, 'q75': 0.9606, 'lines': 0.714, 'struct': 0.985, 'detail': 0.923} 15.8 s {'kept_layers': 26, 'new_layers': 1, 't_nodes': 2.88, 't_cook_export': 0.97} local {'ok': True, 'pixels': 176243, 'before': 0.0313, 'after': 0.0208, 'ls_gain': 2.671}
+STEP 5/7 height | layer pix_s05_k16_m3 accepted pearson 0.9968 | 437.0 s
+AlienSkinRef_H2 pix_s05_k16_m3_p2 accepted 0.9864 {'pearson': 0.997, 'mae': 0.0058, 'low32': 1.0, 'b1-2': 0.9848, 'b4-8': 0.9994, 'b16-32': 0.9999, 'q25': 0.9662, 'q75': 0.9629, 'lines': 0.727, 'struct': 0.986, 'detail': 0.927} 14.9 s {'kept_layers': 27, 'new_layers': 1, 't_nodes': 2.41, 't_cook_export': 1.04} local {'ok': True, 'pixels': 77036, 'before': 0.0308, 'after': 0.0212, 'ls_gain': 2.888}
+STEP 5/7 height | layer pix_s05_k16_m3_p2 accepted pearson 0.997 | 454.0 s
+AlienSkinRef_H2 eq accepted 0.991 {'pearson': 0.9989, 'mae': 0.0048, 'low32': 1.0, 'b1-2': 0.9841, 'b4-8': 0.9994, 'b16-32': 0.9999, 'q25': 0.9665, 'q75': 0.9695, 'lines': 0.813, 'struct': 0.987, 'detail': 0.948} 6.0 s {'kept_layers': 28, 'new_layers': 1, 't_nodes': 0.01, 't_cook_export': 0.93} local None
+STEP 5/7 height | layer eq accepted pearson 0.9989 | 462.2 s
+AlienSkinRef_H2 hist rejected 0.991 {'pearson': 0.9989, 'mae': 0.0048, 'low32': 1.0, 'b1-2': 0.9841, 'b4-8': 0.9994, 'b16-32': 0.9999, 'q25': 0.9665, 'q75': 0.9694, 'lines': 0.813, 'struct': 0.987, 'detail': 0.948} 5.8 s {'kept_layers': 29, 'new_layers': 1, 't_nodes': 0.0, 't_cook_export': 0.93} local None
+STEP 5/7 height | layer hist rejected pearson 0.9989 | 468.0 s
+STEP 6/7 tiling | seam layer if the reference does not tile | 469.2 s
+STEP 7/7 report | full resolution measures, boards, report | 479.7 s
+/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_H1/board/Evolution.html
+/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_H2/board/Evolution.html
+STEP done | pearson 0.9953 in 8.1 min | 487.4 s
+{
+ "name": "AlienSkinRef",
+ "work": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef",
+ "net": "/obj/ZRH_AlienSkinRef",
+ "height": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_H2/FINAL_height.png",
+ "pearson_full": 0.9953,
+ "ssim_full": 0.9777,
+ "mae": 0.0056,
+ "seam_xy": [
+  1.01,
+  1.13
+ ],
+ "seam_layer": true,
+ "zoom": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/zoom3_reference_vs_result.png",
+ "boards": [
+  "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_H1/board/Evolution.html",
+  "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_H2/board/Evolution.html"
+ ],
+ "basecolor": null,
+ "minutes": 8.1
+}

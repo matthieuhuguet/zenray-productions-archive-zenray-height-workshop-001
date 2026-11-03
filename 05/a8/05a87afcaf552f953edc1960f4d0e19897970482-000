@@ -1,0 +1,14 @@
+{
+ "path": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/status.json",
+ "name": "AlienSkinRef",
+ "work": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef",
+ "started": "2026-11-02 15:58:18",
+ "pid": 67120,
+ "step": "done",
+ "detail": "pearson 0.9953 in 8.1 min",
+ "state": "done",
+ "updated": "2026-11-02 16:06:25",
+ "elapsed_s": 487.4,
+ "layers_done": 37,
+ "report": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/report.json"
+}

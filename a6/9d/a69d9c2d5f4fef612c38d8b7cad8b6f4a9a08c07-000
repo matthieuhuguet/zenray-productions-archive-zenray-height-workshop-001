@@ -1,0 +1,222 @@
+[
+ {
+  "method": "align",
+  "seconds": 1.4,
+  "pearson_vs_input": 0.9735,
+  "ok": true,
+  "fails": [],
+  "y": {
+   "jump_ratio": 0.78,
+   "step_ratio": 0.78,
+   "detail_high_ratio": 0.87,
+   "detail_low_ratio": 1.06
+  },
+  "x": {
+   "jump_ratio": 0.87,
+   "step_ratio": 0.8,
+   "detail_high_ratio": 0.95,
+   "detail_low_ratio": 0.89
+  },
+  "info": {
+   "x": {
+    "overlap_mean": 11.28125,
+    "overlap_max": 35.41030701755275,
+    "tangent_abs": 6.59121918743127
+   },
+   "y": {
+    "overlap_mean": 13.27734375,
+    "overlap_max": 59.24690861940026,
+    "tangent_abs": 9.210042211424065
+   }
+  }
+ },
+ {
+  "method": "align_nopoisson",
+  "seconds": 1.3,
+  "pearson_vs_input": 0.97522,
+  "ok": false,
+  "fails": [
+   "horizontal joint: jump 3.36",
+   "vertical joint: jump 3.52"
+  ],
+  "y": {
+   "jump_ratio": 3.36,
+   "step_ratio": 0.79,
+   "detail_high_ratio": 1.05,
+   "detail_low_ratio": 1.15
+  },
+  "x": {
+   "jump_ratio": 3.52,
+   "step_ratio": 0.88,
+   "detail_high_ratio": 1.08,
+   "detail_low_ratio": 0.91
+  },
+  "info": {
+   "x": {
+    "overlap_mean": 11.28125,
+    "overlap_max": 35.41030701755275,
+    "tangent_abs": 6.59121918743127
+   },
+   "y": {
+    "overlap_mean": 13.27734375,
+    "overlap_max": 59.24690861940026,
+    "tangent_abs": 9.210042211424065
+   }
+  }
+ },
+ {
+  "method": "align_b1",
+  "seconds": 1.4,
+  "pearson_vs_input": 0.97973,
+  "ok": true,
+  "fails": [],
+  "y": {
+   "jump_ratio": 0.82,
+   "step_ratio": 0.81,
+   "detail_high_ratio": 0.86,
+   "detail_low_ratio": 1.08
+  },
+  "x": {
+   "jump_ratio": 0.88,
+   "step_ratio": 0.78,
+   "detail_high_ratio": 0.95,
+   "detail_low_ratio": 0.88
+  },
+  "info": {
+   "x": {
+    "overlap_mean": 8.1640625,
+    "overlap_max": 13.27240619237952,
+    "tangent_abs": 2.8827528420516253
+   },
+   "y": {
+    "overlap_mean": 11.265625,
+    "overlap_max": 55.035368511036054,
+    "tangent_abs": 0.7143506934758354
+   }
+  }
+ },
+ {
+  "method": "align_b1_r128",
+  "seconds": 2.3,
+  "pearson_vs_input": 0.98832,
+  "ok": true,
+  "fails": [],
+  "y": {
+   "jump_ratio": 0.78,
+   "step_ratio": 0.79,
+   "detail_high_ratio": 0.83,
+   "detail_low_ratio": 1.07
+  },
+  "x": {
+   "jump_ratio": 0.85,
+   "step_ratio": 0.78,
+   "detail_high_ratio": 0.94,
+   "detail_low_ratio": 0.87
+  },
+  "info": {
+   "x": {
+    "overlap_mean": 8.1640625,
+    "overlap_max": 13.27240619237952,
+    "tangent_abs": 2.8827528420516253
+   },
+   "y": {
+    "overlap_mean": 11.23046875,
+    "overlap_max": 54.69308156708182,
+    "tangent_abs": 0.8467688700726048
+   }
+  }
+ },
+ {
+  "method": "align_b1_r192",
+  "seconds": 1.5,
+  "pearson_vs_input": 0.98376,
+  "ok": true,
+  "fails": [],
+  "y": {
+   "jump_ratio": 0.81,
+   "step_ratio": 0.8,
+   "detail_high_ratio": 0.84,
+   "detail_low_ratio": 1.08
+  },
+  "x": {
+   "jump_ratio": 0.85,
+   "step_ratio": 0.78,
+   "detail_high_ratio": 0.94,
+   "detail_low_ratio": 0.87
+  },
+  "info": {
+   "x": {
+    "overlap_mean": 8.1640625,
+    "overlap_max": 13.27240619237952,
+    "tangent_abs": 2.8827528420516253
+   },
+   "y": {
+    "overlap_mean": 11.22265625,
+    "overlap_max": 54.6930815669817,
+    "tangent_abs": 0.8858326754287271
+   }
+  }
+ },
+ {
+  "method": "align_b1_r128_p15",
+  "seconds": 1.5,
+  "pearson_vs_input": 0.98604,
+  "ok": true,
+  "fails": [],
+  "y": {
+   "jump_ratio": 0.8,
+   "step_ratio": 0.79,
+   "detail_high_ratio": 0.83,
+   "detail_low_ratio": 1.08
+  },
+  "x": {
+   "jump_ratio": 0.85,
+   "step_ratio": 0.78,
+   "detail_high_ratio": 0.94,
+   "detail_low_ratio": 0.87
+  },
+  "info": {
+   "x": {
+    "overlap_mean": 8.1640625,
+    "overlap_max": 13.27240619237952,
+    "tangent_abs": 2.8827528420516253
+   },
+   "y": {
+    "overlap_mean": 11.234374999999998,
+    "overlap_max": 54.69308156708182,
+    "tangent_abs": 0.8506751194006451
+   }
+  }
+ },
+ {
+  "method": "align_b3_r128",
+  "seconds": 1.3,
+  "pearson_vs_input": 0.98866,
+  "ok": true,
+  "fails": [],
+  "y": {
+   "jump_ratio": 0.78,
+   "step_ratio": 0.79,
+   "detail_high_ratio": 0.85,
+   "detail_low_ratio": 1.07
+  },
+  "x": {
+   "jump_ratio": 0.86,
+   "step_ratio": 0.77,
+   "detail_high_ratio": 0.94,
+   "detail_low_ratio": 0.86
+  },
+  "info": {
+   "x": {
+    "overlap_mean": 8.0,
+    "overlap_max": 8.0,
+    "tangent_abs": 0.9068813667055854
+   },
+   "y": {
+    "overlap_mean": 10.00390625,
+    "overlap_max": 45.89598064656656,
+    "tangent_abs": 0.11328125000000004
+   }
+  }
+ }
+]
