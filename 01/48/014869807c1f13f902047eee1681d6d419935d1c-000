@@ -1,0 +1,27 @@
+{
+  "avant": {
+    "light_share": 0.055735894058955224,
+    "corr_with_input": 1.0,
+    "check": "REDO"
+  },
+  "sigma 128 px": {
+    "light_share": 0.023675360238486057,
+    "corr_with_input": 0.9989985935575082,
+    "check": "REDO"
+  },
+  "sigma 64 px": {
+    "light_share": 0.013411857485511701,
+    "corr_with_input": 0.9984463349365331,
+    "check": "REDO"
+  },
+  "sigma 32 px": {
+    "light_share": 0.005040895618023905,
+    "corr_with_input": 0.996101103385618,
+    "check": "REDO"
+  },
+  "graph_vs_python": {
+    "max_abs": 0.014474977980557746,
+    "mean_abs": 6.884279382137502e-05,
+    "corr": 0.9999990936805677
+  }
+}
