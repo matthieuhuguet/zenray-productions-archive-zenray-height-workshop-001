@@ -1,0 +1,346 @@
+{
+ "name": "AlienSkinRef_LinesSnake_H2",
+ "net": "/obj/ZRH_AlienSkinRef_LinesSnake",
+ "reference": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_LinesSnake_target.png",
+ "layers": [
+  {
+   "local": {
+    "ok": true,
+    "pixels": 216608,
+    "before": 0.0585,
+    "after": 0.0189,
+    "ls_gain": 1.329
+   },
+   "layer": "pix_s05_k16",
+   "status": "accepted",
+   "score": 0.8057,
+   "gain": 0.0109,
+   "summary": {
+    "pearson": 0.8178,
+    "mae": 0.0221,
+    "low32": 0.801,
+    "b1-2": 0.9204,
+    "b4-8": 0.9624,
+    "b16-32": 0.8909,
+    "q25": 0.5061,
+    "q75": 0.5151,
+    "lines": 0.44,
+    "struct": 0.712,
+    "detail": 0.824
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 28644 regions",
+   "seconds": 8.3,
+   "nodes": 135,
+   "timing": {
+    "kept_layers": 23,
+    "new_layers": 1,
+    "t_nodes": 0.53,
+    "t_cook_export": 0.84
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_LinesSnake_H2/L01_pix_s05_k16.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.503,
+    "D_joint_profile_corr": 0.9037,
+    "D_joint_profile_mae_pct": 0.156,
+    "G_band_energy_ratio": {
+     "1-2": 1.093,
+     "2-4": 1.477,
+     "4-8": 1.562,
+     "8-16": 1.569,
+     "16-32": 1.607
+    },
+    "F_residual_w1_pct": 2.245,
+    "F_residual_std_ratio": 0.857,
+    "J_rmse": 0.0293,
+    "J_floor_if_stochastic": 0.0611
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 90940,
+    "before": 0.0491,
+    "after": 0.0151,
+    "ls_gain": 1.323
+   },
+   "layer": "pix_s05_k16_p2",
+   "status": "accepted",
+   "score": 0.8118,
+   "gain": 0.0062,
+   "summary": {
+    "pearson": 0.8268,
+    "mae": 0.0214,
+    "low32": 0.782,
+    "b1-2": 0.9259,
+    "b4-8": 0.9624,
+    "b16-32": 0.8872,
+    "q25": 0.5155,
+    "q75": 0.5256,
+    "lines": 0.451,
+    "struct": 0.709,
+    "detail": 0.828
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 17382 regions",
+   "seconds": 7.4,
+   "nodes": 140,
+   "timing": {
+    "kept_layers": 24,
+    "new_layers": 1,
+    "t_nodes": 0.31,
+    "t_cook_export": 0.82
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_LinesSnake_H2/L02_pix_s05_k16_p2.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.462,
+    "D_joint_profile_corr": 0.902,
+    "D_joint_profile_mae_pct": 0.127,
+    "G_band_energy_ratio": {
+     "1-2": 1.077,
+     "2-4": 1.427,
+     "4-8": 1.5,
+     "8-16": 1.513,
+     "16-32": 1.553
+    },
+    "F_residual_w1_pct": 2.218,
+    "F_residual_std_ratio": 0.855,
+    "J_rmse": 0.0284,
+    "J_floor_if_stochastic": 0.0611
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 39369,
+    "before": 0.0452,
+    "after": 0.0139,
+    "ls_gain": 1.321
+   },
+   "layer": "pix_s05_k16_p3",
+   "status": "accepted",
+   "score": 0.8143,
+   "gain": 0.0024,
+   "summary": {
+    "pearson": 0.8304,
+    "mae": 0.0211,
+    "low32": 0.768,
+    "b1-2": 0.928,
+    "b4-8": 0.9625,
+    "b16-32": 0.8846,
+    "q25": 0.5195,
+    "q75": 0.5301,
+    "lines": 0.455,
+    "struct": 0.706,
+    "detail": 0.83
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 8986 regions",
+   "seconds": 7.0,
+   "nodes": 145,
+   "timing": {
+    "kept_layers": 25,
+    "new_layers": 1,
+    "t_nodes": 0.14,
+    "t_cook_export": 0.82
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_LinesSnake_H2/L03_pix_s05_k16_p3.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.447,
+    "D_joint_profile_corr": 0.9073,
+    "D_joint_profile_mae_pct": 0.119,
+    "G_band_energy_ratio": {
+     "1-2": 1.072,
+     "2-4": 1.409,
+     "4-8": 1.478,
+     "8-16": 1.492,
+     "16-32": 1.536
+    },
+    "F_residual_w1_pct": 2.204,
+    "F_residual_std_ratio": 0.855,
+    "J_rmse": 0.028,
+    "J_floor_if_stochastic": 0.0611
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 271815,
+    "before": 0.0422,
+    "after": 0.0132,
+    "ls_gain": 1.405
+   },
+   "layer": "pix_s05_k16_m3",
+   "status": "accepted",
+   "score": 0.8343,
+   "gain": 0.02,
+   "summary": {
+    "pearson": 0.8558,
+    "mae": 0.0191,
+    "low32": 0.742,
+    "b1-2": 0.9438,
+    "b4-8": 0.9672,
+    "b16-32": 0.8808,
+    "q25": 0.5546,
+    "q75": 0.5637,
+    "lines": 0.481,
+    "struct": 0.711,
+    "detail": 0.843
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 224129 regions",
+   "seconds": 15.7,
+   "nodes": 150,
+   "timing": {
+    "kept_layers": 26,
+    "new_layers": 1,
+    "t_nodes": 2.72,
+    "t_cook_export": 1.06
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_LinesSnake_H2/L04_pix_s05_k16_m3.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.377,
+    "D_joint_profile_corr": 0.923,
+    "D_joint_profile_mae_pct": 0.071,
+    "G_band_energy_ratio": {
+     "1-2": 1.051,
+     "2-4": 1.327,
+     "4-8": 1.384,
+     "8-16": 1.404,
+     "16-32": 1.461
+    },
+    "F_residual_w1_pct": 2.001,
+    "F_residual_std_ratio": 0.862,
+    "J_rmse": 0.0257,
+    "J_floor_if_stochastic": 0.0611
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 200578,
+    "before": 0.0367,
+    "after": 0.0112,
+    "ls_gain": 1.372
+   },
+   "layer": "pix_s05_k16_m3_p2",
+   "status": "accepted",
+   "score": 0.8461,
+   "gain": 0.0118,
+   "summary": {
+    "pearson": 0.8704,
+    "mae": 0.0178,
+    "low32": 0.728,
+    "b1-2": 0.9524,
+    "b4-8": 0.9692,
+    "b16-32": 0.8746,
+    "q25": 0.5776,
+    "q75": 0.5886,
+    "lines": 0.502,
+    "struct": 0.713,
+    "detail": 0.851
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 204336 regions",
+   "seconds": 14.3,
+   "nodes": 155,
+   "timing": {
+    "kept_layers": 27,
+    "new_layers": 1,
+    "t_nodes": 2.48,
+    "t_cook_export": 0.93
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_LinesSnake_H2/L05_pix_s05_k16_m3_p2.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.341,
+    "D_joint_profile_corr": 0.9384,
+    "D_joint_profile_mae_pct": 0.056,
+    "G_band_energy_ratio": {
+     "1-2": 1.039,
+     "2-4": 1.278,
+     "4-8": 1.326,
+     "8-16": 1.351,
+     "16-32": 1.411
+    },
+    "F_residual_w1_pct": 1.878,
+    "F_residual_std_ratio": 0.868,
+    "J_rmse": 0.0243,
+    "J_floor_if_stochastic": 0.0611
+   }
+  },
+  {
+   "local": null,
+   "layer": "eq",
+   "status": "accepted",
+   "score": 0.8607,
+   "gain": 0.0146,
+   "summary": {
+    "pearson": 0.8908,
+    "mae": 0.0163,
+    "low32": 0.727,
+    "b1-2": 0.9648,
+    "b4-8": 0.9653,
+    "b16-32": 0.8738,
+    "q25": 0.5965,
+    "q75": 0.6104,
+    "lines": 0.51,
+    "struct": 0.721,
+    "detail": 0.855
+   },
+   "note": "frequency equaliser, least squares at full resolution",
+   "seconds": 5.9,
+   "nodes": 169,
+   "timing": {
+    "kept_layers": 28,
+    "new_layers": 1,
+    "t_nodes": 0.01,
+    "t_cook_export": 0.95
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_LinesSnake_H2/L06_eq.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.312,
+    "D_joint_profile_corr": 0.9376,
+    "D_joint_profile_mae_pct": 0.05,
+    "G_band_energy_ratio": {
+     "1-2": 0.974,
+     "2-4": 0.98,
+     "4-8": 1.083,
+     "8-16": 1.263,
+     "16-32": 1.386
+    },
+    "F_residual_w1_pct": 1.916,
+    "F_residual_std_ratio": 0.867,
+    "J_rmse": 0.0221,
+    "J_floor_if_stochastic": 0.0611
+   }
+  },
+  {
+   "local": null,
+   "layer": "hist",
+   "status": "rejected",
+   "score": 0.8591,
+   "gain": -0.0015,
+   "summary": {
+    "pearson": 0.8886,
+    "mae": 0.0176,
+    "low32": 0.705,
+    "b1-2": 0.9634,
+    "b4-8": 0.9625,
+    "b16-32": 0.8606,
+    "q25": 0.6049,
+    "q75": 0.6116,
+    "lines": 0.527,
+    "struct": 0.713,
+    "detail": 0.858
+   },
+   "note": "histogram matched to reference",
+   "seconds": 5.7,
+   "nodes": 170,
+   "timing": {
+    "kept_layers": 29,
+    "new_layers": 1,
+    "t_nodes": 0.0,
+    "t_cook_export": 0.99
+   }
+  }
+ ],
+ "cells": [
+  1,
+  1
+ ]
+}
