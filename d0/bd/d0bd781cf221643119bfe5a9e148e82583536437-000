@@ -1,0 +1,150 @@
+[
+ {
+  "name": "AlienSkin",
+  "size": 2048,
+  "before_ok": false,
+  "after_ok": true,
+  "pearson": 0.9883,
+  "fails": [],
+  "overlap": [
+   11.2,
+   8.2
+  ]
+ },
+ {
+  "name": "CeramicWall",
+  "size": 2048,
+  "before_ok": false,
+  "after_ok": false,
+  "pearson": 0.892,
+  "fails": [
+   "vertical joint: detail high 1.24"
+  ],
+  "overlap": [
+   19.1,
+   13.4
+  ]
+ },
+ {
+  "name": "Whitepaint",
+  "size": 2048,
+  "before_ok": false,
+  "after_ok": true,
+  "pearson": 0.9659,
+  "fails": [],
+  "overlap": [
+   38.0,
+   8.4
+  ]
+ },
+ {
+  "name": "Window",
+  "size": 2048,
+  "before_ok": false,
+  "after_ok": false,
+  "pearson": 0.8551,
+  "fails": [
+   "horizontal joint: jump 1.37",
+   "horizontal joint: detail high 1.19",
+   "vertical joint: jump 1.30"
+  ],
+  "overlap": [
+   8.0,
+   8.8
+  ]
+ },
+ {
+  "name": "TileBayou",
+  "size": 2048,
+  "before_ok": false,
+  "after_ok": false,
+  "pearson": 0.9892,
+  "fails": [
+   "horizontal joint: detail low 0.18",
+   "vertical joint: detail low 0.34"
+  ],
+  "overlap": [
+   8.0,
+   8.0
+  ]
+ },
+ {
+  "name": "Concrete",
+  "size": 2048,
+  "before_ok": false,
+  "after_ok": false,
+  "pearson": 0.6246,
+  "fails": [
+   "vertical joint: detail low 0.76"
+  ],
+  "overlap": [
+   11.6,
+   10.5
+  ]
+ },
+ {
+  "name": "RoofTiles36",
+  "size": 2048,
+  "before_ok": false,
+  "after_ok": false,
+  "pearson": 0.9892,
+  "fails": [
+   "horizontal joint: detail low 0.17",
+   "vertical joint: detail low 0.35"
+  ],
+  "overlap": [
+   8.0,
+   8.0
+  ]
+ },
+ {
+  "name": "Mosaic",
+  "size": 2048,
+  "before_ok": false,
+  "after_ok": true,
+  "pearson": 0.9447,
+  "fails": [],
+  "overlap": [
+   13.3,
+   13.2
+  ]
+ },
+ {
+  "name": "Javier",
+  "size": 2048,
+  "before_ok": false,
+  "after_ok": true,
+  "pearson": 0.9652,
+  "fails": [],
+  "overlap": [
+   14.0,
+   12.3
+  ]
+ },
+ {
+  "name": "BrokenTiles",
+  "size": 2048,
+  "before_ok": true,
+  "after_ok": true,
+  "pearson": 0.9981,
+  "fails": [],
+  "overlap": [
+   8.1,
+   8.1
+  ]
+ },
+ {
+  "name": "DemoTiles",
+  "size": 2048,
+  "before_ok": false,
+  "after_ok": false,
+  "pearson": 0.8987,
+  "fails": [
+   "vertical joint: detail high 1.59"
+  ],
+  "overlap": [
+   22.4,
+   13.0
+  ]
+ }
+]

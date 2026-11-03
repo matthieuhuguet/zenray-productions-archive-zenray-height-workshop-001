@@ -1,0 +1,36 @@
+{
+ "Concrete": {
+  "applied": true,
+  "verdict": false,
+  "fails": [
+   "vertical joint: detail low 0.70"
+  ],
+  "vs_untiled": 0.9207,
+  "predicted_vs_graph": 0.99406,
+  "untiled_vs_ref": 0.9929,
+  "graph_vs_ref": 0.9063,
+  "errors": []
+ },
+ "DemoTiles": {
+  "applied": true,
+  "verdict": false,
+  "fails": [
+   "vertical joint: detail high 1.18"
+  ],
+  "vs_untiled": 0.9646,
+  "predicted_vs_graph": 0.99892,
+  "untiled_vs_ref": 0.9984,
+  "graph_vs_ref": 0.9624,
+  "errors": []
+ },
+ "Javier": {
+  "applied": true,
+  "verdict": true,
+  "fails": [],
+  "vs_untiled": 0.9773,
+  "predicted_vs_graph": 0.99993,
+  "untiled_vs_ref": 0.9968,
+  "graph_vs_ref": 0.9739,
+  "errors": []
+ }
+}

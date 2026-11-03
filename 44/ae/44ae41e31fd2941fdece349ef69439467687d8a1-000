@@ -1,0 +1,178 @@
+[
+ {
+  "name": "AlienSkin",
+  "applied": true,
+  "ok": true,
+  "pearson": 0.9849,
+  "moved_share": 0.085,
+  "fails": [],
+  "y": {
+   "overlap_mean": 13.9,
+   "overlap_max": 86.9,
+   "slide_abs": 4.5
+  },
+  "x": {
+   "overlap_mean": 9.3,
+   "overlap_max": 56.9,
+   "slide_abs": 5.8
+  }
+ },
+ {
+  "name": "CeramicWall",
+  "applied": true,
+  "ok": true,
+  "pearson": 0.9345,
+  "moved_share": 0.283,
+  "fails": [],
+  "y": {
+   "overlap_mean": 43.0,
+   "overlap_max": 51.0,
+   "slide_abs": 13.9
+  },
+  "x": {
+   "overlap_mean": 45.2,
+   "overlap_max": 90.2,
+   "slide_abs": 5.1
+  }
+ },
+ {
+  "name": "Whitepaint",
+  "applied": true,
+  "ok": false,
+  "pearson": 0.9951,
+  "moved_share": 0.035,
+  "fails": [
+   "vertical joint: jump 1.19"
+  ],
+  "y": null,
+  "x": {
+   "overlap_mean": 7.7,
+   "overlap_max": 38.7,
+   "slide_abs": 2.2
+  }
+ },
+ {
+  "name": "Window",
+  "applied": true,
+  "ok": false,
+  "pearson": 0.9578,
+  "moved_share": 0.091,
+  "fails": [
+   "horizontal joint: jump 1.25",
+   "vertical joint: jump 1.17",
+   "vertical joint: step 1.23"
+  ],
+  "y": {
+   "overlap_mean": 11.5,
+   "overlap_max": 12.0,
+   "slide_abs": 0.0
+  },
+  "x": {
+   "overlap_mean": 10.2,
+   "overlap_max": 39.8,
+   "slide_abs": 1.6
+  }
+ },
+ {
+  "name": "TileBayou",
+  "applied": false,
+  "ok": true,
+  "pearson": 1.0,
+  "moved_share": 0.0,
+  "fails": [],
+  "y": null,
+  "x": null
+ },
+ {
+  "name": "Concrete",
+  "applied": true,
+  "ok": false,
+  "pearson": 0.8699,
+  "moved_share": 0.21,
+  "fails": [
+   "vertical joint: detail low 0.81"
+  ],
+  "y": {
+   "overlap_mean": 81.1,
+   "overlap_max": 95.9,
+   "slide_abs": 13.4
+  },
+  "x": {
+   "overlap_mean": 11.7,
+   "overlap_max": 50.3,
+   "slide_abs": 4.4
+  }
+ },
+ {
+  "name": "RoofTiles36",
+  "applied": false,
+  "ok": true,
+  "pearson": 1.0,
+  "moved_share": 0.0,
+  "fails": [],
+  "y": null,
+  "x": null
+ },
+ {
+  "name": "Mosaic",
+  "applied": true,
+  "ok": true,
+  "pearson": 0.958,
+  "moved_share": 0.08,
+  "fails": [],
+  "y": {
+   "overlap_mean": 19.3,
+   "overlap_max": 64.1,
+   "slide_abs": 7.0
+  },
+  "x": null
+ },
+ {
+  "name": "Javier",
+  "applied": true,
+  "ok": false,
+  "pearson": 0.9458,
+  "moved_share": 0.19,
+  "fails": [
+   "vertical joint: detail low 0.83"
+  ],
+  "y": {
+   "overlap_mean": 25.9,
+   "overlap_max": 70.9,
+   "slide_abs": 6.3
+  },
+  "x": {
+   "overlap_mean": 27.9,
+   "overlap_max": 81.5,
+   "slide_abs": 9.4
+  }
+ },
+ {
+  "name": "BrokenTiles",
+  "applied": false,
+  "ok": true,
+  "pearson": 1.0,
+  "moved_share": 0.0,
+  "fails": [],
+  "y": null,
+  "x": null
+ },
+ {
+  "name": "DemoTiles",
+  "applied": true,
+  "ok": true,
+  "pearson": 0.9398,
+  "moved_share": 0.29,
+  "fails": [],
+  "y": {
+   "overlap_mean": 46.9,
+   "overlap_max": 67.1,
+   "slide_abs": 13.1
+  },
+  "x": {
+   "overlap_mean": 52.8,
+   "overlap_max": 91.2,
+   "slide_abs": 9.5
+  }
+ }
+]
