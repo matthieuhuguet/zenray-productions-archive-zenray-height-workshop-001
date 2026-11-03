@@ -1,0 +1,34 @@
+{
+ "before": {
+  "seam": {
+   "wrap_x": 0.03258729457229492,
+   "inner_x_median": 0.02012491390996729,
+   "ratio_x": 1.6192513775751047,
+   "wrap_y": 0.02561675405013375,
+   "inner_y_median": 0.027177793497685343,
+   "ratio_y": 0.5533880297291175,
+   "lattice_y": 0.046290762853459455
+  },
+  "pearson": 0.9843721585052726,
+  "verify": {
+   "ok": false,
+   "fails": [
+    "horizontal joint: detail low 0.73"
+   ],
+   "y": {
+    "jump_ratio": 0.28125750918449194,
+    "step_ratio": 0.2980492689969134,
+    "detail_high_ratio": 0.35443174091518936,
+    "detail_low_ratio": 0.7328350977394915
+   },
+   "x": {
+    "jump_ratio": 0.7966677321306895,
+    "step_ratio": 0.591502633874713,
+    "detail_high_ratio": 0.6843781471759719,
+    "detail_low_ratio": 1.0129523587842066
+   }
+  }
+ },
+ "applied": false,
+ "grid": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials04/versions/final/ZorahMaterials04_H3/checks/grid_2x2_preview.png"
+}
