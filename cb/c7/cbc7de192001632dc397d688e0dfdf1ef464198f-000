@@ -1,0 +1,93 @@
+{
+ "before": {
+  "seam": {
+   "wrap_x": 0.026406847435282543,
+   "inner_x_median": 0.008310117365908809,
+   "ratio_x": 1.6032635647261975,
+   "wrap_y": 0.034670442750211805,
+   "inner_y_median": 0.00715356865839567,
+   "ratio_y": 3.2359593818494212,
+   "lattice_x": 0.016470683932614822,
+   "lattice_y": 0.010714115555553386
+  },
+  "pearson": 0.9983695844340089,
+  "verify": {
+   "ok": false,
+   "fails": [
+    "horizontal joint: jump 1.93",
+    "horizontal joint: detail high 1.99",
+    "vertical joint: jump 1.18"
+   ],
+   "y": {
+    "jump_ratio": 1.9331676646811433,
+    "step_ratio": 1.137208607845705,
+    "detail_high_ratio": 1.99474847751413,
+    "detail_low_ratio": 1.1510097250712152
+   },
+   "x": {
+    "jump_ratio": 1.181579735079769,
+    "step_ratio": 1.090268824677811,
+    "detail_high_ratio": 1.0897539933926037,
+    "detail_low_ratio": 0.9174530671142452
+   }
+  }
+ },
+ "applied": true,
+ "build": {
+  "nodes": 296,
+  "kept_layers": 34,
+  "new_layers": 0,
+  "t_nodes": 0.0,
+  "t_cook_export": 2.46,
+  "exported": true,
+  "errors": []
+ },
+ "verdict": {
+  "ok": false,
+  "fails": [
+   "vertical joint: detail high 1.18"
+  ],
+  "y": {
+   "jump_ratio": 0.8333094363617528,
+   "step_ratio": 0.5544216413211527,
+   "detail_high_ratio": 1.1993915593688407,
+   "detail_low_ratio": 1.1155565635308082
+  },
+  "x": {
+   "jump_ratio": 0.7567277987746399,
+   "step_ratio": 0.34702194141060433,
+   "detail_high_ratio": 1.1791312632092994,
+   "detail_low_ratio": 0.8867383500967521
+  }
+ },
+ "after": {
+  "seam": {
+   "wrap_x": 1.65411620400846e-06,
+   "inner_x_median": 0.008274137348053046,
+   "ratio_x": 0.0001002119100604111,
+   "wrap_y": 2.801447408273816e-06,
+   "inner_y_median": 0.007133868188248016,
+   "ratio_y": 0.0002615284136700096,
+   "lattice_x": 0.016506183776073158,
+   "lattice_y": 0.010711828091492256
+  },
+  "pearson": 0.9623942388620762
+ },
+ "pearson_vs_untiled": 0.964644349919676,
+ "predicted_vs_graph": 0.998922121927606,
+ "plan": {
+  "x": {
+   "overlap_mean": 11.8,
+   "overlap_max": 19.0,
+   "slide_abs": 0.0
+  },
+  "y": {
+   "overlap_mean": 10.3,
+   "overlap_max": 20.5,
+   "slide_abs": 0.0
+  },
+  "work_x": true,
+  "work_y": true
+ },
+ "grid": "/Users/zenray/.claude/tmp/tmp-zenray-height/seamless-allcases/graph/DemoTiles/checks/grid_2x2_preview.png"
+}
