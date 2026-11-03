@@ -1,0 +1,111 @@
+STEP 1/7 bridge | checking the Houdini bridge | 0.1 s
+STEP 2/7 input | /Users/zenray/.claude/tmp/tmp-zorah-materials-3-november-2026/Sources/artstation-eRZ01X/textures/final/6.png | 0.2 s
+STEP 3/7 references | crop, square, 2048 px | 0.2 s
+STEP 4/7 height | plan L3: structure, regions 32 to 4 px, successive passes at 4, 2 and 1 px | 0.3 s
+ZorahMaterials06_H1 joint_profile accepted 0.2018 {'pearson': 0.1078, 'mae': 0.0872, 'low32': 0.178, 'b1-2': 0.0137, 'b4-8': 0.1213, 'b16-32': 0.4696, 'q25': 0.0, 'q75': 0.0, 'lines': 0.0, 'struct': 0.204, 'detail': 0.044} 5.1 s {'kept_layers': 0, 'new_layers': 1, 't_nodes': 0.01, 't_cook_export': 0.15} local None
+STEP 4/7 height | layer joint_profile accepted pearson 0.1078 | 7.9 s
+ZorahMaterials06_H1 side_profiles accepted 0.2098 {'pearson': 0.1209, 'mae': 0.0868, 'low32': 0.168, 'b1-2': 0.0183, 'b4-8': 0.1271, 'b16-32': 0.4799, 'q25': 0.0, 'q75': 0.0, 'lines': 0.0, 'struct': 0.206, 'detail': 0.049} 5.7 s {'kept_layers': 1, 'new_layers': 1, 't_nodes': 0.0, 't_cook_export': 0.11} local {'ok': True, 'pixels': 254416, 'before': 0.0819, 'after': 0.0785, 'ls_gain': 1.084}
+STEP 4/7 height | layer side_profiles accepted pearson 0.1209 | 15.8 s
+ZorahMaterials06_H1 row_table accepted 0.2114 {'pearson': 0.1238, 'mae': 0.0869, 'low32': 0.21, 'b1-2': 0.0183, 'b4-8': 0.1274, 'b16-32': 0.4873, 'q25': 0.0, 'q75': 0.0, 'lines': 0.0, 'struct': 0.217, 'detail': 0.049} 5.2 s {'kept_layers': 2, 'new_layers': 1, 't_nodes': 0.0, 't_cook_export': 0.08} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0, 'refit': True}
+STEP 4/7 height | layer row_table accepted pearson 0.1238 | 23.2 s
+ZorahMaterials06_H1 row_plane rejected 0.209 {'pearson': 0.1222, 'mae': 0.0868, 'low32': 0.229, 'b1-2': 0.0183, 'b4-8': 0.1311, 'b16-32': 0.4735, 'q25': 0.0, 'q75': 0.0, 'lines': 0.0, 'struct': 0.208, 'detail': 0.05} 5.2 s {'kept_layers': 3, 'new_layers': 1, 't_nodes': 0.0, 't_cook_export': 0.18} local {'ok': True, 'pixels': 12202, 'before': 0.0648, 'after': 0.0624, 'ls_gain': 1.901}
+STEP 4/7 height | layer row_plane rejected pearson 0.1222 | 28.4 s
+ZorahMaterials06_H1 corners rejected 0.2096 {'pearson': 0.1227, 'mae': 0.0869, 'low32': 0.25, 'b1-2': 0.0183, 'b4-8': 0.1308, 'b16-32': 0.4777, 'q25': 0.0, 'q75': 0.0, 'lines': 0.0, 'struct': 0.214, 'detail': 0.05} 5.2 s {'kept_layers': 3, 'new_layers': 1, 't_nodes': 0.01, 't_cook_export': 0.17} local {'ok': True, 'pixels': 30158, 'before': 0.073, 'after': 0.0685, 'ls_gain': 2.031}
+STEP 4/7 height | layer corners rejected pearson 0.1227 | 33.6 s
+ZorahMaterials06_H1 regions_s32 rejected 0.259 {'pearson': 0.1874, 'mae': 0.086, 'low32': 0.846, 'b1-2': 0.0183, 'b4-8': 0.1323, 'b16-32': 0.6262, 'q25': 0.0531, 'q75': 0.0, 'lines': 0.0, 'struct': 0.474, 'detail': 0.05} 5.9 s {'kept_layers': 3, 'new_layers': 1, 't_nodes': 0.09, 't_cook_export': 0.34} local {'ok': False, 'pixels': 1351014, 'before': 0.0932, 'after': 0.0905, 'ls_gain': 1.812}
+STEP 4/7 height | layer regions_s32 rejected pearson 0.1874 | 39.5 s
+ZorahMaterials06_H1 regions_s16 accepted 0.3232 {'pearson': 0.2767, 'mae': 0.0843, 'low32': 0.927, 'b1-2': 0.0206, 'b4-8': 0.2378, 'b16-32': 0.8834, 'q25': 0.1282, 'q75': 0.0, 'lines': 0.0, 'struct': 0.578, 'detail': 0.082} 5.6 s {'kept_layers': 3, 'new_layers': 1, 't_nodes': 0.11, 't_cook_export': 0.24} local {'ok': True, 'pixels': 2154594, 'before': 0.0979, 'after': 0.0932, 'ls_gain': 2.062}
+STEP 4/7 height | layer regions_s16 accepted pearson 0.2767 | 47.3 s
+ZorahMaterials06_H1 regions_s8 accepted 0.4028 {'pearson': 0.3882, 'mae': 0.0806, 'low32': 0.961, 'b1-2': 0.0432, 'b4-8': 0.5701, 'b16-32': 0.9736, 'q25': 0.2139, 'q75': 0.0103, 'lines': 0.0, 'struct': 0.626, 'detail': 0.203} 6.7 s {'kept_layers': 4, 'new_layers': 1, 't_nodes': 0.43, 't_cook_export': 0.23} local {'ok': True, 'pixels': 2125738, 'before': 0.0998, 'after': 0.093, 'ls_gain': 2.396}
+STEP 4/7 height | layer regions_s8 accepted pearson 0.3882 | 56.2 s
+ZorahMaterials06_H1 lines rejected 0.3608 {'pearson': 0.3072, 'mae': 0.0811, 'low32': 0.894, 'b1-2': 0.1081, 'b4-8': 0.4043, 'b16-32': 0.9661, 'q25': 0.209, 'q75': 0.037, 'lines': 0.052, 'struct': 0.609, 'detail': 0.149} 28.7 s {'kept_layers': 5, 'new_layers': 1, 't_nodes': 0.14, 't_cook_export': 0.75} local {'ok': False, 'pixels': 139620, 'before': 0.1649, 'after': 0.1802, 'ls_gain': 0.04}
+STEP 4/7 height | layer lines rejected pearson 0.3072 | 84.9 s
+ZorahMaterials06_H1 blobs accepted 0.4528 {'pearson': 0.4608, 'mae': 0.0783, 'low32': 0.879, 'b1-2': 0.3392, 'b4-8': 0.5914, 'b16-32': 0.9444, 'q25': 0.2224, 'q75': 0.0343, 'lines': 0.119, 'struct': 0.598, 'detail': 0.375} 6.0 s {'kept_layers': 5, 'new_layers': 1, 't_nodes': 0.04, 't_cook_export': 0.27} local {'ok': True, 'pixels': 70727, 'before': 0.2476, 'after': 0.1087, 'ls_gain': 1.167}
+STEP 4/7 height | layer blobs accepted pearson 0.4608 | 93.1 s
+ZorahMaterials06_H1 regions_s4 accepted 0.5247 {'pearson': 0.5579, 'mae': 0.0733, 'low32': 0.908, 'b1-2': 0.3688, 'b4-8': 0.8532, 'b16-32': 0.9732, 'q25': 0.2989, 'q75': 0.0968, 'lines': 0.117, 'struct': 0.642, 'detail': 0.492} 8.0 s {'kept_layers': 6, 'new_layers': 1, 't_nodes': 0.9, 't_cook_export': 0.31} local {'ok': True, 'pixels': 2042256, 'before': 0.0959, 'after': 0.0863, 'ls_gain': 2.556}
+STEP 4/7 height | layer regions_s4 accepted pearson 0.5579 | 103.4 s
+ZorahMaterials06_H1 regions_s8_p2 rejected 0.5286 {'pearson': 0.5591, 'mae': 0.0731, 'low32': 0.95, 'b1-2': 0.3683, 'b4-8': 0.8467, 'b16-32': 0.9818, 'q25': 0.3041, 'q75': 0.1144, 'lines': 0.116, 'struct': 0.663, 'detail': 0.489} 7.7 s {'kept_layers': 7, 'new_layers': 1, 't_nodes': 0.69, 't_cook_export': 0.34} local {'ok': False, 'pixels': 438557, 'before': 0.1448, 'after': 0.1451, 'ls_gain': 3.826}
+STEP 4/7 height | layer regions_s8_p2 rejected pearson 0.5591 | 111.1 s
+ZorahMaterials06_H1 regions_s4_p2 accepted 0.5551 {'pearson': 0.5933, 'mae': 0.0708, 'low32': 0.926, 'b1-2': 0.3959, 'b4-8': 0.9062, 'b16-32': 0.9805, 'q25': 0.3365, 'q75': 0.1566, 'lines': 0.112, 'struct': 0.669, 'detail': 0.531} 13.6 s {'kept_layers': 7, 'new_layers': 1, 't_nodes': 2.18, 't_cook_export': 0.36} local {'ok': True, 'pixels': 1305432, 'before': 0.1042, 'after': 0.0976, 'ls_gain': 3.347}
+STEP 4/7 height | layer regions_s4_p2 accepted pearson 0.5933 | 126.8 s
+ZorahMaterials06_H1 lines_p2 rejected 0.5383 {'pearson': 0.5594, 'mae': 0.0711, 'low32': 0.882, 'b1-2': 0.3687, 'b4-8': 0.8964, 'b16-32': 0.9758, 'q25': 0.3308, 'q75': 0.1685, 'lines': 0.129, 'struct': 0.655, 'detail': 0.517} 12.3 s {'kept_layers': 8, 'new_layers': 1, 't_nodes': 0.15, 't_cook_export': 0.51} local {'ok': False, 'pixels': 101485, 'before': 0.154, 'after': 0.1674, 'ls_gain': 0.061}
+STEP 4/7 height | layer lines_p2 rejected pearson 0.5594 | 139.1 s
+ZorahMaterials06_H1 blobs_p2 accepted 0.5576 {'pearson': 0.5975, 'mae': 0.0706, 'low32': 0.92, 'b1-2': 0.4119, 'b4-8': 0.9034, 'b16-32': 0.9794, 'q25': 0.3373, 'q75': 0.1591, 'lines': 0.126, 'struct': 0.667, 'detail': 0.539} 5.7 s {'kept_layers': 8, 'new_layers': 1, 't_nodes': 0.02, 't_cook_export': 0.36} local {'ok': True, 'pixels': 9838, 'before': 0.1933, 'after': 0.1069, 'ls_gain': 1.129}
+STEP 4/7 height | layer blobs_p2 accepted pearson 0.5975 | 147.2 s
+ZorahMaterials06_H1 regions_s4_p3 accepted 0.5726 {'pearson': 0.6141, 'mae': 0.0693, 'low32': 0.935, 'b1-2': 0.4281, 'b4-8': 0.9252, 'b16-32': 0.9836, 'q25': 0.3548, 'q75': 0.1917, 'lines': 0.119, 'struct': 0.684, 'detail': 0.555} 14.7 s {'kept_layers': 9, 'new_layers': 1, 't_nodes': 2.74, 't_cook_export': 0.45} local {'ok': True, 'pixels': 1014528, 'before': 0.1091, 'after': 0.1052, 'ls_gain': 4.577}
+STEP 4/7 height | layer regions_s4_p3 accepted pearson 0.6141 | 164.2 s
+ZorahMaterials06_H1 regions_s4_p4 rejected 0.5819 {'pearson': 0.6241, 'mae': 0.0685, 'low32': 0.943, 'b1-2': 0.439, 'b4-8': 0.9374, 'b16-32': 0.986, 'q25': 0.3651, 'q75': 0.2123, 'lines': 0.114, 'struct': 0.693, 'detail': 0.565} 15.4 s {'kept_layers': 10, 'new_layers': 1, 't_nodes': 2.87, 't_cook_export': 0.67} local {'ok': False, 'pixels': 331313, 'before': 0.165, 'after': 0.162, 'ls_gain': 9.654}
+STEP 4/7 height | layer regions_s4_p4 rejected pearson 0.6241 | 179.6 s
+ZorahMaterials06_H1 regions_s4_p5 rejected 0.5819 {'pearson': 0.6241, 'mae': 0.0685, 'low32': 0.943, 'b1-2': 0.439, 'b4-8': 0.9374, 'b16-32': 0.986, 'q25': 0.3651, 'q75': 0.2123, 'lines': 0.114, 'struct': 0.693, 'detail': 0.565} 12.8 s {'kept_layers': 10, 'new_layers': 1, 't_nodes': 2.76, 't_cook_export': 0.48} local {'ok': False, 'pixels': 331313, 'before': 0.165, 'after': 0.162, 'ls_gain': 9.654}
+STEP 4/7 height | layer regions_s4_p5 rejected pearson 0.6241 | 192.4 s
+ZorahMaterials06_H1 regions_s4_p6 rejected 0.5819 {'pearson': 0.6241, 'mae': 0.0685, 'low32': 0.943, 'b1-2': 0.439, 'b4-8': 0.9374, 'b16-32': 0.986, 'q25': 0.3651, 'q75': 0.2123, 'lines': 0.114, 'struct': 0.693, 'detail': 0.565} 12.7 s {'kept_layers': 10, 'new_layers': 1, 't_nodes': 2.8, 't_cook_export': 0.45} local {'ok': False, 'pixels': 331313, 'before': 0.165, 'after': 0.162, 'ls_gain': 9.654}
+STEP 4/7 height | layer regions_s4_p6 rejected pearson 0.6241 | 205.1 s
+ZorahMaterials06_H1 regions_s4_p7 rejected 0.5819 {'pearson': 0.6241, 'mae': 0.0685, 'low32': 0.943, 'b1-2': 0.439, 'b4-8': 0.9374, 'b16-32': 0.986, 'q25': 0.3651, 'q75': 0.2123, 'lines': 0.114, 'struct': 0.693, 'detail': 0.565} 12.6 s {'kept_layers': 10, 'new_layers': 1, 't_nodes': 2.81, 't_cook_export': 0.53} local {'ok': False, 'pixels': 331313, 'before': 0.165, 'after': 0.162, 'ls_gain': 9.654}
+STEP 4/7 height | layer regions_s4_p7 rejected pearson 0.6241 | 217.7 s
+ZorahMaterials06_H1 regions_s4_p8 rejected 0.5819 {'pearson': 0.6241, 'mae': 0.0685, 'low32': 0.943, 'b1-2': 0.439, 'b4-8': 0.9374, 'b16-32': 0.986, 'q25': 0.3651, 'q75': 0.2123, 'lines': 0.114, 'struct': 0.693, 'detail': 0.565} 12.3 s {'kept_layers': 10, 'new_layers': 1, 't_nodes': 2.63, 't_cook_export': 0.44} local {'ok': False, 'pixels': 331313, 'before': 0.165, 'after': 0.162, 'ls_gain': 9.654}
+STEP 4/7 height | layer regions_s4_p8 rejected pearson 0.6241 | 230.0 s
+ZorahMaterials06_H1 regions_s2 accepted 0.6378 {'pearson': 0.6874, 'mae': 0.0638, 'low32': 0.946, 'b1-2': 0.6078, 'b4-8': 0.9641, 'b16-32': 0.9883, 'q25': 0.415, 'q75': 0.2622, 'lines': 0.116, 'struct': 0.715, 'detail': 0.643} 16.2 s {'kept_layers': 10, 'new_layers': 1, 't_nodes': 3.39, 't_cook_export': 0.63} local {'ok': True, 'pixels': 1653934, 'before': 0.0958, 'after': 0.0827, 'ls_gain': 3.011}
+STEP 4/7 height | layer regions_s2 accepted pearson 0.6874 | 248.4 s
+ZorahMaterials06_H1 regions_s2_p2 accepted 0.6675 {'pearson': 0.7176, 'mae': 0.0612, 'low32': 0.956, 'b1-2': 0.6754, 'b4-8': 0.9768, 'b16-32': 0.9908, 'q25': 0.4409, 'q75': 0.302, 'lines': 0.114, 'struct': 0.732, 'detail': 0.673} 16.4 s {'kept_layers': 11, 'new_layers': 1, 't_nodes': 3.62, 't_cook_export': 0.57} local {'ok': True, 'pixels': 1017217, 'before': 0.108, 'after': 0.0988, 'ls_gain': 4.061}
+STEP 4/7 height | layer regions_s2_p2 accepted pearson 0.7176 | 267.1 s
+ZorahMaterials06_H1 blobs_p3 rejected 0.6677 {'pearson': 0.7178, 'mae': 0.0611, 'low32': 0.955, 'b1-2': 0.6761, 'b4-8': 0.9766, 'b16-32': 0.9906, 'q25': 0.441, 'q75': 0.3021, 'lines': 0.115, 'struct': 0.732, 'detail': 0.673} 5.5 s {'kept_layers': 12, 'new_layers': 1, 't_nodes': 0.01, 't_cook_export': 0.48} local {'ok': True, 'pixels': 1093, 'before': 0.1754, 'after': 0.1106, 'ls_gain': 1.135}
+STEP 4/7 height | layer blobs_p3 rejected pearson 0.7178 | 272.7 s
+ZorahMaterials06_H1 regions_s1 accepted 0.7352 {'pearson': 0.7922, 'mae': 0.0542, 'low32': 0.967, 'b1-2': 0.824, 'b4-8': 0.9883, 'b16-32': 0.9941, 'q25': 0.5009, 'q75': 0.3711, 'lines': 0.13, 'struct': 0.763, 'detail': 0.727} 16.0 s {'kept_layers': 12, 'new_layers': 1, 't_nodes': 3.04, 't_cook_export': 0.56} local {'ok': True, 'pixels': 1106058, 'before': 0.1067, 'after': 0.0808, 'ls_gain': 2.87}
+STEP 4/7 height | layer regions_s1 accepted pearson 0.7922 | 290.9 s
+ZorahMaterials06_H1 regions_s1_p2 accepted 0.7704 {'pearson': 0.8281, 'mae': 0.05, 'low32': 0.981, 'b1-2': 0.8788, 'b4-8': 0.9934, 'b16-32': 0.9965, 'q25': 0.5329, 'q75': 0.4137, 'lines': 0.17, 'struct': 0.783, 'detail': 0.756} 16.1 s {'kept_layers': 13, 'new_layers': 1, 't_nodes': 2.9, 't_cook_export': 0.69} local {'ok': True, 'pixels': 820115, 'before': 0.1023, 'after': 0.0815, 'ls_gain': 3.413}
+STEP 4/7 height | layer regions_s1_p2 accepted pearson 0.8281 | 309.2 s
+ZorahMaterials06_H1 regions_s2_p3 accepted 0.775 {'pearson': 0.831, 'mae': 0.0495, 'low32': 0.987, 'b1-2': 0.8825, 'b4-8': 0.9954, 'b16-32': 0.9975, 'q25': 0.5364, 'q75': 0.4219, 'lines': 0.184, 'struct': 0.787, 'detail': 0.762} 17.1 s {'kept_layers': 14, 'new_layers': 1, 't_nodes': 3.65, 't_cook_export': 0.94} local {'ok': True, 'pixels': 0, 'ls_gain': 1.0}
+STEP 4/7 height | layer regions_s2_p3 accepted pearson 0.831 | 328.6 s
+ZorahMaterials06_H1 regions_s1_p3 accepted 0.7951 {'pearson': 0.8515, 'mae': 0.0469, 'low32': 0.991, 'b1-2': 0.9098, 'b4-8': 0.9968, 'b16-32': 0.9984, 'q25': 0.5548, 'q75': 0.4477, 'lines': 0.244, 'struct': 0.797, 'detail': 0.785} 14.7 s {'kept_layers': 15, 'new_layers': 1, 't_nodes': 2.4, 't_cook_export': 0.78} local {'ok': True, 'pixels': 652896, 'before': 0.0991, 'after': 0.0827, 'ls_gain': 4.18}
+STEP 4/7 height | layer regions_s1_p3 accepted pearson 0.8515 | 345.6 s
+ZorahMaterials06_H1 regions_s1_p4 accepted 0.8095 {'pearson': 0.8654, 'mae': 0.045, 'low32': 0.995, 'b1-2': 0.9264, 'b4-8': 0.998, 'b16-32': 0.9991, 'q25': 0.5686, 'q75': 0.4678, 'lines': 0.286, 'struct': 0.806, 'detail': 0.801} 13.4 s {'kept_layers': 16, 'new_layers': 1, 't_nodes': 1.92, 't_cook_export': 0.84} local {'ok': True, 'pixels': 535951, 'before': 0.0967, 'after': 0.0818, 'ls_gain': 4.442}
+STEP 4/7 height | layer regions_s1_p4 accepted pearson 0.8654 | 361.1 s
+ZorahMaterials06_H1 hist accepted 0.8172 {'pearson': 0.8609, 'mae': 0.0462, 'low32': 0.96, 'b1-2': 0.9239, 'b4-8': 0.9935, 'b16-32': 0.9952, 'q25': 0.584, 'q75': 0.5266, 'lines': 0.36, 'struct': 0.809, 'detail': 0.816} 5.5 s {'kept_layers': 17, 'new_layers': 1, 't_nodes': 0.0, 't_cook_export': 0.59} local None
+STEP 4/7 height | layer hist accepted pearson 0.8609 | 368.8 s
+STEP 5/7 height | plan L5: pixel passes and measured equaliser, from the L3 result | 370.3 s
+ZorahMaterials06_H2 resume 0.8172 {'pearson': 0.8609, 'mae': 0.0462, 'low32': 0.96, 'b1-2': 0.9239, 'b4-8': 0.9935, 'b16-32': 0.9952, 'q25': 0.584, 'q75': 0.5266, 'lines': 0.36, 'struct': 0.809, 'detail': 0.816}
+ZorahMaterials06_H2 pix_s05_k16 accepted 0.8285 {'pearson': 0.8766, 'mae': 0.0438, 'low32': 0.967, 'b1-2': 0.9357, 'b4-8': 0.9955, 'b16-32': 0.9969, 'q25': 0.593, 'q75': 0.5344, 'lines': 0.387, 'struct': 0.815, 'detail': 0.827} 7.7 s {'kept_layers': 18, 'new_layers': 1, 't_nodes': 0.33, 't_cook_export': 0.55} local {'ok': True, 'pixels': 140507, 'before': 0.1194, 'after': 0.0477, 'ls_gain': 1.555}
+STEP 5/7 height | layer pix_s05_k16 accepted pearson 0.8766 | 385.7 s
+ZorahMaterials06_H2 pix_s05_k16_p2 accepted 0.8319 {'pearson': 0.8811, 'mae': 0.043, 'low32': 0.967, 'b1-2': 0.9386, 'b4-8': 0.9957, 'b16-32': 0.997, 'q25': 0.5972, 'q75': 0.5378, 'lines': 0.396, 'struct': 0.817, 'detail': 0.83} 6.6 s {'kept_layers': 19, 'new_layers': 1, 't_nodes': 0.14, 't_cook_export': 0.6} local {'ok': True, 'pixels': 53769, 'before': 0.1016, 'after': 0.0394, 'ls_gain': 1.507}
+STEP 5/7 height | layer pix_s05_k16_p2 accepted pearson 0.8811 | 394.5 s
+ZorahMaterials06_H2 pix_s05_k16_p3 accepted 0.8332 {'pearson': 0.8826, 'mae': 0.0427, 'low32': 0.966, 'b1-2': 0.9395, 'b4-8': 0.9958, 'b16-32': 0.997, 'q25': 0.5991, 'q75': 0.5391, 'lines': 0.399, 'struct': 0.817, 'detail': 0.831} 6.7 s {'kept_layers': 20, 'new_layers': 1, 't_nodes': 0.09, 't_cook_export': 0.61} local {'ok': True, 'pixels': 20071, 'before': 0.0963, 'after': 0.0378, 'ls_gain': 1.494}
+STEP 5/7 height | layer pix_s05_k16_p3 accepted pearson 0.8826 | 403.5 s
+ZorahMaterials06_H2 pix_s05_k16_m3 accepted 0.8549 {'pearson': 0.9044, 'mae': 0.0387, 'low32': 0.978, 'b1-2': 0.9537, 'b4-8': 0.9965, 'b16-32': 0.9979, 'q25': 0.6269, 'q75': 0.5642, 'lines': 0.432, 'struct': 0.831, 'detail': 0.844} 17.4 s {'kept_layers': 21, 'new_layers': 1, 't_nodes': 3.07, 't_cook_export': 1.09} local {'ok': True, 'pixels': 299709, 'before': 0.0925, 'after': 0.0373, 'ls_gain': 1.672}
+STEP 5/7 height | layer pix_s05_k16_m3 accepted pearson 0.9044 | 423.1 s
+ZorahMaterials06_H2 pix_s05_k16_m3_p2 accepted 0.8674 {'pearson': 0.9155, 'mae': 0.0361, 'low32': 0.983, 'b1-2': 0.9605, 'b4-8': 0.9971, 'b16-32': 0.9984, 'q25': 0.6461, 'q75': 0.5858, 'lines': 0.459, 'struct': 0.841, 'detail': 0.852} 15.0 s {'kept_layers': 22, 'new_layers': 1, 't_nodes': 2.26, 't_cook_export': 0.87} local {'ok': True, 'pixels': 251276, 'before': 0.0696, 'after': 0.0257, 'ls_gain': 1.547}
+STEP 5/7 height | layer pix_s05_k16_m3_p2 accepted pearson 0.9155 | 440.4 s
+ZorahMaterials06_H2 eq accepted 0.8818 {'pearson': 0.9285, 'mae': 0.0341, 'low32': 0.982, 'b1-2': 0.9694, 'b4-8': 0.9968, 'b16-32': 0.9983, 'q25': 0.6655, 'q75': 0.6058, 'lines': 0.499, 'struct': 0.849, 'detail': 0.865} 5.9 s {'kept_layers': 23, 'new_layers': 1, 't_nodes': 0.01, 't_cook_export': 0.79} local None
+STEP 5/7 height | layer eq accepted pearson 0.9285 | 448.7 s
+ZorahMaterials06_H2 hist rejected 0.8819 {'pearson': 0.928, 'mae': 0.0343, 'low32': 0.978, 'b1-2': 0.9693, 'b4-8': 0.9961, 'b16-32': 0.9979, 'q25': 0.667, 'q75': 0.6063, 'lines': 0.5, 'struct': 0.848, 'detail': 0.864} 7.0 s {'kept_layers': 24, 'new_layers': 1, 't_nodes': 0.0, 't_cook_export': 1.06} local None
+STEP 5/7 height | layer hist rejected pearson 0.928 | 455.7 s
+STEP 6/7 tiling | seamless module: a layer only if a joint shows | 456.9 s
+STEP 7/7 report | full resolution measures, boards, report | 475.6 s
+/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials06/versions/final/ZorahMaterials06_H1/board/Evolution.html
+/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials06/versions/final/ZorahMaterials06_H2/board/Evolution.html
+STEP done | pearson 0.8921 in 8.0 min | 482.7 s
+{
+ "name": "ZorahMaterials06",
+ "work": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials06",
+ "net": "/obj/ZRH_ZorahMaterials06",
+ "height": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials06/versions/final/ZorahMaterials06_H2/FINAL_height.png",
+ "pearson_full": 0.8921,
+ "ssim_full": 0.7605,
+ "mae": 0.0382,
+ "seam_xy": [
+  0.85,
+  0.38
+ ],
+ "seam_layer": true,
+ "seamless_verdict": true,
+ "seamless_fails": [],
+ "pearson_untiled": 0.9285,
+ "grid": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials06/versions/final/ZorahMaterials06_H2/checks/grid_2x2_preview.png",
+ "zoom": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials06/zoom3_reference_vs_result.png",
+ "boards": [
+  "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials06/versions/final/ZorahMaterials06_H1/board/Evolution.html",
+  "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials06/versions/final/ZorahMaterials06_H2/board/Evolution.html"
+ ],
+ "basecolor": null,
+ "minutes": 8.0,
+ "next_step": "La height finale est pr\u00eate, seamless et r\u00e9p\u00e9table :\n/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials06/versions/final/ZorahMaterials06_H2/FINAL_height.png\n\nReprends-la et envoie-moi la base color : donne au g\u00e9n\u00e9rateur l'image de r\u00e9f\u00e9rence puis cette height, dans cet ordre, avec le prompt ci-dessous.\nR\u00e9f\u00e9rence : ton image de r\u00e9f\u00e9rence d origine\n\nPrompt :\nFrom the first image only, the reference, generate a seamless flat base color (albedo) map of that same surface, 1:1, 4096x4096, full frame, seen straight on, with any perspective removed. If the reference shows a sphere next to a flat panel, ignore the sphere and read the panel. The second image is the final height map of this exact surface: keep every band, step, edge and detail exactly at its position in that height map, with the same scale and direction, and keep the map seamless on all four sides. Pigment colour only, as if under perfectly even light, taking the hues, saturation and variation of the reference. No lighting, no shadows, no ambient occlusion, no specular highlights, no reflections, no gloss, no relief shading, no perspective, no border, no watermark, no text, no legend. then redo with 99.9% precision in the composition.\n\nC'est la seule carte \u00e0 g\u00e9n\u00e9rer : Normal, Height, Roughness, AO, Metallic et ORM se calculent dans le graphe.\nEnsuite : RefineColourOnHeight.py --coarse, HeightToBaseColor.py, BaseColorLines.py, puis HeightTo5MapsCop.py (Copernicus2.md section 14.8)."
+}
