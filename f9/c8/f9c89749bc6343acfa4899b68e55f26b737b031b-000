@@ -1,0 +1,77 @@
+{
+ "16": {
+  "applied": true,
+  "layer": {
+   "type": "seam",
+   "shift_x": 0.5,
+   "shift_y": 0.5,
+   "width": 0.0078125,
+   "note": "tileable borders, cross-fade with the wrapped copy shifted by whole cells"
+  },
+  "seam": {
+   "wrap_x": 0.011888208245181886,
+   "inner_x_median": 0.011475283774416312,
+   "ratio_x": 1.0359838134623018,
+   "wrap_y": 0.015150666196859675,
+   "inner_y_median": 0.012994576482014963,
+   "ratio_y": 1.1659222767151225
+  },
+  "edge": {
+   "row_edge_max": 0.030524346977472305,
+   "row_median": 0.012994576245546341,
+   "col_edge_max": 0.016405174508690834,
+   "col_median": 0.011475189588963985
+  },
+  "pearson_after": 0.9844385981559753
+ },
+ "48": {
+  "applied": true,
+  "layer": {
+   "type": "seam",
+   "shift_x": 0.5,
+   "shift_y": 0.5,
+   "width": 0.0234375,
+   "note": "tileable borders, cross-fade with the wrapped copy shifted by whole cells"
+  },
+  "seam": {
+   "wrap_x": 0.011942688000885937,
+   "inner_x_median": 0.011416519882914145,
+   "ratio_x": 1.0460883109185708,
+   "wrap_y": 0.015256257720466238,
+   "inner_y_median": 0.012923922102345387,
+   "ratio_y": 1.1804665487497474
+  },
+  "edge": {
+   "row_edge_max": 0.021610604599118233,
+   "row_median": 0.012923922389745712,
+   "col_edge_max": 0.012790083885192871,
+   "col_median": 0.011416425928473473
+  },
+  "pearson_after": 0.9576573371887207
+ },
+ "128": {
+  "applied": true,
+  "layer": {
+   "type": "seam",
+   "shift_x": 0.5,
+   "shift_y": 0.5,
+   "width": 0.0625,
+   "note": "tileable borders, cross-fade with the wrapped copy shifted by whole cells"
+  },
+  "seam": {
+   "wrap_x": 0.011960189782712405,
+   "inner_x_median": 0.011219828669709386,
+   "ratio_x": 1.0659868465729607,
+   "wrap_y": 0.015290151161025278,
+   "inner_y_median": 0.012565834636916406,
+   "ratio_y": 1.2168034677223323
+  },
+  "edge": {
+   "row_edge_max": 0.021931052207946777,
+   "row_median": 0.012565834447741508,
+   "col_edge_max": 0.012808626517653465,
+   "col_median": 0.011219743639230728
+  },
+  "pearson_after": 0.9047907590866089
+ }
+}

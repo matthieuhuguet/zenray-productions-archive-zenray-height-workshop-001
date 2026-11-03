@@ -1,0 +1,15 @@
+{
+ "wrap_x": 0.011861952344167238,
+ "inner_x_median": 0.011458035305561876,
+ "ratio_x": 1.0352518584411496,
+ "wrap_y": 0.01509965899662394,
+ "inner_y_median": 0.012975033915560388,
+ "ratio_y": 1.16374716974848,
+ "source": "projects/AlienSkinRef/versions/final/AlienSkinRef_H2/FINAL_height_width12.png",
+ "size": [
+  2048,
+  2048
+ ],
+ "full": "projects/AlienSkinRef/versions/final/AlienSkinRef_H2/checks/tile2x2_w12_4096_16bit.png",
+ "preview": "projects/AlienSkinRef/versions/final/AlienSkinRef_H2/checks/tile2x2_w12_preview_1024.png"
+}

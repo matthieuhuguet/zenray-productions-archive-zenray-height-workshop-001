@@ -1,0 +1,52 @@
+{
+ "8": {
+  "applied": true,
+  "layer": {
+   "type": "seam",
+   "shift_x": 0.5,
+   "shift_y": 0.5,
+   "width": 0.00390625,
+   "note": "tileable borders, cross-fade with the wrapped copy shifted by whole cells"
+  },
+  "seam": {
+   "wrap_x": 0.011811861435944593,
+   "inner_x_median": 0.011445577767517534,
+   "ratio_x": 1.032002199964651,
+   "wrap_y": 0.014998858372564428,
+   "inner_y_median": 0.012981412676708715,
+   "ratio_y": 1.1554103352307272
+  },
+  "edge": {
+   "row_edge_max": 0.057320695370435715,
+   "row_median": 0.012981412932276726,
+   "col_edge_max": 0.03480713441967964,
+   "col_median": 0.011445491574704647
+  },
+  "pearson_after": 0.9917426705360413
+ },
+ "12": {
+  "applied": true,
+  "layer": {
+   "type": "seam",
+   "shift_x": 0.5,
+   "shift_y": 0.5,
+   "width": 0.005859375,
+   "note": "tileable borders, cross-fade with the wrapped copy shifted by whole cells"
+  },
+  "seam": {
+   "wrap_x": 0.011861951851187769,
+   "inner_x_median": 0.011458035018904411,
+   "ratio_x": 1.035251841316329,
+   "wrap_y": 0.015099658914550673,
+   "inner_y_median": 0.012975034164810495,
+   "ratio_y": 1.1637471410674478
+  },
+  "edge": {
+   "row_edge_max": 0.0397305004298687,
+   "row_median": 0.01297503337264061,
+   "col_edge_max": 0.02235155738890171,
+   "col_median": 0.011457940563559532
+  },
+  "pearson_after": 0.9880940318107605
+ }
+}

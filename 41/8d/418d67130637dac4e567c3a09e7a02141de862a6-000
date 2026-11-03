@@ -1,0 +1,86 @@
+{
+ "before": {
+  "seam": {
+   "wrap_x": 0.025296590247648965,
+   "inner_x_median": 0.01145096511788779,
+   "ratio_x": 2.2091229854619536,
+   "wrap_y": 0.03208908920260001,
+   "inner_y_median": 0.012948985839102534,
+   "ratio_y": 2.478116016290588
+  },
+  "pearson": 0.998882135555527,
+  "verify": {
+   "ok": false,
+   "fails": [
+    "horizontal joint: jump 1.44",
+    "vertical joint: jump 1.70"
+   ],
+   "y": {
+    "jump_ratio": 1.4441813663337646,
+    "step_ratio": 0.8370800680190181,
+    "detail_high_ratio": 0.870554303419246,
+    "detail_low_ratio": 1.144352096533065
+   },
+   "x": {
+    "jump_ratio": 1.7035850780292898,
+    "step_ratio": 1.024421493650545,
+    "detail_high_ratio": 0.9583038863680186,
+    "detail_low_ratio": 0.9278225519677202
+   }
+  }
+ },
+ "applied": true,
+ "build": {
+  "nodes": 346,
+  "kept_layers": 29,
+  "new_layers": 1,
+  "t_nodes": 0.58,
+  "t_cook_export": 3.24,
+  "exported": true,
+  "errors": []
+ },
+ "verdict": {
+  "ok": true,
+  "fails": [],
+  "y": {
+   "jump_ratio": 0.8228724594778792,
+   "step_ratio": 0.7666167433235628,
+   "detail_high_ratio": 0.840680998927337,
+   "detail_low_ratio": 0.9858621535117291
+  },
+  "x": {
+   "jump_ratio": 0.7988778192824324,
+   "step_ratio": 0.7799234230192963,
+   "detail_high_ratio": 0.925366061298931,
+   "detail_low_ratio": 0.8695081350213243
+  }
+ },
+ "after": {
+  "seam": {
+   "wrap_x": 0.00784243712632815,
+   "inner_x_median": 0.011411937556658813,
+   "ratio_x": 0.6872134628665335,
+   "wrap_y": 0.009776763366971863,
+   "inner_y_median": 0.01287931519527774,
+   "ratio_y": 0.7591058389934084
+  },
+  "pearson": 0.9852974369888944
+ },
+ "pearson_vs_untiled": 0.9867843899340691,
+ "predicted_vs_graph": 0.9999858115101522,
+ "plan": {
+  "x": {
+   "overlap_mean": 13.9,
+   "overlap_max": 55.8,
+   "slide_abs": 5.9
+  },
+  "y": {
+   "overlap_mean": 13.5,
+   "overlap_max": 65.2,
+   "slide_abs": 0.9
+  },
+  "work_x": true,
+  "work_y": true
+ },
+ "grid": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_H2/checks/grid_2x2_preview.png"
+}

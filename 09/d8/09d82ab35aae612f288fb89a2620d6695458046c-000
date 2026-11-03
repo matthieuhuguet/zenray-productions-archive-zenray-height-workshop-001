@@ -1,0 +1,15 @@
+{
+ "wrap_x": 0.01160438184271763,
+ "inner_x_median": 0.011445898124570803,
+ "ratio_x": 1.0138463331074572,
+ "wrap_y": 0.01457637438487068,
+ "inner_y_median": 0.012955349181258107,
+ "ratio_y": 1.1251240071520137,
+ "source": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_H2/FINAL_height.png",
+ "size": [
+  2048,
+  2048
+ ],
+ "full": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_H2/checks/tile2x2_AlienSkinRef_4096_16bit.png",
+ "preview": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_H2/checks/tile2x2_AlienSkinRef_preview_1024.png"
+}

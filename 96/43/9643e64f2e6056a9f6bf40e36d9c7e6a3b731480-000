@@ -1,0 +1,149 @@
+{
+ "date": "02 November 2026 19:26",
+ "graph": "/obj/ZRH_AlienSkinRef",
+ "basecolor": "/Users/zenray/.claude/tmp/tmp-alien-skin-2-november-2026/refs/flat_on_height_seamless_2048.png",
+ "params": {
+  "bands_px": [
+   2.0,
+   6.0,
+   16.0,
+   48.0
+  ],
+  "detail_range": 0.3,
+  "bins": 64,
+  "backfit_iters": 8,
+  "region_levels": [
+   [
+    8,
+    256
+   ],
+   [
+    12,
+    512
+   ],
+   [
+    16,
+    1024
+   ],
+   [
+    24,
+    2048
+   ],
+   [
+    32,
+    2048
+   ],
+   [
+    48,
+    2048
+   ]
+  ],
+  "region_sigma": 0.5,
+  "region_soft_px": 1.0,
+  "keep_gain": 0.05,
+  "res": 2048,
+  "source": "OUT_height"
+ },
+ "layers": [
+  {
+   "layer": "gradient_maps",
+   "status": "accepted",
+   "deltaE76_mean": 11.9383,
+   "deltaE76_p90": 20.9507,
+   "deltaE76_blur4_mean": 8.8064,
+   "lum_pearson": 0.6769,
+   "lum_ssim": 0.484,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_HBC/L01_gradient_maps.png"
+  },
+  {
+   "layer": "regions_k8_256",
+   "status": "accepted",
+   "polys": 4762,
+   "seconds": 2.0,
+   "deltaE76_mean": 8.9411,
+   "deltaE76_p90": 16.3749,
+   "deltaE76_blur4_mean": 4.8132,
+   "lum_pearson": 0.7974,
+   "lum_ssim": 0.4829,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_HBC/L02_regions_k8_256.png"
+  },
+  {
+   "layer": "regions_k12_512",
+   "status": "accepted",
+   "polys": 24384,
+   "seconds": 2.3,
+   "deltaE76_mean": 6.768,
+   "deltaE76_p90": 12.7914,
+   "deltaE76_blur4_mean": 2.5101,
+   "lum_pearson": 0.8646,
+   "lum_ssim": 0.5264,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_HBC/L03_regions_k12_512.png"
+  },
+  {
+   "layer": "regions_k16_1024",
+   "status": "accepted",
+   "polys": 94178,
+   "seconds": 3.9,
+   "deltaE76_mean": 4.6269,
+   "deltaE76_p90": 8.8756,
+   "deltaE76_blur4_mean": 0.9651,
+   "lum_pearson": 0.9268,
+   "lum_ssim": 0.6615,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_HBC/L04_regions_k16_1024.png"
+  },
+  {
+   "layer": "regions_k24_2048",
+   "status": "accepted",
+   "polys": 382343,
+   "seconds": 27.0,
+   "deltaE76_mean": 3.7342,
+   "deltaE76_p90": 7.3214,
+   "deltaE76_blur4_mean": 0.6549,
+   "lum_pearson": 0.9522,
+   "lum_ssim": 0.7567,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_HBC/L05_regions_k24_2048.png"
+  },
+  {
+   "layer": "regions_k32_2048",
+   "status": "accepted",
+   "polys": 438373,
+   "seconds": 36.2,
+   "deltaE76_mean": 3.3314,
+   "deltaE76_p90": 6.6321,
+   "deltaE76_blur4_mean": 0.523,
+   "lum_pearson": 0.9629,
+   "lum_ssim": 0.8,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_HBC/L06_regions_k32_2048.png"
+  },
+  {
+   "layer": "regions_k48_2048",
+   "status": "accepted",
+   "polys": 463998,
+   "seconds": 47.7,
+   "deltaE76_mean": 3.052,
+   "deltaE76_p90": 6.1236,
+   "deltaE76_blur4_mean": 0.426,
+   "lum_pearson": 0.969,
+   "lum_ssim": 0.8285,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_HBC/L07_regions_k48_2048.png"
+  }
+ ],
+ "final": {
+  "islands": {
+   "deltaE76_mean": 3.052,
+   "deltaE76_p90": 6.1236,
+   "deltaE76_blur4_mean": 0.426,
+   "lum_pearson": 0.969,
+   "lum_ssim": 0.8285
+  },
+  "whole_sheet": {
+   "deltaE76_mean": 3.052,
+   "deltaE76_p90": 6.1236,
+   "deltaE76_blur4_mean": 0.426,
+   "lum_pearson": 0.969,
+   "lum_ssim": 0.8285
+  },
+  "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_HBC/FINAL_basecolor.png",
+  "seconds": 394.4
+ }
+}
