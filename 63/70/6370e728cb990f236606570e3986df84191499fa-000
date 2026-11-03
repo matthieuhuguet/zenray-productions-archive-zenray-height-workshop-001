@@ -1,0 +1,19 @@
+ZorahMaterials04_H3 resume 0.9485 {'pearson': 0.9775, 'mae': 0.0102, 'low32': 0.996, 'b1-2': 0.9845, 'b4-8': 0.9976, 'b16-32': 0.9981, 'q25': 0.7849, 'q75': 0.7287, 'lines': 0.69, 'struct': 0.901, 'detail': 0.917}
+ZorahMaterials04_H3 pix_s05_k16_m3_p3 accepted 0.955 {'pearson': 0.9819, 'mae': 0.0091, 'low32': 0.998, 'b1-2': 0.9884, 'b4-8': 0.9985, 'b16-32': 0.999, 'q25': 0.8041, 'q75': 0.7519, 'lines': 0.717, 'struct': 0.91, 'detail': 0.925} 18.0 s {'kept_layers': 30, 'new_layers': 1, 't_nodes': 2.76, 't_cook_export': 1.75} local {'ok': True, 'pixels': 221361, 'before': 0.0259, 'after': 0.0081, 'ls_gain': 1.416}
+ZorahMaterials04_H3 pix_s05_k16_m2 accepted 0.9594 {'pearson': 0.9844, 'mae': 0.0084, 'low32': 0.999, 'b1-2': 0.9906, 'b4-8': 0.9988, 'b16-32': 0.9993, 'q25': 0.8185, 'q75': 0.7708, 'lines': 0.735, 'struct': 0.917, 'detail': 0.931} 32.9 s {'kept_layers': 31, 'new_layers': 1, 't_nodes': 8.04, 't_cook_export': 1.62} local {'ok': True, 'pixels': 169914, 'before': 0.0216, 'after': 0.0062, 'ls_gain': 1.369}
+ZorahMaterials04_H3 eq2 rejected -0.0459 {'pearson': -0.4136, 'mae': 0.1205, 'low32': 0.997, 'b1-2': -0.782, 'b4-8': 0.9811, 'b16-32': 0.9981, 'q25': 0.0882, 'q75': 0.0638, 'lines': 0.007, 'struct': 0.629, 'detail': 0.113} 6.9 s {'kept_layers': 32, 'new_layers': 1, 't_nodes': 0.01, 't_cook_export': 1.36} local {'ok': False, 'pixels': 3882086, 'before': 0.0083, 'after': 0.1294, 'ls_gain': 0.003}
+ZorahMaterials04_H3 hist rejected 0.9592 {'pearson': 0.9841, 'mae': 0.0085, 'low32': 0.996, 'b1-2': 0.9906, 'b4-8': 0.9981, 'b16-32': 0.9982, 'q25': 0.8191, 'q75': 0.7734, 'lines': 0.732, 'struct': 0.917, 'detail': 0.929} 6.7 s {'kept_layers': 32, 'new_layers': 1, 't_nodes': 0.01, 't_cook_export': 1.41} local None
+{
+ "name": "ZorahMaterials04",
+ "height": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials04/versions/final/ZorahMaterials04_H3/FINAL_height.png",
+ "pearson_full": 0.9844,
+ "ssim_full": 0.9637,
+ "mae": 0.0084,
+ "seam_xy": [
+  1.62,
+  0.55
+ ],
+ "seam_layer": false,
+ "seamless_verdict": null,
+ "grid": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials04/versions/final/ZorahMaterials04_H3/checks/grid_2x2_preview.png"
+}
