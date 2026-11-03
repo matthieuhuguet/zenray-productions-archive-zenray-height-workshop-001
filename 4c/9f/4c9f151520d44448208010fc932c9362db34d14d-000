@@ -1,0 +1,44 @@
+# 2 November 2026 : 2 x 2 tiling sheet at full resolution, to check that a height repeats and joins without a visible seam.
+# FR : planche 2 x 2 en pleine résolution, pour vérifier qu'une height se répète et se raccorde sans couture visible.
+# Usage : /Users/zenray/.venvs/shorts/bin/python -I TileSheet2x2.py <height.png> <out_dir> <label>
+import json
+import os
+import sys
+
+# SeamCheck lives in the zenray-houdini skill; its folder is added so the import works under -I.
+# FR : SeamCheck vit dans le skill zenray-houdini ; on ajoute son dossier pour l'import sous -I.
+sys.path.insert(0, "/Users/zenray/.claude/skills/zenray-houdini/scripts/height")
+import numpy as np
+from PIL import Image
+from SeamCheck import seam
+
+
+def load_unit(path):
+    """Load a height as floats in 0..1, from 16 bit or 8 bit."""
+    # FR : charge une height en flottants de 0 à 1, en 16 bits ou 8 bits.
+    a = np.asarray(Image.open(path), np.float64)
+    if a.ndim == 3:
+        a = a.mean(2)
+    return a / (65535.0 if a.max() > 255 else 255.0)
+
+
+def main():
+    src, out_dir, label = sys.argv[1], sys.argv[2], sys.argv[3]
+    os.makedirs(out_dir, exist_ok=True)
+    img = load_unit(src)
+    tiled = np.tile(img, (2, 2))
+    full = os.path.join(out_dir, f"tile2x2_{label}_4096_16bit.png")
+    preview = os.path.join(out_dir, f"tile2x2_{label}_preview_1024.png")
+    report = os.path.join(out_dir, f"tile2x2_{label}_seam.json")
+    Image.fromarray((np.clip(tiled, 0, 1) * 65535).round().astype(np.uint16)).save(full)
+    Image.fromarray((np.clip(tiled, 0, 1) * 255).round().astype(np.uint8)).resize((1024, 1024), Image.LANCZOS).save(preview)
+    # Jump across the wrap border compared with the median jump between interior neighbours (ratio near 1 = no seam).
+    # FR : saut au bord de répétition comparé au saut médian entre voisins intérieurs (rapport proche de 1 = pas de couture).
+    res = seam(img)
+    res.update({"source": src, "size": list(img.shape), "full": full, "preview": preview})
+    json.dump(res, open(report, "w"), indent=1)
+    print(json.dumps(res, indent=1))
+
+
+if __name__ == "__main__":
+    main()

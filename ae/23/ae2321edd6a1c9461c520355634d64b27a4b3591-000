@@ -1,0 +1,46 @@
+# 2 November 2026 : seam layer on the vertical border only (no column blend), to see whether the horizontal stripe and the fidelity
+# loss come from the column blend or from the row blend. Same measures as SeamWidthSweep.py.
+# FR : couche de raccord sur le bord vertical seulement (pas de fondu sur les colonnes), pour isoler la cause de la bande.
+# Usage : /Users/zenray/.venvs/shorts/bin/python -I SeamYOnlySweep.py 4 8
+import json
+import os
+import shutil
+import sys
+
+sys.path.insert(0, "/Users/zenray/.claude/skills/zenray-houdini/scripts/height")
+sys.path.insert(0, "/Users/zenray/.claude/tmp/tmp-zenray-height/Scripts")
+import numpy as np
+import Execute as EX
+import SeamCheck
+from RefLib import load_gray
+from SeamWidthSweep import edge_jumps
+
+OUT = "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_H2"
+NET = "/obj/ZRH_AlienSkinRef"
+REF = "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/refs/AlienSkinRef_height_2048.png"
+FINAL = os.path.join(OUT, "FINAL_height.png")
+
+
+def main():
+    recipe_all = json.load(open(os.path.join(OUT, "recipe_current.json")))
+    recipe = [L for L in recipe_all if L.get("type") not in ("seam", "lattice")]
+    log = json.load(open(os.path.join(OUT, "log.json")))
+    cells = log.get("cells", [4, 4])
+    ref = load_gray(REF)
+    results = {}
+    for w in [float(x) for x in sys.argv[1:]]:
+        layer = {"type": "seam", "shift_x": 0.0, "shift_y": 0.5, "width": w / ref.shape[0], "note": "y border only"}
+        lattice = {"type": "lattice", "cx": int(cells[0]), "cy": int(cells[1])}
+        b = EX.build_final(NET, [lattice] + recipe + [layer], FINAL, ref.shape[0])
+        if not b.get("ok"):
+            raise SystemExit("build failed: " + str(b)[:800])
+        img = load_gray(FINAL)
+        pear = float(np.corrcoef(img.ravel(), ref.ravel())[0, 1])
+        shutil.copy(FINAL, os.path.join(OUT, f"FINAL_height_yonly_w{int(w)}.png"))
+        results[str(int(w))] = {"seam": SeamCheck.seam(img), "edge": edge_jumps(img), "pearson_vs_ref": pear}
+        print(json.dumps({str(int(w)): results[str(int(w))]}), flush=True)
+    json.dump(results, open(os.path.join(OUT, "checks", "yonly_sweep.json"), "w"), indent=1, default=float)
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,313 @@
+# 2 November 2026 : bench of seam removal methods on a height that does not repeat. Each method is scored by SeamVerify and by its
+# correlation with the input, and a zoom of the joint crossing is written for the eye.
+# FR : banc des méthodes de raccord ; chaque méthode est notée par SeamVerify et par sa corrélation avec l'entrée.
+# Usage : /Users/zenray/.venvs/shorts/bin/python -I SeamBench.py <height.png> <out_dir> <label> [methods]
+import json
+import os
+import sys
+import time
+
+sys.path.insert(0, "/Users/zenray/.claude/skills/zenray-houdini/scripts/height")
+import numpy as np
+from PIL import Image, ImageDraw
+from SeamVerify import blur_wrap, load_unit, verify
+
+
+def periodic_plus_smooth(u):
+    """Moisan 2011: u = p + s, p periodic with the same interior Laplacian, s smooth."""
+    # FR : décomposition périodique plus lisse ; p garde le relief, s emporte le saut du bord.
+    h, w = u.shape
+    v = np.zeros_like(u)
+    top = u[-1, :] - u[0, :]
+    left = u[:, -1] - u[:, 0]
+    v[0, :] += top
+    v[-1, :] -= top
+    v[:, 0] += left
+    v[:, -1] -= left
+    q = np.fft.fftfreq(h)[:, None]
+    r = np.fft.rfftfreq(w)[None, :]
+    den = 2.0 * np.cos(2 * np.pi * q) + 2.0 * np.cos(2 * np.pi * r) - 4.0
+    den[0, 0] = 1.0
+    sf = np.fft.rfft2(v) / den
+    sf[0, 0] = 0.0
+    return u - np.fft.irfft2(sf, s=u.shape)
+
+
+def best_shift(a, band, lo=0.25, hi=0.75):
+    """Vertical shift whose copy best matches the lines near the wrap, measured with a correlation on the torus."""
+    # FR : décalage vertical dont la copie ressemble le plus aux lignes proches du bord.
+    n = a.shape[0]
+    m = np.zeros(n)
+    m[:band] = 1.0
+    m[-band:] = 1.0
+    e = (a ** 2).sum(1)
+    corr = np.fft.irfft((np.fft.rfft(a * m[:, None], axis=0) * np.conj(np.fft.rfft(a, axis=0))).sum(1), n=n)
+    sum2 = np.fft.irfft(np.fft.rfft(m) * np.conj(np.fft.rfft(e)), n=n)
+    cost = sum2 - 2.0 * corr
+    i0, i1 = int(lo * n), int(hi * n)
+    return i0 + int(np.argmin(cost[i0:i1]))
+
+
+def viterbi(E, closed, jump=1.0):
+    """Cheapest path across columns with steps of at most one line. Closed: the path ends where it starts."""
+    # FR : chemin le moins cher à travers les colonnes, pas d'au plus une ligne ; fermé : il finit où il commence.
+    w, d = E.shape
+    pen = jump * float(np.mean(E))
+
+    def run(cost, start=None):
+        n = cost.shape[0]
+        c = np.empty_like(cost)
+        back = np.empty(cost.shape, np.int8)
+        c[0] = cost[0] if start is None else np.where(np.arange(d) == start, cost[0], np.inf)
+        for i in range(1, n):
+            p = c[i - 1]
+            up = np.concatenate([[np.inf], p[:-1]]) + pen
+            dn = np.concatenate([p[1:], [np.inf]]) + pen
+            stack = np.stack([up, p, dn])
+            pick = np.argmin(stack, axis=0)
+            c[i] = cost[i] + stack[pick, np.arange(d)]
+            back[i] = pick - 1
+        return c, back
+
+    def walk(c, back, end):
+        n = c.shape[0]
+        path = np.empty(n, np.int64)
+        path[-1] = end
+        for i in range(n - 1, 0, -1):
+            path[i - 1] = path[i] + back[i, path[i]]
+        return path
+
+    if not closed:
+        c, back = run(E)
+        return walk(c, back, int(np.argmin(c[-1])))
+    # Two laps with a free start find a good crossing, then one lap is solved from that crossing back to itself.
+    # FR : deux tours à départ libre trouvent un bon passage, puis un tour est résolu de ce passage vers lui-même.
+    c2, b2 = run(np.concatenate([E, E], axis=0))
+    p2 = walk(c2, b2, int(np.argmin(c2[-1])))
+    d0 = int(p2[w])
+    c1, b1 = run(np.concatenate([E, E[:1]], axis=0), start=d0)
+    p1 = walk(c1, b1, d0)
+    return p1[:-1]
+
+
+def cut_mask(t, s, dmin, band, bias, closed, structure=True):
+    """Mask of the copy: 1 near the wrap, 0 inside, with the boundary on the cheapest paths in the top and bottom bands."""
+    # FR : masque de la copie, 1 près du bord et 0 à l'intérieur, la limite suit les chemins les moins chers.
+    n, w = t.shape
+    err = (t - s) ** 2
+    if structure:
+        # Cutting along an existing crease hides the cut, as in graph cut textures (Kwatra 2003).
+        # FR : couper le long d'un pli existant cache la coupe.
+        g = np.abs(np.roll(t, -1, 0) - t) + np.abs(np.roll(s, -1, 0) - s) + np.abs(np.roll(t, -1, 1) - t) + np.abs(np.roll(s, -1, 1) - s)
+        err = err / (g + 0.02)
+    err = blur_wrap(err, 1.0)
+    ref = float(np.mean(err))
+    depth = np.arange(dmin, band)
+    bias_line = bias * ref * (depth - dmin) / max(band - dmin, 1)
+    top = err[dmin:band, :].T + bias_line[None, :]
+    bottom = err[::-1][dmin:band, :].T + bias_line[None, :]
+    p_top = viterbi(top, closed) + dmin
+    p_bottom = viterbi(bottom, closed) + dmin
+    rows = np.arange(n)[:, None]
+    m = (rows < p_top[None, :]) | (rows >= n - p_bottom[None, :])
+    return m.astype(np.float64), p_top, p_bottom
+
+
+def two_band(t, s, m, low_sigma, high_sigma):
+    """Low frequencies blend wide, fine detail blends narrow, so no tone step and no ghost."""
+    # FR : les basses fréquences se fondent large, le détail fin se fond étroit ; ni marche de ton, ni fantôme.
+    lt, ls = blur_wrap(t, low_sigma), blur_wrap(s, low_sigma)
+    ml, mh = blur_wrap(m, low_sigma), blur_wrap(m, high_sigma)
+    return lt * (1 - ml) + ls * ml + (t - lt) * (1 - mh) + (s - ls) * mh
+
+
+def patch_axis(a, scale, closed, band_px=64, dmin_px=6, bias=1.0, structure=True):
+    """Replace the lines around the wrap by a shifted copy, the boundary on a cheapest path."""
+    # FR : remplace les lignes autour du bord par une copie décalée, la limite sur un chemin le moins cher.
+    band, dmin = int(round(band_px * scale)), int(round(dmin_px * scale))
+    sh = best_shift(a, band)
+    s = np.roll(a, sh, axis=0)
+    m, pt, pb = cut_mask(a, s, dmin, band, bias, closed, structure)
+    return two_band(a, s, m, 24.0 * scale, 1.2 * scale), {"shift": sh, "depth_mean": float((pt.mean() + pb.mean()) / 2)}
+
+
+def method_patch(a, band_px=64, bias=1.0, structure=True):
+    scale = a.shape[0] / 2048.0
+    x, ix = patch_axis(a.T, scale, closed=False, band_px=band_px, bias=bias, structure=structure)
+    y, iy = patch_axis(x.T, scale, closed=True, band_px=band_px, bias=bias, structure=structure)
+    return y, {"x": ix, "y": iy}
+
+
+def catmull(a, ys, xs):
+    """Bicubic sampling on the torus."""
+    # FR : échantillonnage bicubique sur le tore.
+    h, w = a.shape
+    y0, x0 = np.floor(ys).astype(np.int64), np.floor(xs).astype(np.int64)
+    fy, fx = ys - y0, xs - x0
+
+    def weights(f):
+        return [-0.5 * f + f ** 2 - 0.5 * f ** 3, 1 - 2.5 * f ** 2 + 1.5 * f ** 3, 0.5 * f + 2 * f ** 2 - 1.5 * f ** 3, -0.5 * f ** 2 + 0.5 * f ** 3]
+
+    wy, wx = weights(fy), weights(fx)
+    out = np.zeros_like(ys)
+    for i in range(4):
+        for j in range(4):
+            out += wy[i] * wx[j] * a[(y0 + i - 1) % h, (x0 + j - 1) % w]
+    return out
+
+
+def align_axis(a, scale, closed, o_min_px=8, o_max_px=96, t_max_px=32, reach_px=256, power=2.0, bias=0.0):
+    """Overlap the two sides of the wrap, find the overlap and the sideways shift per column, then warp only near the wrap."""
+    # FR : superpose les deux côtés du bord, trouve par colonne le recouvrement et le glissement, puis déforme seulement près du bord.
+    small = a[::2, ::2]
+    n, w = small.shape
+    overlaps = list(range(max(2, int(o_min_px * scale / 2)), int(o_max_px * scale / 2) + 1, 2))
+    tangents = list(range(-int(t_max_px * scale / 2), int(t_max_px * scale / 2) + 1, 2))
+    E = np.empty((w, len(overlaps), len(tangents)))
+    for io, o in enumerate(overlaps):
+        for it, t in enumerate(tangents):
+            top = np.roll(small[:o], -(t // 2), axis=1)
+            bot = np.roll(small[n - o:], t - t // 2, axis=1)
+            E[:, io, it] = ((top - bot) ** 2).mean(0)
+    # Window along the seam, then a path through the (overlap, shift) states.
+    # FR : fenêtre le long du joint, puis chemin à travers les états (recouvrement, glissement).
+    win = max(3, int(32 * scale / 2))
+    kernel = np.ones(win) / win
+    E = np.fft.irfft(np.fft.rfft(E, axis=0) * np.fft.rfft(np.roll(np.pad(kernel, (0, w - win)), -win // 2))[:, None, None], n=w, axis=0)
+    no, nt = len(overlaps), len(tangents)
+    pen = 0.05 * float(E.mean())
+    # Prefer the smallest overlap and shift that still match, the warp then touches less of the texture.
+    # FR : préférer le plus petit recouvrement et le plus petit glissement qui raccordent, la déformation touche alors moins de texture.
+    size = (np.array(overlaps)[:, None] / max(overlaps)) + (np.abs(np.array(tangents))[None, :] / max(max(tangents), 1)) * 0.5
+    E = E + bias * float(E.mean()) * size[None, :, :]
+
+    def run(cost, start=None):
+        c = np.empty(cost.shape)
+        back = np.empty(cost.shape + (2,), np.int8)
+        c[0] = cost[0]
+        if start is not None:
+            c[0] = np.inf
+            c[0][start] = cost[0][start]
+        for i in range(1, cost.shape[0]):
+            p = c[i - 1]
+            best = p.copy()
+            bo = np.zeros(p.shape, np.int8)
+            bt = np.zeros(p.shape, np.int8)
+            for do, dt in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                q = np.full(p.shape, np.inf)
+                so = (slice(max(do, 0), None) if do >= 0 else slice(None, do))
+                sq = (slice(None, -do) if do > 0 else (slice(-do, None) if do < 0 else slice(None)))
+                st = (slice(max(dt, 0), None) if dt >= 0 else slice(None, dt))
+                sr = (slice(None, -dt) if dt > 0 else (slice(-dt, None) if dt < 0 else slice(None)))
+                q[so, st] = p[sq, sr] + pen
+                better = q < best
+                best[better] = q[better]
+                bo[better] = -do
+                bt[better] = -dt
+            c[i] = cost[i] + best
+            back[i, ..., 0] = bo
+            back[i, ..., 1] = bt
+        return c, back
+
+    def walk(c, back, end):
+        path = np.empty((c.shape[0], 2), np.int64)
+        path[-1] = end
+        for i in range(c.shape[0] - 1, 0, -1):
+            o, t = path[i]
+            path[i - 1] = (o + back[i, o, t, 0], t + back[i, o, t, 1])
+        return path
+
+    if closed:
+        c2, b2 = run(np.concatenate([E, E], axis=0))
+        p2 = walk(c2, b2, np.unravel_index(int(np.argmin(c2[-1])), (no, nt)))
+        start = tuple(p2[w])
+        c1, b1 = run(np.concatenate([E, E[:1]], axis=0), start=start)
+        path = walk(c1, b1, start)[:-1]
+    else:
+        c, b = run(E)
+        path = walk(c, b, np.unravel_index(int(np.argmin(c[-1])), (no, nt)))
+    ov = np.array(overlaps)[path[:, 0]] * 2.0
+    tg = np.array(tangents)[path[:, 1]] * 2.0
+    # Back to full width, smooth along the seam so the warp has no kink.
+    # FR : retour à pleine largeur, lissage le long du joint pour que la déformation n'ait pas de pli.
+    fw = a.shape[1]
+    xs = np.arange(fw) / 2.0
+    ov = np.interp(xs, np.arange(w + 1), np.append(ov, ov[0]))
+    tg = np.interp(xs, np.arange(w + 1), np.append(tg, tg[0]))
+    sm = 24.0 * scale
+
+    def smooth1d(v):
+        f = np.fft.rfftfreq(fw)
+        return np.fft.irfft(np.fft.rfft(v) * np.exp(-2 * (np.pi * sm * f) ** 2), n=fw)
+
+    ov, tg = smooth1d(ov), smooth1d(tg)
+    h = a.shape[0]
+    reach = reach_px * scale
+    rows = np.arange(h)[:, None].astype(np.float64)
+    cols = np.arange(fw)[None, :].astype(np.float64)
+    dist_top = rows
+    dist_bot = h - 1 - rows
+    fall = lambda d: np.clip(1 - d / reach, 0, 1) ** power
+    wt, wb = fall(dist_top), fall(dist_bot)
+    ys = rows + (ov / 2)[None, :] * wt - (ov / 2)[None, :] * wb
+    xs2 = cols + (tg / 2)[None, :] * wt - (tg / 2)[None, :] * wb
+    return catmull(a, ys, xs2), {"overlap_mean": float(ov.mean()), "overlap_max": float(ov.max()), "tangent_abs": float(np.abs(tg).mean())}
+
+
+def method_align(a, reach_px=256, power=2.0, bias=0.0, poisson=True, **kw):
+    scale = a.shape[0] / 2048.0
+    x, ix = align_axis(a.T, scale, closed=False, reach_px=reach_px, power=power, bias=bias, **kw)
+    y, iy = align_axis(x.T, scale, closed=True, reach_px=reach_px, power=power, bias=bias, **kw)
+    return (periodic_plus_smooth(y) if poisson else y), {"x": ix, "y": iy}
+
+
+METHODS = {
+    "input": lambda a: (a, {}),
+    "poisson": lambda a: (periodic_plus_smooth(a), {}),
+    "patch64": lambda a: method_patch(a, 64),
+    "patch32": lambda a: method_patch(a, 32),
+    "patch128": lambda a: method_patch(a, 128),
+    "align": lambda a: method_align(a),
+    "align_nopoisson": lambda a: method_align(a, poisson=False),
+    "align_b1": lambda a: method_align(a, bias=1.0),
+    "align_b1_r128": lambda a: method_align(a, reach_px=128, bias=1.0),
+    "align_b1_r192": lambda a: method_align(a, reach_px=192, bias=1.0),
+    "align_b1_r128_p15": lambda a: method_align(a, reach_px=128, power=1.5, bias=1.0),
+    "align_b3_r128": lambda a: method_align(a, reach_px=128, bias=3.0),
+}
+
+
+def main():
+    src, out_dir, label = sys.argv[1], sys.argv[2], sys.argv[3]
+    names = sys.argv[4].split(",") if len(sys.argv) > 4 else list(METHODS)
+    os.makedirs(out_dir, exist_ok=True)
+    a = load_unit(src)
+    rows = []
+    zooms = []
+    for name in names:
+        t0 = time.time()
+        r, info = METHODS[name](a)
+        dt = time.time() - t0
+        v = verify(r)
+        pear = float(np.corrcoef(r.ravel(), a.ravel())[0, 1])
+        rows.append({"method": name, "seconds": round(dt, 1), "pearson_vs_input": round(pear, 5), "ok": v["ok"], "fails": v["fails"],
+                     "y": {k: round(x, 2) for k, x in v["y"].items()}, "x": {k: round(x, 2) for k, x in v["x"].items()}, "info": info})
+        print(json.dumps(rows[-1]), flush=True)
+        Image.fromarray((np.clip(r, 0, 1) * 65535).round().astype(np.uint16)).save(os.path.join(out_dir, f"{label}_{name}.png"))
+        t = np.tile(r, (2, 2))
+        n = a.shape[0]
+        c = t[n - 256:n + 256, n - 256:n + 256]
+        im = Image.fromarray((np.clip(c, 0, 1) * 255).round().astype(np.uint8)).convert("RGB")
+        ImageDraw.Draw(im).text((6, 6), f"{name} {pear:.4f} {'OK' if v['ok'] else 'NO'}", fill=(255, 220, 0))
+        zooms.append(im)
+    cols = min(3, len(zooms))
+    lines = int(np.ceil(len(zooms) / cols))
+    sheet = Image.new("RGB", (cols * 512, lines * 512))
+    for i, im in enumerate(zooms):
+        sheet.paste(im, ((i % cols) * 512, (i // cols) * 512))
+    sheet.save(os.path.join(out_dir, f"{label}_joints.png"))
+    json.dump(rows, open(os.path.join(out_dir, f"{label}_bench.json"), "w"), indent=1)
+
+
+if __name__ == "__main__":
+    main()

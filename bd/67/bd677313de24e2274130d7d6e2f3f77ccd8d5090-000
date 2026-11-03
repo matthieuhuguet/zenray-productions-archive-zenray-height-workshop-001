@@ -1,0 +1,61 @@
+# 2 November 2026 : run the chosen seam method on every height already reproduced, the proof that it works in all cases.
+# FR : passe la méthode retenue sur toutes les heights déjà reproduites, preuve que cela marche dans tous les cas.
+import json
+import os
+import sys
+from concurrent.futures import ProcessPoolExecutor
+
+sys.path.insert(0, "/Users/zenray/.claude/tmp/tmp-zenray-height/Scripts")
+sys.path.insert(0, "/Users/zenray/.claude/skills/zenray-houdini/scripts/height")
+os.environ.setdefault("OMP_NUM_THREADS", "1")
+import numpy as np
+from PIL import Image, ImageDraw
+import SeamBench as B
+from SeamVerify import load_unit, verify
+
+ROOT = "/Users/zenray/.claude/tmp/tmp-zenray-height"
+CASES = {
+    "AlienSkin": "projects/AlienSkinRef/versions/final/AlienSkinRef_H2/FINAL_height_untiled.png",
+    "CeramicWall": "versions/final/CeramicWallTiles_L5/FINAL_height_untiled.png",
+    "Whitepaint": "versions/final/Secondary_whitepaint_L5/FINAL_height_untiled.png",
+    "Window": "versions/final/Secondary_window_EQ/FINAL_height_untiled.png",
+    "TileBayou": "versions/final/Secondary_tile_L5/FINAL_height_untiled.png",
+    "Concrete": "projects/ConcreteStains/versions/final/ConcreteStains_H2/FINAL_height_untiled.png",
+    "RoofTiles36": "projects/RoofTiles36/versions/final/RoofTiles36_H2/FINAL_height_untiled.png",
+    "Mosaic": "projects/MosaicHeight17s/versions/final/MosaicHeight17s_H2/FINAL_height_untiled.png",
+    "Javier": "projects/HeightJavier/versions/final/HeightJavier_H2/FINAL_height_untiled.png",
+    "BrokenTiles": "projects/BrokenTiles/Displacement/versions/final/BrokenTiles_Displacement_H2/FINAL_height_untiled.png",
+    "DemoTiles": "projects/DemoTilesFull/versions/final/DemoTilesFull_H2/FINAL_height_untiled.png",
+}
+OUT = sys.argv[1]
+
+
+def one(item):
+    name, rel = item
+    a = load_unit(os.path.join(ROOT, rel))
+    before = verify(a)
+    r, info = B.method_align(a, reach_px=128, bias=1.0)
+    after = verify(r)
+    pear = float(np.corrcoef(r.ravel(), a.ravel())[0, 1])
+    n = a.shape[0]
+    t = np.tile(r, (2, 2))[n - 256:n + 256, n - 256:n + 256]
+    t0 = np.tile(a, (2, 2))[n - 256:n + 256, n - 256:n + 256]
+    pair = np.hstack([t0, t])
+    im = Image.fromarray((np.clip(pair, 0, 1) * 255).round().astype(np.uint8)).convert("RGB")
+    ImageDraw.Draw(im).text((6, 6), f"{name} before {'OK' if before['ok'] else 'NO'}  after {'OK' if after['ok'] else 'NO'}  r={pear:.4f}", fill=(255, 220, 0))
+    im.save(os.path.join(OUT, f"{name}.png"))
+    return {"name": name, "size": a.shape[0], "before_ok": before["ok"], "after_ok": after["ok"], "pearson": round(pear, 4), "fails": after["fails"][:3],
+            "overlap": [round(info["y"]["overlap_mean"], 1), round(info["x"]["overlap_mean"], 1)]}
+
+
+if __name__ == "__main__":
+    with ProcessPoolExecutor(max_workers=8) as ex:
+        rows = list(ex.map(one, CASES.items()))
+    for r in rows:
+        print(json.dumps(r))
+    json.dump(rows, open(os.path.join(OUT, "results.json"), "w"), indent=1)
+    ims = [Image.open(os.path.join(OUT, f"{r['name']}.png")) for r in rows]
+    sheet = Image.new("RGB", (1024 * 2, 512 * ((len(ims) + 1) // 2)))
+    for i, im in enumerate(ims):
+        sheet.paste(im, ((i % 2) * 1024, (i // 2) * 512))
+    sheet.resize((sheet.width // 2 * 2 // 2, sheet.height // 2)).save(os.path.join(OUT, "all_cases.png"))

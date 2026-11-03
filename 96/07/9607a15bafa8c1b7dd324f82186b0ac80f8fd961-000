@@ -1,0 +1,90 @@
+# 2 November 2026 : compare each stage of the seamless layer in Copernicus with its numpy prediction.
+# FR : compare chaque étape de la couche seamless dans Copernicus à sa prédiction numpy.
+import json
+import os
+import subprocess
+import sys
+
+sys.path.insert(0, "/Users/zenray/.claude/skills/zenray-houdini/scripts/height")
+import numpy as np
+from PIL import Image
+import Seamless as S
+import SeamVerify as V
+
+NET = sys.argv[1]
+UNTILED = sys.argv[2]
+OUT = sys.argv[3]
+BRIDGE = ["/opt/homebrew/bin/python3", "/Users/zenray/.claude/Memory1/Houdini/MCP/zrhoudini.py", "hom"]
+
+
+def hom(code):
+    o = subprocess.run(BRIDGE + [code, "live"], capture_output=True, text=True, timeout=300)
+    return json.loads(o.stdout)
+
+
+def export(suffix, gain, offset, name):
+    png = os.path.join(OUT, name + ".png")
+    code = f"""
+import hou
+net = hou.node('{NET}')
+src = [c for c in net.children() if c.name().endswith('{suffix}') and '_seamless_' in c.name()][0]
+sc = net.node('DBG_scale') or net.createNode('remap', 'DBG_scale')
+sc.setInput(0, src)
+sc.parm('inputmin').set(0.0); sc.parm('inputmax').set(1.0); sc.parm('outputmin').set({offset}); sc.parm('outputmax').set({offset + gain}); sc.parm('useramp').set(0); sc.parm('method').set(2)
+rop = net.node('DBG_rop') or net.createNode('rop_image', 'DBG_rop')
+rop.setInput(0, sc)
+rop.parm('copoutput').set('{png}')
+rop.parm('colorconversion').set(2)
+rop.parm('setres').set(1); rop.parm('res1').set(2048); rop.parm('res2').set(2048); rop.parm('size1').set(2)
+rop.parm('execute').pressButton()
+result = src.name()
+"""
+    r = hom(code)
+    if not r.get("ok"):
+        raise SystemExit(str(r)[:800])
+    a = V.load_unit(png)
+    return (a - offset) / gain
+
+
+def cleanup():
+    hom(f"""
+import hou
+net = hou.node('{NET}')
+for n in ('DBG_rop', 'DBG_scale'):
+    c = net.node(n)
+    if c: c.destroy()
+result = 1
+""")
+
+
+def corr(x, y):
+    return round(float(np.corrcoef(x.ravel(), y.ravel())[0, 1]), 5)
+
+
+def main():
+    os.makedirs(OUT, exist_ok=True)
+    a = V.load_unit(UNTILED)
+    pl = S.plan(a)
+    h, w = a.shape
+    rows = np.arange(h, dtype=np.float64)[:, None]
+    cols = np.arange(w, dtype=np.float64)[None, :]
+    # field
+    du = export("_du", 50.0, 0.5, "du")
+    dv = export("_dv", 50.0, 0.5, "dv")
+    print("field u: graph range", round(float(du.min() * w), 2), round(float(du.max() * w), 2), "pred", round(float(pl["dx"].min()), 2), round(float(pl["dx"].max()), 2), "corr", corr(du * w, pl["dx"]))
+    print("field v: graph range", round(float(dv.min() * h), 2), round(float(dv.max() * h), 2), "pred", round(float(-pl["dy"].max()), 2), round(float(-pl["dy"].min()), 2), "corr", corr(-dv * h, pl["dy"]))
+    # moved
+    moved = export("_moved", 1.0, 0.0, "moved")
+    low = V.blur_wrap(a, S.P["detail_sigma_px"])
+    pred = S.catmull_rom(low, rows + pl["dy"], cols + pl["dx"]) + (a - low)[np.round(rows + pl["dy"]).astype(np.int64) % h, np.round(cols + pl["dx"]).astype(np.int64) % w]
+    print("moved corr", corr(moved, pred), "mae", round(float(np.abs(moved - pred).mean()), 5), "vs input", corr(moved, a))
+    # solve
+    sol = export("_solve", 20.0, 0.5, "solve")
+    s = S.tone_field(pred)
+    k = float((sol * s).sum() / max((sol * sol).sum(), 1e-12))
+    print("solve corr", corr(sol, s), "best gain", round(k, 4), "std graph", round(float(sol.std()), 5), "std exact", round(float(s.std()), 5))
+    cleanup()
+
+
+if __name__ == "__main__":
+    main()

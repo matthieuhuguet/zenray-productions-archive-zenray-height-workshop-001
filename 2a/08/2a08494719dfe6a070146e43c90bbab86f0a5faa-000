@@ -1,0 +1,49 @@
+# 2 November 2026 : sweep of the seam layer width on the AlienSkinRef height, to remove the stripe at the wrap joint.
+# Each width rebuilds only the seam layer in the live Houdini graph (MakeTileable), then measures the joint and the edge rows.
+# FR : balayage de la largeur de la couche de raccord, pour supprimer la bande au joint de répétition sans refaire la height.
+# Usage : /Users/zenray/.venvs/shorts/bin/python -I SeamWidthSweep.py 16 48 128
+import json
+import os
+import shutil
+import sys
+
+sys.path.insert(0, "/Users/zenray/.claude/skills/zenray-houdini/scripts/height")
+import numpy as np
+import MakeTileable as MT
+import SeamCheck
+from RefLib import load_gray
+
+OUT = "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/versions/final/AlienSkinRef_H2"
+NET = "/obj/ZRH_AlienSkinRef"
+REF = "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/AlienSkinRef/refs/AlienSkinRef_height_2048.png"
+FINAL = os.path.join(OUT, "FINAL_height.png")
+
+
+def edge_jumps(img):
+    """Mean jump per row and column, at the four edge rows and columns against the median interior jump."""
+    # FR : saut moyen par ligne et par colonne, aux bords, comparé au saut médian à l'intérieur.
+    rows = np.abs(np.diff(img, axis=0)).mean(1)
+    cols = np.abs(np.diff(img, axis=1)).mean(0)
+    return {"row_edge_max": float(max(rows[:4].max(), rows[-4:].max())), "row_median": float(np.median(rows)),
+            "col_edge_max": float(max(cols[:4].max(), cols[-4:].max())), "col_median": float(np.median(cols))}
+
+
+def main():
+    widths = [float(x) for x in sys.argv[1:]]
+    backup = os.path.join(OUT, "FINAL_height_width4_backup.png")
+    if not os.path.exists(backup):
+        shutil.copy(FINAL, backup)
+    results = {}
+    for w in widths:
+        rep = MT.make_tileable(OUT, NET, REF, None, width_px=w)
+        img = load_gray(FINAL)
+        shutil.copy(FINAL, os.path.join(OUT, f"FINAL_height_width{int(w)}.png"))
+        results[str(int(w))] = {"applied": rep["applied"], "layer": rep["layer"], "seam": SeamCheck.seam(img),
+                                "edge": edge_jumps(img), "pearson_after": rep["after"]["pearson"] if rep.get("after") else None}
+        print(json.dumps({str(int(w)): results[str(int(w))]}), flush=True)
+    os.makedirs(os.path.join(OUT, "checks"), exist_ok=True)
+    json.dump(results, open(os.path.join(OUT, "checks", "width_sweep.json"), "w"), indent=1, default=float)
+
+
+if __name__ == "__main__":
+    main()

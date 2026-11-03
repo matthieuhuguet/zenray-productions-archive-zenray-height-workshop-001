@@ -1,0 +1,51 @@
+# 2 November 2026 : the seamless layer built in the real Copernicus graph on other textures, on copies so that delivered results stay intact.
+# FR : la couche seamless construite dans le vrai graphe sur d'autres textures, sur des copies pour laisser intacts les résultats livrés.
+import json
+import os
+import shutil
+import subprocess
+import sys
+
+ROOT = "/Users/zenray/.claude/tmp/tmp-zenray-height"
+OUT = os.path.join(ROOT, "seamless-allcases", "graph")
+CASES = {
+    "Concrete": ("projects/ConcreteStains/versions/final/ConcreteStains_H2", "projects/ConcreteStains/refs/ConcreteStains_height_2048.png"),
+    "DemoTiles": ("projects/DemoTilesFull/versions/final/DemoTilesFull_H2", "projects/DemoTilesFull/refs/DemoTilesFull_height_2048.png"),
+    "Javier": ("projects/HeightJavier/versions/final/HeightJavier_H2", "projects/HeightJavier/refs/HeightJavier_height_2048.png"),
+}
+os.makedirs(OUT, exist_ok=True)
+os.environ["ZRH_WORK"] = OUT
+sys.path.insert(0, "/Users/zenray/.claude/skills/zenray-houdini/scripts/height")
+import numpy as np
+import MakeTileable as MT
+from RefLib import load_gray
+
+results = {}
+for name, (src, ref) in CASES.items():
+    dst = os.path.join(OUT, name)
+    if os.path.exists(dst):
+        shutil.rmtree(dst)
+    os.makedirs(dst)
+    for f in ("log.json", "recipe_current.json", "FINAL_height.png", "FINAL_height_untiled.png"):
+        shutil.copy(os.path.join(ROOT, src, f), os.path.join(dst, f))
+    net = f"/obj/ZRH_SeamlessProof_{name}"
+    # A first build from nothing can outlast the bridge timeout; the graph keeps what was built, so a retry continues from there.
+    # FR : une première construction complète peut dépasser le délai de la passerelle ; le graphe garde ce qui est construit, la reprise continue.
+    rep = None
+    for attempt in range(6):
+        try:
+            rep = MT.make_tileable(dst, net, os.path.join(ROOT, ref))
+            break
+        except SystemExit as e:
+            print(name, "attempt", attempt, str(e)[:160], flush=True)
+            subprocess.run(["/opt/homebrew/bin/python3", "/tmp/zr_wait_bridge.py"], capture_output=True, text=True)
+    if rep is None:
+        results[name] = {"error": "bridge"}
+        continue
+    t = load_gray(os.path.join(dst, "FINAL_height.png")).astype(np.float64)
+    r = load_gray(os.path.join(ROOT, ref)).astype(np.float64)
+    results[name] = {"applied": rep["applied"], "verdict": (rep.get("verdict") or {}).get("ok"), "fails": (rep.get("verdict") or {}).get("fails"),
+                     "vs_untiled": round(rep.get("pearson_vs_untiled", 1.0), 4), "predicted_vs_graph": round(rep.get("predicted_vs_graph", 1.0), 5),
+                     "untiled_vs_ref": round(rep["before"]["pearson"], 4), "graph_vs_ref": round(float(np.corrcoef(t.ravel(), r.ravel())[0, 1]), 4), "errors": (rep.get("build") or {}).get("errors")}
+    print(name, json.dumps(results[name]), flush=True)
+json.dump(results, open(os.path.join(OUT, "results.json"), "w"), indent=1)
