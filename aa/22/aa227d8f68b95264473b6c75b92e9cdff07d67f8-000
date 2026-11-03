@@ -1,0 +1,88 @@
+{
+ "before": {
+  "seam": {
+   "wrap_x": 0.1160511948551175,
+   "inner_x_median": 0.020371941132225402,
+   "ratio_x": 5.696619389476914,
+   "wrap_y": 0.10917293672537198,
+   "inner_y_median": 0.027808494426381003,
+   "ratio_y": 3.92588448160657
+  },
+  "pearson": 0.9967672925657255,
+  "verify": {
+   "ok": false,
+   "fails": [
+    "horizontal joint: jump 1.49",
+    "vertical joint: jump 3.89",
+    "vertical joint: step 1.73",
+    "vertical joint: detail high 1.32"
+   ],
+   "y": {
+    "jump_ratio": 1.4884731560805493,
+    "step_ratio": 0.5581711238579625,
+    "detail_high_ratio": 0.8953355419170053,
+    "detail_low_ratio": 2.0939071420686637
+   },
+   "x": {
+    "jump_ratio": 3.8914272640231964,
+    "step_ratio": 1.7297960740480305,
+    "detail_high_ratio": 1.324676095654775,
+    "detail_low_ratio": 1.0030630372587173
+   }
+  }
+ },
+ "applied": true,
+ "build": {
+  "nodes": 254,
+  "kept_layers": 31,
+  "new_layers": 0,
+  "t_nodes": 0.0,
+  "t_cook_export": 3.46,
+  "exported": true,
+  "errors": []
+ },
+ "verdict": {
+  "ok": true,
+  "fails": [],
+  "y": {
+   "jump_ratio": 0.8101830367321274,
+   "step_ratio": 0.4015614507631247,
+   "detail_high_ratio": 0.7788376234765381,
+   "detail_low_ratio": 1.6591050679759323
+  },
+  "x": {
+   "jump_ratio": 0.8910782711615001,
+   "step_ratio": 0.9586617375713373,
+   "detail_high_ratio": 0.8515003409267066,
+   "detail_low_ratio": 0.8679065373042638
+  }
+ },
+ "after": {
+  "seam": {
+   "wrap_x": 8.397019428230124e-06,
+   "inner_x_median": 0.020244870200258447,
+   "ratio_x": 0.0004147726977337166,
+   "wrap_y": 6.422480964829447e-06,
+   "inner_y_median": 0.027428605577028975,
+   "ratio_y": 0.00023415266032365034
+  },
+  "pearson": 0.973912744874106
+ },
+ "pearson_vs_untiled": 0.9772986037379982,
+ "predicted_vs_graph": 0.9999347264773304,
+ "plan": {
+  "x": {
+   "overlap_mean": 14.8,
+   "overlap_max": 41.8,
+   "slide_abs": 3.0
+  },
+  "y": {
+   "overlap_mean": 13.1,
+   "overlap_max": 42.6,
+   "slide_abs": 0.9
+  },
+  "work_x": true,
+  "work_y": true
+ },
+ "grid": "/Users/zenray/.claude/tmp/tmp-zenray-height/seamless-allcases/graph/Javier/checks/grid_2x2_preview.png"
+}
