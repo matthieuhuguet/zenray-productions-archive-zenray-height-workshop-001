@@ -1,0 +1,84 @@
+{
+ "before": {
+  "seam": {
+   "wrap_x": 0.04102077319112141,
+   "inner_x_median": 0.024668645122801536,
+   "ratio_x": 1.6628709435365543,
+   "wrap_y": 0.033173672447446734,
+   "inner_y_median": 0.03364139691620949,
+   "ratio_y": 0.9860967584096548
+  },
+  "pearson": 0.9905205506285517,
+  "verify": {
+   "ok": false,
+   "fails": [
+    "horizontal joint: detail low 0.74",
+    "vertical joint: jump 1.38"
+   ],
+   "y": {
+    "jump_ratio": 0.7926778582332921,
+    "step_ratio": 0.801386801428271,
+    "detail_high_ratio": 0.817056339642337,
+    "detail_low_ratio": 0.7383993140367611
+   },
+   "x": {
+    "jump_ratio": 1.375194574131434,
+    "step_ratio": 0.8864331618495472,
+    "detail_high_ratio": 0.9571100814543347,
+    "detail_low_ratio": 1.0032152837207622
+   }
+  }
+ },
+ "applied": true,
+ "build": {
+  "nodes": 304,
+  "kept_layers": 33,
+  "new_layers": 1,
+  "t_nodes": 0.74,
+  "t_cook_export": 4.77,
+  "exported": true,
+  "errors": []
+ },
+ "verdict": {
+  "ok": false,
+  "fails": [
+   "horizontal joint: detail low 0.63"
+  ],
+  "y": {
+   "jump_ratio": 0.7942132862749816,
+   "step_ratio": 0.8012551967151984,
+   "detail_high_ratio": 0.8184992784599314,
+   "detail_low_ratio": 0.6268655966863594
+  },
+  "x": {
+   "jump_ratio": 0.8958264114547619,
+   "step_ratio": 0.9041027038363009,
+   "detail_high_ratio": 0.9324956908430398,
+   "detail_low_ratio": 0.8873404603615083
+  }
+ },
+ "after": {
+  "seam": {
+   "wrap_x": 0.01739698351593688,
+   "inner_x_median": 0.02459456284850603,
+   "ratio_x": 0.7073507922501514,
+   "wrap_y": 0.016903472162084654,
+   "inner_y_median": 0.033646507956291316,
+   "ratio_y": 0.5023841458983858
+  },
+  "pearson": 0.9733920373178244
+ },
+ "pearson_vs_untiled": 0.9830546232524701,
+ "predicted_vs_graph": 0.9999183871819843,
+ "plan": {
+  "x": {
+   "overlap_mean": 10.9,
+   "overlap_max": 17.9,
+   "slide_abs": 0.7
+  },
+  "y": null,
+  "work_x": true,
+  "work_y": false
+ },
+ "grid": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials05/versions/final/ZorahMaterials05_H3/checks/grid_2x2_preview.png"
+}
