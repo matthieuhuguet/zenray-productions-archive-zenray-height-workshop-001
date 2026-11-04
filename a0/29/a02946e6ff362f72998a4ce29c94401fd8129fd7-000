@@ -1,0 +1,179 @@
+{
+ "name": "ZorahMaterials02_H3",
+ "net": "/obj/ZRH_ZorahMaterials02",
+ "reference": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials02/refs/ZorahMaterials02_height_2048.png",
+ "layers": [
+  {
+   "local": {
+    "ok": true,
+    "pixels": 278968,
+    "before": 0.0311,
+    "after": 0.0093,
+    "ls_gain": 1.391
+   },
+   "layer": "pix_s05_k16_m3_p3",
+   "status": "accepted",
+   "score": 0.9654,
+   "gain": 0.0052,
+   "summary": {
+    "pearson": 0.99,
+    "mae": 0.0121,
+    "low32": 1.0,
+    "b1-2": 0.9924,
+    "b4-8": 0.9994,
+    "b16-32": 0.9998,
+    "q25": 0.8679,
+    "q75": 0.7862,
+    "lines": 0.737,
+    "struct": 0.931,
+    "detail": 0.932
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 226145 regions",
+   "seconds": 18.4,
+   "nodes": 163,
+   "timing": {
+    "kept_layers": 28,
+    "new_layers": 1,
+    "t_nodes": 3.24,
+    "t_cook_export": 0.92
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials02/versions/final/ZorahMaterials02_H3/L01_pix_s05_k16_m3_p3.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.146,
+    "D_joint_profile_corr": 0.9872,
+    "D_joint_profile_mae_pct": 0.109,
+    "G_band_energy_ratio": {
+     "1-2": 0.991,
+     "2-4": 0.999,
+     "4-8": 0.998,
+     "8-16": 1.01,
+     "16-32": 1.016
+    },
+    "F_residual_w1_pct": 0.574,
+    "F_residual_std_ratio": 0.968,
+    "J_rmse": 0.0162,
+    "J_floor_if_stochastic": 0.0969
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 193381,
+    "before": 0.0263,
+    "after": 0.0075,
+    "ls_gain": 1.357
+   },
+   "layer": "pix_s05_k16_m2",
+   "status": "accepted",
+   "score": 0.9686,
+   "gain": 0.0033,
+   "summary": {
+    "pearson": 0.9912,
+    "mae": 0.0111,
+    "low32": 1.0,
+    "b1-2": 0.9938,
+    "b4-8": 0.9995,
+    "b16-32": 0.9998,
+    "q25": 0.878,
+    "q75": 0.8018,
+    "lines": 0.753,
+    "struct": 0.936,
+    "detail": 0.936
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 691212 regions",
+   "seconds": 35.7,
+   "nodes": 168,
+   "timing": {
+    "kept_layers": 29,
+    "new_layers": 1,
+    "t_nodes": 8.74,
+    "t_cook_export": 1.37
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials02/versions/final/ZorahMaterials02_H3/L02_pix_s05_k16_m2.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.126,
+    "D_joint_profile_corr": 0.9894,
+    "D_joint_profile_mae_pct": 0.098,
+    "G_band_energy_ratio": {
+     "1-2": 0.99,
+     "2-4": 0.999,
+     "4-8": 0.998,
+     "8-16": 1.009,
+     "16-32": 1.013
+    },
+    "F_residual_w1_pct": 0.517,
+    "F_residual_std_ratio": 0.97,
+    "J_rmse": 0.0152,
+    "J_floor_if_stochastic": 0.0969
+   }
+  },
+  {
+   "local": {
+    "ok": false,
+    "pixels": 3932410,
+    "before": 0.0111,
+    "after": 0.1493,
+    "ls_gain": 0.004
+   },
+   "layer": "eq2",
+   "status": "rejected",
+   "score": 0.1061,
+   "gain": -0.8625,
+   "summary": {
+    "pearson": -0.0878,
+    "mae": 0.1407,
+    "low32": 0.999,
+    "b1-2": -0.6703,
+    "b4-8": 0.9897,
+    "b16-32": 0.9993,
+    "q25": 0.1629,
+    "q75": 0.0876,
+    "lines": 0.012,
+    "struct": 0.65,
+    "detail": 0.233
+   },
+   "note": "frequency equaliser, least squares at full resolution",
+   "seconds": 7.8,
+   "nodes": 188,
+   "timing": {
+    "kept_layers": 30,
+    "new_layers": 1,
+    "t_nodes": 0.01,
+    "t_cook_export": 1.55
+   }
+  },
+  {
+   "local": null,
+   "layer": "hist",
+   "status": "rejected",
+   "score": 0.9687,
+   "gain": 0.0001,
+   "summary": {
+    "pearson": 0.9913,
+    "mae": 0.0111,
+    "low32": 1.0,
+    "b1-2": 0.9938,
+    "b4-8": 0.9995,
+    "b16-32": 0.9998,
+    "q25": 0.8779,
+    "q75": 0.8023,
+    "lines": 0.753,
+    "struct": 0.936,
+    "detail": 0.936
+   },
+   "note": "histogram matched to reference",
+   "seconds": 7.7,
+   "nodes": 169,
+   "timing": {
+    "kept_layers": 30,
+    "new_layers": 1,
+    "t_nodes": 0.01,
+    "t_cook_export": 0.98
+   }
+  }
+ ],
+ "cells": [
+  1,
+  1
+ ]
+}
