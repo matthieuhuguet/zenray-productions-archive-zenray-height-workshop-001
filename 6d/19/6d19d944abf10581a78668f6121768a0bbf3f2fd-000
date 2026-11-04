@@ -1,0 +1,136 @@
+{
+ "stem": "ZorahStone04",
+ "level": "/Game/ZenRayShards/Levels/L_ZorahStone04",
+ "tex_dir": "/Game/ZenRayShards/Materials/ZorahStone04",
+ "mesh_dir": "/Game/ZenRayShards/Meshes/ZorahStone04",
+ "maps": {
+  "d2": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials04_BC/maps_d2"
+ },
+ "map_stem": "T_ZorahStone04_d2",
+ "meshes": {
+  "SM_ZorahStone04Cylinder": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials04_BC/unreal/SM_ZorahStone04_Cylinder.fbx",
+  "SM_ZorahStone04Plane": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials04_BC/unreal/SM_ZorahStone04_Plane.fbx"
+ },
+ "material": {
+  "base_gain": 1.0,
+  "roughness_scale": 1.0,
+  "normal_strength": 1.0,
+  "normal_y_sign": -1.0,
+  "specular": 0.5
+ },
+ "still": {
+  "note": "4 November 2026 : presentation still of Zorah 04, positions in Houdini metres (cylinder and camera fitted on the board silhouette).",
+  "instance": "MI_ZorahStone04D2",
+  "cylinder_asset": "SM_ZorahStone04Cylinder",
+  "plane_asset": "SM_ZorahStone04Plane",
+  "cylinder_loc_m": [
+   -1.338,
+   0.026,
+   0.0
+  ],
+  "plane_loc_m": [
+   0.903,
+   0.05,
+   0.0
+  ],
+  "camera": {
+   "pos_m": [
+    -0.113,
+    -0.042,
+    10.265
+   ],
+   "focal_mm": 46.1,
+   "sensor_w_mm": 20.955,
+   "sensor_h_mm": 11.787
+  },
+  "spots": [
+   {
+    "label": "StillSpotCylinder",
+    "pos_m": [
+     -1.1,
+     2.6,
+     2.4
+    ],
+    "aim_m": [
+     -0.8,
+     0.2,
+     0.7
+    ],
+    "intensity_cd": 1500.0,
+    "inner_deg": 6.0,
+    "outer_deg": 30.0,
+    "attenuation_cm": 1500.0,
+    "source_radius_cm": 6.0,
+    "colour": [
+     255,
+     244,
+     236
+    ]
+   },
+   {
+    "label": "StillSpotPlane",
+    "pos_m": [
+     1.25,
+     2.5,
+     1.3
+    ],
+    "aim_m": [
+     1.25,
+     0.3,
+     0.0
+    ],
+    "intensity_cd": 1380.0,
+    "inner_deg": 8.0,
+    "outer_deg": 28.0,
+    "attenuation_cm": 1500.0,
+    "source_radius_cm": 6.0,
+    "colour": [
+     255,
+     244,
+     236
+    ]
+   }
+  ],
+  "backdrop": {
+   "pos_m": [
+    0.0,
+    0.0,
+    -4.0
+   ],
+   "size_m": 40.0,
+   "colour_linear": [
+    0.62,
+    0.62,
+    0.64
+   ]
+  },
+  "exposure_ev": -4.85,
+  "res": [
+   1920,
+   1080
+  ],
+  "delay_s": 3.0,
+  "out": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials04_BC/unreal/render_v9/still.png",
+  "sequence": "/Game/ZenRayShards/Cinematics/LS_ZorahStone04Still",
+  "render": {
+   "frame": 10,
+   "spatial": 1,
+   "temporal": 8,
+   "warmup": 16,
+   "cvars": {
+    "r.Nanite.MaxPixelsPerEdge": 0.5
+   }
+  },
+  "plane_scale": [
+   1.158,
+   1.158,
+   1.0
+  ],
+  "cylinder_scale": [
+   0.982,
+   1.0,
+   0.982
+  ]
+ },
+ "force_meshes": false
+}

@@ -1,0 +1,5 @@
+ue_ad_still.py 2 s OK
+ue_ad_stillrender.py 2 s OK
+ours bg 47
+   cylinder {'rows': [110, 100, 85, 70, 41], 'cols': [36, 89, 115, 108, 57], 'r_g': 1.242, 'b_g': 0.779}
+   plane {'rows': [130, 131, 117, 104, 88], 'cols': [87, 112, 129, 127, 116], 'r_g': 1.22, 'b_g': 0.787}

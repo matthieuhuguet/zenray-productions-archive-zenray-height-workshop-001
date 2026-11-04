@@ -1,0 +1,15 @@
+#!/bin/zsh
+# 4 November 2026, 01:29 : three UV cuts of the cylinder, checker, front and top views, Karma CPU. FR : trois découpes UV, vue de face et de dessus.
+W=/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials04_BC
+stable() { local f=$1; [[ -f $f ]] || return 1; local a=$(stat -f %z $f); sleep 6; [[ $(stat -f %z $f) == $a && $a -gt 0 ]]; }
+for mode in 0 1 2; do
+  for view in front top; do
+    if [[ $view == front ]]; then CAM="cam_pos=(-0.05, 0.0, 9.0), cam_rot=(0.0, 0.0, 0.0), res=(1600, 900)"; else CAM="cam_pos=(-1.35, 3.4, 3.6), cam_rot=(-32.0, 0.0, 0.0), res=(1000, 800)"; fi
+    f=$W/render/uv_mode${mode}_${view}.png; rm -f $f
+    python3 /Users/zenray/.claude/Memory1/Houdini/MCP/zrhoudini.py hom "g = {}
+exec(open('/Users/zenray/.claude/skills/zenray-houdini/scripts/height/LookDevMaps.py').read(), g)
+result = g['build']('$W/maps_checker', 'T_UvChecker', '$f', shape='cylinder', cyl_uv=$mode, disp_scale=0.0, cam_focal=35.0, samples=12, $CAM)" live | tail -1
+    until stable $f; do sleep 5; done
+    echo "mode $mode $view $(date '+%H:%M:%S')"
+  done
+done
