@@ -1,0 +1,86 @@
+{
+ "before": {
+  "seam": {
+   "wrap_x": 0.03828957207588246,
+   "inner_x_median": 0.016866390345967375,
+   "ratio_x": 2.2369543968830303,
+   "wrap_y": 0.031911144717014395,
+   "inner_y_median": 0.020645308039092924,
+   "ratio_y": 0.9241546257564484,
+   "lattice_x": 0.017116831764310933,
+   "lattice_y": 0.034530092505779715
+  },
+  "pearson": 0.9889583509056876,
+  "verify": {
+   "ok": false,
+   "fails": [
+    "vertical joint: jump 1.85",
+    "vertical joint: step 1.19"
+   ],
+   "y": {
+    "jump_ratio": 0.5245823320440197,
+    "step_ratio": 0.23652400402250545,
+    "detail_high_ratio": 0.5620251819590457,
+    "detail_low_ratio": 1.0651397126953661
+   },
+   "x": {
+    "jump_ratio": 1.8517095307811167,
+    "step_ratio": 1.1856417151241614,
+    "detail_high_ratio": 1.062051406403102,
+    "detail_low_ratio": 1.1302110013371178
+   }
+  }
+ },
+ "applied": true,
+ "build": {
+  "nodes": 283,
+  "kept_layers": 30,
+  "new_layers": 1,
+  "t_nodes": 0.72,
+  "t_cook_export": 4.69,
+  "exported": true,
+  "errors": []
+ },
+ "verdict": {
+  "ok": true,
+  "fails": [],
+  "y": {
+   "jump_ratio": 0.40277554829868784,
+   "step_ratio": 0.18942750781421916,
+   "detail_high_ratio": 0.5324211099483938,
+   "detail_low_ratio": 0.9005126064323955
+  },
+  "x": {
+   "jump_ratio": 0.9125836152975936,
+   "step_ratio": 0.9495858404335532,
+   "detail_high_ratio": 0.9465228437132003,
+   "detail_low_ratio": 0.9343611826091068
+  }
+ },
+ "after": {
+  "seam": {
+   "wrap_x": 0.01308829955814872,
+   "inner_x_median": 0.016703726301784627,
+   "ratio_x": 0.770855809384043,
+   "wrap_y": 0.017057366014341824,
+   "inner_y_median": 0.020650784172175918,
+   "ratio_y": 0.49370068891263463,
+   "lattice_x": 0.01697892056960303,
+   "lattice_y": 0.034550014608872255
+  },
+  "pearson": 0.9643325234641394
+ },
+ "pearson_vs_untiled": 0.9751699490529085,
+ "predicted_vs_graph": 0.9998731138707443,
+ "plan": {
+  "x": {
+   "overlap_mean": 14.6,
+   "overlap_max": 34.6,
+   "slide_abs": 1.4
+  },
+  "y": null,
+  "work_x": true,
+  "work_y": false
+ },
+ "grid": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials06V2/versions/final/ZorahMaterials06V2_H2/checks/grid_2x2_preview.png"
+}

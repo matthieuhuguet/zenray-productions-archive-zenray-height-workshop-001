@@ -1,0 +1,179 @@
+{
+ "name": "ZorahMaterials06V2_H3",
+ "net": "/obj/ZRH_ZorahMaterials06V2",
+ "reference": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials06V2/refs/ZorahMaterials06V2_height_2048.png",
+ "layers": [
+  {
+   "local": {
+    "ok": true,
+    "pixels": 191570,
+    "before": 0.0202,
+    "after": 0.0064,
+    "ls_gain": 1.41
+   },
+   "layer": "pix_s05_k16_m3_p3",
+   "status": "accepted",
+   "score": 0.9699,
+   "gain": 0.0044,
+   "summary": {
+    "pearson": 0.9912,
+    "mae": 0.0066,
+    "low32": 1.0,
+    "b1-2": 0.9916,
+    "b4-8": 0.9995,
+    "b16-32": 0.9998,
+    "q25": 0.8586,
+    "q75": 0.8109,
+    "lines": 0.764,
+    "struct": 0.934,
+    "detail": 0.938
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 224402 regions",
+   "seconds": 28.0,
+   "nodes": 173,
+   "timing": {
+    "kept_layers": 30,
+    "new_layers": 1,
+    "t_nodes": 10.54,
+    "t_cook_export": 4.11
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials06V2/versions/final/ZorahMaterials06V2_H3/L01_pix_s05_k16_m3_p3.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.137,
+    "D_joint_profile_corr": 0.9997,
+    "D_joint_profile_mae_pct": 0.063,
+    "G_band_energy_ratio": {
+     "1-2": 0.992,
+     "2-4": 1.003,
+     "4-8": 0.997,
+     "8-16": 1.004,
+     "16-32": 1.006
+    },
+    "F_residual_w1_pct": 0.494,
+    "F_residual_std_ratio": 0.967,
+    "J_rmse": 0.0087,
+    "J_floor_if_stochastic": 0.0503
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 128678,
+    "before": 0.0172,
+    "after": 0.0051,
+    "ls_gain": 1.376
+   },
+   "layer": "pix_s05_k16_m2",
+   "status": "accepted",
+   "score": 0.9727,
+   "gain": 0.0028,
+   "summary": {
+    "pearson": 0.9924,
+    "mae": 0.006,
+    "low32": 1.0,
+    "b1-2": 0.9932,
+    "b4-8": 0.9996,
+    "b16-32": 0.9998,
+    "q25": 0.8693,
+    "q75": 0.8251,
+    "lines": 0.779,
+    "struct": 0.939,
+    "detail": 0.943
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 692463 regions",
+   "seconds": 54.6,
+   "nodes": 178,
+   "timing": {
+    "kept_layers": 31,
+    "new_layers": 1,
+    "t_nodes": 26.64,
+    "t_cook_export": 4.29
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials06V2/versions/final/ZorahMaterials06V2_H3/L02_pix_s05_k16_m2.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.115,
+    "D_joint_profile_corr": 0.9998,
+    "D_joint_profile_mae_pct": 0.057,
+    "G_band_energy_ratio": {
+     "1-2": 0.991,
+     "2-4": 1.003,
+     "4-8": 0.998,
+     "8-16": 1.003,
+     "16-32": 1.005
+    },
+    "F_residual_w1_pct": 0.445,
+    "F_residual_std_ratio": 0.969,
+    "J_rmse": 0.0081,
+    "J_floor_if_stochastic": 0.0503
+   }
+  },
+  {
+   "local": {
+    "ok": false,
+    "pixels": 3705566,
+    "before": 0.006,
+    "after": 0.0851,
+    "ls_gain": 0.005
+   },
+   "layer": "eq2",
+   "status": "rejected",
+   "score": 0.1932,
+   "gain": -0.7795,
+   "summary": {
+    "pearson": 0.0265,
+    "mae": 0.0761,
+    "low32": 1.0,
+    "b1-2": -0.6715,
+    "b4-8": 0.9911,
+    "b16-32": 0.9998,
+    "q25": 0.1741,
+    "q75": 0.1217,
+    "lines": 0.02,
+    "struct": 0.659,
+    "detail": 0.234
+   },
+   "note": "frequency equaliser, least squares at full resolution",
+   "seconds": 10.3,
+   "nodes": 198,
+   "timing": {
+    "kept_layers": 32,
+    "new_layers": 1,
+    "t_nodes": 0.03,
+    "t_cook_export": 4.61
+   }
+  },
+  {
+   "local": null,
+   "layer": "hist",
+   "status": "rejected",
+   "score": 0.9726,
+   "gain": -0.0001,
+   "summary": {
+    "pearson": 0.9922,
+    "mae": 0.0062,
+    "low32": 0.999,
+    "b1-2": 0.9931,
+    "b4-8": 0.9994,
+    "b16-32": 0.9996,
+    "q25": 0.8694,
+    "q75": 0.8257,
+    "lines": 0.774,
+    "struct": 0.939,
+    "detail": 0.941
+   },
+   "note": "histogram matched to reference",
+   "seconds": 10.5,
+   "nodes": 179,
+   "timing": {
+    "kept_layers": 32,
+    "new_layers": 1,
+    "t_nodes": 0.02,
+    "t_cook_export": 5.28
+   }
+  }
+ ],
+ "cells": [
+  89,
+  8
+ ]
+}
