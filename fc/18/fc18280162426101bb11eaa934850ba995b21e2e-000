@@ -1,0 +1,42 @@
+{
+ "date": "04 November 2026 01:12",
+ "graph": "/obj/ZRH_ZorahMaterials04",
+ "stem": "T_ZorahStone04_c3",
+ "params": {
+  "prefix": "T6_",
+  "height": "OUT_height",
+  "basecolor": "HBS_OUT",
+  "px_per_m": 1024.0,
+  "relief_depth_m": 0.02,
+  "normal_kernel": 1,
+  "normal_read_outside": 1,
+  "ao_radius_px": 16.0,
+  "ao_samples": 24,
+  "rough_base": 0.72,
+  "rough_ao": 0.2,
+  "rough_lum": 0.3,
+  "rough_lum_ref": 0.6,
+  "metallic": 0.0,
+  "rough_mask": null,
+  "rough_mask_gain": 0.0,
+  "res": 2048,
+  "box_color": [
+   0.35,
+   0.5,
+   0.35
+  ],
+  "dx": 14.0,
+  "dy": 1.3
+ },
+ "normal_scale": 0.02,
+ "ao_heightscale": 20.48,
+ "files": {
+  "BaseColor": "T_ZorahStone04_c3_BaseColor.png",
+  "Normal": "T_ZorahStone04_c3_Normal.png",
+  "Height": "T_ZorahStone04_c3_Height.png",
+  "Roughness": "T_ZorahStone04_c3_Roughness.png",
+  "AO": "T_ZorahStone04_c3_AO.png",
+  "Metallic": "T_ZorahStone04_c3_Metallic.png",
+  "ORM": "T_ZorahStone04_c3_ORM.png"
+ }
+}
