@@ -1,0 +1,9 @@
+STEP 1/5 features | 5 relief features of /obj/ZRH_ZorahMaterials04/OUT_height, 2.8 s
+STEP 2/5 reference | AI base color read through the existing remap, 99.9 % island pixels
+STEP 3/5 gradient maps | islands Delta E 6.6607, luminance r 0.6181, SSIM 0.5604
+STEP 4/5 regions K 8 at 256 | accepted, islands Delta E 5.2751, luminance r 0.752, 2069 polygons
+STEP 4/5 regions K 12 at 512 | accepted, islands Delta E 4.9392, luminance r 0.769, 20708 polygons
+STEP 4/5 regions K 16 at 1024 | accepted, islands Delta E 4.4747, luminance r 0.8068, 102666 polygons
+STEP 4/5 regions K 24 at 2048 | accepted, islands Delta E 4.01, luminance r 0.8498, 431789 polygons
+STEP 4/5 regions K 32 at 2048 | accepted, islands Delta E 3.6886, luminance r 0.8777, 455741 polygons
+{"islands": {"deltaE76_mean": 3.6886, "deltaE76_p90": 7.2221, "deltaE76_blur4_mean": 0.3966, "lum_pearson": 0.8777, "lum_ssim": 0.7314}, "whole_sheet": {"deltaE76_mean": 3.6886, "deltaE76_p90": 7.2221, "deltaE76_blur4_mean": 0.3966, "lum_pearson": 0.8777, "lum_ssim": 0.7314}, "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials04_BC/d2/hbc/FINAL_basecolor.png", "seconds": 268.6}

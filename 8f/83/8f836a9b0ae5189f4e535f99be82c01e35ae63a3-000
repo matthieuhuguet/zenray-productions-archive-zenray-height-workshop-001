@@ -1,0 +1,16 @@
+overall shift -2.0 0.0
+as given 0.4338 after the overall shift 0.5856
+256 0 explained 0.5958 field max 2.3 kept
+256 1 explained 0.5988 field max 2.4 kept
+128 0 explained 0.6079 field max 2.5 kept
+128 1 explained 0.6087 field max 2.5 kept
+64 0 explained 0.6129 field max 2.6 kept
+64 1 explained 0.6138 field max 2.6 kept
+48 0 explained 0.6154 field max 2.7 kept
+48 1 explained 0.616 field max 2.8 kept
+32 0 explained 0.6181 field max 3.0 kept
+32 1 explained 0.6188 field max 3.1 kept
+24 0 explained 0.6208 field max 3.5 kept
+24 1 explained 0.6212 field max 3.8 kept
+valid share 0.9988
+final explained 0.6212 None
