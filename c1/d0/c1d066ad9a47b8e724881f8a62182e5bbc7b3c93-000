@@ -1,0 +1,12 @@
+#!/bin/zsh
+# 4 November 2026, 01:19 : d2 then c3 on the rounded cylinder (LookDevMaps shape=cylinder), Karma CPU. FR : d2 puis c3 sur le cylindre.
+W=/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials04_BC
+stable() { local f=$1; [[ -f $f ]] || return 1; local a=$(stat -f %z $f); sleep 8; [[ $(stat -f %z $f) == $a && $a -gt 0 ]]; }
+for v in d2 c3; do
+  rm -f $W/render/cyl_$v.png
+  python3 /Users/zenray/.claude/Memory1/Houdini/MCP/zrhoudini.py hom "g = {}
+exec(open('/Users/zenray/.claude/skills/zenray-houdini/scripts/height/LookDevMaps.py').read(), g)
+result = g['build']('$W/maps_$v', 'T_ZorahStone04_$v', '$W/render/cyl_$v.png', shape='cylinder', res=(1600, 900), cam_pos=(-0.05, 0.0, 9.0), cam_focal=35.0, disp_scale=0.03)" live | tail -2
+  until stable $W/render/cyl_$v.png; do sleep 10; done
+  echo "$v done $(date '+%H:%M:%S')"
+done

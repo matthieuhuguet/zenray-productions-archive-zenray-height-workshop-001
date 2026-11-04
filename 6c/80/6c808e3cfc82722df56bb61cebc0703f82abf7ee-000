@@ -1,0 +1,17 @@
+#!/bin/zsh
+# 4 November 2026, 01:11 : waits for the d2 render and the c3 base colour, then builds the c3 maps and renders them. FR : enchaîne c3 après d2.
+W=/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials04_BC
+stable() { local f=$1; [[ -f $f ]] || return 1; local a=$(stat -f %z $f); sleep 8; [[ $(stat -f %z $f) == $a && $a -gt 0 ]]; }
+until stable $W/render/lookdev_d2.png; do sleep 10; done
+echo "d2 render $(date '+%H:%M:%S')"
+until grep -q '^c3 ' $W/hbc_done.txt 2>/dev/null; do sleep 10; done
+echo "c3 base colour $(cat $W/hbc_done.txt | tail -1) $(date '+%H:%M:%S')"
+python3 /Users/zenray/.claude/Memory1/Houdini/MCP/zrhoudini.py hom "g = {}
+exec(open('/Users/zenray/.claude/skills/zenray-houdini/scripts/height/HeightTo5MapsCop.py').read(), g)
+r = g['build']('/obj/ZRH_ZorahMaterials04', '$W/maps_c3', 'T_ZorahStone04_c3', height='OUT_height', basecolor='HBS_OUT', prefix='T6_', px_per_m=1024.0, relief_depth_m=0.02, normal_read_outside=1)
+result = str(r)[:200]" live | tail -3
+python3 /Users/zenray/.claude/Memory1/Houdini/MCP/zrhoudini.py hom "g = {}
+exec(open('/Users/zenray/.claude/skills/zenray-houdini/scripts/height/LookDevMaps.py').read(), g)
+result = g['build']('$W/maps_c3', 'T_ZorahStone04_c3', '$W/render/lookdev_c3.png', disp_scale=0.03)" live | tail -3
+until stable $W/render/lookdev_c3.png; do sleep 10; done
+echo "c3 render $(date '+%H:%M:%S')"
