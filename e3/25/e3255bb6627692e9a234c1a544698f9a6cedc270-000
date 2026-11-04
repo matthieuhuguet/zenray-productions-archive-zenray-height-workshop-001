@@ -1,0 +1,14 @@
+{
+ "name": "ZorahMaterials06V2",
+ "height": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials06V2/versions/final/ZorahMaterials06V2_H3/FINAL_height.png",
+ "pearson_full": 0.9688,
+ "ssim_full": 0.9495,
+ "mae": 0.0082,
+ "seam_xy": [
+  0.78,
+  0.48
+ ],
+ "seam_layer": true,
+ "seamless_verdict": true,
+ "grid": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials06V2/versions/final/ZorahMaterials06V2_H3/checks/grid_2x2_preview.png"
+}
