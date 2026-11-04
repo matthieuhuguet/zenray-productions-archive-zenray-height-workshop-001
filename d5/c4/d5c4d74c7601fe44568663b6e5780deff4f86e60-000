@@ -1,0 +1,134 @@
+{
+ "date": "04 November 2026 01:08",
+ "graph": "/obj/ZRH_ZorahMaterials04",
+ "basecolor": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials04_BC/c3/align/colour_on_height.png",
+ "params": {
+  "bands_px": [
+   2.0,
+   6.0,
+   16.0,
+   48.0
+  ],
+  "detail_range": 0.3,
+  "bins": 64,
+  "backfit_iters": 8,
+  "region_levels": [
+   [
+    8,
+    256
+   ],
+   [
+    12,
+    512
+   ],
+   [
+    16,
+    1024
+   ],
+   [
+    24,
+    2048
+   ],
+   [
+    32,
+    2048
+   ]
+  ],
+  "region_sigma": 0.5,
+  "region_soft_px": 1.0,
+  "keep_gain": 0.05,
+  "res": 2048,
+  "source": "OUT_height",
+  "prefix": "HBS_"
+ },
+ "layers": [
+  {
+   "layer": "gradient_maps",
+   "status": "accepted",
+   "deltaE76_mean": 4.6018,
+   "deltaE76_p90": 8.366,
+   "deltaE76_blur4_mean": 3.2889,
+   "lum_pearson": 0.6517,
+   "lum_ssim": 0.7551,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials04_BC/c3/hbc/L01_gradient_maps.png"
+  },
+  {
+   "layer": "regions_k8_256",
+   "status": "accepted",
+   "polys": 2000,
+   "seconds": 1.9,
+   "deltaE76_mean": 3.3298,
+   "deltaE76_p90": 6.0309,
+   "deltaE76_blur4_mean": 1.3318,
+   "lum_pearson": 0.7106,
+   "lum_ssim": 0.7542,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials04_BC/c3/hbc/L02_regions_k8_256.png"
+  },
+  {
+   "layer": "regions_k12_512",
+   "status": "accepted",
+   "polys": 18883,
+   "seconds": 2.3,
+   "deltaE76_mean": 2.9959,
+   "deltaE76_p90": 5.5129,
+   "deltaE76_blur4_mean": 0.699,
+   "lum_pearson": 0.7377,
+   "lum_ssim": 0.7565,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials04_BC/c3/hbc/L03_regions_k12_512.png"
+  },
+  {
+   "layer": "regions_k16_1024",
+   "status": "accepted",
+   "polys": 93429,
+   "seconds": 3.9,
+   "deltaE76_mean": 2.5817,
+   "deltaE76_p90": 4.8278,
+   "deltaE76_blur4_mean": 0.3267,
+   "lum_pearson": 0.7944,
+   "lum_ssim": 0.7903,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials04_BC/c3/hbc/L04_regions_k16_1024.png"
+  },
+  {
+   "layer": "regions_k24_2048",
+   "status": "accepted",
+   "polys": 401024,
+   "seconds": 12.3,
+   "deltaE76_mean": 2.2727,
+   "deltaE76_p90": 4.3494,
+   "deltaE76_blur4_mean": 0.2806,
+   "lum_pearson": 0.846,
+   "lum_ssim": 0.8338,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials04_BC/c3/hbc/L05_regions_k24_2048.png"
+  },
+  {
+   "layer": "regions_k32_2048",
+   "status": "accepted",
+   "polys": 449499,
+   "seconds": 44.6,
+   "deltaE76_mean": 2.0773,
+   "deltaE76_p90": 3.985,
+   "deltaE76_blur4_mean": 0.2385,
+   "lum_pearson": 0.8773,
+   "lum_ssim": 0.8643,
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials04_BC/c3/hbc/L06_regions_k32_2048.png"
+  }
+ ],
+ "final": {
+  "islands": {
+   "deltaE76_mean": 2.0773,
+   "deltaE76_p90": 3.985,
+   "deltaE76_blur4_mean": 0.2385,
+   "lum_pearson": 0.8773,
+   "lum_ssim": 0.8643
+  },
+  "whole_sheet": {
+   "deltaE76_mean": 2.0773,
+   "deltaE76_p90": 3.985,
+   "deltaE76_blur4_mean": 0.2385,
+   "lum_pearson": 0.8773,
+   "lum_ssim": 0.8643
+  },
+  "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials04_BC/c3/hbc/FINAL_basecolor.png",
+  "seconds": 264.9
+ }
+}
