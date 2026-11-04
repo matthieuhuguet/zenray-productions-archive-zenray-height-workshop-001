@@ -1,0 +1,83 @@
+{
+ "before": {
+  "seam": {
+   "wrap_x": 0.06445384050027769,
+   "inner_x_median": 0.03142257991544284,
+   "ratio_x": 2.051195053802741,
+   "wrap_y": 0.06115972362294997,
+   "inner_y_median": 0.04571532243335241,
+   "ratio_y": 1.337838614440786
+  },
+  "pearson": 0.9912453370012783,
+  "verify": {
+   "ok": false,
+   "fails": [
+    "vertical joint: jump 1.69"
+   ],
+   "y": {
+    "jump_ratio": 1.0919152904513,
+    "step_ratio": 0.8462590242647298,
+    "detail_high_ratio": 0.9504571852308316,
+    "detail_low_ratio": 0.9691071790351433
+   },
+   "x": {
+    "jump_ratio": 1.6864129026765047,
+    "step_ratio": 1.0121414442514314,
+    "detail_high_ratio": 1.0067132746509662,
+    "detail_low_ratio": 1.0164362773521187
+   }
+  }
+ },
+ "applied": true,
+ "build": {
+  "nodes": 283,
+  "kept_layers": 30,
+  "new_layers": 1,
+  "t_nodes": 0.22,
+  "t_cook_export": 1.61,
+  "exported": true,
+  "errors": []
+ },
+ "verdict": {
+  "ok": false,
+  "fails": [
+   "horizontal joint: detail low 0.77"
+  ],
+  "y": {
+   "jump_ratio": 0.9456377890726103,
+   "step_ratio": 0.8578538322931933,
+   "detail_high_ratio": 0.9537702772713127,
+   "detail_low_ratio": 0.767355450386811
+  },
+  "x": {
+   "jump_ratio": 0.8734616741465567,
+   "step_ratio": 0.9885218564876018,
+   "detail_high_ratio": 0.9692216384491901,
+   "detail_low_ratio": 0.8822854556462967
+  }
+ },
+ "after": {
+  "seam": {
+   "wrap_x": 0.028207553426909726,
+   "inner_x_median": 0.03120786677175147,
+   "ratio_x": 0.9038603514048084,
+   "wrap_y": 0.029861906263249693,
+   "inner_y_median": 0.04570138141843927,
+   "ratio_y": 0.6534136460741912
+  },
+  "pearson": 0.9643419965458364
+ },
+ "pearson_vs_untiled": 0.9731207420009623,
+ "predicted_vs_graph": 0.9998724474175714,
+ "plan": {
+  "x": {
+   "overlap_mean": 13.6,
+   "overlap_max": 29.0,
+   "slide_abs": 0.4
+  },
+  "y": null,
+  "work_x": true,
+  "work_y": false
+ },
+ "grid": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials02/versions/final/ZorahMaterials02_H3/checks/grid_2x2_preview.png"
+}
