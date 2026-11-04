@@ -1,0 +1,7 @@
+ue_ad_assets.py 54 s OK
+textures 4
+SM_ZorahStone04Cylinder origin <Struct 'Vector' (0xa239a882c40) {x: 0.041965, y: 0.028240, z: 0.000000}> extent <Struct 'Vector' (0xa239a882c58) {x: 96.681461, y: 96.691349, z: 107.326103}> triangles 2974
+SM_ZorahStone04Plane origin <Struct 'Vector' (0xa239a889a00) {x: 0.000000, y: 0.288470, z: 0.000000}> extent <Struct 'Vector' (0xa239a889a18) {x: 100.000000, y: 1.018545, z: 100.000000}> triangles 11757
+material /Game/ZenRayShards/Materials/ZorahStone04/M_ZorahStone04
+instances ['d2']
+
