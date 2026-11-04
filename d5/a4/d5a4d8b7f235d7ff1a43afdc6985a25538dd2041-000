@@ -1,0 +1,202 @@
+{
+ "name": "ZorahMaterials01_H5",
+ "net": "/obj/ZRH_ZorahMaterials01",
+ "reference": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials01/refs/ZorahMaterials01_height_2048.png",
+ "layers": [
+  {
+   "local": {
+    "ok": true,
+    "pixels": 51783,
+    "before": 0.026,
+    "after": 0.0091,
+    "ls_gain": 1.463
+   },
+   "layer": "pix_H5_a",
+   "status": "accepted",
+   "score": 0.9647,
+   "gain": 0.0009,
+   "summary": {
+    "pearson": 0.9854,
+    "mae": 0.0109,
+    "low32": 1.0,
+    "b1-2": 0.9947,
+    "b4-8": 0.9988,
+    "b16-32": 0.9995,
+    "q25": 0.8482,
+    "q75": 0.8117,
+    "lines": 0.747,
+    "struct": 0.932,
+    "detail": 0.935
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 123219 regions",
+   "seconds": 12.1,
+   "nodes": 211,
+   "timing": {
+    "kept_layers": 36,
+    "new_layers": 1,
+    "t_nodes": 1.34,
+    "t_cook_export": 0.99
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials01/versions/final/ZorahMaterials01_H5/L01_pix_H5_a.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.211,
+    "D_joint_profile_corr": 0.9753,
+    "D_joint_profile_mae_pct": 0.203,
+    "G_band_energy_ratio": {
+     "1-2": 0.986,
+     "2-4": 0.995,
+     "4-8": 0.998,
+     "8-16": 1.013,
+     "16-32": 1.021
+    },
+    "F_residual_w1_pct": 0.475,
+    "F_residual_std_ratio": 0.965,
+    "J_rmse": 0.0163,
+    "J_floor_if_stochastic": 0.1023
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 57680,
+    "before": 0.0226,
+    "after": 0.0072,
+    "ls_gain": 1.419
+   },
+   "layer": "pix_H5_b",
+   "status": "accepted",
+   "score": 0.9656,
+   "gain": 0.0009,
+   "summary": {
+    "pearson": 0.9858,
+    "mae": 0.0107,
+    "low32": 1.0,
+    "b1-2": 0.995,
+    "b4-8": 0.9988,
+    "b16-32": 0.9996,
+    "q25": 0.8518,
+    "q75": 0.8157,
+    "lines": 0.751,
+    "struct": 0.933,
+    "detail": 0.936
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 643544 regions",
+   "seconds": 31.8,
+   "nodes": 216,
+   "timing": {
+    "kept_layers": 37,
+    "new_layers": 1,
+    "t_nodes": 7.33,
+    "t_cook_export": 1.13
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials01/versions/final/ZorahMaterials01_H5/L02_pix_H5_b.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.185,
+    "D_joint_profile_corr": 0.9766,
+    "D_joint_profile_mae_pct": 0.176,
+    "G_band_energy_ratio": {
+     "1-2": 0.987,
+     "2-4": 0.995,
+     "4-8": 0.998,
+     "8-16": 1.012,
+     "16-32": 1.019
+    },
+    "F_residual_w1_pct": 0.46,
+    "F_residual_std_ratio": 0.966,
+    "J_rmse": 0.016,
+    "J_floor_if_stochastic": 0.1023
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 21909,
+    "before": 0.0268,
+    "after": 0.0097,
+    "ls_gain": 1.475
+   },
+   "layer": "pix_H5_c",
+   "status": "rejected",
+   "score": 0.966,
+   "gain": 0.0004,
+   "summary": {
+    "pearson": 0.986,
+    "mae": 0.0105,
+    "low32": 1.0,
+    "b1-2": 0.9951,
+    "b4-8": 0.9988,
+    "b16-32": 0.9996,
+    "q25": 0.8533,
+    "q75": 0.8175,
+    "lines": 0.754,
+    "struct": 0.934,
+    "detail": 0.936
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 108904 regions",
+   "seconds": 12.5,
+   "nodes": 221,
+   "timing": {
+    "kept_layers": 38,
+    "new_layers": 1,
+    "t_nodes": 1.29,
+    "t_cook_export": 1.05
+   }
+  },
+  {
+   "local": {
+    "ok": true,
+    "pixels": 27966,
+    "before": 0.026,
+    "after": 0.009,
+    "ls_gain": 1.453
+   },
+   "layer": "pix_H5_d",
+   "status": "accepted",
+   "score": 0.9661,
+   "gain": 0.0006,
+   "summary": {
+    "pearson": 0.986,
+    "mae": 0.0105,
+    "low32": 1.0,
+    "b1-2": 0.9951,
+    "b4-8": 0.9988,
+    "b16-32": 0.9996,
+    "q25": 0.8541,
+    "q75": 0.8183,
+    "lines": 0.754,
+    "struct": 0.934,
+    "detail": 0.937
+   },
+   "note": "16 posterised bins of residual low pass s0.5 at 2048 px, 615839 regions",
+   "seconds": 31.1,
+   "nodes": 221,
+   "timing": {
+    "kept_layers": 38,
+    "new_layers": 1,
+    "t_nodes": 7.67,
+    "t_cook_export": 1.28
+   },
+   "image": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials01/versions/final/ZorahMaterials01_H5/L03_pix_H5_d.png",
+   "gates": {
+    "A_thumb64_mae_pct": 0.166,
+    "D_joint_profile_corr": 0.9777,
+    "D_joint_profile_mae_pct": 0.156,
+    "G_band_energy_ratio": {
+     "1-2": 0.987,
+     "2-4": 0.996,
+     "4-8": 0.998,
+     "8-16": 1.012,
+     "16-32": 1.019
+    },
+    "F_residual_w1_pct": 0.451,
+    "F_residual_std_ratio": 0.966,
+    "J_rmse": 0.0159,
+    "J_floor_if_stochastic": 0.1023
+   }
+  }
+ ],
+ "cells": [
+  102,
+  1
+ ]
+}
