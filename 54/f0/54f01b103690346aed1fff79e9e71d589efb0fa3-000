@@ -1,0 +1,14 @@
+{
+ "path": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials02/status.json",
+ "name": "ZorahMaterials02",
+ "work": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials02",
+ "started": "2026-11-04 21:47:44",
+ "pid": 66097,
+ "step": "done",
+ "detail": "pearson 0.9611 in 9.3 min",
+ "state": "done",
+ "updated": "2026-11-04 21:56:59",
+ "elapsed_s": 555.0,
+ "layers_done": 37,
+ "report": "/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials02/report.json"
+}
