@@ -1,0 +1,23 @@
+# ZorahMaterials03, height reproduite (04 November 2026)
+
+- Ressemblance en pleine résolution : 0.9796 (SSIM 0.9794, erreur moyenne 0.0047)
+- Raccord au bord x ; y : 1.73 ; 0.44 (couche seamless : non, verdict : None, sans raccord : 0.9796)
+- Grille 2 x 2 : `/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials03/versions/final/ZorahMaterials03_H2/checks/grid_2x2_preview.png`
+- Height : `/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials03/versions/final/ZorahMaterials03_H2/FINAL_height.png`
+- Graphe Houdini : `/obj/ZRH_ZorahMaterials03`
+- Zoom de contrôle : `/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials03/zoom3_reference_vs_result.png`
+- Durée : 10.7 min
+
+## Prochaine étape : demander la base color à Matthieu
+
+La height finale est prête, seamless et répétable :
+/Users/zenray/.claude/tmp/tmp-zenray-height/projects/ZorahMaterials03/versions/final/ZorahMaterials03_H2/FINAL_height.png
+
+Reprends-la et envoie-moi la base color : donne au générateur l'image de référence puis cette height, dans cet ordre, avec le prompt ci-dessous.
+Référence : ton image de référence d origine
+
+Prompt :
+From the first image only, the reference, generate a seamless flat base color (albedo) map of that same surface, 1:1, 4096x4096, full frame, seen straight on, with any perspective removed. If the reference shows a sphere next to a flat panel, ignore the sphere and read the panel. The second image is the final height map of this exact surface: keep every band, step, edge and detail exactly at its position in that height map, with the same scale and direction, and keep the map seamless on all four sides. Pigment colour only, as if under perfectly even light, taking the hues, saturation and variation of the reference. No lighting, no shadows, no ambient occlusion, no specular highlights, no reflections, no gloss, no relief shading, no perspective, no border, no watermark, no text, no legend. then redo with 99.9% precision in the composition.
+
+C'est la seule carte à générer : Normal, Height, Roughness, AO, Metallic et ORM se calculent dans le graphe.
+Ensuite : RefineColourOnHeight.py --coarse, HeightToBaseColor.py, BaseColorLines.py, puis HeightTo5MapsCop.py (Copernicus2.md section 14.8).
